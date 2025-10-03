@@ -16,6 +16,7 @@ public class RelatorioFiscalEmissoesNfceDocument : IDocument
     }
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+    DocumentSettings IDocument.GetSettings() => DocumentSettings.Default;
 
     public void Compose(IDocumentContainer container)
     {
