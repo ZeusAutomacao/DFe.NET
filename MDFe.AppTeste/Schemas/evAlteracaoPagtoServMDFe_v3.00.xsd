@@ -2,60 +2,28 @@
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/mdfe" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="eventoMDFeTiposBasico_v3.00.xsd"/>
-	<xs:element name="evPagtoOperMDFe">
+	<xs:element name="evAlteracaoPagtoServMDFe">
 		<xs:annotation>
-			<xs:documentation>Schema XML de validação do evento de pagamento da operação de transporte 110116</xs:documentation>
+			<xs:documentation>Schema XML de validação do evento de alteração do pagamento do serviçp de transporte 110118</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="descEvento">
 					<xs:annotation>
-						<xs:documentation>Descrição do Evento - “Pagamento Operação MDF-e”</xs:documentation>
+						<xs:documentation>Descrição do Evento - “Alteração Pagamento Serviço MDFe”</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
 							<xs:whiteSpace value="preserve"/>
-							<xs:enumeration value="Pagamento Operação MDF-e"/>
-							<xs:enumeration value="Pagamento Operacao MDF-e"/>
+							<xs:enumeration value="Alteração Pagamento Serviço MDFe"/>
+							<xs:enumeration value="Alteracao Pagamento Servico MDFe"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
 				<xs:element name="nProt" type="TProt">
 					<xs:annotation>
-						<xs:documentation>Número do Protocolo de Status do MDF-e. 
-1 posição tipo de autorizador (9 - SEFAZ Nacional ); 
-2 posições ano;
-10 seqüencial no ano.</xs:documentation>
+						<xs:documentation>Número do Protocolo de Status do MDF-e. </xs:documentation>
 					</xs:annotation>
-				</xs:element>
-				<xs:element name="infViagens">
-					<xs:annotation>
-						<xs:documentation>Informações do total de viagens acobertadas pelo Evento “pagamento do frete”</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="qtdViagens">
-								<xs:annotation>
-									<xs:documentation>Quantidade total de viagens realizadas com o pagamento do Frete</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:pattern value="[0-9]{5}"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-							<xs:element name="nroViagem">
-								<xs:annotation>
-									<xs:documentation>Número de referência da viagem do MDFe referenciado.</xs:documentation>
-								</xs:annotation>
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:pattern value="[0-9]{5}"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
 				</xs:element>
 				<xs:element name="infPag" maxOccurs="unbounded">
 					<xs:annotation>

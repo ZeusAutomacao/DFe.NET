@@ -648,6 +648,20 @@ namespace MDFe.AppTeste
                     InfANTT = new MDFeInfANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
+                        InfPag = new List<MDFeInfPag>()
+                        {
+                            new MDFeInfPag
+                            {
+                                CNPJ = Cnpj,
+                                XNome = "Teste",
+                                Comp = new List<MDFeComp>()
+                                {
+                                    new MDFeComp{TpComp = MDFeTpComp.Outros, VComp = 0m, XComp = "Teste"}
+                                },
+                                VContratoProxy = 0m,
+                                InfBanc = new MDFeInfBanc{PIX = "79999999999"}
+                            }
+                        },
 
                         // não é obrigatorio
                         InfCIOT = new List<infCIOT>
@@ -716,7 +730,7 @@ namespace MDFe.AppTeste
                     {
                         new MDFeInfCTe
                         {
-                            ChCTe = "52161021351378000100577500000000191194518006"
+                            ChCTe = "35251012345678000195570010000001231876543213"
                         }
                     }
                 }
@@ -783,7 +797,8 @@ namespace MDFe.AppTeste
                         {
                             CEP = "75950000"
                         }
-                    }
+                    },
+                    Ncm = "01069000"
                 };
             }
 
