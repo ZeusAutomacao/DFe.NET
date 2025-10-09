@@ -31,44 +31,51 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
 {
-    public class gCBS
-    {
-        private decimal _pCbs;
-        private decimal _vCbs;
+  public class gCBS
+  {
+    private decimal _pCbs;
+    private decimal _vCbs;
 
-        /// <summary>
-        ///     UB56 - Alíquota da CBS
-        /// </summary>
-        public decimal pCBS
-        {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB67 - Valor da CBS
-        /// </summary>
-        public decimal vCBS
-        {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
-        }
-        
-        /// <summary>
-        ///     UB59 - Grupo de Informações do Diferimento
-        /// </summary>
-        public gDif gDif { get; set; }
-        
-        /// <summary>
-        ///     UB62 - Grupo de Informações da devolução de tributos
-        /// </summary>
-        public gDevTrib gDevTrib { get; set; }
-        
-        /// <summary>
-        ///     UB64 - Grupo de informações da redução da alíquota
-        /// </summary>
-        public gRed gRed { get; set; }
+    /// <summary>
+    ///     UB56 - Alíquota da CBS
+    /// </summary>
+    [XmlElement(Order = 1)]
+    public decimal pCBS
+    {
+      get => _pCbs.Arredondar(4);
+      set => _pCbs = value.Arredondar(4);
     }
+
+    /// <summary>
+    ///     UB67 - Valor da CBS
+    /// </summary>
+    [XmlElement(Order = 5)]
+    public decimal vCBS
+    {
+      get => _vCbs.Arredondar(2);
+      set => _vCbs = value.Arredondar(2);
+    }
+
+    /// <summary>
+    ///     UB59 - Grupo de Informações do Diferimento
+    /// </summary>
+    [XmlElement(Order = 2)]
+    public gDif gDif { get; set; }
+
+    /// <summary>
+    ///     UB62 - Grupo de Informações da devolução de tributos
+    /// </summary>
+    [XmlElement(Order = 3)]
+    public gDevTrib gDevTrib { get; set; }
+
+    /// <summary>
+    ///     UB64 - Grupo de informações da redução da alíquota
+    /// </summary>
+    [XmlElement(Order = 4)]
+    public gRed gRed { get; set; }
+  }
 }
