@@ -161,6 +161,8 @@ namespace NFe.Utils.Validacao
                     return "e112130_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
                     return "e112140_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega:
+                    return "e112150_v1.00.xsd";
             }
             return null;
         }
