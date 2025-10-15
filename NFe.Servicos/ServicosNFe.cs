@@ -1219,7 +1219,7 @@ namespace NFe.Servicos
         }
         
         /// <summary>
-        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        ///     Serviço para evento informação de efetivo pagamento integral da operação para liberar crédito presumido do adquirente
         /// </summary>
         /// <param name="idLote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
@@ -1256,7 +1256,7 @@ namespace NFe.Servicos
         }
         
         /// <summary>
-        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        ///     Serviço para evento a ser gerado pelo destinatário da NF-e em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido.
         /// </summary>
         /// <param name="idLote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
@@ -1859,6 +1859,43 @@ namespace NFe.Servicos
 
             var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
             detalhesEvento.gItemNaoFornecido = informacoesPorItemDaNotaDePagamentoAntecipado;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento de atualização da data de previsão de entrega
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="dataPrevistaEntrega">Data prevista para entrega</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoAtualizacaoDaDataDePrevisaoDeEntrega(int idLote,
+                                                                                        int sequenciaEvento, 
+                                                                                        string cpfCnpj, 
+                                                                                        string chaveNFe, 
+                                                                                        DateTime dataPrevistaEntrega,
+                                                                                        Estado? ufAutor = null, 
+                                                                                        string versaoAplicativo = null, 
+                                                                                        DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeAtualizacaoDaDataDePrevisaoDeEntrega;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.dPrevEntrega = dataPrevistaEntrega;
 
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);

@@ -366,7 +366,7 @@ namespace NFe.Classes.Servicos.Evento
         #region Informação de efetivo pagamento integral para liberar crédito presumido do adquirente 
 
         /// <summary>
-        ///     P23 - Indicador de efetiva quitação do pagamento integral referente a NFe referenciada
+        ///     P23 - Indicador de efetiva quitação do pagamento integral da operação referente a NFe referenciada
         /// </summary>
         public IndicadorDeQuitacaoDoPagamento? indQuitacao { get; set; }
         
@@ -534,6 +534,26 @@ namespace NFe.Classes.Servicos.Evento
         public List<gItemNaoFornecido> gItemNaoFornecido { get; set; }
         
         public bool ShouldSerializegItemNaoFornecido() => gItemNaoFornecido != null;
+
+        #endregion
+
+        #region Atualização da Data de Previsão de Entrega
+
+        /// <summary>
+        ///  P23 - Data da previsão de entrega ou disponibilização do bem. Formato: “AAAA-MM-DD”.
+        /// </summary>
+        [XmlIgnore]
+        public DateTime? dPrevEntrega { get; set; }
+        
+        /// <summary>
+        /// Proxy para dPrevEntrega no formato "AAAA-MM-DD" (somente data).
+        /// </summary>
+        [XmlElement("dPrevEntrega")]
+        public string ProxydPrevEntrega
+        {
+            get => dPrevEntrega.ParaDataString();
+            set => dPrevEntrega = DateTime.Parse(value);
+        }
 
         #endregion
 
