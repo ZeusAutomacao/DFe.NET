@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,39 +31,49 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
+using System;
+using System.Xml.Serialization;
+using DFe.Utils;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCredPres
+    public class gAjusteCompet
     {
-        private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
+        private decimal _vIBS;
+        private decimal _vCBS;
 
         /// <summary>
-        ///     UB128 - Percentual do Crédito Presumido
+        /// UB113 - Ano e mês de referência do período de apuração (AAAA-MM)
         /// </summary>
-        public decimal pCredPres
+        [XmlIgnore]
+        public DateTime? competApur { get; set; }
+
+        /// <summary>
+        /// Proxy para competApur no formato AAAA-MM (somente ano e mês)
+        /// </summary>
+        [XmlElement(ElementName = "competApur")]
+        public string ProxyCompetApur
         {
-            get => _pCredPres.Arredondar(4);
-            set => _pCredPres = value.Arredondar(4);
+            get => competApur.ParaDataAnoEMesString();
+            set => competApur = DateTime.Parse(value);
+        }
+        
+        /// <summary>
+        /// UB114 - Valor do IBS
+        /// </summary>
+        public decimal vIBS
+        {
+            get => _vIBS.Arredondar(2);
+            set => _vIBS = value;
         }
 
         /// <summary>
-        ///     UB129 - Valor do Crédito Presumido
+        /// UB115 - Valor do CBS
         /// </summary>
-        public decimal vCredPres
+        public decimal vCBS
         {
-            get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
-        }
-
-        /// <summary>
-        ///     UB130 - Valor do Crédito Presumido em condição suspensiva
-        /// </summary>
-        public decimal vCredPresCondSus
-        {
-            get => _vCredPresCondSus.Arredondar(2);
-            set => _vCredPresCondSus = value.Arredondar(2);
+            get => _vCBS.Arredondar(2);
+            set => _vCBS = value;
         }
     }
 }

@@ -55,7 +55,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         public string cClassTribReg { get; set; }
 
         /// <summary>
-        ///     UB71 - Valor da alíquota do IBS da UF
+        ///     UB71 - Valor da alíquota do IBS da UF (em percentual)
         /// </summary>
         public decimal pAliqEfetRegIBSUF
         {
@@ -73,7 +73,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     UB72a - Valor da alíquota do IBS do Município
+        ///     UB72a - Valor da alíquota do IBS do Município (em percentual)
         /// </summary>
         public decimal pAliqEfetRegIBSMun
         {
@@ -91,7 +91,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
 
         /// <summary>
-        ///     UB72c - Valor da alíquota da CBS
+        ///     UB72c - Valor da alíquota da CBS (em percentual)
         /// </summary>
         public decimal pAliqEfetRegCBS
         {

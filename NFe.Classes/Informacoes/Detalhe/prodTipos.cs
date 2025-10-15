@@ -387,4 +387,35 @@ namespace NFe.Classes.Informacoes.Detalhe
         [XmlEnum("1")]
         BemMovelUsado
     }
+
+    /// <summary>
+    ///     Classificação para subapuração do IBS na ZFM. Classificação conforme percentuais definidos no art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido
+    ///     <para>0 - Sem Crédito Presumido</para>>
+    ///     <para>1 - Bens de consumo final (55%)</para>>
+    ///     <para>2 - Bens de capital (75%)</para>>
+    ///     <para>3 - Bens intermediários (90,25%)</para>>
+    ///     <para>4 - Bens de informática e outros definidos em legislação (100%)</para>>
+    /// </summary>
+    public enum tpCredPresIBSZFM
+    {
+        [Description("Sem Crédito Presumido")]
+        [XmlEnum("0")]
+        SemCreditoPresumido,
+        
+        [Description("Bens de consumo final (55%)")]
+        [XmlEnum("1")]
+        BensDeConsumoFinal,
+        
+        [Description("Bens de capital (75%)")]
+        [XmlEnum("2")]
+        BensDeCapital,
+        
+        [Description("Bens intermediários (90,25%)")]
+        [XmlEnum("3")]
+        BensIntermediarios,
+        
+        [Description("Bens de informática e outros definidos em legislação (100%)")]
+        [XmlEnum("4")]
+        BensDeInformaticaEOutros
+    }
 }

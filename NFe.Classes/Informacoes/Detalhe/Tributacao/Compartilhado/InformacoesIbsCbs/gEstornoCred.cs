@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,39 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCredPres
+    public class gEstornoCred
     {
-        private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
-
+        private decimal _vIBSEstCred;
+        private decimal _vCBSEstCred;
+        
         /// <summary>
-        ///     UB128 - Percentual do Crédito Presumido
+        /// UB117 - Valor do IBS a ser estornado
         /// </summary>
-        public decimal pCredPres
+        public decimal vIBSEstCred
         {
-            get => _pCredPres.Arredondar(4);
-            set => _pCredPres = value.Arredondar(4);
+            get => _vIBSEstCred.Arredondar(2);
+            set => _vIBSEstCred = value;
         }
 
         /// <summary>
-        ///     UB129 - Valor do Crédito Presumido
+        /// UB118 - Valor do CBS a ser estornado
         /// </summary>
-        public decimal vCredPres
+        public decimal vCBSEstCred
         {
-            get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
-        }
-
-        /// <summary>
-        ///     UB130 - Valor do Crédito Presumido em condição suspensiva
-        /// </summary>
-        public decimal vCredPresCondSus
-        {
-            get => _vCredPresCondSus.Arredondar(2);
-            set => _vCredPresCondSus = value.Arredondar(2);
+            get => _vCBSEstCred.Arredondar(2);
+            set => _vCBSEstCred = value;
         }
     }
 }
