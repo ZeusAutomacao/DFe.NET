@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,39 +31,36 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCredPres
+    public class gCredPresOper
     {
-        private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
-
+        private decimal _vBCCredPres;
+        
         /// <summary>
-        ///     UB128 - Percentual do Crédito Presumido
+        /// UB121 - Valor da Base de Cálculo do Crédito Presumido da Operação
         /// </summary>
-        public decimal pCredPres
+        public decimal vBCCredPres
         {
-            get => _pCredPres.Arredondar(4);
-            set => _pCredPres = value.Arredondar(4);
+            get => _vBCCredPres.Arredondar(2);
+            set => _vBCCredPres = value;
         }
 
         /// <summary>
-        ///     UB129 - Valor do Crédito Presumido
+        /// UB122 - Código de Classificação do Crédito Presumido
         /// </summary>
-        public decimal vCredPres
-        {
-            get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
-        }
-
+        public int cCredPres { get; set; }
+        
         /// <summary>
-        ///     UB130 - Valor do Crédito Presumido em condição suspensiva
+        /// UB123 - Grupo de Informações do Crédito Presumido referente ao IBS
         /// </summary>
-        public decimal vCredPresCondSus
-        {
-            get => _vCredPresCondSus.Arredondar(2);
-            set => _vCredPresCondSus = value.Arredondar(2);
-        }
+        public gIBSCredPres gIBSCredPres { get; set; }
+        
+        /// <summary>
+        /// UB131 - Grupo para apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)
+        /// </summary>
+        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
     }
 }

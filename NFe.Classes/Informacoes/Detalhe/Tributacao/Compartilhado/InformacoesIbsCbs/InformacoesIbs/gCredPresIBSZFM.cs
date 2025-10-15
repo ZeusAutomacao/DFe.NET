@@ -31,6 +31,9 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
+using System.Xml.Serialization;
+using DFe.Utils;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
@@ -40,12 +43,28 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal? _vCredPresIbsZfm;
 
         /// <summary>
-        ///     UB110 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
+        /// UB132 - Ano e mês de referência do período de apuração (AAAA-MM)
+        /// </summary>
+        [XmlIgnore]
+        public DateTime? competApur { get; set; }
+
+        /// <summary>
+        /// Proxy para competApur no formato AAAA-MM (somente ano e mês)
+        /// </summary>
+        [XmlElement(ElementName = "competApur")]
+        public string ProxyCompetApur
+        {
+            get => competApur.ParaDataAnoEMesString();
+            set => competApur = DateTime.Parse(value);
+        }
+        
+        /// <summary>
+        ///     UB133 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
         /// </summary>
         public ClassificacaoCreditoPresumidoIbsZfmTipos tpCredPresIBSZFM { get; set; }
         
         /// <summary>
-        ///     UB111 - Valor do crédito presumido calculado sobre o saldo devedor apurado
+        ///     UB134 - Valor do crédito presumido calculado sobre o saldo devedor apurado
         /// </summary>
         public decimal? vCredPresIBSZFM
         {
