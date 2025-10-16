@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
@@ -51,16 +53,18 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         /// UB122 - Código de Classificação do Crédito Presumido
         /// </summary>
-        public int cCredPres { get; set; }
+        public string cCredPres { get; set; }
         
         /// <summary>
         /// UB123 - Grupo de Informações do Crédito Presumido referente ao IBS
         /// </summary>
+        [XmlElement("gIBSCredPres")]
         public gIBSCredPres gIBSCredPres { get; set; }
         
         /// <summary>
-        /// UB131 - Grupo para apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)
+        /// UB127 - Grupo de Informações do Crédito Presumido referente a CBS
         /// </summary>
-        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+        [XmlElement("gCBSCredPres")]
+        public gCBSCredPres gCBSCredPres { get; set; }
     }
 }
