@@ -1504,7 +1504,6 @@ namespace NFe.AppTeste
 
         protected virtual det GetDetalhe(int i, CRT crt, ModeloDocumento modelo)
         {
-         // Numero: 13010   
             var det = new det
             {
                 nItem = i + 1,
