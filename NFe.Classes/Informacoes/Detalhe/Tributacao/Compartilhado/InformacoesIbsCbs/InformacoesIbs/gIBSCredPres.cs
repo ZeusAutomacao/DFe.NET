@@ -31,8 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
     public class gIBSCredPres
@@ -44,7 +42,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB124 - Percentual do Crédito Presumido
         /// </summary>
-        [XmlElement("pCredPres")]
         public decimal pCredPres
         {
             get => _pCredPres.Arredondar(4);
@@ -54,7 +51,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB125 - Valor do Crédito Presumido
         /// </summary>
-        [XmlElement("vCredPres")]
         public decimal? vCredPres
         {
             get => _vCredPres.Arredondar(2);
@@ -64,7 +60,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB126 - Valor do Crédito Presumido em condição suspensiva
         /// </summary>
-        [XmlElement("vCredPresCondSus")]
         public decimal? vCredPresCondSus
         {
             get => _vCredPresCondSus.Arredondar(2);

@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
@@ -58,13 +57,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         /// UB123 - Grupo de Informações do Crédito Presumido referente ao IBS
         /// </summary>
-        [XmlElement("gIBSCredPres")]
         public gIBSCredPres gIBSCredPres { get; set; }
         
         /// <summary>
         /// UB127 - Grupo de Informações do Crédito Presumido referente a CBS
         /// </summary>
-        [XmlElement("gCBSCredPres")]
         public gCBSCredPres gCBSCredPres { get; set; }
     }
 }
