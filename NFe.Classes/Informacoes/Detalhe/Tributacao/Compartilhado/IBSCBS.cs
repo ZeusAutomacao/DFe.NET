@@ -99,6 +99,5 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
         /// </summary>
         [XmlElement(Order = 10)]
         public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
-        
     }
 }

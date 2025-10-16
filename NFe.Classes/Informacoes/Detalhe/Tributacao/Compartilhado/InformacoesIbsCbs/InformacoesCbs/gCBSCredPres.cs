@@ -31,22 +31,20 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
 {
     public class gCBSCredPres
     {
         private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
+        private decimal? _vCredPres;
+        private decimal? _vCredPresCondSus;
         
         /// <summary>
-        ///     UB79 - Código de Classificação do Crédito Presumido
+        ///     UB128 - Percentual do Crédito Presumido
         /// </summary>
-        public int cCredPres { get; set; }
-
-        /// <summary>
-        ///     UB80 - Percentual do Crédito Presumido
-        /// </summary>
+        [XmlElement("pCredPres")]
         public decimal pCredPres
         {
             get => _pCredPres.Arredondar(4);
@@ -54,21 +52,26 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
 
         /// <summary>
-        ///     UB81 - Valor do Crédito Presumido
+        ///     UB129 - Valor do Crédito Presumido
         /// </summary>
-        public decimal vCredPres
+        [XmlElement("vCredPres")]
+        public decimal? vCredPres
         {
             get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
+            set => _vCredPres = value ?? value.Arredondar(2);
         }
 
         /// <summary>
-        ///     UB82 - Valor do Crédito Presumido em condição suspensiva
+        ///     UB130 - Valor do Crédito Presumido em condição suspensiva
         /// </summary>
-        public decimal vCredPresCondSus
+        [XmlElement("vCredPresCondSus")]
+        public decimal? vCredPresCondSus
         {
             get => _vCredPresCondSus.Arredondar(2);
             set => _vCredPresCondSus = value.Arredondar(2);
         }
+        
+        public bool ShouldSerializevCredPres() => vCredPres.HasValue;
+        public bool ShouldSerializevCredPresCondSus() => vCredPresCondSus.HasValue;
     }
 }
