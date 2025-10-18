@@ -3,6 +3,7 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Destinatario;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;
