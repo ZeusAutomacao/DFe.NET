@@ -383,6 +383,24 @@ public class DanfeNfceDocument : IDocument
 
                 column.Item().LineHorizontal(1);
 
+                if (_nfe.infNFe.infAdic != null && !string.IsNullOrEmpty(_nfe.infNFe.infAdic.infCpl))
+                {
+                    column.Item().Row(r =>
+                    {
+                        r.RelativeItem().AlignLeft().Column(c =>
+                        {
+                            c.Item().Text("Informações Adicionais").FontSize(_tamanhoFontePadrao).ExtraBlack();
+                        });
+                    });
+                    column.Item().Row(r =>
+                    {
+                        r.RelativeItem().AlignLeft().Column(c =>
+                        {
+                            c.Item().Text(_nfe.infNFe.infAdic.infCpl).FontSize(_tamanhoFontePadrao);
+                        });
+                    });
+                }
+
                 column.Item().Row(r =>
                 {
                     r.RelativeItem().AlignCenter().Column(c =>
@@ -522,6 +540,11 @@ public class DanfeNfceDocument : IDocument
         enderecoEmitenteBuilder.Append(enderEmit.xMun);
         enderecoEmitenteBuilder.Append(", ");
         enderecoEmitenteBuilder.Append(enderEmit.UF);
+        if (enderEmit.CEP != null)
+        {
+            enderecoEmitenteBuilder.Append(" - CEP: ");
+            enderecoEmitenteBuilder.Append(enderEmit.CEP);
+        }
         enderecoEmitenteBuilder.Append(foneEmit);
 
         return enderecoEmitenteBuilder.ToString();
