@@ -152,8 +152,8 @@ public class DanfeNfceDocument : IDocument
 
             t.Header(h =>
             {
-                h.Cell().Element(CellStyle).Text("Num.").ExtraBlack();
-                h.Cell().ColumnSpan(11).Element(CellStyle).Text("Descrição").ExtraBlack();
+                h.Cell().ColumnSpan(2).Element(CellStyle).Text("Cód.").ExtraBlack();
+                h.Cell().ColumnSpan(9).Element(CellStyle).Text("Descrição").ExtraBlack();
                 h.Cell().RowSpan(1);
                 h.Cell().ColumnSpan(2).Element(CellStyle).AlignRight().Text("Qtde Un ").ExtraBlack();
                 h.Cell().ColumnSpan(1).Element(CellStyle).AlignCenter().Text("X").ExtraBlack();
@@ -383,6 +383,24 @@ public class DanfeNfceDocument : IDocument
 
                 column.Item().LineHorizontal(1);
 
+                if (_nfe.infNFe.infAdic != null && !string.IsNullOrEmpty(_nfe.infNFe.infAdic.infCpl))
+                {
+                    column.Item().Row(r =>
+                    {
+                        r.RelativeItem().AlignLeft().Column(c =>
+                        {
+                            c.Item().Text("Informações Adicionais").FontSize(_tamanhoFontePadrao).ExtraBlack();
+                        });
+                    });
+                    column.Item().Row(r =>
+                    {
+                        r.RelativeItem().AlignLeft().Column(c =>
+                        {
+                            c.Item().Text(_nfe.infNFe.infAdic.infCpl).FontSize(_tamanhoFontePadrao);
+                        });
+                    });
+                }
+
                 column.Item().Row(r =>
                 {
                     r.RelativeItem().AlignCenter().Column(c =>
@@ -522,6 +540,11 @@ public class DanfeNfceDocument : IDocument
         enderecoEmitenteBuilder.Append(enderEmit.xMun);
         enderecoEmitenteBuilder.Append(", ");
         enderecoEmitenteBuilder.Append(enderEmit.UF);
+        if (enderEmit.CEP != null)
+        {
+            enderecoEmitenteBuilder.Append(" - CEP: ");
+            enderecoEmitenteBuilder.Append(enderEmit.CEP);
+        }
         enderecoEmitenteBuilder.Append(foneEmit);
 
         return enderecoEmitenteBuilder.ToString();
