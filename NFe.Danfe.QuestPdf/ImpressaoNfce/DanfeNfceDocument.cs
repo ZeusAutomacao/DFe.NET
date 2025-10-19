@@ -152,7 +152,7 @@ public class DanfeNfceDocument : IDocument
 
             t.Header(h =>
             {
-                h.Cell().ColumnSpan(2).Element(CellStyle).Text("Cód.").ExtraBlack();
+                h.Cell().Element(CellStyle).Text("Num.").ExtraBlack();
                 h.Cell().ColumnSpan(9).Element(CellStyle).Text("Descrição").ExtraBlack();
                 h.Cell().RowSpan(1);
                 h.Cell().ColumnSpan(2).Element(CellStyle).AlignRight().Text("Qtde Un ").ExtraBlack();
