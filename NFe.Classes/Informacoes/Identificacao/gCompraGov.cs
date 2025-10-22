@@ -7,7 +7,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         private decimal _pRedutor;
 
         // B32
-        public TipoEnteGov tpCompraGov { get; set; }
+        public TipoEnteGov tpEnteGov { get; set; }
 
         // B33
         public decimal pRedutor
@@ -15,5 +15,8 @@ namespace NFe.Classes.Informacoes.Identificacao
             get => _pRedutor.Arredondar(4);
             set => _pRedutor = value.Arredondar(4);
         }
+
+        // B34
+        public TipoOperGov tpOperGov { get; set; }
     }
 }
