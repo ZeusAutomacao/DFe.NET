@@ -43,7 +43,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal _vTribCbs;
         
         /// <summary>
-        ///     UB82b - Alíquota do IBS de competência do Estado
+        ///     UB82b - Alíquota do IBS de competência do Estado (em percentual)
         /// </summary>
         public decimal pAliqIBSUF
         {
@@ -61,7 +61,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     UB82d - Alíquota do IBS de competência do Município
+        ///     UB82d - Alíquota do IBS de competência do Município (em percentual)
         /// </summary>
         public decimal pAliqIBSMun
         {
@@ -79,7 +79,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     UB82f - Alíquota da CBS
+        ///     UB82f - Alíquota da CBS (em percentual)
         /// </summary>
         public decimal pAliqCBS
         {

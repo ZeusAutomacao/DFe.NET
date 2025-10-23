@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,87 +31,37 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IS
+    public class gCredPresOper
     {
-        private decimal _vBcIs;
-        private decimal _pIs;
-        private decimal? _pIsEspec;
-        private decimal _qTrib;
-        private decimal _vIs;
+        private decimal _vBCCredPres;
         
         /// <summary>
-        ///     UB02 - Código de Situação Tributária do Imposto Seletivo
+        /// UB121 - Valor da Base de Cálculo do Crédito Presumido da Operação
         /// </summary>
-        [XmlElement(Order = 1)]
-        public CSTIS CSTIS { get; set; }
-
-        /// <summary>
-        ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
-        /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTribIS { get; set; }
-
-        /// <summary>
-        ///     UB05 - Valor da Base de Cálculo do Imposto Seletivo 
-        /// </summary>
-        [XmlElement(Order = 3)]
-        public decimal vBCIS
+        public decimal vBCCredPres
         {
-            get => _vBcIs.Arredondar(2);
-            set => _vBcIs = value.Arredondar(2);
+            get => _vBCCredPres.Arredondar(2);
+            set => _vBCCredPres = value;
         }
+
+        /// <summary>
+        /// UB122 - Código de Classificação do Crédito Presumido
+        /// </summary>
+        public string cCredPres { get; set; }
         
         /// <summary>
-        ///     UB06 - Alíquota do Imposto Seletivo (em percentual)
+        /// UB123 - Grupo de Informações do Crédito Presumido referente ao IBS
         /// </summary>
-        [XmlElement(Order = 4)]
-        public decimal pIS
-        {
-            get => _pIs.Arredondar(4);
-            set => _pIs = value.Arredondar(4);
-        }
-
-        /// <summary>
-        ///     UB07 - Alíquota específica por unidade de medida apropriada (em percentual)
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal? pISEspec
-        {
-            get => _pIsEspec.Arredondar(4);
-            set => _pIsEspec = value.Arredondar(4);
-        }
-
-        /// <summary>
-        ///     UB09 - Unidade de Medida Tributável
-        /// </summary>
-        [XmlElement(Order = 6)]
-        public string uTrib { get; set; }
-
-        /// <summary>
-        ///     UB10 - Quantidade Tributável
-        /// </summary>
-        [XmlElement(Order = 7)]
-        public decimal qTrib
-        {
-            get => _qTrib.Arredondar(4);
-            set => _qTrib = value.Arredondar(4);
-        }
+        public gIBSCredPres gIBSCredPres { get; set; }
         
         /// <summary>
-        ///     UB11 - Valor do Imposto Seletivo
+        /// UB127 - Grupo de Informações do Crédito Presumido referente a CBS
         /// </summary>
-        [XmlElement(Order = 8)]
-        public decimal vIS
-        {
-            get => _vIs.Arredondar(2);
-            set => _vIs = value.Arredondar(2);
-        }
-        
-        public bool ShouldSerializepISEspec() => pISEspec.HasValue;
+        public gCBSCredPres gCBSCredPres { get; set; }
     }
 }

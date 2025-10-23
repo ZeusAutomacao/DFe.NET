@@ -58,6 +58,18 @@ namespace DFe.Utils
 
             return data == DateTime.MinValue ? null : data.Value.ToString("yyyy-MM-dd");
         }
+        
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataAnoEMesString(this DateTime? data)
+        {
+            if (data == null) return null;
+
+            return data == DateTime.MinValue ? null : data.Value.ToString("yyyy-MM");
+        }
 
         /// <summary>
         /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)

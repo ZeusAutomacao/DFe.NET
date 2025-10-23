@@ -151,7 +151,23 @@ namespace NFe.Classes.Informacoes.Identificacao
             get { return dhSaiEnt.ParaDataHoraStringUtc(); }
             set { dhSaiEnt = DateTimeOffset.Parse(value); }
         }
+        
+        /// <summary>
+        ///    B10a - Data da previsão de entrega ou disponibilização do bem. 
+        /// </summary>
+        [XmlIgnore]
+        public DateTime? dPrevEntrega { get; set; }
 
+        /// <summary>
+        /// Proxy para dPrevEntrega no formato AAAA-MM-DD (somente data)
+        /// </summary>
+        [XmlElement(ElementName = "dPrevEntrega")]
+        public string ProxydPrevEntrega
+        {
+            get => dPrevEntrega.ParaDataString();
+            set => dPrevEntrega = DateTime.Parse(value);
+        }
+        
         /// <summary>
         ///     B11 - Tipo do Documento Fiscal
         /// </summary>

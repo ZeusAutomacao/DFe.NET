@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,87 +31,49 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using DFe.Utils;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IS
+    public class gAjusteCompet
     {
-        private decimal _vBcIs;
-        private decimal _pIs;
-        private decimal? _pIsEspec;
-        private decimal _qTrib;
-        private decimal _vIs;
-        
-        /// <summary>
-        ///     UB02 - Código de Situação Tributária do Imposto Seletivo
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CSTIS CSTIS { get; set; }
+        private decimal _vIBS;
+        private decimal _vCBS;
 
         /// <summary>
-        ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
+        /// UB113 - Ano e mês de referência do período de apuração (AAAA-MM)
         /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTribIS { get; set; }
+        [XmlIgnore]
+        public DateTime? competApur { get; set; }
 
         /// <summary>
-        ///     UB05 - Valor da Base de Cálculo do Imposto Seletivo 
+        /// Proxy para competApur no formato AAAA-MM (somente ano e mês)
         /// </summary>
-        [XmlElement(Order = 3)]
-        public decimal vBCIS
+        [XmlElement(ElementName = "competApur")]
+        public string ProxyCompetApur
         {
-            get => _vBcIs.Arredondar(2);
-            set => _vBcIs = value.Arredondar(2);
+            get => competApur.ParaDataAnoEMesString();
+            set => competApur = DateTime.Parse(value);
         }
         
         /// <summary>
-        ///     UB06 - Alíquota do Imposto Seletivo (em percentual)
+        /// UB114 - Valor do IBS
         /// </summary>
-        [XmlElement(Order = 4)]
-        public decimal pIS
+        public decimal vIBS
         {
-            get => _pIs.Arredondar(4);
-            set => _pIs = value.Arredondar(4);
+            get => _vIBS.Arredondar(2);
+            set => _vIBS = value;
         }
 
         /// <summary>
-        ///     UB07 - Alíquota específica por unidade de medida apropriada (em percentual)
+        /// UB115 - Valor do CBS
         /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal? pISEspec
+        public decimal vCBS
         {
-            get => _pIsEspec.Arredondar(4);
-            set => _pIsEspec = value.Arredondar(4);
+            get => _vCBS.Arredondar(2);
+            set => _vCBS = value;
         }
-
-        /// <summary>
-        ///     UB09 - Unidade de Medida Tributável
-        /// </summary>
-        [XmlElement(Order = 6)]
-        public string uTrib { get; set; }
-
-        /// <summary>
-        ///     UB10 - Quantidade Tributável
-        /// </summary>
-        [XmlElement(Order = 7)]
-        public decimal qTrib
-        {
-            get => _qTrib.Arredondar(4);
-            set => _qTrib = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB11 - Valor do Imposto Seletivo
-        /// </summary>
-        [XmlElement(Order = 8)]
-        public decimal vIS
-        {
-            get => _vIs.Arredondar(2);
-            set => _vIs = value.Arredondar(2);
-        }
-        
-        public bool ShouldSerializepISEspec() => pISEspec.HasValue;
     }
 }

@@ -36,16 +36,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
     public class gIBSCredPres
     {
         private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
-        
-        /// <summary>
-        ///     UB74 - Código de Classificação do Crédito Presumido
-        /// </summary>
-        public int cCredPres { get; set; }
+        private decimal? _vCredPres;
+        private decimal? _vCredPresCondSus;
 
         /// <summary>
-        ///     UB75 - Percentual do Crédito Presumido
+        ///     UB124 - Percentual do Crédito Presumido
         /// </summary>
         public decimal pCredPres
         {
@@ -54,21 +49,24 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
 
         /// <summary>
-        ///     UB76 - Valor do Crédito Presumido
+        ///     UB125 - Valor do Crédito Presumido
         /// </summary>
-        public decimal vCredPres
+        public decimal? vCredPres
         {
             get => _vCredPres.Arredondar(2);
             set => _vCredPres = value.Arredondar(2);
         }
 
         /// <summary>
-        ///     UB77 - Valor do Crédito Presumido em condição suspensiva
+        ///     UB126 - Valor do Crédito Presumido em condição suspensiva
         /// </summary>
-        public decimal vCredPresCondSus
+        public decimal? vCredPresCondSus
         {
             get => _vCredPresCondSus.Arredondar(2);
             set => _vCredPresCondSus = value.Arredondar(2);
         }
+                
+        public bool ShouldSerializevCredPres() => vCredPres.HasValue;
+        public bool ShouldSerializevCredPresCondSus() => vCredPresCondSus.HasValue;
     }
 }

@@ -39,21 +39,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal _vCbs;
 
         /// <summary>
-        ///     UB56 - Alíquota da CBS
+        ///     UB56 - Alíquota da CBS (em percentual)
         /// </summary>
         public decimal pCBS
         {
             get => _pCbs.Arredondar(4);
             set => _pCbs = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB67 - Valor da CBS
-        /// </summary>
-        public decimal vCBS
-        {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
         }
         
         /// <summary>
@@ -70,5 +61,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB64 - Grupo de informações da redução da alíquota
         /// </summary>
         public gRed gRed { get; set; }
+        
+        /// <summary>
+        ///     UB67 - Valor da CBS
+        /// </summary>
+        public decimal vCBS
+        {
+            get => _vCbs.Arredondar(2);
+            set => _vCbs = value.Arredondar(2);
+        }
     }
 }

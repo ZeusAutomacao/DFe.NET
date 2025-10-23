@@ -87,21 +87,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         public gTribRegular gTribRegular { get; set; }
         
         /// <summary>
-        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
-        /// </summary>
-        [XmlElement(Order = 7)]
-        public gIBSCredPres gIBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
-        /// </summary>
-        [XmlElement(Order = 8)]
-        public gCBSCredPres gCBSCredPres { get; set; }
-        
-        /// <summary>
         ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
         /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 7)]
         public gTribCompraGov gTribCompraGov { get; set; }
     }
 }
