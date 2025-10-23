@@ -39,21 +39,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal _vIbsMun;
 
         /// <summary>
-        ///     UB37 - Alíquota do IBS de competência do Município
+        ///     UB37 - Alíquota do IBS de competência do Município (em percentual)
         /// </summary>
         public decimal pIBSMun
         {
             get => _pIbsMun.Arredondar(4);
             set => _pIbsMun = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB54 - Valor do IBS de competência do Município
-        /// </summary>
-        public decimal vIBSMun
-        {
-            get => _vIbsMun.Arredondar(2);
-            set => _vIbsMun = value.Arredondar(2);
         }
         
         /// <summary>
@@ -70,5 +61,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB45 - Grupo de informações da redução da alíquota
         /// </summary>
         public gRed gRed { get; set; }
+        
+        /// <summary>
+        ///     UB54 - Valor do IBS de competência do Município
+        /// </summary>
+        public decimal vIBSMun
+        {
+            get => _vIbsMun.Arredondar(2);
+            set => _vIbsMun = value.Arredondar(2);
+        }
     }
 }

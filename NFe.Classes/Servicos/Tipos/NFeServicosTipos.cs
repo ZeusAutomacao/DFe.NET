@@ -159,12 +159,12 @@ namespace NFe.Classes.Servicos.Tipos
         ConsultaGtin,
         
         /// <summary>
-        ///     Serviço destinado a permitir que o emitente da NFe informe o efetivo pagamento integral a fim de liberar crédito presumido do adquirente
+        ///     Serviço destinado a permitir que o emitente da NFe informe o efetivo pagamento integral da operação a fim de liberar crédito presumido do adquirente
         /// </summary>
         RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
         
         /// <summary>
-        ///     Serviço destinado a evento a ser gerado pelo adquirente em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido
+        ///     Serviço destinado a evento a ser gerado pelo destinatário da NF-e em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido
         /// </summary>
         RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
         
@@ -245,7 +245,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ao fornecedor informar que um pagamento antecipado não teve o respectivo fornecimento realizado
         /// </summary>
-        RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado
+        RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado,
+        
+        /// <summary>
+        ///     Serviço para permitir ao fornecedor atualizar a data da previsão de entrega ou disponibilização do bem ao adquirente, de forma a remover o débito do mês em que foi previsto inicialmente. 
+        /// </summary>
+        RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega
     }
 
     /// <summary>
@@ -287,6 +292,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
     ///     112120 - Importação em ALC/ZFM não convertida em isenção
     ///     112140 - Fornecimento não realizado com pagamento antecipado
+    ///     112150 - Atualização da Data de Previsão de Entrega
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -410,6 +416,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Fornecimento não realizado com pagamento antecipado")]
         [XmlEnum("112140")]
         TeNfeFornecimentoNaoRealizadoComPagamentoAntecipado = 112140,
+        
+        /// <summary>
+        /// 112150 - Atualização da Data de Previsão de Entrega
+        /// </summary>
+        [Description("Atualização da Data de Previsão de Entrega")]
+        [XmlEnum("112150")]
+        TeNfeAtualizacaoDaDataDePrevisaoDeEntrega = 112150,
         
         /// <summary>
         /// 211110 - Solicitação de Apropriação de crédito presumido

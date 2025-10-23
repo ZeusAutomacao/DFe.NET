@@ -521,9 +521,10 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     ///     <para>2 - Anulação de Crédito por Saídas Imunes/Isentas</para>
     ///     <para>3 - Débitos de notas fiscais não processadas na apuração</para>
     ///     <para>4 - Multa e juros</para>
-    ///     <para>5 - Transferência de crédito de sucessão</para>
+    ///     <para>5 - Transferência de crédito na sucessão</para>
     ///     <para>6 - Pagamento antecipado</para>
     ///     <para>7 - Perda em estoque</para>
+    ///     <para>8 - Desenquadramento do SN</para>
     /// </summary>
     public enum TpNotaDebito
     {
@@ -556,9 +557,9 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         MultaJuros,
         
         /// <summary>
-        /// 05 - Transferência de crédito de sucessão
+        /// 05 - Transferência de crédito na sucessão
         /// </summary>
-        [Description("Transferência de crédito de sucessão")]
+        [Description("Transferência de crédito na sucessão")]
         [XmlEnum("05")]
         TfCreditoSucessao,
         
@@ -574,27 +575,45 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("Perda em estoque")]
         [XmlEnum("07")]
-        PerdaEstoque
+        PerdaEstoque,
+        
+        /// <summary>
+        /// 08 - Desenquadramento do SN
+        /// </summary>
+        [Description("Desenquadramento do SN")]
+        [XmlEnum("08")]
+        DesenquadramentoSn
     }
 
     /// <summary>
     ///     Tipo de Nota de Crédito
-    ///     <para>1 - Multa e juros</para>
-    ///     <para>2 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)</para>
+    ///     <para>01 - Multa e juros</para>
+    ///     <para>02 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)</para>
+    ///     <para>03 - Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega</para>
+    ///     <para>04 - Redução de valores</para>
+    ///     <para>05 - Transferência de crédito na sucessão;</para>
     /// </summary>
     public enum TpNotaCredito
     {
         [Description("Multa e juros")]
-        [XmlEnum("1")]
+        [XmlEnum("01")]
         MultaJuros,
         
         [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
-        [XmlEnum("2")]
+        [XmlEnum("02")]
         ApropriacaoDeCredito,
         
-        [Description("Retorno")]
-        [XmlEnum("3")]
-        Retorno
+        [Description("Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega")]
+        [XmlEnum("03")]
+        RetornoPorRecusaOuNaoLocalizacaoDoDestinatario,
+        
+        [Description("Redução de valores")]
+        [XmlEnum("04")]
+        ReducaoDeValores,
+                
+        [Description("Transferência de crédito na sucessão;")]
+        [XmlEnum("05")]
+        TfCreditoSucessao
     }
 
     /// <summary>

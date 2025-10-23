@@ -66,5 +66,11 @@ namespace NFe.Classes.Informacoes.Total.IbsCbs
         ///     W57 - Grupo total da Monofasia
         /// </summary>
         public gMono gMono { get; set; }
+        
+        /// <summary>
+        ///     W59e - Grupo total do Estorno de Crédito
+        /// </summary>
+        [XmlElement("gEstornoCred")]
+        public gEstornoCredTotal gEstornoCred { get; set; }
     }
 }
