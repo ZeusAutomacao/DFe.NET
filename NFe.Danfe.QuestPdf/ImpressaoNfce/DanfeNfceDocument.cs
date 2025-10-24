@@ -1,5 +1,4 @@
-﻿using System.Text;
-using DFe.Classes.Flags;
+﻿using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Destinatario;
@@ -11,6 +10,7 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkiaSharp.QrCode.Image;
+using System.Text;
 
 namespace NFe.Danfe.QuestPdf.ImpressaoNfce;
 
@@ -50,6 +50,7 @@ public class DanfeNfceDocument : IDocument
     }
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+    DocumentSettings IDocument.GetSettings() => DocumentSettings.Default;
 
     public void Compose(IDocumentContainer container)
     {
