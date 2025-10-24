@@ -32,7 +32,6 @@
 /********************************************************************************/
 
 using Microsoft.Win32;
-using NFe.Classes;
 using NFe.Danfe.QuestPdf.ImpressaoNfce;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
@@ -156,8 +155,7 @@ namespace NFe.Danfe.AppTeste.QuestPdf
 
         private void GerarDanfeNfce(string caminhoXml, TamanhoImpressao tamanho)
         {
-            var proc = new nfeProc().CarregarDeArquivoXml(caminhoXml);
-            var xml = proc.ObterXmlString();
+            var xml = File.ReadAllText(caminhoXml);
 
             var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
             documento.TamanhoImpressao(tamanho);
