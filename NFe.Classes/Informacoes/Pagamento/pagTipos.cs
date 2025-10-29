@@ -111,7 +111,7 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// 16 - Depósito Bancário
         /// </summary>
         [Description("=Depósito Bancário")]
-        [XmlEnum("16")] fpDepositoBancario= 16,
+        [XmlEnum("16")] fpDepositoBancario = 16,
 
         /// <summary>
         /// 17 - Pagamento Instantâneo (PIX) dinâmico
@@ -155,6 +155,13 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("Sem pagamento")]
         [XmlEnum("90")]
         fpSemPagamento = 90,
+
+        /// <summary>
+        /// 91 - Pagamento posterior
+        /// </summary>
+        [Description("Pagamento posterior")]
+        [XmlEnum("91")]
+        fpPagamentoPosterior = 91,
 
         /// <summary>
         /// 99 - Outros
