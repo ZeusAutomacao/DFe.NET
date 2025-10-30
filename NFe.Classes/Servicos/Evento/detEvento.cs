@@ -1,35 +1,3 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -169,7 +137,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -178,7 +146,7 @@ namespace NFe.Classes.Servicos.Evento
         public string nProtEvento { get; set; }
 
         #endregion
-        
+
         #region Insucesso NFe
         [XmlIgnore]
         public DateTimeOffset? dhTentativaEntrega { get; set; }
@@ -262,5 +230,71 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Comprovante Entrega NFe
+
+        /// <summary>
+        /// P30 - Data e hora do final da entrega
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhEntrega { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEntrega no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEntrega")]
+        public string ProxyDhEntrega
+        {
+            get { return dhEntrega.ParaDataHoraStringUtc(); }
+            set { dhEntrega = DateTimeOffset.Parse(value); }
+        }
+
+        /// <summary>
+        /// P31 - Número do documento de identificação da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string nDoc { get; set; }
+
+        /// <summary>
+        /// P32 - Nome da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string xNome { get; set; }
+
+        /// <summary>
+        /// P35 - Hash SHA-1, no formato Base64, resultante da concatenação de: Chave de Acesso da NF-e + Base64
+        /// da imagem capturada do Comprovante de Entrega da NFe (ex: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc).
+        /// </summary>
+        public string hashComprovante { get; set; }
+
+        /// <summary>
+        /// P36 - Data e hora da geração do hash da tentativa de entrega. Formato AAAA-MMDDThh:mm:ssTZD.
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhHashComprovante { get; set; }
+
+        /// <summary>
+        /// Proxy para dhHashComprovante no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhHashComprovante")]
+        public string ProxyDhHashComprovante
+        {
+            get { return dhHashComprovante.ParaDataHoraStringUtc(); }
+            set { dhHashComprovante = DateTimeOffset.Parse(value); }
+        }
+
+        #endregion
+
+        #region Conciliação Financeira
+
+        /// <summary>
+        /// P21 - Grupo de detalhamento do pagamento
+        /// </summary>
+        [XmlElement("detPag")]
+        public List<detPagEvento> detPag { get; set; }
+
+        public bool ShouldSerializedetPag()
+        {
+            return detPag != null;
+        }
+
+        #endregion
     }
 }

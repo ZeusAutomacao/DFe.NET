@@ -175,7 +175,7 @@ namespace NFe.AppTeste.NetCore
                 #region Status do serviço
                 using (ServicosNFe servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
-                    var retornoStatus = servicoNFe.NfeStatusServico();
+                    var retornoStatus = servicoNFe.NfeStatusServico(exceptionCompleta: true);
                     OnSucessoSync(retornoStatus);
                 }
                 #endregion
@@ -698,7 +698,7 @@ namespace NFe.AppTeste.NetCore
 
                         //Caso você resolva utilizar método ObterIcmsBasico(), comente esta proxima linha
                         TipoICMS =
-                            crt == CRT.SimplesNacional
+                            crt == CRT.SimplesNacional || crt == CRT.SimplesNacionalMei
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.Versao310)
                     },
@@ -1033,8 +1033,8 @@ namespace NFe.AppTeste.NetCore
                 {
                     detPag = new List<detPag>
                     {
-                        new detPag {tPag = FormaPagamento.fpCreditoLoja, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpCreditoLoja, vPag = icmsTot.vNF - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = icmsTot.vNF - valorPagto}
                     }
                 }
             };

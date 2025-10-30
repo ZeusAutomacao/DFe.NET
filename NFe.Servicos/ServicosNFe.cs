@@ -1,36 +1,3 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
-
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -405,7 +372,11 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoEpec,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario,
                 ServicoNFe.RecepcaoEventoInsucessoEntregaNFe,
-                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe
+                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe,
+                ServicoNFe.RecepcaoEventoComprovanteEntregaNFe,
+                ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
+                ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
+                ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -824,7 +795,7 @@ namespace NFe.Servicos
             };
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF,
+                cOrgao = Estado.SVRS,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
@@ -876,7 +847,7 @@ namespace NFe.Servicos
 
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF,
+                cOrgao = Estado.SVRS,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
@@ -893,6 +864,230 @@ namespace NFe.Servicos
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoInsucessoEntrega, true);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Recepção do Evento de Comprovante de Entrega
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="dhEntrega"></param>
+        /// <param name="nDoc">Número documento de identificação da pessoa</param>
+        /// <param name="xNome">Nome da pessoa</param>
+        /// <param name="hashComprovante">Hash SHA-1, no formato Base64, resultante da 
+        /// concatenação de: Chave de Acesso da NF-e + Base64
+        /// da imagem capturada do comprovante de entrega (ex: 
+        /// imagem capturada da assinatura eletrônica, digital do 
+        /// recebedor, foto, etc).</param>
+        /// <param name="dhHashComprovante"></param>
+        /// <param name="latGps">Latitude do ponto de entrega (não obrigatório) </param>
+        /// <param name="longGps">Longitude do ponto de entrega (não obrigatório)</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoComprovanteEntrega(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, DateTimeOffset dhEntrega, string nDoc, string xNome, string hashComprovante,
+            DateTimeOffset? dhHashComprovante = null, decimal? latGps = null, decimal? longGps = null,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoComprovanteEntrega);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeComprovanteDeEntregadaNFe.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
+                verAplic = versaoAplicativo ?? "1.0",
+                dhEntrega = dhEntrega,
+                nDoc = nDoc,
+                xNome = xNome,
+                latGPS = latGps,
+                longGPS = longGps,
+                hashComprovante = hashComprovante,
+                dhHashComprovante = dhHashComprovante
+            };
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.AN,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeComprovanteDeEntregadaNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, _cFgServico.VersaoRecepcaoEventoComprovanteEntrega, true);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Serviço para cancelamento comprovante de entrega
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="nProtEvento">Protocolo do evento de comprovante de entrega que deseja cancelar</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoCancComprovanteEntrega(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, string nProtEvento,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoComprovanteEntrega);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeCancComprovanteDeEntregadaNFe.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
+                verAplic = versaoAplicativo ?? "1.0",
+                nProtEvento = nProtEvento
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.AN,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeCancComprovanteDeEntregadaNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe, _cFgServico.VersaoRecepcaoEventoComprovanteEntrega, true);
+            return retorno;
+        }
+
+
+        /// <summary>
+        /// Recepção do Evento de Conciliação Financeira
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="pagamentos">Informações dos pagamentos</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoConciliacaoFinanceira(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, List<detPagEvento> pagamentos,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeConciliacaoFinanceiraNFe.Descricao(),
+                verAplic = versaoAplicativo ?? "1.0",
+                detPag = pagamentos
+            };
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = (_cFgServico.ModeloDocumento == ModeloDocumento.NFCe ? _cFgServico.cUF : Estado.SVRS),
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeConciliacaoFinanceiraNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira, true);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Serviço para cancelamento Conciliação Financeira
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="nProtEvento">Protocolo do evento de conciliação financeira que deseja cancelar</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoCancConciliacaoFinanceira(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, string nProtEvento,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeCancConciliacaoFinanceiraNFe.Descricao(),
+                verAplic = versaoAplicativo ?? "1.0",
+                nProtEvento = nProtEvento
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = (_cFgServico.ModeloDocumento == ModeloDocumento.NFCe ? _cFgServico.cUF : Estado.SVRS),
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeCancConciliacaoFinanceiraNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe, _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira, true);
             return retorno;
         }
 

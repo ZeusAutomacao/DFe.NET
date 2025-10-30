@@ -1,36 +1,3 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
-
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -61,7 +28,7 @@ namespace CTe.Utils.CTe
         /// <returns>Retorna uma NFe carregada com os dados do XML</returns>
         public static CteEletronica CarregarDeArquivoXml(this CteEletronica cte, string arquivoXml)
         {
-            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (CteEletronica).Name, arquivoXml);
+            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof(CteEletronica).Name, arquivoXml);
             return FuncoesXml.XmlStringParaClasse<CteEletronica>(s);
         }
 
@@ -83,7 +50,7 @@ namespace CTe.Utils.CTe
         /// <returns>Retorna um objeto do tipo CTe</returns>
         public static CteEletronica CarregarDeXmlString(this CteEletronica cte, string xmlString)
         {
-            var s = FuncoesXml.ObterNodeDeStringXml(typeof (CteEletronica).Name, xmlString);
+            var s = FuncoesXml.ObterNodeDeStringXml(typeof(CteEletronica).Name, xmlString);
             return FuncoesXml.XmlStringParaClasse<CteEletronica>(s);
         }
 
@@ -100,6 +67,7 @@ namespace CTe.Utils.CTe
             var xmlValidacao = cte.ObterXmlString();
 
             var servicoInstancia = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             if (!servicoInstancia.IsValidaSchemas)
                 return;
 
@@ -120,7 +88,7 @@ namespace CTe.Utils.CTe
                                                         "versão 2.00 é 3.00");
             }
 
-            if (cte.infCte.ide.tpCTe != tpCTe.Anulacao  && cte.infCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
+            if (cte.infCte.ide.tpCTe != tpCTe.Anulacao && cte.infCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
             {
                 var xmlModal = FuncoesXml.ClasseParaXmlString(cte.infCte.infCTeNorm.infModal);
 
@@ -291,7 +259,7 @@ namespace CTe.Utils.CTe
             qrCode.Append("&");
             qrCode.Append("tpAmb=").Append((int)cte.infCte.ide.tpAmb);
 
-            if (cte.infCte.ide.tpEmis != tpEmis.teNormal 
+            if (cte.infCte.ide.tpEmis != tpEmis.teNormal
                 && cte.infCte.ide.tpEmis != tpEmis.teSVCRS
                 && cte.infCte.ide.tpEmis != tpEmis.teSVCSP
                 )

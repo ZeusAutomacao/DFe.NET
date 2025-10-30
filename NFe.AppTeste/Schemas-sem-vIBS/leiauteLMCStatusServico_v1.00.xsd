@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+			xmlns="http://www.fazenda.pr.gov.br/sefaws"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+			elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposBasico_v1.00.xsd"/>
+	<xs:include schemaLocation="lmcComum_v1.00.xsd" />
+
+	<xs:complexType name="LMCStatusServico">
+		<xs:annotation>
+			<xs:documentation>Tipo de verificacao da disponibilidade do sistema LMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cStat" type="TStat">
+				<xs:annotation>
+					<xs:documentation>Codigo do status da mensagem enviada</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descricao literal do status do servico solicitado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhRecbto" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora do recebimento da consulta no formato AAAA-MM-DDTHH:MM:SSTZD</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tMed" type="TMed" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tempo medio de resposta do servico (em segundos) dos ultimos 5 minutos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhRetorno" type="TDateTimeUTC" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>AAAA-MM-DDTHH:MM:SSDeve ser preenchida com data e hora previstas para o retorno dos servicos prestados.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xObs" type="TMotivo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Campo observacao utilizado para incluir informacoes ao contribuinte</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerLMC" use="required"/>
+	</xs:complexType>
+
+</xs:schema>

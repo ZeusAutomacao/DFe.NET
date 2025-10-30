@@ -233,8 +233,9 @@
                                           IsEnabled="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}">
                                     <Grid Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="150" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
                                         <RadioButton Grid.Column="0" Content="Versão 1.0"
                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -242,6 +243,9 @@
                                         <RadioButton Grid.Column="1" Content="Versão 2.0"
                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" />
+                                        <RadioButton Grid.Column="2" Content="Versão 3.0"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao3}, Converter={StaticResource EnumParaBool}}" />
                                     </Grid>
                                 </GroupBox>
 
@@ -298,6 +302,22 @@
                                               VerticalAlignment="Top" Width="178"
                                               IsChecked="{Binding CfgServico.RemoverAcentos}"/>
                                 </StackPanel>
+
+                                <StackPanel Margin="10,10,0,0">
+                                    <CheckBox Name="CbxEnviarTributacaoIbsCBS" Content="Enviar Tributação IBS CBS"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top" Width="178"
+                                              />
+                                </StackPanel>
+
+                                <StackPanel Margin="10,10,0,0">
+                                    <CheckBox Name="CbxEnviarTributacaoIS" Content="Enviar Tributação IS"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top" Width="178"
+                                              />
+                                </StackPanel>
+                                
+                                <StackPanel/>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -904,7 +924,7 @@
                 </TabControl>
             </StackPanel>
         </GroupBox>
-        <TabControl Name="TabSuperior" Height="266" Margin="510,10,-0,0" VerticalAlignment="Top">
+        <TabControl Name="TabSuperior" Height="316" Margin="510,10,-0,0" VerticalAlignment="Top">
             <TabItem Header="NF-e/NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
@@ -966,11 +986,19 @@
                         Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnInsucessoEntrega_Click" />
                     <Button x:Name="BtnCancInsucessoEntrega" Content="Canc. Insucesso Entrega NFe" HorizontalAlignment="Left"
                             Margin="375,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancInsucessoEntrega_Click" />
+                    <Button x:Name="BtnComprovanteEntrega" Content="Comprovante Entrega NFe" HorizontalAlignment="Left"
+                        Margin="10,235,0,0" VerticalAlignment="Top" Width="177" Click="BtnComprovanteEntrega_Click" />
+                    <Button x:Name="BtnCancComprovanteEntrega" Content="Canc. Comprovante Entrega NFe" HorizontalAlignment="Left"
+                            Margin="192,235,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancComprovanteEntrega_Click" />
+                    <Button x:Name="BtnConciliacaoFinanceira" Content="Conciliação Financeira NFe" HorizontalAlignment="Left"
+                        Margin="10,260,0,0" VerticalAlignment="Top" Width="177" Click="BtnConciliacaoFinanceira_Click" />
+                    <Button x:Name="BtnCancConciliacaoFinanceira" Content="Canc. Conciliação Financeira NFe" HorizontalAlignment="Left"
+                            Margin="192,260,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancConciliacaoFinanceira_Click" />
                 </Grid>
             </TabItem>
 
         </TabControl>
-        <TabControl Name="TabInferior" Margin="509,281,0,0">
+        <TabControl Name="TabInferior" Margin="509,331,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>

@@ -1,36 +1,3 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
-
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -265,6 +232,48 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         teOffLine = 9
     }
 
+    public enum TipoNFeCredito
+    {
+        [Description("Multa e juros")]
+        [XmlEnum("01")]
+        tcMultaEJuros = 01,
+
+        [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
+        [XmlEnum("02")]
+        tcApropiacaoCreditoPresumido = 02
+    }
+
+    public enum TipoNFeDebito
+    {
+        [Description("Transferência de créditos para Cooperativas;")]
+        [XmlEnum("01")]
+        tdTransferenciaCreditoCooperativa = 01,
+
+        [Description("Anulação de Crédito por Saídas Imunes/Isentas;")]
+        [XmlEnum("02")]
+        tdAnulacao = 02,
+
+        [Description("Débitos de notas fiscais não processadas na apuração;")]
+        [XmlEnum("03")]
+        tdDebitosNaoProcessadas = 03,
+
+        [Description("Multa e juros;")]
+        [XmlEnum("04")]
+        tdMultaJuros = 04,
+
+        [Description("Transferência de crédito de sucessão;")]
+        [XmlEnum("05")]
+        tdTransferenciaCreditoSucessao = 05,
+
+        [Description("Pagamento antecipado")]
+        [XmlEnum("06")]
+        tdPagamentoAntecipado = 06,
+
+        [Description("Perda em estoque")]
+        [XmlEnum("07")]
+        tdPerdaEmEstoque = 07
+    }
+
     /// <summary>
     ///     Finalidade da emissão da NF-e
     ///     <para>1 - NFe normal</para>
@@ -300,7 +309,15 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("Devolução de mercadoria")]
         [XmlEnum("4")]
-        fnDevolucao = 4
+        fnDevolucao = 4,
+
+        [Description("Nota de Crédito")]
+        [XmlEnum("5")]
+        fnNotaCredito = 5,
+
+        [Description("Nota de Débito")]
+        [XmlEnum("6")]
+        fnNotaDebito = 6,
     }
 
     /// <summary>
@@ -497,5 +514,43 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [Description("Modelo 02")]
         [XmlEnum("02")]
         modelo2 = 2
+    }
+
+    
+    public enum TipoEnteGov
+    {
+        [Description("União")]
+        [XmlEnum("1")]
+        Uniao = 1,
+
+        [Description("Estado")]
+        [XmlEnum("2")]
+        Estado = 2,
+
+        [Description("Distrito Federal")]
+        [XmlEnum("3")]
+        DistritoFederal = 3,
+
+        [Description("Município")]
+        [XmlEnum("4")]
+        Municipio = 4
+    }
+
+    public enum TipoOperGov
+    {
+        [Description("Fornecimento")]
+        [XmlEnum("1")]
+        Fornecimento = 1,
+
+        [Description("Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º")]
+        [XmlEnum("2")]
+        RecebimentoPagamento = 2
+    }
+
+    public enum indBemMovelUsado
+    {
+        [Description("Bem Móvel Usado")]
+        [XmlEnum("1")]
+        BemMovelUsado = 1,
     }
 }

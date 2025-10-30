@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,6 @@ namespace DFe.Wsdl.Common
             string url, int timeOut,
             TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
             {
                 throw new ArgumentNullException(
@@ -63,7 +63,14 @@ namespace DFe.Wsdl.Common
 
             using (HttpClientHandler handler = new HttpClientHandler())
             {
-                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;//para net8 ou outras versoes
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;//NET 9+
+
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };//para net8 ou outras versoes
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };//NET 9+
+
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.CheckCertificateRevocationList = false;
                 handler.ClientCertificates.Add(certificadoDigital);
 
                 using (HttpClient client = new HttpClient(handler))
@@ -87,7 +94,6 @@ namespace DFe.Wsdl.Common
         public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut,
             TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
             {
                 throw new ArgumentNullException(
@@ -101,9 +107,17 @@ namespace DFe.Wsdl.Common
 
             string xmlSoap = xmlEnvelop.InnerXml;
 
+
             using (HttpClientHandler handler = new HttpClientHandler())
             {
-                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;//para net8 ou outras versoes
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;//NET 9+
+
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };//para net8 ou outras versoes
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };//NET 9+
+
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.CheckCertificateRevocationList = false;
                 handler.ClientCertificates.Add(certificadoDigital);
 
                 using (HttpClient client = new HttpClient(handler))

@@ -14,10 +14,14 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <NuGetPackageImportStamp>e0fff804</NuGetPackageImportStamp>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -115,6 +119,937 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Schemas-sem-vIBS\atuCadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\autorizacaoRetorno_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\autorizacao_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\Averb_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\cabecMsg_v1.02.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\cadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\cancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\CCe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\confRecebto_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consCad_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consNFeDest_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consReciNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consReciNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consSitNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\consStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\DFeTiposBasicos_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\distDFeInt_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\distDFeInt_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\downloadNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110110_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110111_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110112_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110130_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110131_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110140NFCe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110140NFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110140_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110150_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\e110192_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas-sem-vIBS\e110193_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\e110750_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\e110751_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\e111500_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e111501_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e111502_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e111503_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e210200_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e210210_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e210220_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e210240_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e411500_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e411501_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e411502_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e411503_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e610130_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e610131_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e790700_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e990900_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\e990910_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envAverb_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envCancelPProrrogNFe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envCCe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envComprovanteEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envConfRecebto_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoAtorInteressado_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoCancEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\envEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\envEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoCancSubst_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\envEventoEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\envEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\envEvento_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envFiscoNfe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\enviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\enviNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\enviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envPProrrogNFe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\envSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\EPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoAtorInteressado_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\EventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoCancEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\EventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\eventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoCancSubst_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\EventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoEPEC_v0.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\eventoEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\EventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\eventoRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\inutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\inutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\inutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteAverb_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\LeiauteCadastroEmissorDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteCCe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteCcgConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteComprovanteEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConfRecebto_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsNFeDest_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsultaCadastro_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsultaCadastro_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteConsultaCadastro_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteDownloadNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoAtorInteressado_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoCancEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\leiauteEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\leiauteEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoCancSubst_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteEventoEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\leiauteEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\leiauteEvento_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteLivroCombustivel_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteLMCAutorizacaoRetorno_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteLMCAutorizacao_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteLMCStatusServico_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteNFe_v4.00_Homologacao.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteProtLivroCombustivel_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteSRE_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\leiauteSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\livroCombustivel_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\lmcComum_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\nfe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\nfe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\nfe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procAverbNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procCCeNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procComprovanteEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procConfRecebtoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoAtorInteressado_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoCancEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\procEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\procEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoCancSubst_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\procEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\procEventoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procEventoNFe_v99.99.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\procRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\prod_leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\resEvento_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\resEvento_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\resNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\resNFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retAtuCadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retComprovanteEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retconsNFeDest_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsReciNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsReciNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsStatServ_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsStatServ_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retDistDFeInt_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retDistDFeInt_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retDownloadNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvAverb_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvCancelPProrrogNFe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvCCe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvConfRecebto_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvEventoAtorInteressado_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvEventoCancNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvEventoCancSubst_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvEvento_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvFiscoNFe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnviNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEnvSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEventoCancEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\retEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\retEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEventoEntregaNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retEventoEPEC_v0.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Schemas-sem-vIBS\retEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Schemas-sem-vIBS\retInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\retPProrrogNFe_v1.0.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\statusServico_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\SuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\SuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasicosCcgConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v1.03.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v1.03_OPENSSL.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v3.10.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v3.10_OPENSSL.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposBasico_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposDistDFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\tiposDistDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas-sem-vIBS\xmldsig-core-schema_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\atuCadEmiDFe_v1.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -211,6 +1146,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\DFeTiposBasicos_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\distDFeInt_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -258,6 +1196,12 @@
     <None Include="Schemas\e110150_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\e110750_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e110751_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\e111500_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -359,6 +1303,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\envEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\envEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -370,6 +1317,9 @@
     <None Include="Schemas\envEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\envEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\envEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -419,6 +1369,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\EventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\eventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -430,6 +1383,9 @@
     <None Include="Schemas\eventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\EventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\eventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -543,6 +1499,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -554,6 +1513,9 @@
     <None Include="Schemas\leiauteEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\leiauteEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -675,6 +1637,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\procEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\procEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -686,6 +1651,9 @@
     <None Include="Schemas\procEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\procEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\procEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -891,9 +1859,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -1003,18 +1977,42 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Schemas\e110192_v1.00.xsd" />
-    <Content Include="Schemas\e110193_v1.00.xsd" />
-    <Content Include="Schemas\envEventoCancInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\envEventoInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\EventoCancInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\EventoInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\leiauteEventoCancInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\leiauteEventoInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\procEventoCancInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\procEventoInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\retEventoCancInsucessoNFe_v1.00.xsd" />
-    <Content Include="Schemas\retEventoInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\e110192_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\e110193_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\envEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\envEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\EventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\EventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\leiauteEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\leiauteEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\procEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\procEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\retEventoCancInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Schemas\retEventoInsucessoNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
