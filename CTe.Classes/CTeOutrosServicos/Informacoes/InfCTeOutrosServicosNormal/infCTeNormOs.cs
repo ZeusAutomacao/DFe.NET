@@ -19,5 +19,8 @@ namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 
         [XmlElement("infCteSub")]
         public infCteSubOs infCteSub { get; set; }
+
+        [XmlElement("cobr")]
+        public cobr cobr { get; set; }
     }
 }

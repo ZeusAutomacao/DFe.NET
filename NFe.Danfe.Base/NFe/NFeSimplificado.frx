@@ -38,10 +38,10 @@ namespace FastReport
       {
         case 'c':  //CEP
           if (valor.Length == 8)
-            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);          
+            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);
           break;
-	
-        case 'f':  //Telefone /celular         
+
+        case 'f':  //Telefone /celular
           if (valor.Length == 10)
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
           else if (valor.Length == 11)
@@ -51,63 +51,63 @@ namespace FastReport
           else if (valor.Length == 11) //55+11
             valor = &quot;(&quot; +valor.Substring(2,2) + &quot;)&quot; + valor.Substring(4,5) + &quot;-&quot; + valor.Substring(9,4);
           break;
-	
+
         case 'd': //cpf / cnpj
           if (valor.Length == 11)
             valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
           else if (valor.Length == 14)
             valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
-          break;  
-	
+          break;
+
         case 'p':
           if (valor.Length == 7)
             valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
           break;
-      }      
-      
-      
+      }
+
+
       return valor;
     }
-    
+
     private void Data1_BeforePrint(object sender, EventArgs e)
     {
       TheLogotipo.Image = ObterLogo();
-      
+
       var chave = (((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;))).Substring(3);
-      Text1.Text = Regex.Replace(chave, &quot;.{4}&quot;, &quot;$0 &quot;); 
-      
+      Text1.Text = Regex.Replace(chave, &quot;.{4}&quot;, &quot;$0 &quot;);
+
       Text38.Visible = ((Boolean?)Report.GetParameterValue(&quot;EsconderValor&quot;)) != true;
       Text36.Visible = ((Boolean?)Report.GetParameterValue(&quot;EsconderValor&quot;)) != true;
-      
+
       var emissao = ((TipoEmissao)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpEmis&quot;));
       switch (emissao)
       {
-        case TipoEmissao.teNormal: Text33.Text = &quot;Tipo: Normal&quot;; break;        
+        case TipoEmissao.teNormal: Text33.Text = &quot;Tipo: Normal&quot;; break;
         case TipoEmissao.teEPEC: Text33.Text = &quot;Tipo: EPEC&quot;; break;
         case TipoEmissao.teFSDA: Text33.Text = &quot;Tipo: FS-DA&quot;; break;
-        case TipoEmissao.teFSIA: Text33.Text = &quot;Tipo: FS-IA&quot;; break;        
+        case TipoEmissao.teFSIA: Text33.Text = &quot;Tipo: FS-IA&quot;; break;
         case TipoEmissao.teSCAN: Text33.Text = &quot;Tipo: SCAN&quot;; break;
         case TipoEmissao.teSVCAN: Text33.Text = &quot;Tipo: SVC-AN&quot;; break;
-        case TipoEmissao.teSVCRS: Text33.Text = &quot;Tipo: SVC-RS&quot;; break;       
-        case TipoEmissao.teOffLine: Text33.Text = &quot;Tipo: Offline&quot;; break;        
-        default: throw new ArgumentException(&quot;tpEmis não implementado&quot;); 
-      }     
-      
-      var operacao = ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpNF&quot;));      
+        case TipoEmissao.teSVCRS: Text33.Text = &quot;Tipo: SVC-RS&quot;; break;
+        case TipoEmissao.teOffLine: Text33.Text = &quot;Tipo: Offline&quot;; break;
+        default: throw new ArgumentException(&quot;tpEmis não implementado&quot;);
+      }
+
+      var operacao = ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpNF&quot;));
       switch (operacao)
       {
         case TipoNFe.tnEntrada : Text37.Text = &quot;Operação: Entrada&quot;; break;
         case TipoNFe.tnSaida : Text37.Text = &quot;Operação: Saída&quot;; break;
         default: throw new ArgumentException(&quot;tpNF não implementado&quot;);
-      }           
+      }
     }
-    
+
     public Image ObterLogo()
     {
       byte[] logomarca = Report.GetParameterValue(&quot;Logo&quot;) as byte[];
-      
+
       if (logomarca == null) return null;
-      
+
       using(var ms = new MemoryStream(logomarca))
       {
         var image = Image.FromStream(ms);
@@ -290,7 +290,7 @@ namespace FastReport
               <Column Name="vCOFINS" DataType="System.Decimal"/>
               <Column Name="vOutro" DataType="System.Decimal"/>
               <Column Name="vNF" DataType="System.Decimal"/>
-              <Column Name="vTotTrib" DataType="System.Decimal"/>
+              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
             <Column Name="ISSQNtot" DataType="NFe.Classes.Informacoes.Total.ISSQNtot, NFe.Classes, Version=1.0.0.772, Culture=neutral, PublicKeyToken=null">
               <Column Name="vServ" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
