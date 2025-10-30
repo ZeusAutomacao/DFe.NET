@@ -47,6 +47,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             return GetPropDecimalValue(icms, "vICMS");
         }
 
+        public static decimal GetIcmsStValue(this ICMSBasico icms)
+        {
+            return GetPropDecimalValue(icms, "vICMSST");
+        }
+
         public static decimal GetIpiPercent(this IPIBasico ipi)
         {
             return GetPropDecimalValue(ipi, "pIPI");
