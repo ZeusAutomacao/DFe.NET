@@ -1,41 +1,9 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
-
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao;
 using NFe.Classes.Informacoes.Detalhe.Exportacao;
 using NFe.Classes.Informacoes.Detalhe.ProdEspecifico;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe
 {
@@ -59,8 +27,6 @@ namespace NFe.Classes.Informacoes.Detalhe
         private string _cEan;
         private string _cEanTrib;
         private decimal _vUnCom;
-        private decimal? _pCredPresumido;
-        private decimal? _vCredPresumido;
 
         /// <summary>
         ///     I02 - Código do produto ou serviço
@@ -129,29 +95,13 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// declarações, nas UF que o exigem.
         /// </summary>
         public string cBenef { get; set; }
-        
-        /// <summary>
-        /// I05h - Código de Benefício Fiscal de Crédito Presumido na UF aplicado ao item
-        /// </summary>
-        public string cCredPresumido { get; set; }
 
         /// <summary>
-        /// I05i - Percentual do Crédito Presumido
+        /// I05G - Grupo de Informações sobre o Crédito Presumido
+        /// Versão 4.00 - NT 2019.001
         /// </summary>
-        public decimal? pCredPresumido
-        {
-            get { return _pCredPresumido; }
-            set { _pCredPresumido = value.Arredondar(4); }
-        }
-        
-        /// <summary>
-        /// I05j - Valor do Crédito Presumido
-        /// </summary>
-        public decimal? vCredPresumido 
-        {
-            get { return _vCredPresumido; }
-            set { _vCredPresumido = value.Arredondar(2); }
-        }
+        [XmlElement("gCred")]
+        public List<gCred> gCred { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -341,6 +291,9 @@ namespace NFe.Classes.Informacoes.Detalhe
             }
         }
 
+        // l117c
+        public indBemMovelUsado? indBemMovelUsado { get; set; }
+
         public bool ShouldSerializenItemPed()
         {
             return nItemPed.HasValue;
@@ -366,15 +319,10 @@ namespace NFe.Classes.Informacoes.Detalhe
             return vOutro.HasValue && vOutro > 0;
         }
 
-        public bool ShouldSerializepCredPresumido()
+        public bool ShouldSerializeindBemMovelUsado()
         {
-            return _pCredPresumido.HasValue && _pCredPresumido > 0;
+            return indBemMovelUsado.HasValue;
         }
 
-        public bool ShouldSerializevCredPresumido()
-        {
-            return _vCredPresumido.HasValue && _vCredPresumido > 0;
-        }
-        
     }
 }

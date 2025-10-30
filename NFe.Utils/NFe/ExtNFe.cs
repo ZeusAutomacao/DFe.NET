@@ -1,35 +1,3 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
-/*                                                                              */
-/*  Você pode obter a última versão desse arquivo no GitHub                     */
-/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
-/*                                                                              */
-/*                                                                              */
-/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
-/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
-/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
-/* qualquer versão posterior.                                                   */
-/*                                                                              */
-/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
-/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
-/*                                                                              */
-/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
-/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
-/* Você também pode obter uma copia da licença em:                              */
-/* http://www.opensource.org/licenses/lgpl-license.php                          */
-/*                                                                              */
-/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
-/* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
-/********************************************************************************/
 using System;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
@@ -49,10 +17,10 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="arquivoXml">arquivo XML</param>
         /// <returns>Retorna uma NFe carregada com os dados do XML</returns>
-        public static Classes.NFe CarregarDeArquivoXml(this Classes.NFe nfe, string arquivoXml)
+        public static Classes.NFe CarregarDeArquivoXml(this Classes.NFe nfe, string arquivoXml, bool ignorarOrdenacaoElementos = false)
         {
             var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (Classes.NFe).Name, arquivoXml);
-            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
+            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s, ignorarOrdenacaoElementos);
         }
 
         /// <summary>
@@ -71,10 +39,10 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="xmlString"></param>
         /// <returns>Retorna um objeto do tipo NFe</returns>
-        public static Classes.NFe CarregarDeXmlString(this Classes.NFe nfe, string xmlString)
+        public static Classes.NFe CarregarDeXmlString(this Classes.NFe nfe, string xmlString, bool ignorarOrdenacaoElementos = false)
         {
             var s = FuncoesXml.ObterNodeDeStringXml(typeof (Classes.NFe).Name, xmlString);
-            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
+            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s, ignorarOrdenacaoElementos);
         }
 
         /// <summary>
@@ -97,7 +65,7 @@ namespace NFe.Utils.NFe
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
 
-            var versao = (Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture));
+            var versao = Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture);
 
             var xmlNfe = nfe.ObterXmlString();
             var config = cfgServico ?? ConfiguracaoServico.Instancia;
@@ -125,7 +93,7 @@ namespace NFe.Utils.NFe
             #region Define cNF
 
             var tamanhocNf = 9;
-            var versao = (decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture));
+            var versao = decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture);
             if (versao >= 2) tamanhocNf = 8;
             nfeLocal.infNFe.ide.cNF = Convert.ToInt32(nfeLocal.infNFe.ide.cNF).ToString().PadLeft(tamanhocNf, '0');
 
