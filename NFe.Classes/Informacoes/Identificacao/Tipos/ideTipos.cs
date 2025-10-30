@@ -240,7 +240,19 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
 
         [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
         [XmlEnum("02")]
-        tcApropiacaoCreditoPresumido = 02
+        tcApropiacaoCreditoPresumido = 02,
+
+        [Description("Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega")]
+        [XmlEnum("03")]
+        tcRetornoRecusaNaoLocalizacaoEntrega = 03,
+
+        [Description("Redução de valores")]
+        [XmlEnum("04")]
+        tcReducaoValores = 04,
+
+        [Description("Transferência de crédito na sucessão")]
+        [XmlEnum("05")]
+        tcTransferenciaCreditoSucessao = 05
     }
 
     public enum TipoNFeDebito
@@ -271,7 +283,11 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
 
         [Description("Perda em estoque")]
         [XmlEnum("07")]
-        tdPerdaEmEstoque = 07
+        tdPerdaEmEstoque = 07,
+
+        [Description("Desenquadramento do SN")]
+        [XmlEnum("08")]
+        tdDesenquadramentoSN = 08
     }
 
     /// <summary>
