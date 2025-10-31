@@ -58,6 +58,7 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>21 - Crédito em loja</para>
     ///     <para>22 - Pagamento eletrônico não informado - falha de hardware do sistema emissor</para>
     ///     <para>90 - Sem pagamento (versão 4.00)</para>
+    ///     <para>91 - Pagamento posterior (versão 4.00)</para>
     ///     <para>99 - Outros</para>
     /// </summary>
     public enum FormaPagamento
@@ -189,6 +190,13 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("Sem pagamento")]
         [XmlEnum("90")]
         fpSemPagamento = 90,
+        
+        /// <summary>
+        /// 91 - Pagamento Posterior
+        /// </summary>
+        [Description("Pagamento Posterior")]
+        [XmlEnum("91")]
+        fpPagamentoPosterior = 91,
 
         /// <summary>
         /// 91 - Pagamento posterior
