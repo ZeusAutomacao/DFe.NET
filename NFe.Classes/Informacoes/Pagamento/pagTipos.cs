@@ -146,7 +146,7 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// 16 - Depósito Bancário
         /// </summary>
         [Description("=Depósito Bancário")]
-        [XmlEnum("16")] fpDepositoBancario= 16,
+        [XmlEnum("16")] fpDepositoBancario = 16,
 
         /// <summary>
         /// 17 - Pagamento Instantâneo (PIX) dinâmico
