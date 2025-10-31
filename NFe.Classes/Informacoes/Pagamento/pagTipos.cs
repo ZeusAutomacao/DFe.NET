@@ -199,13 +199,6 @@ namespace NFe.Classes.Informacoes.Pagamento
         fpPagamentoPosterior = 91,
 
         /// <summary>
-        /// 91 - Pagamento posterior
-        /// </summary>
-        [Description("Pagamento posterior")]
-        [XmlEnum("91")]
-        fpPagamentoPosterior = 91,
-
-        /// <summary>
         /// 99 - Outros
         /// </summary>
         [Description("Outros")]
