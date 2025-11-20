@@ -39,6 +39,7 @@ using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Classes.Extencoes
 {
@@ -71,6 +72,14 @@ namespace MDFe.Classes.Extencoes
             return dadosEnvio;
         }
 
+        public static XmlDocument CriaXmlRequestWs(this MDFeEletronico enviMDFe)
+        {
+            var dadosEnvio = new XmlDocument();
+            dadosEnvio.LoadXml(FuncoesXml.ClasseParaXmlString(enviMDFe));
+
+            return dadosEnvio;
+        }
+
         public static string XmlString(this MDFeEnviMDFe enviMDFe)
         {
             var xmlString = FuncoesXml.ClasseParaXmlString(enviMDFe);
@@ -90,5 +99,6 @@ namespace MDFe.Classes.Extencoes
 
             enviMDFe.MDFe.SalvarXmlEmDisco();
         }
+
     }
 }

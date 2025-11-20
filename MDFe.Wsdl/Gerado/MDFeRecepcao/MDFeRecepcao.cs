@@ -54,12 +54,12 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="MDFeRecepcaoSoap12", Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="MDFeRecepcaoSincSoap12", Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc")]
     public partial class MDFeRecepcao : System.Web.Services.Protocols.SoapHttpClientProtocol {
     
         private mdfeCabecMsg mdfeCabecMsgValueField;
     
-        private System.Threading.SendOrPostCallback mdfeRecepcaoLoteOperationCompleted;
+        private System.Threading.SendOrPostCallback mdfeRecepcaoSincOperationCompleted;
     
         /// <remarks/>
         public MDFeRecepcao(WsdlConfiguracao configuracao) {
@@ -91,48 +91,48 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
         }
     
         /// <remarks/>
-        public event mdfeRecepcaoLoteCompletedEventHandler mdfeRecepcaoLoteCompleted;
+        public event mdfeRecepcaoSincCompletedEventHandler mdfeRecepcaoSincCompleted;
     
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("mdfeCabecMsgValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao/mdfeRecepcaoLote", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
-        public System.Xml.XmlNode mdfeRecepcaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")] System.Xml.XmlNode mdfeDadosMsg) {
-            object[] results = this.Invoke("mdfeRecepcaoLote", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc/mdfeRecepcaoSinc", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc")]
+        public System.Xml.XmlNode mdfeRecepcaoSinc([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc")] System.Xml.XmlNode mdfeDadosMsg) {
+            object[] results = this.Invoke("mdfeRecepcaoSinc", new object[] {
                 mdfeDadosMsg});
             return ((System.Xml.XmlNode)(results[0]));
         }
     
         /// <remarks/>
-        public System.IAsyncResult BeginmdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg, System.AsyncCallback callback, object asyncState) {
-            return this.BeginInvoke("mdfeRecepcaoLote", new object[] {
+        public System.IAsyncResult BeginmdfeRecepcaoSinc(System.Xml.XmlNode mdfeDadosMsg, System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("mdfeRecepcaoSinc", new object[] {
                 mdfeDadosMsg}, callback, asyncState);
         }
     
         /// <remarks/>
-        public System.Xml.XmlNode EndmdfeRecepcaoLote(System.IAsyncResult asyncResult) {
+        public System.Xml.XmlNode EndmdfeRecepcaoSinc(System.IAsyncResult asyncResult) {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode)(results[0]));
         }
     
         /// <remarks/>
-        public void mdfeRecepcaoLoteAsync(System.Xml.XmlNode mdfeDadosMsg) {
-            this.mdfeRecepcaoLoteAsync(mdfeDadosMsg, null);
+        public void mdfeRecepcaoSincAsync(System.Xml.XmlNode mdfeDadosMsg) {
+            this.mdfeRecepcaoSincAsync(mdfeDadosMsg, null);
         }
     
         /// <remarks/>
-        public void mdfeRecepcaoLoteAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
-            if ((this.mdfeRecepcaoLoteOperationCompleted == null)) {
-                this.mdfeRecepcaoLoteOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeRecepcaoLoteOperationCompleted);
+        public void mdfeRecepcaoSincAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
+            if ((this.mdfeRecepcaoSincOperationCompleted == null)) {
+                this.mdfeRecepcaoSincOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeRecepcaoSincOperationCompleted);
             }
-            this.InvokeAsync("mdfeRecepcaoLote", new object[] {
-                mdfeDadosMsg}, this.mdfeRecepcaoLoteOperationCompleted, userState);
+            this.InvokeAsync("mdfeRecepcaoSinc", new object[] {
+                mdfeDadosMsg}, this.mdfeRecepcaoSincOperationCompleted, userState);
         }
     
-        private void OnmdfeRecepcaoLoteOperationCompleted(object arg) {
-            if ((this.mdfeRecepcaoLoteCompleted != null)) {
+        private void OnmdfeRecepcaoSincOperationCompleted(object arg) {
+            if ((this.mdfeRecepcaoSincCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.mdfeRecepcaoLoteCompleted(this, new mdfeRecepcaoLoteCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.mdfeRecepcaoSincCompleted(this, new mdfeRecepcaoSincCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
     
@@ -147,8 +147,8 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao", IsNullable=false)]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc", IsNullable=false)]
     public partial class mdfeCabecMsg : System.Web.Services.Protocols.SoapHeader {
     
         private string cUFField;
@@ -191,17 +191,17 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-    public delegate void mdfeRecepcaoLoteCompletedEventHandler(object sender, mdfeRecepcaoLoteCompletedEventArgs e);
+    public delegate void mdfeRecepcaoSincCompletedEventHandler(object sender, mdfeRecepcaoSincCompletedEventArgs e);
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class mdfeRecepcaoLoteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class mdfeRecepcaoSincCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
     
         private object[] results;
     
-        internal mdfeRecepcaoLoteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal mdfeRecepcaoSincCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
             base(exception, cancelled, userState) {
             this.results = results;
             }

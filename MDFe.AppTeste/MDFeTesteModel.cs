@@ -569,27 +569,16 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
-            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.SP;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MS;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
             {
-                CMunCarrega = "5211701",
-                XMunCarrega = "JANDAIA"
+                CMunCarrega = "3548906",
+                XMunCarrega = "SAO CARLOS"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
-            {
-                CMunCarrega = "5209952",
-                XMunCarrega = "INDIARA"
-            });
-
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
-            {
-                CMunCarrega = "5200134",
-                XMunCarrega = "ACREUNA"
-            });
 
             #endregion (ide)
 
@@ -781,18 +770,18 @@ namespace MDFe.AppTeste
 
             #region dados responsavel tecnico 
 
-            mdfe.InfMDFe.infRespTec = new infRespTec
-            {
-                CNPJ = "",
-                email = "",
-                fone = "",
-                xContato = ""
-            };
+         //   mdfe.InfMDFe.infRespTec = new infRespTec
+         //   {
+         //       CNPJ = "",
+         //       email = "",
+         //       fone = "",
+         //       xContato = ""
+         //   };
             #endregion  
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
-            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
+            var retornoEnvio = servicoRecepcao.MDFeRecepcaoSinc(mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -1047,7 +1036,7 @@ namespace MDFe.AppTeste
             mdfe = mdfe.Assina();
             mdfe = mdfe.Valida();
 
-            mdfe.SalvarXmlEmDisco();
+            mdfe.SalvarXmlEmDisco(@"C:\Users\lehfr\OneDrive\Área de Trabalho\TEste\teste.xml");
         }
 
         public void BuscarDiretorioSalvarXml()

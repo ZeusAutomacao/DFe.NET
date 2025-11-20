@@ -165,6 +165,7 @@ namespace MDFe.Servicos.Factory
             return enviMdfe;
         }
 
+
         public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
         {
             var consReciMDFe = new MDFeConsReciMDFe

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Flags;
@@ -78,10 +79,43 @@ namespace MDFe.Servicos.RecepcaoMDFe
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
 
             OnAntesDeEnviar(enviMDFe);
-
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+            var retornoXml = webService.mdfeRecepcaoSinc(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
+            retorno.SalvarXmlEmDisco();
+
+            return retorno;
+        }
+
+        public MDFeRetEnviMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe)
+        {
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringSemUtc();
+                    break;
+                case VersaoServico.Versao300:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
+                    break;
+            }
+
+            mdfe.Assina(GerouChave, this);
+
+            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
+            }
+
+            mdfe.Valida();
+            mdfe.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var retornoXml = webService.mdfeRecepcaoSinc(mdfe.CriaXmlRequestWs());
+
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
@@ -92,5 +126,6 @@ namespace MDFe.Servicos.RecepcaoMDFe
             var handler = AntesDeEnviar;
             if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
         }
+
     }
 }
