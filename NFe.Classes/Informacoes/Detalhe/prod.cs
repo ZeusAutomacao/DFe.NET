@@ -134,6 +134,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         [XmlElement("gCred")]
         public List<gCred> gCred { get; set; }
+        
+        /// <summary>
+        /// I05K - Classificação para subapuração do IBS na ZFM
+        /// </summary>
+        public  tpCredPresIBSZFM? tpCredPresIBSZFM { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -256,6 +261,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         public IndicadorTotal indTot { get; set; }
 
         /// <summary>
+        ///     I17c - Indicador de fornecimento de bem móvel usado
+        /// </summary>
+        public IndBemMovelUsado? indBemMovelUsado { get; set; }
+        
+        /// <summary>
         ///     I18 - Declaração de Importação
         /// </summary>
         [XmlElement("DI")]
@@ -348,5 +358,8 @@ namespace NFe.Classes.Informacoes.Detalhe
             return vOutro.HasValue && vOutro > 0;
         }
         
+        public bool ShouldSerializeindBemMovelUsado() => indBemMovelUsado.HasValue;
+        
+        public bool ShouldSerializetpCredPresIBSZFM() => tpCredPresIBSZFM.HasValue;
     }
 }

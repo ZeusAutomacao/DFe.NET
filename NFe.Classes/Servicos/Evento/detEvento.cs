@@ -32,12 +32,18 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoBensServicos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemNaoFornecido;
+using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -157,7 +163,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso/Comprovante de Entrega NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe/ Cancelamento Evento
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -355,5 +361,202 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Eventos para a apuração do IBS e da CBS
+
+        #region Informação de efetivo pagamento integral para liberar crédito presumido do adquirente 
+
+        /// <summary>
+        ///     P23 - Indicador de efetiva quitação do pagamento integral da operação referente a NFe referenciada
+        /// </summary>
+        public IndicadorDeQuitacaoDoPagamento? indQuitacao { get; set; }
+        
+        public bool ShouldSerializeindQuitacao()
+        {
+            return indQuitacao.HasValue;
+        }
+
+        #endregion
+
+        #region Solicitação de Apropriação de crédito presumido
+
+        /// <summary>
+        ///     P23 - Informações de crédito presumido por item
+        /// </summary>
+        [XmlElement("gCredPres")]
+        public List<gCredPres> gCredPres { get; set; }
+        
+        public bool ShouldSerializegCredPres()
+        {
+            return gCredPres != null;
+        }
+
+        #endregion
+
+        #region Destinação de item para consumo pessoal
+
+        /// <summary>
+        ///     P23 - Informações por item da NF-e de Aquisição
+        ///         <para>Evento: Destinação de item para consumo pessoal</para>
+        ///     P23 - Informações por item da NF-e de importação
+        ///         <para>Evento: Importação em ALC/ZFM não convertida em isenção</para>
+        ///     Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
+        /// </summary>
+        [XmlElement("gConsumo")]
+        public List<gConsumo> gConsumo { get; set; }
+        
+        public bool ShouldSerializegConsumo() => gConsumo != null;
+
+        #endregion
+
+        #region Aceite de débito na apuração por emissão de nota de crédito | Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão | Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+
+        /// <summary>
+        ///     Informação utilizada nos eventos "Aceite de débito na apuração por emissão de nota de crédito" e "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão"
+        ///     Para evento "Aceite de débito na apuração por emissão de nota de crédito": P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
+        ///     Para evento "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão": P23 - Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        ///     Para evento "Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão": P23 - Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        /// </summary>
+        public IndicadorAceitacao? indAceitacao { get; set; }
+
+        public bool ShouldSerializeindAceitacao()
+        {
+            return indAceitacao != null;
+        }
+
+        #endregion
+
+        #region Imobilização de Item
+
+        /// <summary>
+        ///     P23 - Informações de itens integrados ao ativo imobilizado
+        /// </summary>
+        [XmlElement("gImobilizacao")]
+        public List<gImobilizacao> gImobilizacao { get; set; }
+
+        public bool ShouldSerializegImobilizacao()
+        {
+            return gImobilizacao != null;
+        }
+        
+        #endregion
+
+        #region Solicitação de Apropriação de Crédito de Combustível
+
+        /// <summary>
+        ///     P23 - Informações de consumo de combustíveis
+        /// </summary>
+        [XmlElement("gConsumoComb")]
+        public List<gConsumoComb> gConsumoComb { get; set; }
+        
+        public bool ShouldSerializegConsumoComb()
+        {
+            return gConsumoComb != null;
+        }
+
+        #endregion
+
+        #region Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
+
+        /// <summary>
+        ///     P23 - Informações de crédito
+        /// </summary>
+        [XmlElement("gCredito")]
+        public List<gCredito> gCredito { get; set; }
+
+        public bool ShouldSerializegCredito()
+        {
+            return gCredito != null;
+        }
+        
+        #endregion
+
+        #region Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão | Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+
+        /// <summary>
+        ///     Para ambos os eventos "Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão"
+        ///     e "Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão" o campo representa:
+        ///     Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        /// </summary>
+        public IndicadorDeferimento? indDeferimento { get; set; }
+
+        public bool ShouldSerializeindDeferimento()
+        {
+            return indDeferimento != null;
+        }
+        
+        /// <summary>
+        ///     P24 - Motivo deferimento
+        /// </summary>
+        public MotivoDeferimento? cMotivo { get; set; }
+        
+        public bool ShouldSerializecMotivo()
+        {
+            return cMotivo != null;
+        }
+        
+        /// <summary>
+        ///     P24 - Descrição deferimento
+        /// </summary>
+        public string xMotivo { get; set; }
+        
+        #endregion
+        
+        #region Cancelamento Evento
+
+        /// <summary>
+        ///     P23 - Código do evento autorizado a ser cancelado
+        /// </summary>
+        public string tpEventoAut {get; set;}
+        
+        #endregion
+
+        #region Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Aquisição 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente).</para>
+        ///     P23 - Informações por item da Nota de Fornecimento 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor).</para>
+        /// </summary>
+        [XmlElement("gPerecimento")]
+        public List<gPerecimento> gPerecimento { get; set; }
+
+        public bool ShouldSerializegPerecimento() => gPerecimento != null;
+
+        #endregion
+
+        #region Fornecimento não realizado com pagamento antecipado
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Pagamento antecipado
+        /// </summary>
+        [XmlElement("gItemNaoFornecido")]
+        public List<gItemNaoFornecido> gItemNaoFornecido { get; set; }
+        
+        public bool ShouldSerializegItemNaoFornecido() => gItemNaoFornecido != null;
+
+        #endregion
+
+        #region Atualização da Data de Previsão de Entrega
+
+        /// <summary>
+        ///  P23 - Data da previsão de entrega ou disponibilização do bem. Formato: “AAAA-MM-DD”.
+        /// </summary>
+        [XmlIgnore]
+        public DateTime? dPrevEntrega { get; set; }
+        
+        /// <summary>
+        /// Proxy para dPrevEntrega no formato "AAAA-MM-DD" (somente data).
+        /// </summary>
+        [XmlElement("dPrevEntrega")]
+        public string ProxydPrevEntrega
+        {
+            get => dPrevEntrega.ParaDataString();
+            set => dPrevEntrega = DateTime.Parse(value);
+        }
+
+        #endregion
+
+        #endregion
     }
 }

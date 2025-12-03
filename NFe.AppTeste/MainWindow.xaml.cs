@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -75,9 +75,17 @@ using NFe.Utils;
 using NFe.Utils.Excecoes;
 using NFe.Utils.Tributacao.Federal;
 using Image = System.Drawing.Image;
-using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 using System.Security.Cryptography;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
+using NFe.Classes.Informacoes.Total.IbsCbs;
+using NFe.Classes.Informacoes.Total.IbsCbs.Cbs;
+using NFe.Classes.Informacoes.Total.IbsCbs.Ibs;
+using NFe.Classes.Informacoes.Total.IbsCbs.Monofasica;
 
 namespace NFe.AppTeste
 {
@@ -193,6 +201,8 @@ namespace NFe.AppTeste
                     }
 
                 #endregion
+
+                CbxEnviarTributacaoDaReforma.IsChecked = _configuracoes.EnviarTributacaoIbsCbsIs;
             }
             catch (Exception ex)
             {
@@ -381,7 +391,7 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
-        
+
         private void BtnCancInsucessoEntrega_Click(object sender, RoutedEventArgs e)
         {
             const string titulo = "Cancelar Insucesso Entrega NFe";
@@ -497,7 +507,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
 
                 var retornoComprovante = servicoNFe.RecepcaoEventoComprovanteEntrega(Convert.ToInt32(idlote),
-                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhEntrega, nDoc, xNome, hashComprovante, 
+                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhEntrega, nDoc, xNome, hashComprovante,
                     dhHashComprovante, latGps, longGps, DFe.Classes.Entidades.Estado.SP);
 
                 TrataRetorno(retornoComprovante);
@@ -769,7 +779,7 @@ namespace NFe.AppTeste
                 nfe.infNFeSupl = new infNFeSupl();
                 if (versaoServico == VersaoServico.Versao400)
                     nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
-                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
+                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc, _configuracoes.CfgServico.Certificado);
             }
 
             nfe.Valida();
@@ -1377,7 +1387,8 @@ namespace NFe.AppTeste
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
                 verProc = "3.000",
-                indIntermed = IndicadorIntermediador.iiSemIntermediador
+                indIntermed = IndicadorIntermediador.iiSemIntermediador,
+                // dPrevEntrega = modelo == ModeloDocumento.NFe ? DateTime.Now : null
             };
 
             if (ide.tpEmis != TipoEmissao.teNormal)
@@ -1464,7 +1475,7 @@ namespace NFe.AppTeste
             };
             dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"; //Obrigatório para NFe e opcional para NFCe
             dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
-            
+
             //if (versao == VersaoServico.Versao200)
             //    dest.IE = "ISENTO";
             if (versao == VersaoServico.Versao200) return dest;
@@ -1541,7 +1552,184 @@ namespace NFe.AppTeste
 
                         //Caso você resolva utilizar método ObterPisBasico(), comente esta proxima linha
                         TipoPIS = new PISOutr { CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0 }
-                    }
+                    },
+                    
+                    // Estrutura de IBS/CBS para testes durante processo de homologação
+                    IBSCBS = _configuracoes.EnviarTributacaoIbsCbsIs ? new IBSCBS
+                    {
+                        CST = CST.Cst000,
+                        cClassTrib = "000001",
+                        // indDoacao = "1", //Somente a partir do dia 29/10
+                        gIBSCBS = new gIBSCBS
+                        {
+                            vBC = 0,
+                            gIBSUF = new gIBSUF
+                            {
+                                pIBSUF = 0.10m,
+                                vIBSUF = 0,
+                                gDif = new gDif
+                                {
+                                    vDif = 0,
+                                    pDif = 0
+                                },
+                                gRed = new gRed
+                                {
+                                    pAliqEfet = 0,
+                                    pRedAliq = 0
+                                },
+                                gDevTrib = new gDevTrib
+                                {
+                                    vDevTrib = 0
+                                }
+                            },
+                            gIBSMun = new gIBSMun
+                            {
+                                pIBSMun = 0,
+                                vIBSMun = 0,
+                                gDif = new gDif
+                                {
+                                    vDif = 0,
+                                    pDif = 0
+                                },
+                                gRed = new gRed
+                                {
+                                    pAliqEfet = 0,
+                                    pRedAliq = 0
+                                },
+                                gDevTrib = new gDevTrib
+                                {
+                                    vDevTrib = 0
+                                }
+                            },
+                            gCBS = new gCBS
+                            {
+                                pCBS = 0.90m,
+                                vCBS = 0,
+                                gDif = new gDif
+                                {
+                                    vDif = 0,
+                                    pDif = 0
+                                },
+                                gRed = new gRed
+                                {
+                                    pAliqEfet = 0,
+                                    pRedAliq = 0
+                                },
+                                gDevTrib = new gDevTrib
+                                {
+                                    vDevTrib = 0
+                                }
+                            },
+                            vIBS = 0,
+                            gTribCompraGov = new gTribCompraGov
+                            {
+                                pAliqCBS = 0,
+                                vTribCBS = 0,
+                                pAliqIBSMun = 0,
+                                vTribIBSMun = 0,
+                                pAliqIBSUF = 0,
+                                vTribIBSUF = 0
+                            },
+                            gTribRegular = new gTribRegular
+                            {
+                                cClassTribReg = "000001",
+                                CSTReg = CST.Cst000,
+                                vTribRegCBS = 0,
+                                pAliqEfetRegCBS = 0,
+                                vTribRegIBSMun = 0,
+                                pAliqEfetRegIBSMun = 0,
+                                vTribRegIBSUF = 0,
+                                pAliqEfetRegIBSUF = 0
+                            }
+                        },
+                        // gIBSCBSMono = new gIBSCBSMono
+                        // {
+                        //     gMonoDif = new gMonoDif
+                        //     {
+                        //         pDifCBS = 0,
+                        //         pDifIBS = 0,
+                        //         vCBSMonoDif = 0,
+                        //         vIBSMonoDif = 0
+                        //     },
+                        //     gMonoPadrao = new gMonoPadrao
+                        //     {
+                        //         qBCMono = 0,
+                        //         adRemCBS = 0,
+                        //         adRemIBS = 0,
+                        //         vCBSMono = 0,
+                        //         vIBSMono = 0
+                        //     },
+                        //     gMonoRet = new gMonoRet
+                        //     {
+                        //         qBCMonoRet = 0,
+                        //         adRemCBSRet = 0,
+                        //         adRemIBSRet = 0,
+                        //         vCBSMonoRet = 0,
+                        //         vIBSMonoRet = 0
+                        //     },
+                        //     gMonoReten = new gMonoReten
+                        //     {
+                        //         qBCMonoReten = 0,
+                        //         adRemCBSReten = 0,
+                        //         adRemIBSReten = 0,
+                        //         vCBSMonoReten = 0,
+                        //         vIBSMonoReten = 0
+                        //     },
+                        //     vTotCBSMonoItem = 0,
+                        //     vTotIBSMonoItem = 0
+                        // },
+                        // gTransfCred = new gTransfCred
+                        // {
+                        //     vCBS = 0,
+                        //     vIBS = 0
+                        // },
+                        // gAjusteCompet = new gAjusteCompet
+                        // {
+                        //   competApur  = DateTime.Now,
+                        //   vCBS = 0,
+                        //   vIBS = 0
+                        // },
+                        // gEstornoCred = new gEstornoCred
+                        // {
+                        //     vCBSEstCred = 0,
+                        //     vIBSEstCred = 0
+                        // },
+                        // gCredPresOper = new gCredPresOper
+                        // {
+                        //     cCredPres = "01",
+                        //     vBCCredPres = 0,
+                        //     gIBSCredPres = new gIBSCredPres
+                        //     {
+                        //         pCredPres = 0,
+                        //         vCredPres = 0,
+                        //         // vCredPresCondSus = 0 // Informar somente após 2033
+                        //     },
+                        //     gCBSCredPres = new gCBSCredPres
+                        //     {
+                        //         pCredPres = 0,
+                        //         vCredPres = 0,
+                        //         // vCredPresCondSus = 0 // Informar somente após 2027
+                        //     }
+                        // },
+                        // gCredPresIBSZFM = new gCredPresIBSZFM
+                        // {
+                        //     competApur = DateTime.Now,
+                        //     tpCredPresIBSZFM = ClassificacaoCreditoPresumidoIbsZfmTipos.tpCredPresIbsZfm0,
+                        //     vCredPresIBSZFM = 0
+                        // }
+                    } : null,
+                    
+                    IS = _configuracoes.EnviarTributacaoIbsCbsIs ?new IS
+                    {
+                        qTrib = 1,
+                        uTrib = "PC",
+                        pISEspec = 0,
+                        pIS = 0,
+                        vIS = 0,
+                        cClassTribIS = "000001",
+                        CSTIS = CSTIS.Is000,
+                        vBCIS = 0
+                    } : null
                 }
             };
 
@@ -1593,7 +1781,10 @@ namespace NFe.AppTeste
                 //    nCano = "123456",
                 //    descr = "TESTE DE ARMA"
                 //}
+                
+                // tpCredPresIBSZFM = tpCredPresIBSZFM.SemCreditoPresumido // Informado somente para testes com gCredPresIBSZFM
             };
+            
             return p;
         }
 
@@ -1768,7 +1959,58 @@ namespace NFe.AppTeste
                 + icmsTot.vIPI
                 + icmsTot.vIPIDevol.GetValueOrDefault();
 
-            var t = new total { ICMSTot = icmsTot };
+            var t = new total
+            {
+                ICMSTot = icmsTot,
+                IBSCBSTot = _configuracoes.EnviarTributacaoIbsCbsIs ? new IBSCBSTot
+                {
+                    vBCIBSCBS = 0,
+                    gIBS = new gIBS
+                    {
+                        gIBSUF = new gIBSUFTotal
+                        {
+                            vDif = 0,
+                            vDevTrib = 0,
+                            vIBSUF = 0
+                        },
+                        gIBSMun = new gIBSMunTotal
+                        {
+                            vDif = 0,
+                            vDevTrib = 0,
+                            vIBSMun = 0
+                        },
+                        vIBS = 0,
+                        vCredPres = 0,
+                        vCredPresCondSus = 0,
+                    },
+                    gCBS = new gCBSTotal
+                    {
+                        vDif = 0,
+                        vDevTrib = 0,
+                        vCBS = 0,
+                        vCredPres = 0,
+                        vCredPresCondSus = 0
+                    },
+                    gMono = new gMono
+                    {
+                        vCBSMono = 0,
+                        vIBSMono = 0,
+                        vCBSMonoRet = 0,
+                        vCBSMonoReten = 0,
+                        vIBSMonoRet = 0,
+                        vIBSMonoReten = 0
+                    },
+                    gEstornoCred = new gEstornoCredTotal
+                    {
+                        vCBSEstCred = 0,
+                        vIBSEstCred = 0
+                    }
+                } : null,
+                ISTot = _configuracoes.EnviarTributacaoIbsCbsIs ? new ISTot
+                {
+                    vIS = 0,
+                } : null
+            };
             return t;
         }
 
@@ -1836,8 +2078,8 @@ namespace NFe.AppTeste
                 {
                     detPag = new List<detPag>
                     {
-                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = icmsTot.vNF - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vNF - valorPagto}
                     }
                 }
             };
@@ -2319,5 +2561,9 @@ namespace NFe.AppTeste
             }
         }
 
+        private void CbxEnviarTributacaoDaReforma_OnClick(object sender, RoutedEventArgs e)
+        {
+            _configuracoes.EnviarTributacaoIbsCbsIs = CbxEnviarTributacaoDaReforma.IsChecked ?? false;
+        }
     }
 }

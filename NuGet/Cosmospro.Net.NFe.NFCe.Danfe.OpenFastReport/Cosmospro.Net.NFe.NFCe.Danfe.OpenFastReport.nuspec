@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Zeus.Net.NFe.NFCe.OpenFastReport</id>
+    <id>Cosmospro.Net.NFe.NFCe.OpenFastReport</id>
     <version>1.0.1</version>
-    <title>Zeus NF-e e NFC-e (x86/x64)</title>
-    <authors>Zeus</authors>
-    <owners>Zeus</owners>
+    <title>Cosmospro NF-e e NFC-e (x86/x64)</title>
+    <authors>Cosmospro</authors>
+    <owners>Cosmospro</owners>
     <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
     <icon>icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Biblioteca para geração de nf-e e nfc-e.</description>
     <releaseNotes />
-    <copyright>zeus</copyright>
+    <copyright>Cosmospro</copyright>
     <language>pt-BR</language>
     <tags>nfc-e nf-e nfce nfe</tags>
     <dependencies>

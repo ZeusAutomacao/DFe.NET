@@ -1,15 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<PackageId>Zeus.Net.NFe.Danfe.PdfClown</PackageId>
+		<Title>Zeus.Net.NFe.Danfe.PdfClown</Title>
+		<Authors>ZeusAutomacao</Authors>
+		<Company>Zeus Automacao</Company>
+		<Description>Biblioteca para geração de DANFE em PDF usando PDFClown.</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="PDFClown.NET" Version="2.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="PDFClown.NET" Version="2.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+	</ItemGroup>
 
 </Project>
