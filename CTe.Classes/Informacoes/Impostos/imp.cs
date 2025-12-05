@@ -53,5 +53,9 @@ namespace CTe.Classes.Informacoes.Impostos
         public ICMSUFFim ICMSUFFim { get; set; }
 
         public infTribFed infTribFed { get; set; }
+
+        public IBS IBS { get; set; }
+
+        public CBS CBS { get; set; }
     }
 }
