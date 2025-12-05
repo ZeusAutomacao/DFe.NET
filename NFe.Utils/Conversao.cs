@@ -70,8 +70,7 @@ namespace NFe.Utils
                 || servicoNFe == ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
                 || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
                 || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor
-                || servicoNFe == ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado
-                || servicoNFe == ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega)
+                || servicoNFe == ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado)
             {
                 return "1.00";
             }

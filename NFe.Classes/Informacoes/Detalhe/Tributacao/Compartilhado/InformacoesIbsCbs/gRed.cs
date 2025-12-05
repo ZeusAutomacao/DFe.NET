@@ -48,7 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     Alíquota Efetiva que será aplicada a Base de Cálculo (em percentual)
+        ///     Alíquota Efetiva que será aplicada a Base de Cálculo
         /// </summary>
         public decimal pAliqEfet
         {

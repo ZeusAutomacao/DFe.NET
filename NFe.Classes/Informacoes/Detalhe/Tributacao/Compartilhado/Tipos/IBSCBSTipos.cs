@@ -41,18 +41,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
     ///     <para>010 - Tributação com alíquotas uniformes</para>
     ///     <para>011 - Tributação com alíquotas uniformes reduzidas</para>
     ///     <para>200 - Alíquota reduzida</para>
+    ///     <para>210 - Redução de alíquota com redutor de base de cálculo</para>
     ///     <para>220 - Alíquota fixa</para>
     ///     <para>221 - Alíquota fixa rateada</para>
     ///     <para>222 - Redução de Base de Cálculo</para>
     ///     <para>400 - Isenção</para>
     ///     <para>410 - Imunidade e não incidência</para>
     ///     <para>510 - Diferimento</para>
-    ///     <para>515 - Diferimento com redução de alíquota</para>
     ///     <para>550 - Suspensão</para>
     ///     <para>620 - Tributação Monofásica</para>
     ///     <para>800 - Transferência de crédito</para>
-    ///     <para>810 - Ajuste de IBS na ZFM</para>
-    ///     <para>811 - Ajustes</para>
+    ///     <para>810 - Ajustes</para>
     ///     <para>820 - Tributação em declaração de regime específico</para>
     ///     <para>830 - Exclusão da Base de Cálculo</para>
     /// </summary>
@@ -85,6 +84,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         [Description("Alíquota reduzida")]
         [XmlEnum("200")]
         Cst200,
+        
+        /// <summary>
+        ///     210 - Redução de alíquota com redutor de base de cálculo
+        /// </summary>
+        [Description("Redução de alíquota com redutor de base de cálculo")]
+        [XmlEnum("210")]
+        Cst210,
         
         /// <summary>
         ///     220 - Alíquota fixa
@@ -129,13 +135,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         Cst510,
         
         /// <summary>
-        ///     515 - Diferimento com redução de alíquota
-        /// </summary>
-        [Description("Diferimento com redução de alíquota")]
-        [XmlEnum("515")]
-        Cst515,
-        
-        /// <summary>
         ///     550 - Suspensão
         /// </summary>
         [Description("Suspensão")]
@@ -157,18 +156,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         Cst800,
         
         /// <summary>
-        ///     810 - Ajuste de IBS na ZFM
-        /// </summary>
-        [Description("Ajuste de IBS na ZFM")]
-        [XmlEnum("810")]
-        Cst810,
-        
-        /// <summary>
-        ///     811 - Ajustes
+        ///     810 - Ajustes
         /// </summary>
         [Description("Ajustes")]
-        [XmlEnum("811")]
-        Cst811,
+        [XmlEnum("810")]
+        Cst810,
         
         /// <summary>
         ///     820 - Tributação em declaração de regime específico

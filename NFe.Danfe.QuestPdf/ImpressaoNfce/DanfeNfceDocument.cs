@@ -1,8 +1,8 @@
-﻿using DFe.Classes.Flags;
+﻿using System.Text;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Destinatario;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;
@@ -11,7 +11,6 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkiaSharp.QrCode.Image;
-using System.Text;
 
 namespace NFe.Danfe.QuestPdf.ImpressaoNfce;
 
@@ -51,7 +50,6 @@ public class DanfeNfceDocument : IDocument
     }
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
-    DocumentSettings IDocument.GetSettings() => DocumentSettings.Default;
 
     public void Compose(IDocumentContainer container)
     {
@@ -351,27 +349,6 @@ public class DanfeNfceDocument : IDocument
 
                 column.Item().LineHorizontal(1);
 
-                if (DeveExibirMensagemContingencia())
-                {
-                    column.Item().Row(r =>
-                    {
-                        r.RelativeItem().AlignCenter().Column(c =>
-                        {
-                            c.Item().AlignCenter().Text("EMITIDA EM CONTINGÊNCIA").FontSize(_tamanhoFontePadrao).ExtraBlack();
-                        });
-                    });
-
-                    column.Item().Row(r =>
-                    {
-                        r.RelativeItem().AlignCenter().Column(c =>
-                        {
-                            c.Item().AlignCenter().Text("Pendente de autorização").FontSize(_tamanhoFontePadrao).ExtraBlack();
-                        });
-                    });
-
-                    column.Item().LineHorizontal(1);
-                }
-
                 column.Item().Row(r =>
                 {
                     r.RelativeItem().AlignCenter().Column(c =>
@@ -395,41 +372,16 @@ public class DanfeNfceDocument : IDocument
                         t.Cell().AlignCenter().Image(ImagemQrCode());
                         t.Cell().AlignLeft().Column(c =>
                         {
-                            if (_nfe?.infNFe?.ide != null)
-                            {
-                                c.Item().Text($"Série: {_nfe.infNFe.ide.serie:D3}").FontSize(_tamanhoFontePadrao);
-                                c.Item().Text($"Número: {_nfe.infNFe.ide.nNF:D9}").FontSize(_tamanhoFontePadrao);
-                                c.Item().Text($"Emissão: {_nfe.infNFe.ide.dhEmi:G}").FontSize(_tamanhoFontePadrao);
-                            }
-
-                            if (DeveExibirDadosProtocolo())
-                            {
-                                c.Item().Text($"Protocolo: {_nfeProc!.protNFe!.infProt.nProt}").FontSize(_tamanhoFontePadrao);
-                                c.Item().Text($"Autorização: {_nfeProc!.protNFe!.infProt.dhRecbto:G}").FontSize(_tamanhoFontePadrao);
-                            }
+                            c.Item().Text($"Série: {_nfe.infNFe.ide.serie:D3}").FontSize(_tamanhoFontePadrao);
+                            c.Item().Text($"Número: {_nfe.infNFe.ide.nNF:D9}").FontSize(_tamanhoFontePadrao);
+                            c.Item().Text($"Emissão: {_nfeProc.NFe.infNFe.ide.dhEmi:G}").FontSize(_tamanhoFontePadrao);
+                            c.Item().Text($"Protocolo: {_nfeProc.protNFe.infProt.nProt}").FontSize(_tamanhoFontePadrao);
+                            c.Item().Text($"Autorização: {_nfeProc.protNFe.infProt.dhRecbto:G}").FontSize(_tamanhoFontePadrao);
                         });
                     });
                 });
 
                 column.Item().LineHorizontal(1);
-
-                if (_nfe.infNFe.infAdic != null && !string.IsNullOrEmpty(_nfe.infNFe.infAdic.infCpl))
-                {
-                    column.Item().Row(r =>
-                    {
-                        r.RelativeItem().AlignLeft().Column(c =>
-                        {
-                            c.Item().Text("Informações Adicionais").FontSize(_tamanhoFontePadrao).ExtraBlack();
-                        });
-                    });
-                    column.Item().Row(r =>
-                    {
-                        r.RelativeItem().AlignLeft().Column(c =>
-                        {
-                            c.Item().Text(_nfe.infNFe.infAdic.infCpl).FontSize(_tamanhoFontePadrao);
-                        });
-                    });
-                }
 
                 column.Item().Row(r =>
                 {
@@ -570,11 +522,6 @@ public class DanfeNfceDocument : IDocument
         enderecoEmitenteBuilder.Append(enderEmit.xMun);
         enderecoEmitenteBuilder.Append(", ");
         enderecoEmitenteBuilder.Append(enderEmit.UF);
-        if (enderEmit.CEP != null)
-        {
-            enderecoEmitenteBuilder.Append(" - CEP: ");
-            enderecoEmitenteBuilder.Append(enderEmit.CEP);
-        }
         enderecoEmitenteBuilder.Append(foneEmit);
 
         return enderecoEmitenteBuilder.ToString();
@@ -584,8 +531,6 @@ public class DanfeNfceDocument : IDocument
     {
         try
         {
-            _nfeProc = null;
-            _nfe = null;
             _nfeProc = FuncoesXml.XmlStringParaClasse<nfeProc>(xml);
             _nfe = _nfeProc.NFe;
         }
@@ -595,7 +540,6 @@ public class DanfeNfceDocument : IDocument
             {
                 NFe.Classes.NFe nfe = FuncoesXml.XmlStringParaClasse<NFe.Classes.NFe>(xml);
                 _nfe = nfe;
-                _nfeProc = null;
             }
             catch (Exception)
             {
@@ -603,16 +547,6 @@ public class DanfeNfceDocument : IDocument
                     "Ei! Verifique se seu xml está correto, pois identificamos uma falha ao tentar carregar ele.");
             }
         }
-    }
-
-    private bool DeveExibirMensagemContingencia()
-    {
-        return _nfe?.infNFe?.ide?.tpEmis == TipoEmissao.teOffLine && _nfeProc == null;
-    }
-
-    private bool DeveExibirDadosProtocolo()
-    {
-        return _nfeProc?.protNFe?.infProt != null && !DeveExibirMensagemContingencia();
     }
 
     private string ObtemDescricao(FormaPagamento? formaPagamento)

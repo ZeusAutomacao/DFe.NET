@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace NFe.Classes.Informacoes.Agropecuario
+﻿namespace NFe.Classes.Informacoes.Agropecuario
 {
     public class agropecuario
     {
@@ -10,34 +7,34 @@ namespace NFe.Classes.Informacoes.Agropecuario
         #nullable enable
 
         /// <summary>
-        /// ZF02 - Defensivos Agrícolas
+        /// ZF02 - serieGuia
         /// </summary>
-        [XmlElement("defensivo")]
-        public List<defensivo>? defensivo { get; set; }
+        public defensivo? defensivo { get; set; }
 
         /// <summary>
         /// ZF04 - Guia de Trânsito
         /// </summary>
-        [XmlElement("guiaTransito")]
         public guiaTransito? guiaTransito { get; set; }
         
         #nullable disable
 
+        public bool ShouldSerializedefensivo()
+        {
+            return defensivo != null;
+        }
         public bool ShouldSerializeguiaTransito()
         {
             return guiaTransito != null;
         }
 #else
         /// <summary>
-        /// ZF02 - Defensivos Agrícolas
+        /// ZF02 - serieGuia
         /// </summary>
-        [XmlElement("defensivo")]
-        public List<defensivo> defensivo { get; set; }
+        public defensivo defensivo { get; set; }
 
         /// <summary>
         /// ZF04 - Guia de Trânsito
         /// </summary>
-        [XmlElement("guiaTransito")]
         public guiaTransito guiaTransito { get; set; }
 #endif
     }
