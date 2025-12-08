@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,99 +31,37 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Classes;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class ICMSUFFim
+    public class gCredPresOper
     {
-        private decimal _vBcufFim;
-        private decimal _pFcpufFim;
-        private decimal _pIcmsufFim;
-        private decimal _pIcmsInter;
-        private decimal? _pIcmsInterPart;
-        private decimal? _pIcmsRel;
-        private decimal _vFcpufFim;
-        private decimal _vIcmsufFim;
-        private decimal? _vIcmsRel;
-        private decimal _vIcmsufIni;
-
-        public decimal vBCUFFim
+        private decimal _vBCCredPres;
+        
+        /// <summary>
+        /// UB121 - Valor da Base de Cálculo do Crédito Presumido da Operação
+        /// </summary>
+        public decimal vBCCredPres
         {
-            get { return _vBcufFim.Arredondar(2); }
-            set { _vBcufFim = value.Arredondar(2); }
+            get => _vBCCredPres.Arredondar(2);
+            set => _vBCCredPres = value;
         }
 
-        public decimal pFCPUFFim
-        {
-            get { return _pFcpufFim.Arredondar(2); }
-            set { _pFcpufFim = value.Arredondar(2); }
-        }
-
-        public decimal pICMSUFFim
-        {
-            get { return _pIcmsufFim.Arredondar(2); }
-            set { _pIcmsufFim = value.Arredondar(2); }
-        }
-
-        public decimal pICMSInter
-        {
-            get { return _pIcmsInter.Arredondar(2); }
-            set { _pIcmsInter = value.Arredondar(2); }
-        }
-
-        public decimal? pICMSInterPart
-        {
-            get { return _pIcmsInterPart.Arredondar(2); }
-            set { _pIcmsInterPart = value.Arredondar(2); }
-        }
-
-        public bool pICMSInterPartSpecified
-        {
-            get
-            {
-                return this._pIcmsInterPart.HasValue;
-            }
-        }
-
-        public decimal? pICMSRel
-        {
-            get { return _pIcmsRel.Arredondar(2); }
-            set { _pIcmsRel = value.Arredondar(2); }
-        }
-
-        public bool pICMSRelSpecified
-        {
-            get { return _pIcmsRel.HasValue; }
-        }
-
-        public decimal vFCPUFFim
-        {
-            get { return _vFcpufFim.Arredondar(2); }
-            set { _vFcpufFim = value.Arredondar(2); }
-        }
-
-        public decimal vICMSUFFim
-        {
-            get { return _vIcmsufFim.Arredondar(2); }
-            set { _vIcmsufFim = value.Arredondar(2); }
-        }
-
-        public decimal? vICMSRel
-        {
-            get { return _vIcmsRel.Arredondar(2); }
-            set { _vIcmsRel = value.Arredondar(2); }
-        }
-
-        public bool vICMSRelSpecified
-        {
-            get { return _vIcmsRel.HasValue; }
-        }
-
-        public decimal vICMSUFIni
-        {
-            get { return _vIcmsufIni.Arredondar(2); }
-            set { _vIcmsufIni = value.Arredondar(2); }
-        }
+        /// <summary>
+        /// UB122 - Código de Classificação do Crédito Presumido
+        /// </summary>
+        public string cCredPres { get; set; }
+        
+        /// <summary>
+        /// UB123 - Grupo de Informações do Crédito Presumido referente ao IBS
+        /// </summary>
+        public gIBSCredPres gIBSCredPres { get; set; }
+        
+        /// <summary>
+        /// UB127 - Grupo de Informações do Crédito Presumido referente a CBS
+        /// </summary>
+        public gCBSCredPres gCBSCredPres { get; set; }
     }
 }

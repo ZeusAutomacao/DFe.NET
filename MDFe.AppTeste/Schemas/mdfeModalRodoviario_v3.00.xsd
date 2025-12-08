@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<!-- edited with XMLSpy v2014 rel. 2 (http://www.altova.com) by private (private) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
 	<xs:simpleType name="TRNTRC">
 		<xs:annotation>
 			<xs:documentation>Tipo RNTRC - Registro Nacional Transportadores Rodoviários de Carga</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="xs:string">
+		<xs:restriction base="TString">
 			<xs:whiteSpace value="preserve"/>
 			<xs:pattern value="[0-9]{8}"/>
 		</xs:restriction>
@@ -15,7 +15,7 @@
 		<xs:annotation>
 			<xs:documentation>Tipo CIOT - Código Identificador da Operação de Transporte</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="xs:string">
+		<xs:restriction base="TString">
 			<xs:whiteSpace value="preserve"/>
 			<xs:pattern value="[0-9]{12}"/>
 		</xs:restriction>
@@ -45,7 +45,7 @@
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="CIOT">
+										<xs:element name="CIOT" minOccurs="0">
 											<xs:annotation>
 												<xs:documentation>Código Identificador da Operação de Transporte</xs:documentation>
 												<xs:documentation>Também Conhecido como conta frete</xs:documentation>
@@ -109,10 +109,9 @@
 															</xs:annotation>
 														</xs:element>
 													</xs:choice>
-													<xs:element name="nCompra">
+													<xs:element name="nCompra" minOccurs="0">
 														<xs:annotation>
-															<xs:documentation>Número do comprovante de compra</xs:documentation>
-															<xs:documentation>Número de ordem do comprovante de compra do Vale-Pedágio fornecido para cada veículo ou combinação veicular, por viagem.</xs:documentation>
+															<xs:documentation>Identificador do vale pedagio obrigatório - IDVPO</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="xs:string">
@@ -123,11 +122,57 @@
 													<xs:element name="vValePed" type="TDec_1302">
 														<xs:annotation>
 															<xs:documentation>Valor do Vale-Pedagio</xs:documentation>
-															<xs:documentation>Número de ordem do comprovante de compra do Vale-Pedágio fornecido para cada veículo ou combinação veicular, por viagem.</xs:documentation>
+															<xs:documentation>Valor do Vale-Pedágio obrigatório necessário à livre circulação, desde a origem da operação de transporte até o destino, do transportador contratado. </xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="tpValePed" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Tipo do Vale Pedagio</xs:documentation>
+															<xs:documentation>
+01 - TAG; 04 - Leitura de placa (pela placa de identificação veicular)</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:whiteSpace value="preserve"/>
+																<xs:enumeration value="01"/>
+																<xs:enumeration value="04"/>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
+										</xs:element>
+										<xs:element name="categCombVeic" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Categoria de Combinação Veicular</xs:documentation>
+												<xs:documentation>Preencher com:
+
+02 Veículo Comercial 2 eixos;0
+4 Veículo Comercial 3 eixos;
+06 Veículo Comercial 4 eixos;0
+7 Veículo Comercial 5 eixos; 0
+8 Veículo Comercial 6 eixos;
+10 Veículo Comercial 7 eixos;
+11 Veículo Comercial 8 eixos;
+12 Veículo Comercial 9 eixos;
+13 Veículo Comercial 10 eixos;
+14 Veículo Comercial Acima de 10 eixos;</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:whiteSpace value="preserve"/>
+													<xs:enumeration value="02"/>
+													<xs:enumeration value="04"/>
+													<xs:enumeration value="06"/>
+													<xs:enumeration value="07"/>
+													<xs:enumeration value="08"/>
+													<xs:enumeration value="10"/>
+													<xs:enumeration value="11"/>
+													<xs:enumeration value="12"/>
+													<xs:enumeration value="13"/>
+													<xs:enumeration value="14"/>
+												</xs:restriction>
+											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
@@ -152,7 +197,7 @@
 										<xs:choice>
 											<xs:element name="CPF" type="TCpf">
 												<xs:annotation>
-													<xs:documentation>Número do CPF do contratente do serviço</xs:documentation>
+													<xs:documentation>Número do CPF do contratante do serviço</xs:documentation>
 													<xs:documentation>Informar os zeros não significativos.</xs:documentation>
 												</xs:annotation>
 											</xs:element>
@@ -171,17 +216,43 @@
 														<xs:whiteSpace value="preserve"/>
 														<xs:minLength value="2"/>
 														<xs:maxLength value="20"/>
-														<xs:pattern value="([!-ÿ]{0}|[!-ÿ]{5,20})?"/>
+														<xs:pattern value="([!-ÿ]{0}|[!-ÿ]{2,20})?"/>
 													</xs:restriction>
 												</xs:simpleType>
 											</xs:element>
 										</xs:choice>
+										<xs:element name="infContrato" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Grupo de informações do contrato entre transportador e contratante</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="NroContrato">
+														<xs:annotation>
+															<xs:documentation>Número do contrato do transportador com o contratante quando este existir para prestações continuadas</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:minLength value="2"/>
+																<xs:maxLength value="20"/>
+																<xs:whiteSpace value="preserve"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="vContratoGlobal" type="TDec_1302Opc">
+														<xs:annotation>
+															<xs:documentation>Valor global do contrato</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="infPag" minOccurs="0" maxOccurs="unbounded">
 								<xs:annotation>
-									<xs:documentation>Informações do Pagamento do Frete</xs:documentation>
+									<xs:documentation>Informações do Pagamento do Contrato</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
@@ -225,7 +296,7 @@
 										</xs:choice>
 										<xs:element name="Comp" maxOccurs="unbounded">
 											<xs:annotation>
-												<xs:documentation>Componentes do Pagamentoi do Frete</xs:documentation>
+												<xs:documentation>Componentes do Pagamentoi do Contrato</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
@@ -233,10 +304,12 @@
 														<xs:annotation>
 															<xs:documentation>Tipo do Componente</xs:documentation>
 															<xs:documentation>
+Preencher com: 
 01 - Vale Pedágio; 
 02 - Impostos, taxas e contribuições; 
-03 - Despesas (bancárias, meios de pagamento, outras)
-; 99 - Outros</xs:documentation>
+03 - Despesas (bancárias, meios de pagamento, outras);
+04 - Frete
+99 - Outros</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="xs:string">
@@ -244,6 +317,7 @@
 																<xs:enumeration value="01"/>
 																<xs:enumeration value="02"/>
 																<xs:enumeration value="03"/>
+																<xs:enumeration value="04"/>
 																<xs:enumeration value="99"/>
 															</xs:restriction>
 														</xs:simpleType>
@@ -272,6 +346,19 @@
 												<xs:documentation>Valor Total do Contrato</xs:documentation>
 											</xs:annotation>
 										</xs:element>
+										<xs:element name="indAltoDesemp" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicador de operação de transporte de alto desempenho</xs:documentation>
+												<xs:documentation>Operação de transporte com utilização de veículos de frotas dedicadas ou fidelizadas.
+Preencher com “1” para indicar operação de transporte de alto desempenho, demais casos não informar a tag
+</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
 										<xs:element name="indPag">
 											<xs:annotation>
 												<xs:documentation>Indicador da Forma de Pagamento:0-Pagamento à Vista;1-Pagamento à Prazo;</xs:documentation>
@@ -284,6 +371,22 @@
 												</xs:restriction>
 											</xs:simpleType>
 										</xs:element>
+										<xs:element name="vAdiant" type="TDec_1302" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Valor do Adiantamento (usar apenas em pagamento à Prazo</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="indAntecipaAdiant" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicador para declarar concordância em antecipar o adiantamento</xs:documentation>
+												<xs:documentation>Informar a tag somente se for autorizado antecipar o adiantamento</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
 										<xs:element name="infPrazo" minOccurs="0" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation>Informações do pagamento a prazo. </xs:documentation>
@@ -291,7 +394,7 @@
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="nParcela" minOccurs="0">
+													<xs:element name="nParcela">
 														<xs:annotation>
 															<xs:documentation>Número da Parcela</xs:documentation>
 														</xs:annotation>
@@ -302,7 +405,7 @@
 															</xs:restriction>
 														</xs:simpleType>
 													</xs:element>
-													<xs:element name="dVenc" type="TData" minOccurs="0">
+													<xs:element name="dVenc" type="TData">
 														<xs:annotation>
 															<xs:documentation>Data de vencimento da Parcela (AAAA-MM-DD)</xs:documentation>
 														</xs:annotation>
@@ -314,6 +417,23 @@
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
+										</xs:element>
+										<xs:element name="tpAntecip" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Tipo de Permissão em relação a antecipação das parcelas</xs:documentation>
+												<xs:documentation>0 - Não permite antecipar
+
+1 - Permite antecipar as parcelas
+
+2 - Permite antecipar as parcelas mediante confirmação</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="0"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
 										</xs:element>
 										<xs:element name="infBanc">
 											<xs:annotation>
@@ -350,6 +470,19 @@
 															<xs:documentation>Número do CNPJ da Instituição de Pagamento Eletrônico do Frete</xs:documentation>
 															<xs:documentation>Informar os zeros não significativos.</xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="PIX">
+														<xs:annotation>
+															<xs:documentation>Chave PIX </xs:documentation>
+															<xs:documentation>Informar a chave PIX para recebimento do frete. 
+Pode ser email, CPF/ CNPJ (somente numeros), Telefone com a seguinte formatação (+5599999999999) ou a chave aleatória gerada pela instituição.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="TString">
+																<xs:maxLength value="60"/>
+																<xs:minLength value="2"/>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:element>
 												</xs:choice>
 											</xs:complexType>
@@ -431,7 +564,7 @@
 							</xs:element>
 							<xs:element name="prop" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Proprietários do Veículo.
+									<xs:documentation>Proprietário ou possuidor do Veículo.
 Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
@@ -484,7 +617,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 										</xs:sequence>
 										<xs:element name="tpProp">
 											<xs:annotation>
-												<xs:documentation>Tipo Proprietário</xs:documentation>
+												<xs:documentation>Tipo Proprietário ou possuidor</xs:documentation>
 												<xs:documentation>Preencher com:
 												0-TAC Agregado;
 												1-TAC Independente; 
@@ -573,7 +706,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="UF" type="TUf">
+							<xs:element name="UF" type="TUf" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>UF em que veículo está licenciado</xs:documentation>
 									<xs:documentation>Sigla da UF de licenciamento do veículo.</xs:documentation>
@@ -654,7 +787,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 							</xs:element>
 							<xs:element name="prop" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Proprietários do Veículo.
+									<xs:documentation>Proprietários ou possuidor do Veículo.
 Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
@@ -707,7 +840,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 										</xs:sequence>
 										<xs:element name="tpProp">
 											<xs:annotation>
-												<xs:documentation>Tipo Proprietário</xs:documentation>
+												<xs:documentation>Tipo Proprietário ou possuidor</xs:documentation>
 												<xs:documentation>Preencher com:
 												0-TAC Agregado;
 												1-TAC Independente;  
@@ -748,7 +881,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="UF" type="TUf">
+							<xs:element name="UF" type="TUf" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>UF em que veículo está licenciado</xs:documentation>
 									<xs:documentation>Sigla da UF de licenciamento do veículo.</xs:documentation>

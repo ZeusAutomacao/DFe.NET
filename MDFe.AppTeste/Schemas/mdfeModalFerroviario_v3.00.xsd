@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
 	<xs:element name="ferrov">
@@ -126,11 +127,14 @@
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="TU" type="TDec_0303">
+							<xs:element name="TU">
 								<xs:annotation>
 									<xs:documentation>Tonelada Útil</xs:documentation>
 									<xs:documentation>Unidade de peso referente à carga útil (apenas o peso da carga transportada), expressa em toneladas.</xs:documentation>
 								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TDec_0302_0303"/>
+								</xs:simpleType>
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>

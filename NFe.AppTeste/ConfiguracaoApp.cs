@@ -42,7 +42,6 @@ using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
 using NFe.Utils;
 using NFe.Utils.Email;
-using Shared.NFe.Utils.Enderecos.NovasUrlsCeara;
 
 namespace NFe.AppTeste
 {
@@ -84,6 +83,8 @@ namespace NFe.AppTeste
         public ConfiguracaoCsc ConfiguracaoCsc { get; set; }
         public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
 
+        public bool EnviarTributacaoIbsCbsIs { get; set; }
+        
         /// <summary>
         ///     Salva os dados de CfgServico em um arquivo XML
         /// </summary>

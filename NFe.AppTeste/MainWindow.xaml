@@ -302,6 +302,14 @@
                                               VerticalAlignment="Top" Width="178"
                                               IsChecked="{Binding CfgServico.RemoverAcentos}"/>
                                 </StackPanel>
+                                
+                                <StackPanel Margin="10,10,0,0">
+                                    <CheckBox Name="CbxEnviarTributacaoDaReforma" Content="Enviar tributação IBS/CBS e IS"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top" Width="178"
+                                              Click="CbxEnviarTributacaoDaReforma_OnClick"
+                                    />
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>

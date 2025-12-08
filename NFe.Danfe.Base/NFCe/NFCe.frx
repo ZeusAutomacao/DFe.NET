@@ -16,7 +16,7 @@ using FastReport.Utils;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Utils;
 using DFe.Utils;
-using NFe.Classes.Informacoes.Destinatario;  
+using NFe.Classes.Informacoes.Destinatario;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.Classes.Flags;
 using NFe.Danfe.Base;
@@ -28,13 +28,13 @@ namespace FastReport
 {
   public class ReportScript
   {
-    
+
     private void txtDescPagto_BeforePrint(object sender, EventArgs e)
     {
       if(Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;) != null)
-        txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();                            
+        txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();
     }
-    
+
     private void txtDescDetPagto_BeforePrint(object sender, EventArgs e)
     {
       if(Report.GetDataSource(&quot;NFCe.NFe.infNFe.pag.detPag&quot;).RowCount != 0 &amp;&amp; Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.detPag.tPag&quot;) != null)
@@ -43,75 +43,75 @@ namespace FastReport
 
     private void txtEmitCnpj_BeforePrint(object sender, EventArgs e)
     {
-      var cnpj = (string)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.emit.CNPJ&quot;); 
+      var cnpj = (string)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.emit.CNPJ&quot;);
       if (!string.IsNullOrEmpty(cnpj))
         txtEmitCnpj.Text = &quot;CNPJ: &quot; + String.Format(@&quot;{0:00\.000\.000\/0000\-00}&quot;, long.Parse(cnpj));
     }
 
     private void memChaveNfe_BeforePrint(object sender, EventArgs e)
-    {       
+    {
       var chave = Substring( ((String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.Id&quot;)), 3);
       if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
       {
         var chaveFormatada = &quot;&quot;;
-        for (int i = 0; i &lt; chave.Length; i += 4)  
-          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
-        memChaveNfe.Text = chaveFormatada;      
-      }                                               
+        for (int i = 0; i &lt; chave.Length; i += 4)
+          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;
+        memChaveNfe.Text = chaveFormatada;
+      }
     }
 
     private void Destinatario_BeforePrint(object sender, EventArgs e)
-    {    
+    {
       TrataCamposDestinatario();
       dbDestinatario.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);
     }
-    
+
     private void TrataCamposDestinatario(){
       if ( ((dest)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest&quot;)) == null ) //Destinatário não informado
       {
         txtConsumidor.Text = &quot;CONSUMIDOR NÃO IDENTIFICADO&quot;;
-        txtConsumidor2.Text = txtConsumidor.Text;        
+        txtConsumidor2.Text = txtConsumidor.Text;
         txtDestEndereco.Text = &quot;&quot;;
         txtDestEndereco2.Text = txtDestEndereco.Text;
         txtDestNome.Text = &quot;&quot;;
         txtDestNome2.Text = txtDestNome.Text;
       }
       else
-      {                                                
+      {
         txtDestNome.Text = ObterDocumentoDest() + ((String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.xNome&quot;));
         txtDestNome2.Text = txtDestNome.Text;
-      }   
+      }
       //Endereço do destinatário é opcional para NFCe
-      txtDestEndereco.Visible = ((enderDest)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.enderDest&quot;)) != null;      
+      txtDestEndereco.Visible = ((enderDest)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.enderDest&quot;)) != null;
       txtDestEndereco2.Visible = txtDestEndereco.Visible;
     }
-    
+
     private string ObterDocumentoDest(){
       var documentoDest = &quot;&quot;;
       var cnpj = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.CNPJ&quot;);
       var cpf = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.CPF&quot;);
       var idEstrangeiro = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.idEstrangeiro&quot;);
-      if ( !String.IsNullOrEmpty(cnpj)) documentoDest = &quot;CNPJ: &quot; + String.Format(@&quot;{0:00\.000\.000\/0000\-00}&quot;, long.Parse(cnpj)) + &quot; &quot;;	 
-      if ( !String.IsNullOrEmpty(cpf)) documentoDest = &quot;CPF: &quot; + String.Format(@&quot;{0:000\.000\.000\-00}&quot;, long.Parse(cpf)) + &quot; &quot;;	 	  
-      if ( !String.IsNullOrEmpty(idEstrangeiro)) documentoDest = &quot;Id. Estrangeiro: &quot; + idEstrangeiro + &quot; &quot;;	 
+      if ( !String.IsNullOrEmpty(cnpj)) documentoDest = &quot;CNPJ: &quot; + String.Format(@&quot;{0:00\.000\.000\/0000\-00}&quot;, long.Parse(cnpj)) + &quot; &quot;;
+      if ( !String.IsNullOrEmpty(cpf)) documentoDest = &quot;CPF: &quot; + String.Format(@&quot;{0:000\.000\.000\-00}&quot;, long.Parse(cpf)) + &quot; &quot;;
+      if ( !String.IsNullOrEmpty(idEstrangeiro)) documentoDest = &quot;Id. Estrangeiro: &quot; + idEstrangeiro + &quot; &quot;;
       return documentoDest;
     }
 
     private void dbProdutosUmaLinha_BeforePrint(object sender, EventArgs e)
     {
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8. &quot;No caso de emissão em contingência, é obrigatória a impressão do Detalhe da Venda e do DANFE NFC-e&quot;
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal ) 
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal )
         dbProdutosUmaLinha.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.UmaLinha;
       else
         dbProdutosUmaLinha.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.UmaLinha;
-      
+
       //Mostrar/Ocultar desconto concedido no item
       txtProdutoUmaLinhaValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoUmaLinhaValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosUmaLinha.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosUmaLinha.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
-        ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0;      
-      cbDescontoItemUmaLinha.Visible = imprimeDesconto;  
+        ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0;
+      cbDescontoItemUmaLinha.Visible = imprimeDesconto;
       if (imprimeDesconto)
         dbProdutosUmaLinha.Border.Lines = BorderLines.None;
     }
@@ -119,45 +119,45 @@ namespace FastReport
     private void ghbProdutosDuasLinhas_BeforePrint(object sender, EventArgs e)
     {
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8. &quot;No caso de emissão em contingência, é obrigatória a impressão do Detalhe da Venda e do DANFE NFC-e&quot;
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal ) 
-        ghbProdutosDuasLinhas.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.DuasLinhas || 
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal )
+        ghbProdutosDuasLinhas.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.DuasLinhas ||
                                         ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.Completo;
       else
-        ghbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas || 
+        ghbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas ||
                                         ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.Completo;
     }
-    
+
     private void dbProdutosDuasLinhas_BeforePrint(object sender, EventArgs e)
     {
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8. &quot;No caso de emissão em contingência, é obrigatória a impressão do Detalhe da Venda e do DANFE NFC-e&quot;
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal ) 
-        dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.DuasLinhas || 
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal )
+        dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.DuasLinhas ||
                                        ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.Completo;
       else
-        dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas || 
-                                       ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.Completo;  ;  
-      
+        dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas ||
+                                       ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.Completo;  ;
+
       //Mostrar/Ocultar desconto concedido no item
       txtProdutoDuasLinhasValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoDuasLinhasValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosDuasLinhas.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosDuasLinhas.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
-        ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0;      
-      cbDescontoItemDuasLinhas.Visible = imprimeDesconto;                                      
+        ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0;
+      cbDescontoItemDuasLinhas.Visible = imprimeDesconto;
       if (imprimeDesconto)
-        dbProdutosDuasLinhas.Border.Lines = BorderLines.None;    
+        dbProdutosDuasLinhas.Border.Lines = BorderLines.None;
       //Se possuir desconto, e estiver configurado para não exibi-lo, exibe os valores líquidos nos campos abaixo:
-      if (((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0 &amp; !imprimeDesconto)  
+      if (((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0 &amp; !imprimeDesconto)
       {
         txtProdutoDuasLinhasValorUnit.Text = &quot;[([NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc]) / [NFCe.NFe.infNFe.det.prod.qCom]]&quot;;
-        txtProdutoDuasLinhasValorTotal.Text = &quot;[[NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc]]&quot;;        
+        txtProdutoDuasLinhasValorTotal.Text = &quot;[[NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc]]&quot;;
       }
-    }  
+    }
 
     private void ghbProdutosUmaLinha_BeforePrint(object sender, EventArgs e)
     {
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8. &quot;No caso de emissão em contingência, é obrigatória a impressão do Detalhe da Venda e do DANFE NFC-e&quot;
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal ) 
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal )
         ghbProdutosUmaLinha.Visible = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.UmaLinha;
       else
         ghbProdutosUmaLinha.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.UmaLinha;
@@ -171,8 +171,8 @@ namespace FastReport
       string msgContigencia = &quot;&quot;;
       if ( ((TipoAmbiente)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpAmb&quot;)) == TipoAmbiente.Homologacao )
         msgHomologacao = &quot;EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO – SEM VALOR FISCAL&quot; + Environment.NewLine;
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) != TipoEmissao.teNormal ) 
-        msgContigencia = &quot;EMITIDA EM CONTINGÊNCIA&quot; + Environment.NewLine;      
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) != TipoEmissao.teNormal )
+        msgContigencia = &quot;EMITIDA EM CONTINGÊNCIA&quot; + Environment.NewLine;
 
       memMsgFiscal.Text = msgHomologacao + msgContigencia + memMsgFiscal.Text;
     }
@@ -186,41 +186,41 @@ namespace FastReport
     private void PgNfce_StartPage(object sender, EventArgs e)
     {
       phbCancelado.Visible = ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;));
-      
-      if (!Engine.FinalPass) 
-        return;       
+
+      if (!Engine.FinalPass)
+        return;
       if ( (NfceModoImpressao) ((Int32)Report.GetParameterValue(&quot;NfceModoImpressao&quot;)) != NfceModoImpressao.UnicaPagina)
-        return;        
-        
-      PgNfce.PaperHeight = 
-        (rtbEmitLogoHeight + 
-         phbEmitenteHeight + 
+        return;
+
+      PgNfce.PaperHeight =
+        (rtbEmitLogoHeight +
+         phbEmitenteHeight +
          ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;) ? phbCancelado.Height : 0)+
-         ghbProdutosUmaLinhaHeight + 
-         dbProdutosUmaLinhaHeight + 
-         ghbProdutosDuasLinhasHeight + 
-         dbProdutosDuasLinhasHeight + 
+         ghbProdutosUmaLinhaHeight +
+         dbProdutosUmaLinhaHeight +
+         ghbProdutosDuasLinhasHeight +
+         dbProdutosDuasLinhasHeight +
          gfbProdutosHeight +
-         dbPagamentoHeight + 
+         dbPagamentoHeight +
          dbDetPagamentoHeight +
-         dbTributosHeight + 
-         dbObservacaoHeight + 
-         dbInfoFiscalHeight + 
+         dbTributosHeight +
+         dbObservacaoHeight +
+         dbInfoFiscalHeight +
          dbNumeroSerieDhHeight +
          dbConsultaHeight +
-         dbDestinatarioHeight + 
+         dbDestinatarioHeight +
          dbQrCodeNormalHeight +
          dbQrCodeLateralHeight +
          dbProtocoloHeigth
         ) /
-        Units.Millimeters + PgNfce.TopMargin + PgNfce.BottomMargin; 
+        Units.Millimeters + PgNfce.TopMargin + PgNfce.BottomMargin;
 
     }
 
     float dbProdutosUmaLinhaHeight;
     private void dbProdutosUmaLinha_AfterPrint(object sender, EventArgs e)
     {
-      dbProdutosUmaLinhaHeight += (dbProdutosUmaLinha.Visible ? dbProdutosUmaLinha.Height : 0) + (cbDescontoItemUmaLinha.Visible ? cbDescontoItemUmaLinha.Height : 0);      
+      dbProdutosUmaLinhaHeight += (dbProdutosUmaLinha.Visible ? dbProdutosUmaLinha.Height : 0) + (cbDescontoItemUmaLinha.Visible ? cbDescontoItemUmaLinha.Height : 0);
     }
 
     float dbProdutosDuasLinhasHeight;
@@ -234,13 +234,13 @@ namespace FastReport
     {
       dbInfoFiscalHeight = (dbInfoFiscal.Visible ? dbInfoFiscal.Height : 0);
     }
-    
+
     float dbNumeroSerieDhHeight;
     private void dbNumeroSerieDh_AfterPrint(object sender, EventArgs e)
     {
       dbNumeroSerieDhHeight = (dbNumeroSerieDh.Visible ? dbNumeroSerieDh.Height : 0);
     }
-    
+
     float dbConsultaHeight;
     private void dbConsulta_AfterPrint(object sender, EventArgs e)
     {
@@ -274,15 +274,15 @@ namespace FastReport
     float gfbProdutosHeight;
     private void gfbProdutos_AfterPrint(object sender, EventArgs e)
     {
-      gfbProdutosHeight = (gfbProdutos.Visible ? gfbProdutos.Height : 0);      
+      gfbProdutosHeight = (gfbProdutos.Visible ? gfbProdutos.Height : 0);
     }
 
     float dbPagamentoHeight;
     private void dbPagamento_AfterPrint(object sender, EventArgs e)
     {
-      dbPagamentoHeight = (dbPagamento.Visible ? dbPagamento.Height : 0);       
+      dbPagamentoHeight = (dbPagamento.Visible ? dbPagamento.Height : 0);
     }
-    
+
     float dbDetPagamentoHeight;
     private void dbDetPagamento_AfterPrint(object sender, EventArgs e)
     {
@@ -316,12 +316,12 @@ namespace FastReport
     private void cbDesconto_BeforePrint(object sender, EventArgs e)
     {
       cbDesconto.Visible = ((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vDesc&quot;)) &gt; 0;
-    }    
+    }
 
     private void txtValorTotal_BeforePrint(object sender, EventArgs e)
     {
       var vServ = ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;)) == null ? 0 : ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;));
-      txtValorTotal.Text = (((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vProd&quot;)) + vServ).ToString();      
+      txtValorTotal.Text = (((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vProd&quot;)) + vServ).ToString();
     }
 
     private void dbPagamento_BeforePrint(object sender, EventArgs e)
@@ -333,7 +333,7 @@ namespace FastReport
     {
       dbDetPagamento.Visible = Report.GetDataSource(&quot;NFCe.NFe.infNFe.pag.detPag&quot;).RowCount != 0 &amp;&amp; Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.detPag.tPag&quot;) != null;
     }
-	
+
 	private void dbTroco_BeforePrint(object sender, EventArgs e)
     {
       dbTroco.Visible = Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.vTroco&quot;) != null;
@@ -343,7 +343,7 @@ namespace FastReport
     private void dbQrCodeLateral_BeforePrint(object sender, EventArgs e)
     {
       TrataCamposDestinatario();
-      dbQrCodeLateral.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Lateral);        
+      dbQrCodeLateral.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Lateral);
     }
 
     float dbQrCodeLateralHeight;
@@ -355,7 +355,7 @@ namespace FastReport
     float dbProtocoloHeigth;
     private void dbProtocolo_AfterPrint(object sender, EventArgs e)
     {
-      dbProtocoloHeigth = (dbProtocolo.Visible ? dbProtocolo.Height : 0);      
+      dbProtocoloHeigth = (dbProtocolo.Visible ? dbProtocolo.Height : 0);
     }
 
     private void dbQrCodeNormal_BeforePrint(object sender, EventArgs e)
@@ -370,19 +370,19 @@ namespace FastReport
 
     private void dbNumeroSerieDh_BeforePrint(object sender, EventArgs e)
     {
-      dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);      
+      dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);
     }
 
     private void txtProdutoDuasLinhasDescricaoProduto_BeforePrint(object sender, EventArgs e)
     {
       bool nfceDetalheVendaNormalCompleto = ((NfceDetalheVendaNormal)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaNormal&quot;))) == NfceDetalheVendaNormal.Completo;
       bool nfceDetalheVendaContingenciaCompleto = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.Completo;
-      
-      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal ) 
+
+      if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) == TipoEmissao.teNormal )
         txtProdutoDuasLinhasDescricaoProduto.WordWrap = nfceDetalheVendaNormalCompleto;
       else
-        txtProdutoDuasLinhasDescricaoProduto.WordWrap = nfceDetalheVendaContingenciaCompleto;                     
-      
+        txtProdutoDuasLinhasDescricaoProduto.WordWrap = nfceDetalheVendaContingenciaCompleto;
+
       if (nfceDetalheVendaNormalCompleto || nfceDetalheVendaContingenciaCompleto)
         txtProdutoDuasLinhasDescricaoProduto.LineHeight = txtProdutoDuasLinhasDescricaoProduto.Height; // Ajuste de espaçamento entre linhas
     }
@@ -705,7 +705,7 @@ namespace FastReport
               <Column Name="vCOFINS" DataType="System.Decimal"/>
               <Column Name="vOutro" DataType="System.Decimal"/>
               <Column Name="vNF" DataType="System.Decimal"/>
-              <Column Name="vTotTrib" DataType="System.Decimal"/>
+              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vFCPUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFRemet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>

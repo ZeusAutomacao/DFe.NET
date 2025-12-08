@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,99 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Classes;
-
-namespace CTe.Classes.Informacoes.Impostos
+namespace NFe.Classes.Informacoes.Total.IbsCbs
 {
-    public class ICMSUFFim
+    public class gEstornoCredTotal
     {
-        private decimal _vBcufFim;
-        private decimal _pFcpufFim;
-        private decimal _pIcmsufFim;
-        private decimal _pIcmsInter;
-        private decimal? _pIcmsInterPart;
-        private decimal? _pIcmsRel;
-        private decimal _vFcpufFim;
-        private decimal _vIcmsufFim;
-        private decimal? _vIcmsRel;
-        private decimal _vIcmsufIni;
+        private decimal _vIBSEstCred;
+        private decimal _vCBSEstCred;
 
-        public decimal vBCUFFim
+        /// <summary>
+        /// W59F - Valor total do IBS estornado
+        /// </summary>
+        public decimal vIBSEstCred
         {
-            get { return _vBcufFim.Arredondar(2); }
-            set { _vBcufFim = value.Arredondar(2); }
+            get => _vIBSEstCred.Arredondar(2);
+            set => _vIBSEstCred = value;
         }
-
-        public decimal pFCPUFFim
+        
+        /// <summary>
+        /// W59G - Valor total do CBS estornado
+        /// </summary>
+        public decimal vCBSEstCred
         {
-            get { return _pFcpufFim.Arredondar(2); }
-            set { _pFcpufFim = value.Arredondar(2); }
-        }
-
-        public decimal pICMSUFFim
-        {
-            get { return _pIcmsufFim.Arredondar(2); }
-            set { _pIcmsufFim = value.Arredondar(2); }
-        }
-
-        public decimal pICMSInter
-        {
-            get { return _pIcmsInter.Arredondar(2); }
-            set { _pIcmsInter = value.Arredondar(2); }
-        }
-
-        public decimal? pICMSInterPart
-        {
-            get { return _pIcmsInterPart.Arredondar(2); }
-            set { _pIcmsInterPart = value.Arredondar(2); }
-        }
-
-        public bool pICMSInterPartSpecified
-        {
-            get
-            {
-                return this._pIcmsInterPart.HasValue;
-            }
-        }
-
-        public decimal? pICMSRel
-        {
-            get { return _pIcmsRel.Arredondar(2); }
-            set { _pIcmsRel = value.Arredondar(2); }
-        }
-
-        public bool pICMSRelSpecified
-        {
-            get { return _pIcmsRel.HasValue; }
-        }
-
-        public decimal vFCPUFFim
-        {
-            get { return _vFcpufFim.Arredondar(2); }
-            set { _vFcpufFim = value.Arredondar(2); }
-        }
-
-        public decimal vICMSUFFim
-        {
-            get { return _vIcmsufFim.Arredondar(2); }
-            set { _vIcmsufFim = value.Arredondar(2); }
-        }
-
-        public decimal? vICMSRel
-        {
-            get { return _vIcmsRel.Arredondar(2); }
-            set { _vIcmsRel = value.Arredondar(2); }
-        }
-
-        public bool vICMSRelSpecified
-        {
-            get { return _vIcmsRel.HasValue; }
-        }
-
-        public decimal vICMSUFIni
-        {
-            get { return _vIcmsufIni.Arredondar(2); }
-            set { _vIcmsufIni = value.Arredondar(2); }
+            get => _vCBSEstCred.Arredondar(2);
+            set => _vCBSEstCred = value;
         }
     }
 }

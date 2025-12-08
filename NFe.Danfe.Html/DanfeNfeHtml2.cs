@@ -576,9 +576,9 @@ namespace NFe.Danfe.Html
             list["[code]"] = produto.Codigo;
             list["[nome]"] = produto.Descricao.Truncar(120);
             list["[ncm]"] = produto.Ncm;
-            list["[cst]"] = produto.Cfop;
-            list["[cfop]"] = produto.Unidade;
-            list["[und]"] = produto.ValorUnitario.FormatarNumero();
+            list["[cst]"] = produto.Origem;
+            list["[cfop]"] = produto.Cfop;
+            list["[und]"] = produto.Unidade;
             list["[qtd]"] = produto.Quantidade.FormatarNumeroQuantidadeDanfe();
             list["[valorUnit]"] = produto.ValorUnitario.FormatarNumero();
             list["[valorTot]"] = produto.ValorTotal.FormatarNumero();

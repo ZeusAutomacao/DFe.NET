@@ -29,28 +29,28 @@ namespace FastReport
       {
         case 'c':  //CEP
           if (valor.Length == 8)
-            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);          
+            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);
           break;
-        case 'f':  //Telefone /celular         
+        case 'f':  //Telefone /celular
           if (valor.Length == 10)
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
           else if (valor.Length == 11)
-            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);          
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);
           break;
         case 'd': //cpf / cnpj
           if (valor.Length == 11)
             valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
           else if (valor.Length == 14)
             valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
-          break;   
+          break;
         case 'p':
           if (valor.Length == 7)
             valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
           break;
-      }                               
+      }
       return valor;
     }
-    
+
 
     private void Memo47_BeforePrint(object sender, EventArgs e)
     {
@@ -59,10 +59,10 @@ namespace FastReport
       try {
         var value = (DateTimeOffset)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;);
         Memo49.Text = value.Date.Month.ToString().PadLeft(2, '0')+&quot;/&quot;+value.Date.Year.ToString().PadLeft(4, '0');
-      } catch { 
+      } catch {
       throw new Exception("Erro - dhEmi em formato incorreto.");
       }
-      try { 
+      try {
         Memo53.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.dhEvento&quot;).ToString()).ToString();
       } catch{
         Memo53.Text=&quot;&quot;;
@@ -77,7 +77,7 @@ namespace FastReport
         Memo40.Text=&quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
         BandCondicoesUso.Visible=true;
       }
-      try { 
+      try {
         Memo60.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.retEvento.infEvento.dhRegEvento&quot;).ToString()).ToString();
       } catch{
         Memo60.Text=&quot;&quot;;
@@ -90,14 +90,14 @@ namespace FastReport
     private void memJustificativaCorrecao_BeforePrint(object sender, EventArgs e)
     {
 //      if (Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpEvento&quot;).ToString() == &quot;110111&quot;)
-//        
-//      TITULO_CONTEXTO := 'JUSTIFICATIVA';  
-//      TEXTO_EVENTO := &lt;Eventos.&quot;xJust&quot;&gt;;  
-//      end            
+//
+//      TITULO_CONTEXTO := 'JUSTIFICATIVA';
+//      TEXTO_EVENTO := &lt;Eventos.&quot;xJust&quot;&gt;;
+//      end
 //      else
-//      begin              
+//      begin
 //      TITULO_CONTEXTO := 'CORREÇÃO';
-//      TEXTO_EVENTO := &lt;Eventos.&quot;xCorrecao&quot;&gt;;    
+//      TEXTO_EVENTO := &lt;Eventos.&quot;xCorrecao&quot;&gt;;
 //      end;
     }
   }
@@ -475,7 +475,7 @@ namespace FastReport
               <Column Name="vCOFINS" DataType="System.Decimal"/>
               <Column Name="vOutro" DataType="System.Decimal"/>
               <Column Name="vNF" DataType="System.Decimal"/>
-              <Column Name="vTotTrib" DataType="System.Decimal"/>
+              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
               <Column Name="vFCPST" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>

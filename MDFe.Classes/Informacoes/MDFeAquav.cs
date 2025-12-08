@@ -110,11 +110,18 @@ namespace MDFe.Classes.Informacoes
         public List<MDFeInfEmbComb> InfEmbCombs { get; set; }
 
         /// <summary>
-        /// 1 - Informações das Undades de Carga vazias
+        /// 1 - Informações das Unidades de Carga vazias
         /// </summary>
         [XmlElement(ElementName = "infUnidCargaVazia")]
         public List<MDFeInfUnidCargaVazia> InfUnidCargaVazias { get; set; }
 
+        /// <summary>
+        /// 1 - Informações das Unidades de Transporte vazias
+        /// </summary>
         public List<infUnidTranspVazia> infUnidTranspVazia { get; set; }
-    }
+        
+        /// <summary>
+        /// 1 - Maritime Mobile Service Identify
+        /// </summary>
+        public string MMSI { get; set; }     }
 }
