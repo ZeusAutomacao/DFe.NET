@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,35 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Informacoes.Impostos.Tipos;
 using DFe.Classes;
 
 namespace CTe.Classes.Informacoes.Impostos
 {
-    public class imp
+    /// <summary>
+    /// Grupo da CBS (Contribuição sobre Bens e Serviços)
+    /// </summary>
+    public class CBS
     {
-        public Tributacao.ICMS ICMS { get; set; }
+        private decimal _vBcCbs;
+        private decimal _pCbs;
+        private decimal _vCbs;
 
-        private decimal? _vTotTrib;
+        /// <summary>
+        /// Código de Situação Tributária da CBS
+        /// </summary>
+        public CstIbsCbs CSTCBS { get; set; }
 
-        public decimal? vTotTrib
+        /// <summary>
+        /// Valor da Base de Cálculo da CBS
+        /// </summary>
+        public decimal vBCCBS
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get { return _vBcCbs.Arredondar(2); }
+            set { _vBcCbs = value.Arredondar(2); }
         }
 
-        public bool vTotTribSpecified
+        /// <summary>
+        /// Alíquota da CBS
+        /// </summary>
+        public decimal pCBS
         {
-            get { return vTotTrib.HasValue; }
+            get { return _pCbs.Arredondar(2); }
+            set { _pCbs = value.Arredondar(2); }
         }
 
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBS IBS { get; set; }
-
-        public CBS CBS { get; set; }
+        /// <summary>
+        /// Valor da CBS
+        /// </summary>
+        public decimal vCBS
+        {
+            get { return _vCbs.Arredondar(2); }
+            set { _vCbs = value.Arredondar(2); }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,35 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Informacoes.Impostos.Tipos;
 using DFe.Classes;
 
 namespace CTe.Classes.Informacoes.Impostos
 {
-    public class imp
+    /// <summary>
+    /// Grupo do IBS (Imposto sobre Bens e Serviços)
+    /// </summary>
+    public class IBS
     {
-        public Tributacao.ICMS ICMS { get; set; }
+        private decimal _vBcIbs;
+        private decimal _pIbs;
+        private decimal _vIbs;
 
-        private decimal? _vTotTrib;
+        /// <summary>
+        /// Código de Situação Tributária do IBS
+        /// </summary>
+        public CstIbsCbs CSTIBS { get; set; }
 
-        public decimal? vTotTrib
+        /// <summary>
+        /// Valor da Base de Cálculo do IBS
+        /// </summary>
+        public decimal vBCIBS
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get { return _vBcIbs.Arredondar(2); }
+            set { _vBcIbs = value.Arredondar(2); }
         }
 
-        public bool vTotTribSpecified
+        /// <summary>
+        /// Alíquota do IBS
+        /// </summary>
+        public decimal pIBS
         {
-            get { return vTotTrib.HasValue; }
+            get { return _pIbs.Arredondar(2); }
+            set { _pIbs = value.Arredondar(2); }
         }
 
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBS IBS { get; set; }
-
-        public CBS CBS { get; set; }
+        /// <summary>
+        /// Valor do IBS
+        /// </summary>
+        public decimal vIBS
+        {
+            get { return _vIbs.Arredondar(2); }
+            set { _vIbs = value.Arredondar(2); }
+        }
     }
 }
