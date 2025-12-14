@@ -1,12 +1,12 @@
-﻿using BarcodeStandard;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using BarcodeStandard;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Servicos.Consulta;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace NFe.Danfe.QuestPdf.ImpressaoEventoNfe;
 
@@ -651,6 +651,4 @@ public class EventoNfeDocument : IDocument
                 "Ei! Verifique se seu xml da Carta Correção não está correto, pois identificamos uma falha ao tentar carregar ele.");
         }
     }
-
-    DocumentSettings IDocument.GetSettings() => DocumentSettings.Default;
 }

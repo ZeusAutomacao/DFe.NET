@@ -39,7 +39,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal _vIbsUf;
         
         /// <summary>
-        ///     UB18 - Alíquota do IBS de competência das UF (em percentual)
+        ///     UB18 - Alíquota do IBS de competência das UF
         /// </summary>
         public decimal pIBSUF
         {

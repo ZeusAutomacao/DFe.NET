@@ -67,7 +67,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         }
         
         /// <summary>
-        ///     UB06 - Alíquota do Imposto Seletivo (em percentual)
+        ///     UB06 - Alíquota do Imposto Seletivo
         /// </summary>
         [XmlElement(Order = 4)]
         public decimal pIS
@@ -77,7 +77,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         }
 
         /// <summary>
-        ///     UB07 - Alíquota específica por unidade de medida apropriada (em percentual)
+        ///     UB07 - Alíquota específica por unidade de medida apropriada
         /// </summary>
         [XmlElement(Order = 5)]
         public decimal? pISEspec

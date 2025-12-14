@@ -301,7 +301,6 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
                 case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
-                case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega:
                     return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 

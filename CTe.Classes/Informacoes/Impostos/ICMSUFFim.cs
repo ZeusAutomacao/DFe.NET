@@ -42,8 +42,10 @@ namespace CTe.Classes.Informacoes.Impostos
         private decimal _pIcmsufFim;
         private decimal _pIcmsInter;
         private decimal? _pIcmsInterPart;
+        private decimal? _pIcmsRel;
         private decimal _vFcpufFim;
         private decimal _vIcmsufFim;
+        private decimal? _vIcmsRel;
         private decimal _vIcmsufIni;
         private decimal? _vIcmsRel;
         private decimal? _pIcmsRel;
@@ -95,6 +97,17 @@ namespace CTe.Classes.Informacoes.Impostos
             get { return _pIcmsRel.HasValue; }
         }
 
+        public decimal? pICMSRel
+        {
+            get { return _pIcmsRel.Arredondar(2); }
+            set { _pIcmsRel = value.Arredondar(2); }
+        }
+
+        public bool pICMSRelSpecified
+        {
+            get { return _pIcmsRel.HasValue; }
+        }
+
         public decimal vFCPUFFim
         {
             get { return _vFcpufFim.Arredondar(2); }
@@ -105,6 +118,17 @@ namespace CTe.Classes.Informacoes.Impostos
         {
             get { return _vIcmsufFim.Arredondar(2); }
             set { _vIcmsufFim = value.Arredondar(2); }
+        }
+
+        public decimal? vICMSRel
+        {
+            get { return _vIcmsRel.Arredondar(2); }
+            set { _vIcmsRel = value.Arredondar(2); }
+        }
+
+        public bool vICMSRelSpecified
+        {
+            get { return _vIcmsRel.HasValue; }
         }
 
         public decimal vICMSUFIni
