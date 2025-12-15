@@ -31,50 +31,74 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes.Informacoes.Impostos.Tipos;
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
     /// <summary>
-    /// Grupo do IBS (Imposto sobre Bens e Serviços)
+    /// Grupo de Informações da Composição do Valor do IBS e da CBS em Compras Governamentais
     /// </summary>
-    public class IBS
+    public class gTribCompraGov
     {
-        private decimal _vBcIbs;
-        private decimal _pIbs;
-        private decimal _vIbs;
+        private decimal _pAliqIBSUF;
+        private decimal _vTribIBSUF;
+        private decimal _pAliqIBSMun;
+        private decimal _vTribIBSMun;
+        private decimal _pAliqCBS;
+        private decimal _vTribCBS;
 
         /// <summary>
-        /// Código de Situação Tributária do IBS
+        /// Alíquota do IBS UF nas compras governamentais (em percentual)
         /// </summary>
-        public CstIbsCbs CSTIBS { get; set; }
-
-        /// <summary>
-        /// Valor da Base de Cálculo do IBS
-        /// </summary>
-        public decimal vBCIBS
+        public decimal pAliqIBSUF
         {
-            get { return _vBcIbs.Arredondar(2); }
-            set { _vBcIbs = value.Arredondar(2); }
+            get { return _pAliqIBSUF.Arredondar(2); }
+            set { _pAliqIBSUF = value.Arredondar(2); }
         }
 
         /// <summary>
-        /// Alíquota do IBS
+        /// Valor do tributo do IBS UF nas compras governamentais
         /// </summary>
-        public decimal pIBS
+        public decimal vTribIBSUF
         {
-            get { return _pIbs.Arredondar(2); }
-            set { _pIbs = value.Arredondar(2); }
+            get { return _vTribIBSUF.Arredondar(2); }
+            set { _vTribIBSUF = value.Arredondar(2); }
         }
 
         /// <summary>
-        /// Valor do IBS
+        /// Alíquota do IBS Município nas compras governamentais (em percentual)
         /// </summary>
-        public decimal vIBS
+        public decimal pAliqIBSMun
         {
-            get { return _vIbs.Arredondar(2); }
-            set { _vIbs = value.Arredondar(2); }
+            get { return _pAliqIBSMun.Arredondar(2); }
+            set { _pAliqIBSMun = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor do tributo do IBS Município nas compras governamentais
+        /// </summary>
+        public decimal vTribIBSMun
+        {
+            get { return _vTribIBSMun.Arredondar(2); }
+            set { _vTribIBSMun = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Alíquota da CBS nas compras governamentais (em percentual)
+        /// </summary>
+        public decimal pAliqCBS
+        {
+            get { return _pAliqCBS.Arredondar(2); }
+            set { _pAliqCBS = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor do tributo da CBS nas compras governamentais
+        /// </summary>
+        public decimal vTribCBS
+        {
+            get { return _vTribCBS.Arredondar(2); }
+            set { _vTribCBS = value.Arredondar(2); }
         }
     }
 }

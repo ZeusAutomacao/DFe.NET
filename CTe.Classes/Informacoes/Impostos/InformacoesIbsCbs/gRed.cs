@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,47 +33,32 @@
 
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações da Redução da Alíquota
+    /// </summary>
+    public class gRed
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pRedAliq;
+        private decimal _pAliqEfet;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Percentual de redução da alíquota (em percentual)
         /// </summary>
-        public decimal? vTotDFe
+        public decimal pRedAliq
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pRedAliq.Arredondar(2); }
+            set { _pRedAliq = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Percentual da alíquota efetiva (em percentual)
+        /// </summary>
+        public decimal pAliqEfet
         {
-            get { return vTotDFe.HasValue; }
+            get { return _pAliqEfet.Arredondar(2); }
+            set { _pAliqEfet = value.Arredondar(2); }
         }
     }
 }

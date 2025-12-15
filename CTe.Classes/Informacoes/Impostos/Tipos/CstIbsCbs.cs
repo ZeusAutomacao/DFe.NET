@@ -38,133 +38,57 @@ namespace CTe.Classes.Informacoes.Impostos.Tipos
 {
     /// <summary>
     /// Código de Situação Tributária do IBS/CBS
+    /// Conforme NT 2025.001 v1.07
     /// </summary>
     public enum CstIbsCbs
     {
         /// <summary>
-        /// 00 - Tributação integral
+        /// 200 - Tributação integral
         /// </summary>
-        [XmlEnum("00")]
+        [XmlEnum("200")]
         [Description("Tributação integral")]
-        Cst00 = 0,
+        Cst200 = 200,
 
         /// <summary>
-        /// 01 - Tributação com alíquotas uniformes
+        /// 210 - Tributação com alíquota uniforme
         /// </summary>
-        [XmlEnum("01")]
-        [Description("Tributação com alíquotas uniformes")]
-        Cst01 = 1,
+        [XmlEnum("210")]
+        [Description("Tributação com alíquota uniforme")]
+        Cst210 = 210,
 
         /// <summary>
-        /// 02 - Tributação com alíquotas uniformes reduzidas
+        /// 220 - Tributação com alíquota uniforme reduzida
         /// </summary>
-        [XmlEnum("02")]
-        [Description("Tributação com alíquotas uniformes reduzidas")]
-        Cst02 = 2,
+        [XmlEnum("220")]
+        [Description("Tributação com alíquota uniforme reduzida")]
+        Cst220 = 220,
 
         /// <summary>
-        /// 20 - Alíquota reduzida
+        /// 300 - Alíquota reduzida
         /// </summary>
-        [XmlEnum("20")]
+        [XmlEnum("300")]
         [Description("Alíquota reduzida")]
-        Cst20 = 20,
+        Cst300 = 300,
 
         /// <summary>
-        /// 22 - Alíquota fixa
+        /// 400 - Isenção
         /// </summary>
-        [XmlEnum("22")]
-        [Description("Alíquota fixa")]
-        Cst22 = 22,
-
-        /// <summary>
-        /// 23 - Alíquota fixa rateada
-        /// </summary>
-        [XmlEnum("23")]
-        [Description("Alíquota fixa rateada")]
-        Cst23 = 23,
-
-        /// <summary>
-        /// 24 - Redução de Base de Cálculo
-        /// </summary>
-        [XmlEnum("24")]
-        [Description("Redução de Base de Cálculo")]
-        Cst24 = 24,
-
-        /// <summary>
-        /// 40 - Isenção
-        /// </summary>
-        [XmlEnum("40")]
+        [XmlEnum("400")]
         [Description("Isenção")]
-        Cst40 = 40,
+        Cst400 = 400,
 
         /// <summary>
-        /// 41 - Imunidade / Não incidência
+        /// 410 - Imunidade / Não incidência
         /// </summary>
-        [XmlEnum("41")]
+        [XmlEnum("410")]
         [Description("Imunidade / Não incidência")]
-        Cst41 = 41,
+        Cst410 = 410,
 
         /// <summary>
-        /// 51 - Diferimento
+        /// 500 - Suspensão / Diferimento
         /// </summary>
-        [XmlEnum("51")]
-        [Description("Diferimento")]
-        Cst51 = 51,
-
-        /// <summary>
-        /// 52 - Diferimento com redução de alíquota
-        /// </summary>
-        [XmlEnum("52")]
-        [Description("Diferimento com redução de alíquota")]
-        Cst52 = 52,
-
-        /// <summary>
-        /// 55 - Suspensão
-        /// </summary>
-        [XmlEnum("55")]
-        [Description("Suspensão")]
-        Cst55 = 55,
-
-        /// <summary>
-        /// 62 - Tributação monofásica
-        /// </summary>
-        [XmlEnum("62")]
-        [Description("Tributação monofásica")]
-        Cst62 = 62,
-
-        /// <summary>
-        /// 80 - Transferência de crédito
-        /// </summary>
-        [XmlEnum("80")]
-        [Description("Transferência de crédito")]
-        Cst80 = 80,
-
-        /// <summary>
-        /// 81 - Ajuste de IBS em ZFM
-        /// </summary>
-        [XmlEnum("81")]
-        [Description("Ajuste de IBS em ZFM")]
-        Cst81 = 81,
-
-        /// <summary>
-        /// 82 - Ajustes
-        /// </summary>
-        [XmlEnum("82")]
-        [Description("Ajustes")]
-        Cst82 = 82,
-
-        /// <summary>
-        /// 83 - Tributação em declaração de regime específico
-        /// </summary>
-        [XmlEnum("83")]
-        [Description("Tributação em declaração de regime específico")]
-        Cst83 = 83,
-
-        /// <summary>
-        /// 84 - Exclusão da Base de Cálculo
-        /// </summary>
-        [XmlEnum("84")]
-        [Description("Exclusão da Base de Cálculo")]
-        Cst84 = 84
+        [XmlEnum("500")]
+        [Description("Suspensão / Diferimento")]
+        Cst500 = 500
     }
 }

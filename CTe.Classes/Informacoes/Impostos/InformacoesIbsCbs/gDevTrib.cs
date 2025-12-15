@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,47 +33,22 @@
 
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações da Devolução de Tributos
+    /// </summary>
+    public class gDevTrib
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _vDevTrib;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Valor da devolução de tributos
         /// </summary>
-        public decimal? vTotDFe
+        public decimal vDevTrib
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
-        }
-
-        public bool vTotDFeSpecified
-        {
-            get { return vTotDFe.HasValue; }
+            get { return _vDevTrib.Arredondar(2); }
+            set { _vDevTrib = value.Arredondar(2); }
         }
     }
 }

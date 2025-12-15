@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,49 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs;
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesIbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações do IBS para o município
+    /// </summary>
+    public class gIBSMun
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pIbsMun;
+        private decimal _vIbsMun;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Alíquota do IBS de competência do Município (em percentual)
         /// </summary>
-        public decimal? vTotDFe
+        public decimal pIBSMun
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pIbsMun.Arredondar(2); }
+            set { _pIbsMun = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Grupo de Informações do Diferimento
+        /// </summary>
+        public gDif gDif { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Devolução de Tributos
+        /// </summary>
+        public gDevTrib gDevTrib { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Redução da Alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
+
+        /// <summary>
+        /// Valor do IBS de competência do Município
+        /// </summary>
+        public decimal vIBSMun
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vIbsMun.Arredondar(2); }
+            set { _vIbsMun = value.Arredondar(2); }
         }
     }
 }
