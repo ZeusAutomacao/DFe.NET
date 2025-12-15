@@ -72,15 +72,16 @@ jobs:
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
 
+    # dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.Html\NFe.Danfe.Html.csproj
+    # dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.QuestPdf\NFe.Danfe.QuestPdf.csproj
+    # dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.PdfClown\NFe.Danfe.PdfClown.csproj
+
     - name: Pack
       run: | 
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.NFe.NFCe\Cosmospro.Net.NFe.NFCe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.MDFe\Cosmospro.Net.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.CTe\Cosmospro.Net.CTe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.Html\NFe.Danfe.Html.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.QuestPdf\NFe.Danfe.QuestPdf.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.PdfClown\NFe.Danfe.PdfClown.csproj
-
+        
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
