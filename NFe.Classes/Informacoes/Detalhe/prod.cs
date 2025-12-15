@@ -134,11 +134,6 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         [XmlElement("gCred")]
         public List<gCred> gCred { get; set; }
-        
-        /// <summary>
-        /// I05K - Classificação para subapuração do IBS na ZFM
-        /// </summary>
-        public  tpCredPresIBSZFM? tpCredPresIBSZFM { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -359,7 +354,5 @@ namespace NFe.Classes.Informacoes.Detalhe
         }
         
         public bool ShouldSerializeindBemMovelUsado() => indBemMovelUsado.HasValue;
-        
-        public bool ShouldSerializetpCredPresIBSZFM() => tpCredPresIBSZFM.HasValue;
     }
 }

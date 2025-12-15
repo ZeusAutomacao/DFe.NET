@@ -527,11 +527,11 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         /// Obtém a URL para uso no QR-Code, versão 3.0 - leiaute 4.00+
         /// </summary>
-        private static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado cfgCertificado, Encoding encoding = null)
+        public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado cfgCertificado, Encoding encoding = null)
         {
-            if (cfgCertificado == null)
-                throw new ArgumentNullException(nameof(cfgCertificado), "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGÊNCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e");
-            
+            if (cfgCertificado == null || (string.IsNullOrWhiteSpace(cfgCertificado.Serial) && cfgCertificado.TipoCertificado != TipoCertificado.A1Arquivo))
+                throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
+
             const string pipe = "|";
 
             string chave = nfe.infNFe.Id.Substring(3);

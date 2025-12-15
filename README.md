@@ -68,20 +68,6 @@ danfe.Visualizar();
 //danfe.ExibirDesign();
 ```
 
-## Reforma tributária
-A biblioteca está em processo de adequação à **Reforma Tributária do Consumo**, que impacta diretamente documentos fiscais eletrônicos.
-
-A partir do Pull Request [#1649](https://github.com/ZeusAutomacao/DFe.NET/pull/1649) e da versão **2025.10.03.1855** do pacote NuGet, a biblioteca passa a atender **parcialmente** os requisitos estabelecidos pela reforma para NFe e NFCe.
-
-O acompanhamento do suporte à reforma pode ser realizado na issue [#1615](https://github.com/ZeusAutomacao/DFe.NET/issues/1615).
-
-Além disso, o suporte para **CTe** e **MDFe** será tratado futuramente nas issues:
-
-* [#1623](https://github.com/ZeusAutomacao/DFe.NET/issues/1623) – Suporte para CTe
-* [#1624](https://github.com/ZeusAutomacao/DFe.NET/issues/1624) – Suporte para MDFe
-
-Contribuições da comunidade são muito bem-vindas para acelerar a implementação completa dessas mudanças. 🚀
-
 ## Contribuindo com a biblioteca
 
 Para saber como contribuir com o projeto, consulte as [Diretrizes de Contribuição](CONTRIBUTING.md). Desde já agradecemos sua contribuição e esperamos que você aproveite e colabore com o desenvolvimento do projeto DFe.NET!
