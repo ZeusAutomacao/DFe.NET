@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,49 +31,71 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesCbs;
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesIbs;
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações do IBS e da CBS
+    /// </summary>
+    public class gIBSCBS
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _vBc;
+        private decimal _vIbs;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Base de cálculo do IBS e CBS
         /// </summary>
-        public decimal? vTotDFe
+        public decimal vBC
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Grupo de Informações do IBS para a UF
+        /// </summary>
+        public gIBSUF gIBSUF { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações do IBS para o município
+        /// </summary>
+        public gIBSMun gIBSMun { get; set; }
+
+        /// <summary>
+        /// Valor do IBS
+        /// </summary>
+        public decimal vIBS
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vIbs.Arredondar(2); }
+            set { _vIbs = value.Arredondar(2); }
         }
+
+        /// <summary>
+        /// Grupo de Informações da CBS
+        /// </summary>
+        public gCBS gCBS { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Tributação Regular
+        /// </summary>
+        public gTribRegular gTribRegular { get; set; }
+
+        /// <summary>
+        /// Grupo de Crédito Presumido do IBS
+        /// </summary>
+        public gIBSCredPres gIBSCredPres { get; set; }
+
+        /// <summary>
+        /// Grupo de Crédito Presumido da CBS
+        /// </summary>
+        public gCBSCredPres gCBSCredPres { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Composição do Valor do IBS e da CBS em Compras Governamentais
+        /// </summary>
+        public gTribCompraGov gTribCompraGov { get; set; }
     }
 }

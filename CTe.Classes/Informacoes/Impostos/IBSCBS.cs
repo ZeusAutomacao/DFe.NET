@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,49 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Classes;
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs;
+using CTe.Classes.Informacoes.Impostos.Tipos;
 
 namespace CTe.Classes.Informacoes.Impostos
 {
-    public class imp
+    /// <summary>
+    /// Grupo do IBS e CBS
+    /// </summary>
+    public class IBSCBS
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        /// <summary>
+        /// Código de Situação Tributária do IBS e CBS
+        /// </summary>
+        public CstIbsCbs CST { get; set; }
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Código de Classificação Tributária do IBS e CBS
         /// </summary>
-        public decimal? vTotDFe
-        {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
-        }
+        public string cClassTrib { get; set; }
 
-        public bool vTotDFeSpecified
-        {
-            get { return vTotDFe.HasValue; }
-        }
+        /// <summary>
+        /// Grupo de Informações do IBS e da CBS
+        /// </summary>
+        public gIBSCBS gIBSCBS { get; set; }
     }
 }
