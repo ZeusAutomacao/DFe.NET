@@ -40,11 +40,6 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeProdPred
     {
-        public MDFeProdPred()
-        {
-            InfLotacao = new MDFeInfLotacao();
-        }
-
         /// <summary>
         /// 1 - Tipo da Carga.
         /// Conforme Rosulação ANTT

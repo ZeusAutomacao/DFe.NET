@@ -47,7 +47,6 @@ namespace MDFe.Classes.Informacoes
             InfModal = new MDFeInfModal();
             InfDoc = new MDFeInfDoc();
             Tot = new MDFeTot();
-            ProdPred = new MDFeProdPred();
             Versao = VersaoServico.Versao100;
         }
 
