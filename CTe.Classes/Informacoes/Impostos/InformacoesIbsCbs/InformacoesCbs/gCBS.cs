@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,49 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs;
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações da CBS
+    /// </summary>
+    public class gCBS
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pCbs;
+        private decimal _vCbs;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Alíquota da CBS (em percentual)
         /// </summary>
-        public decimal? vTotDFe
+        public decimal pCBS
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pCbs.Arredondar(2); }
+            set { _pCbs = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Grupo de Informações do Diferimento
+        /// </summary>
+        public gDif gDif { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Devolução de Tributos
+        /// </summary>
+        public gDevTrib gDevTrib { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Redução da Alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
+
+        /// <summary>
+        /// Valor da CBS
+        /// </summary>
+        public decimal vCBS
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vCbs.Arredondar(2); }
+            set { _vCbs = value.Arredondar(2); }
         }
     }
 }

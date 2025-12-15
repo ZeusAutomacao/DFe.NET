@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,47 +33,47 @@
 
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Crédito Presumido da CBS
+    /// </summary>
+    public class gCBSCredPres
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Código de Crédito Presumido
         /// </summary>
-        public decimal? vTotDFe
+        public string cCredPres { get; set; }
+
+        /// <summary>
+        /// Percentual de Crédito Presumido (em percentual)
+        /// </summary>
+        public decimal pCredPres
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pCredPres.Arredondar(2); }
+            set { _pCredPres = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Valor de Crédito Presumido
+        /// </summary>
+        public decimal vCredPres
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vCredPres.Arredondar(2); }
+            set { _vCredPres = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor de Crédito Presumido Condicionado ou Suspenso
+        /// </summary>
+        public decimal vCredPresCondSus
+        {
+            get { return _vCredPresCondSus.Arredondar(2); }
+            set { _vCredPresCondSus = value.Arredondar(2); }
         }
     }
 }

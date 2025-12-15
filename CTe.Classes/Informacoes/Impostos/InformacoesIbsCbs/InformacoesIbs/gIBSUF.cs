@@ -31,50 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes.Informacoes.Impostos.Tipos;
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs;
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesIbs
 {
     /// <summary>
-    /// Grupo da CBS (Contribuição sobre Bens e Serviços)
+    /// Grupo de Informações do IBS para a UF
     /// </summary>
-    public class CBS
+    public class gIBSUF
     {
-        private decimal _vBcCbs;
-        private decimal _pCbs;
-        private decimal _vCbs;
+        private decimal _pIbsUf;
+        private decimal _vIbsUf;
 
         /// <summary>
-        /// Código de Situação Tributária da CBS
+        /// Alíquota do IBS de competência das UF (em percentual)
         /// </summary>
-        public CstIbsCbs CSTCBS { get; set; }
-
-        /// <summary>
-        /// Valor da Base de Cálculo da CBS
-        /// </summary>
-        public decimal vBCCBS
+        public decimal pIBSUF
         {
-            get { return _vBcCbs.Arredondar(2); }
-            set { _vBcCbs = value.Arredondar(2); }
+            get { return _pIbsUf.Arredondar(2); }
+            set { _pIbsUf = value.Arredondar(2); }
         }
 
         /// <summary>
-        /// Alíquota da CBS
+        /// Grupo de Informações do Diferimento
         /// </summary>
-        public decimal pCBS
-        {
-            get { return _pCbs.Arredondar(2); }
-            set { _pCbs = value.Arredondar(2); }
-        }
+        public gDif gDif { get; set; }
 
         /// <summary>
-        /// Valor da CBS
+        /// Grupo de Informações da Devolução de Tributos
         /// </summary>
-        public decimal vCBS
+        public gDevTrib gDevTrib { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Redução da Alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
+
+        /// <summary>
+        /// Valor do IBS de competência da UF
+        /// </summary>
+        public decimal vIBSUF
         {
-            get { return _vCbs.Arredondar(2); }
-            set { _vCbs = value.Arredondar(2); }
+            get { return _vIbsUf.Arredondar(2); }
+            set { _vIbsUf = value.Arredondar(2); }
         }
     }
 }

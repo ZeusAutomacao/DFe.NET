@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,47 +33,82 @@
 
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações da Tributação Regular
+    /// </summary>
+    public class gTribRegular
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pAliqEfetRegIBSUF;
+        private decimal _vTribRegIBSUF;
+        private decimal _pAliqEfetRegIBSMun;
+        private decimal _vTribRegIBSMun;
+        private decimal _pAliqEfetRegCBS;
+        private decimal _vTribRegCBS;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Código de Situação Tributária da Tributação Regular
         /// </summary>
-        public decimal? vTotDFe
+        public string CSTReg { get; set; }
+
+        /// <summary>
+        /// Código de Classificação Tributária da Tributação Regular
+        /// </summary>
+        public string cClassTribReg { get; set; }
+
+        /// <summary>
+        /// Percentual da alíquota efetiva da Tributação Regular do IBS UF (em percentual)
+        /// </summary>
+        public decimal pAliqEfetRegIBSUF
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pAliqEfetRegIBSUF.Arredondar(2); }
+            set { _pAliqEfetRegIBSUF = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Valor da Tributação Regular do IBS UF
+        /// </summary>
+        public decimal vTribRegIBSUF
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vTribRegIBSUF.Arredondar(2); }
+            set { _vTribRegIBSUF = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Percentual da alíquota efetiva da Tributação Regular do IBS Município (em percentual)
+        /// </summary>
+        public decimal pAliqEfetRegIBSMun
+        {
+            get { return _pAliqEfetRegIBSMun.Arredondar(2); }
+            set { _pAliqEfetRegIBSMun = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor da Tributação Regular do IBS Município
+        /// </summary>
+        public decimal vTribRegIBSMun
+        {
+            get { return _vTribRegIBSMun.Arredondar(2); }
+            set { _vTribRegIBSMun = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Percentual da alíquota efetiva da Tributação Regular da CBS (em percentual)
+        /// </summary>
+        public decimal pAliqEfetRegCBS
+        {
+            get { return _pAliqEfetRegCBS.Arredondar(2); }
+            set { _pAliqEfetRegCBS = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor da Tributação Regular da CBS
+        /// </summary>
+        public decimal vTribRegCBS
+        {
+            get { return _vTribRegCBS.Arredondar(2); }
+            set { _vTribRegCBS = value.Arredondar(2); }
         }
     }
 }

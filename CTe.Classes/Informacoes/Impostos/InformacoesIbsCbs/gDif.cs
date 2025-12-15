@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,47 +33,32 @@
 
 using DFe.Classes;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class imp
+    /// <summary>
+    /// Grupo de Informações do Diferimento
+    /// </summary>
+    public class gDif
     {
-        public Tributacao.ICMS ICMS { get; set; }
-
-        private decimal? _vTotTrib;
-
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        public bool vTotTribSpecified
-        {
-            get { return vTotTrib.HasValue; }
-        }
-
-        public string infAdFisco { get; set; }
-
-        public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
-
-        public IBSCBS IBSCBS { get; set; }
-
-        private decimal? _vTotDFe;
+        private decimal _pDif;
+        private decimal _vDif;
 
         /// <summary>
-        /// Valor Total do DFe
+        /// Percentual de diferimento (em percentual)
         /// </summary>
-        public decimal? vTotDFe
+        public decimal pDif
         {
-            get { return _vTotDFe.Arredondar(2); }
-            set { _vTotDFe = value.Arredondar(2); }
+            get { return _pDif.Arredondar(2); }
+            set { _pDif = value.Arredondar(2); }
         }
 
-        public bool vTotDFeSpecified
+        /// <summary>
+        /// Valor diferido
+        /// </summary>
+        public decimal vDif
         {
-            get { return vTotDFe.HasValue; }
+            get { return _vDif.Arredondar(2); }
+            set { _vDif = value.Arredondar(2); }
         }
     }
 }
