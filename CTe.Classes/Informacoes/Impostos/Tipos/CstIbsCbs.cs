@@ -43,52 +43,24 @@ namespace CTe.Classes.Informacoes.Impostos.Tipos
     public enum CstIbsCbs
     {
         /// <summary>
-        /// 200 - Tributação integral
+        /// 000 - Tributação integral
+        /// </summary>
+        [XmlEnum("000")]
+        [Description("Tributação integral")]
+        Cst000 = 0,
+
+        /// <summary>
+        /// 200 - Alíquota zero
         /// </summary>
         [XmlEnum("200")]
-        [Description("Tributação integral")]
+        [Description("Alíquota zero")]
         Cst200 = 200,
 
         /// <summary>
-        /// 210 - Tributação com alíquota uniforme
-        /// </summary>
-        [XmlEnum("210")]
-        [Description("Tributação com alíquota uniforme")]
-        Cst210 = 210,
-
-        /// <summary>
-        /// 220 - Tributação com alíquota uniforme reduzida
-        /// </summary>
-        [XmlEnum("220")]
-        [Description("Tributação com alíquota uniforme reduzida")]
-        Cst220 = 220,
-
-        /// <summary>
-        /// 300 - Alíquota reduzida
-        /// </summary>
-        [XmlEnum("300")]
-        [Description("Alíquota reduzida")]
-        Cst300 = 300,
-
-        /// <summary>
-        /// 400 - Isenção
-        /// </summary>
-        [XmlEnum("400")]
-        [Description("Isenção")]
-        Cst400 = 400,
-
-        /// <summary>
-        /// 410 - Imunidade / Não incidência
+        /// 410 - Imunidade e não incidência
         /// </summary>
         [XmlEnum("410")]
-        [Description("Imunidade / Não incidência")]
-        Cst410 = 410,
-
-        /// <summary>
-        /// 500 - Suspensão / Diferimento
-        /// </summary>
-        [XmlEnum("500")]
-        [Description("Suspensão / Diferimento")]
-        Cst500 = 500
+        [Description("Imunidade e não incidência")]
+        Cst410 = 410
     }
 }
