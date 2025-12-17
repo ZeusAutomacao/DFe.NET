@@ -3160,10 +3160,10 @@ namespace NFe.AppTeste
                         idLote: 1,
                         sequenciaEvento: 1,
                         cpfCnpj: _configuracoes.Emitente.CNPJ,
-                        chaveNFe: "28140932876302000114650010000000011000000015",
+                        chaveNFe: "28251232876302000114550010000150801000012344",
                         indicadorDeQuitacaoDoPagamento: IndicadorDeQuitacaoDoPagamento.Quitado,
-                        ufAutor: Estado.SE,
-                        versaoAplicativo: "1.00",
+                        ufAutor: _configuracoes.EnderecoEmitente.UF,
+                        versaoAplicativo: null,
                         dataHoraEvento: DateTime.Now
                     );
                 TrataRetorno(retorno);
