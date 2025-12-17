@@ -434,6 +434,7 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
                 ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
                 ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado,
+                ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega,
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -490,6 +491,18 @@ namespace NFe.Servicos
             if (_cFgServico.ValidarSchemas)
                 Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
 
+            var validarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
+
+            if (validarDetEvento)
+            {
+                foreach (var evento in pedEvento.evento)
+                {
+                    var detEvento = evento.infEvento.detEvento;
+                    var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
+                    Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
+                }
+            }
+
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
@@ -534,6 +547,36 @@ namespace NFe.Servicos
                 retEnvEvento, listprocEventoNFe);
 
             #endregion
+        }
+
+        private bool DeveValidarDetalhamentoDoEvento(ServicoNFe servicoNFe)
+        {
+            bool deveValidarDetalhamentoDoEvento;
+            
+            switch (servicoNFe)
+            {
+                case  ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega: 
+                    deveValidarDetalhamentoDoEvento = true;break;
+                default: deveValidarDetalhamentoDoEvento = false;break;
+            }
+
+            return deveValidarDetalhamentoDoEvento;
         }
 
         /// <summary>
