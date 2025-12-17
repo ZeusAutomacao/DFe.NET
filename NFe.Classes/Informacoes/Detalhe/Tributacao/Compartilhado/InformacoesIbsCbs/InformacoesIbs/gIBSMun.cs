@@ -50,15 +50,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     UB54 - Valor do IBS de competência do Município
-        /// </summary>
-        public decimal vIBSMun
-        {
-            get => _vIbsMun.Arredondar(2);
-            set => _vIbsMun = value.Arredondar(2);
-        }
-        
-        /// <summary>
         ///     UB40 - Grupo de Informações do Diferimento
         /// </summary>
         [XmlElement(Order = 2)]
