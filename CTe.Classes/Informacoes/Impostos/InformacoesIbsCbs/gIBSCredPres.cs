@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,51 +30,50 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
+using DFe.Classes;
+
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class gCBS
+    /// <summary>
+    /// Grupo de Crédito Presumido do IBS
+    /// </summary>
+    public class gIBSCredPres
     {
-        private decimal _pCbs;
-        private decimal _vCbs;
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
 
         /// <summary>
-        ///     UB56 - Alíquota da CBS (em percentual)
-        /// </summary>~
-        [XmlElement(Order = 1)]
-        public decimal pCBS
+        /// Código de Crédito Presumido
+        /// </summary>
+        public string cCredPres { get; set; }
+
+        /// <summary>
+        /// Percentual de Crédito Presumido (em percentual)
+        /// </summary>
+        public decimal pCredPres
         {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
+            get { return _pCredPres.Arredondar(2); }
+            set { _pCredPres = value.Arredondar(2); }
         }
-        
+
         /// <summary>
-        ///     UB59 - Grupo de Informações do Diferimento
+        /// Valor de Crédito Presumido
         /// </summary>
-        [XmlElement(Order = 2)]
-        public gDif gDif { get; set; }
-        
-        /// <summary>
-        ///     UB62 - Grupo de Informações da devolução de tributos
-        /// </summary>
-        [XmlElement(Order = 3)]
-        public gDevTrib gDevTrib { get; set; }
-        
-        /// <summary>
-        ///     UB64 - Grupo de informações da redução da alíquota
-        /// </summary>
-        [XmlElement(Order = 4)]
-        public gRed gRed { get; set; }
-        
-        /// <summary>
-        ///     UB67 - Valor da CBS
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal vCBS
+        public decimal vCredPres
         {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
+            get { return _vCredPres.Arredondar(2); }
+            set { _vCredPres = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// Valor de Crédito Presumido Condicionado ou Suspenso
+        /// </summary>
+        public decimal vCredPresCondSus
+        {
+            get { return _vCredPresCondSus.Arredondar(2); }
+            set { _vCredPresCondSus = value.Arredondar(2); }
         }
     }
 }

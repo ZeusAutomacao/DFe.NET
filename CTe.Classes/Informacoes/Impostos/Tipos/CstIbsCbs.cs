@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,51 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
+namespace CTe.Classes.Informacoes.Impostos.Tipos
 {
-    public class gCBS
+    /// <summary>
+    /// Código de Situação Tributária do IBS/CBS
+    /// Conforme NT 2025.001 v1.07
+    /// </summary>
+    public enum CstIbsCbs
     {
-        private decimal _pCbs;
-        private decimal _vCbs;
+        /// <summary>
+        /// 000 - Tributação integral
+        /// </summary>
+        [XmlEnum("000")]
+        [Description("Tributação integral")]
+        Cst000 = 0,
 
         /// <summary>
-        ///     UB56 - Alíquota da CBS (em percentual)
-        /// </summary>~
-        [XmlElement(Order = 1)]
-        public decimal pCBS
-        {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB59 - Grupo de Informações do Diferimento
+        /// 200 - Alíquota zero
         /// </summary>
-        [XmlElement(Order = 2)]
-        public gDif gDif { get; set; }
-        
+        [XmlEnum("200")]
+        [Description("Alíquota zero")]
+        Cst200 = 200,
+
         /// <summary>
-        ///     UB62 - Grupo de Informações da devolução de tributos
+        /// 410 - Imunidade e não incidência
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gDevTrib gDevTrib { get; set; }
-        
-        /// <summary>
-        ///     UB64 - Grupo de informações da redução da alíquota
-        /// </summary>
-        [XmlElement(Order = 4)]
-        public gRed gRed { get; set; }
-        
-        /// <summary>
-        ///     UB67 - Valor da CBS
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal vCBS
-        {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
-        }
+        [XmlEnum("410")]
+        [Description("Imunidade e não incidência")]
+        Cst410 = 410
     }
 }

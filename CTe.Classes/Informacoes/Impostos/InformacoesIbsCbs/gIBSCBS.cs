@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,51 +30,72 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesCbs;
+using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs.InformacoesIbs;
+using DFe.Classes;
+
+namespace CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs
 {
-    public class gCBS
+    /// <summary>
+    /// Grupo de Informações do IBS e da CBS
+    /// </summary>
+    public class gIBSCBS
     {
-        private decimal _pCbs;
-        private decimal _vCbs;
+        private decimal _vBc;
+        private decimal _vIbs;
 
         /// <summary>
-        ///     UB56 - Alíquota da CBS (em percentual)
-        /// </summary>~
-        [XmlElement(Order = 1)]
-        public decimal pCBS
+        /// Base de cálculo do IBS e CBS
+        /// </summary>
+        public decimal vBC
         {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
-        
+
         /// <summary>
-        ///     UB59 - Grupo de Informações do Diferimento
+        /// Grupo de Informações do IBS para a UF
         /// </summary>
-        [XmlElement(Order = 2)]
-        public gDif gDif { get; set; }
-        
+        public gIBSUF gIBSUF { get; set; }
+
         /// <summary>
-        ///     UB62 - Grupo de Informações da devolução de tributos
+        /// Grupo de Informações do IBS para o município
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gDevTrib gDevTrib { get; set; }
-        
+        public gIBSMun gIBSMun { get; set; }
+
         /// <summary>
-        ///     UB64 - Grupo de informações da redução da alíquota
+        /// Valor do IBS
         /// </summary>
-        [XmlElement(Order = 4)]
-        public gRed gRed { get; set; }
-        
-        /// <summary>
-        ///     UB67 - Valor da CBS
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal vCBS
+        public decimal vIBS
         {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
+            get { return _vIbs.Arredondar(2); }
+            set { _vIbs = value.Arredondar(2); }
         }
+
+        /// <summary>
+        /// Grupo de Informações da CBS
+        /// </summary>
+        public gCBS gCBS { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Tributação Regular
+        /// </summary>
+        public gTribRegular gTribRegular { get; set; }
+
+        /// <summary>
+        /// Grupo de Crédito Presumido do IBS
+        /// </summary>
+        public gIBSCredPres gIBSCredPres { get; set; }
+
+        /// <summary>
+        /// Grupo de Crédito Presumido da CBS
+        /// </summary>
+        public gCBSCredPres gCBSCredPres { get; set; }
+
+        /// <summary>
+        /// Grupo de Informações da Composição do Valor do IBS e da CBS em Compras Governamentais
+        /// </summary>
+        public gTribCompraGov gTribCompraGov { get; set; }
     }
 }

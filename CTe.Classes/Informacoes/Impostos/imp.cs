@@ -40,18 +40,40 @@ namespace CTe.Classes.Informacoes.Impostos
         public Tributacao.ICMS ICMS { get; set; }
 
         private decimal? _vTotTrib;
+
         public decimal? vTotTrib
         {
             get { return _vTotTrib.Arredondar(2); }
             set { _vTotTrib = value.Arredondar(2); }
         }
 
-        public bool vTotTribSpecified { get { return vTotTrib.HasValue; } }
+        public bool vTotTribSpecified
+        {
+            get { return vTotTrib.HasValue; }
+        }
 
         public string infAdFisco { get; set; }
 
         public ICMSUFFim ICMSUFFim { get; set; }
 
         public infTribFed infTribFed { get; set; }
+
+        public IBSCBS IBSCBS { get; set; }
+
+        private decimal? _vTotDFe;
+
+        /// <summary>
+        /// Valor Total do DFe
+        /// </summary>
+        public decimal? vTotDFe
+        {
+            get { return _vTotDFe.Arredondar(2); }
+            set { _vTotDFe = value.Arredondar(2); }
+        }
+
+        public bool vTotDFeSpecified
+        {
+            get { return vTotDFe.HasValue; }
+        }
     }
 }
