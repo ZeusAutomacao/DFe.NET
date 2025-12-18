@@ -498,7 +498,9 @@ namespace NFe.Servicos
                 foreach (var evento in pedEvento.evento)
                 {
                     var detEvento = evento.infEvento.detEvento;
-                    var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
+                    var detEventoXml = _cFgServico.RemoverAcentos 
+                        ? FuncoesXml.ClasseParaXmlString(detEvento).RemoverAcentos() 
+                        : FuncoesXml.ClasseParaXmlString(detEvento);
                     Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
                 }
             }
