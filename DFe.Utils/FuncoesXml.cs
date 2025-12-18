@@ -36,6 +36,7 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -233,6 +234,16 @@ namespace DFe.Utils
             if (xmlString == null)
                 throw new Exception(String.Format("Nenhum objeto {0} encontrado no xml!", nomeDoNode));
             return xmlString.ToString();
+        }
+
+        public static string ObterXmlComNamespace(string xml, string valorNamespace)
+        {
+            var documentoXml = new XmlDocument();
+            documentoXml.LoadXml(xml);
+            const string nomeAtributoNamespace = "xmlns";
+            documentoXml.DocumentElement?.SetAttribute(nomeAtributoNamespace, valorNamespace);
+            var stringXml = documentoXml.InnerXml;
+            return stringXml;
         }
 
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610

@@ -501,6 +501,9 @@ namespace NFe.Servicos
                     var detEventoXml = _cFgServico.RemoverAcentos 
                         ? FuncoesXml.ClasseParaXmlString(detEvento).RemoverAcentos() 
                         : FuncoesXml.ClasseParaXmlString(detEvento);
+
+                    const string namespaceNfe = "http://www.portalfiscal.inf.br/nfe";
+                    detEventoXml = FuncoesXml.ObterXmlComNamespace(detEventoXml, namespaceNfe);
                     Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
                 }
             }
