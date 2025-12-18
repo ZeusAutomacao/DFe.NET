@@ -493,7 +493,7 @@ namespace NFe.Servicos
 
             var validarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
 
-            if (validarDetEvento)
+            if (validarDetEvento && _cFgServico.ValidarSchemas)
             {
                 foreach (var evento in pedEvento.evento)
                 {
