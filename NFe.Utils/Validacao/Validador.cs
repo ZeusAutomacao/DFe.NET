@@ -196,7 +196,6 @@ namespace NFe.Utils.Validacao
             schemas.XmlResolver = new XmlUrlResolver();
 
             cfg.Schemas = schemas;
-            var arquivoSchemaExiste = File.Exists(arquivoSchema);
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
