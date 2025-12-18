@@ -144,7 +144,7 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
                     return lote ? "envEvento_v1.00.xsd" : "e211150_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
-                    return lote ? "envEvento_v1.00.xsd" : "e212110.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e212110_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
                     return lote ? "envEvento_v1.00.xsd" : "e212120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
@@ -196,6 +196,7 @@ namespace NFe.Utils.Validacao
             schemas.XmlResolver = new XmlUrlResolver();
 
             cfg.Schemas = schemas;
+            var arquivoSchemaExiste = File.Exists(arquivoSchema);
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
