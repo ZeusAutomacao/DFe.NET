@@ -3146,32 +3146,7 @@ namespace NFe.AppTeste
 
         private void CbxEnviarTributacaoDaReforma_OnClick(object sender, RoutedEventArgs e)
         {
-            _configuracoes.EnviarTributacaoIbsCbsIs =
-                CbxEnviarTributacaoDaReforma.IsChecked ?? false;
-        }
-
-        private void BtnTestarEvento_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var servico = new ServicosNFe(_configuracoes.CfgServico);
-                var retorno =
-                    servico.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(
-                        idLote: 1,
-                        sequenciaEvento: 1,
-                        cpfCnpj: _configuracoes.Emitente.CNPJ,
-                        chaveNFe: "28251232876302000114550010000150801000012344",
-                        indicadorDeQuitacaoDoPagamento: IndicadorDeQuitacaoDoPagamento.Quitado,
-                        ufAutor: _configuracoes.EnderecoEmitente.UF,
-                        versaoAplicativo: null,
-                        dataHoraEvento: DateTime.Now
-                    );
-                TrataRetorno(retorno);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
+            _configuracoes.EnviarTributacaoIbsCbsIs = CbxEnviarTributacaoDaReforma.IsChecked ?? false;
         }
     }
 }
