@@ -18,46 +18,58 @@ namespace NFe.Classes.Informacoes.Detalhe
     ///     <para>12 - Crédito presumido na aquisição por contribuinte na Área de Livre Comércio, observado o art. 465 da Lei Complementar nº 214, de 2025.</para>
     ///     <para>13 - Crédito presumido na aquisição pela indústria na Área de Livre Comércio, observado o art. 467 da Lei Complementar nº 214, de 2025.</para>
     /// </summary>
-    public enum CodigoClassificacaoCCredPres
+    public enum CCredPress
     {
         [Description("Crédito presumido da aquisição de bens e serviços de produtor rural e produtor rural integrado não contribuinte, observado o art. 168 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("00")]
-        C01,
+        CCP01,
+        
         [Description("Crédito presumido da aquisição de serviço de transportador autônomo de carga pessoa física não contribuinte, observado o art. 169 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("02")]
-        C02,
+        CCP02,
+        
         [Description("Crédito presumido da aquisição de resíduos e demais materiais destinados à reciclagem, reutilização ou logística reversa adquiridos de pessoa física, cooperativa ou outra forma de organização popular, observado o art. 170 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("03")]
-        C03,
+        CCP03,
+        
         [Description("Crédito presumido da aquisição de bens móveis usados de pessoa física não contribuinte para revenda, observado o art. 171 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("04")]
-        C04,
+        CCP04,
+        
         [Description("Crédito presumido no regime automotivo, observado o art. 311 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("05")]
-        C05,
+        CCP05,
+        
         [Description("Crédito presumido no regime automotivo, observado o art. 312 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("06")]
-        C06,
+        CCP06,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Zona Franca de Manaus, observado o art. 444 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("07")]
-        C07,
+        CCP07,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Zona Franca de Manaus, observado o art. 447 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("08")]
-        C08,
+        CCP08,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Zona Franca de Manaus, observado o art. 449 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("09")]
-        C09,
+        CCP09,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Zona Franca de Manaus, observado o art. 450 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("10")]
-        C10,
+        CCP10,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Área de Livre Comércio, observado o art. 462 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("11")]
-        C11,
+        CCP11,
+        
         [Description("Crédito presumido na aquisição por contribuinte na Área de Livre Comércio, observado o art. 465 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("12")]
-        C12,
+        CCP12,
+        
         [Description("Crédito presumido na aquisição pela indústria na Área de Livre Comércio, observado o art. 467 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("13")]
-        C13,
+        CCP13,
     }
 }
