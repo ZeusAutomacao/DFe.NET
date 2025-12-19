@@ -18,7 +18,7 @@ namespace NFe.Classes.Informacoes.Detalhe
     ///     <para>12 - Crédito presumido na aquisição por contribuinte na Área de Livre Comércio, observado o art. 465 da Lei Complementar nº 214, de 2025.</para>
     ///     <para>13 - Crédito presumido na aquisição pela indústria na Área de Livre Comércio, observado o art. 467 da Lei Complementar nº 214, de 2025.</para>
     /// </summary>
-    public enum CCredPress
+    public enum CCredPres
     {
         [Description("Crédito presumido da aquisição de bens e serviços de produtor rural e produtor rural integrado não contribuinte, observado o art. 168 da Lei Complementar nº 214, de 2025.")]
         [XmlEnum("00")]
