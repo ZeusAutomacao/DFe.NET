@@ -21,7 +21,7 @@ namespace NFe.Classes.Informacoes.Detalhe
     public enum CCredPres
     {
         [Description("Crédito presumido da aquisição de bens e serviços de produtor rural e produtor rural integrado não contribuinte, observado o art. 168 da Lei Complementar nº 214, de 2025.")]
-        [XmlEnum("00")]
+        [XmlEnum("01")]
         CCP01,
         
         [Description("Crédito presumido da aquisição de serviço de transportador autônomo de carga pessoa física não contribuinte, observado o art. 169 da Lei Complementar nº 214, de 2025.")]
