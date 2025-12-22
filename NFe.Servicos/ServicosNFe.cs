@@ -491,9 +491,9 @@ namespace NFe.Servicos
             if (_cFgServico.ValidarSchemas)
                 Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
 
-            var validarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
+            var deveValidarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
 
-            if (validarDetEvento && _cFgServico.ValidarSchemas)
+            if (deveValidarDetEvento && _cFgServico.ValidarSchemas)
             {
                 foreach (var evento in pedEvento.evento)
                 {
