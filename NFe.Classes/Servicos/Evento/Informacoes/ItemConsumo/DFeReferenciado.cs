@@ -47,22 +47,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         /// <summary>
         ///     P32 - Corresponde ao “nItem” do DFeReferenciado
         /// </summary>
-        public int nItemDFeRef { get; set; }
-        
-        /// <summary>
-        ///     P32 - Corresponde ao “nItem” do DFeReferenciado
-        /// </summary>
         public int nItem { get; set; }
-
-        public DFeReferenciado(NFeTipoEvento tipoEvento)
-        {
-            _serializarComoNItem = tipoEvento == NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal;
-        }
-        
-        // Construtor vazio necessário para o XmlSerizalizer
-        private DFeReferenciado() { }
-
-        public bool ShouldSerializenItem() => _serializarComoNItem;
-        public bool ShouldSerializenItemDFeRef() => !_serializarComoNItem;
     }
 }
