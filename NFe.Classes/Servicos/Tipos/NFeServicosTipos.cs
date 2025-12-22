@@ -481,9 +481,9 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente = 211150,
         
         /// <summary>
-        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão
         /// </summary>
-        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão")]
         [XmlEnum("212110")]
         TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212110,
         
