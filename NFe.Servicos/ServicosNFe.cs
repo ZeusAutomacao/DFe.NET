@@ -577,8 +577,11 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
                 case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
                 case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega: 
-                    deveValidarDetalhamentoDoEvento = true;break;
-                default: deveValidarDetalhamentoDoEvento = false;break;
+                    deveValidarDetalhamentoDoEvento = true;
+                    break;
+                default: 
+                    deveValidarDetalhamentoDoEvento = false;
+                    break;
             }
 
             return deveValidarDetalhamentoDoEvento;
