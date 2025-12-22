@@ -498,9 +498,9 @@ namespace NFe.Servicos
                 foreach (var evento in pedEvento.evento)
                 {
                     var detEvento = evento.infEvento.detEvento;
-                    var detEventoXml = _cFgServico.RemoverAcentos 
-                        ? FuncoesXml.ClasseParaXmlString(detEvento).RemoverAcentos() 
-                        : FuncoesXml.ClasseParaXmlString(detEvento);
+                    var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
+                    if (_cFgServico.RemoverAcentos)
+                        detEventoXml = detEventoXml.RemoverAcentos();
 
                     const string namespaceNfe = "http://www.portalfiscal.inf.br/nfe";
                     detEventoXml = FuncoesXml.ObterXmlComNamespace(detEventoXml, namespaceNfe);
