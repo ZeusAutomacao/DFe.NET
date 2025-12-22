@@ -1752,9 +1752,15 @@ namespace NFe.Servicos
             var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
             var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
             
-            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
-            detalheEvento.tpEventoAut = tpEventoAut;
-            detalheEvento.nProtEvento = nProtEvento;
+            var detalheEvento = new detEvento
+            {
+                versao = versaoServicoRecepcaoString,
+                descEvento = nfeTipoEvento.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                verAplic = versaoAplicativo ?? "1.0",
+                tpEventoAut = tpEventoAut,
+                nProtEvento = nProtEvento
+            };
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
