@@ -48,6 +48,8 @@ using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
 {
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlType(Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class detEvento
     {
         /// <summary>

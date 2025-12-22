@@ -236,16 +236,6 @@ namespace DFe.Utils
             return xmlString.ToString();
         }
 
-        public static string ObterXmlComNamespace(string xml, string valorNamespace)
-        {
-            var documentoXml = new XmlDocument();
-            documentoXml.LoadXml(xml);
-            const string nomeAtributoNamespace = "xmlns";
-            documentoXml.DocumentElement?.SetAttribute(nomeAtributoNamespace, valorNamespace);
-            var stringXml = documentoXml.InnerXml;
-            return stringXml;
-        }
-
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
