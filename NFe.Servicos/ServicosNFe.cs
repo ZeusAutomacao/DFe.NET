@@ -489,22 +489,27 @@ namespace NFe.Servicos
             SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
             if (_cFgServico.ValidarSchemas)
-                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
-
-            var deveValidarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
-
-            if (deveValidarDetEvento && _cFgServico.ValidarSchemas)
             {
-                foreach (var evento in pedEvento.evento)
-                {
-                    var detEvento = evento.infEvento.detEvento;
-                    var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
-                    if (_cFgServico.RemoverAcentos)
-                        detEventoXml = detEventoXml.RemoverAcentos();
+                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento,
+                    cfgServico: _cFgServico);
 
-                    Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
+                var deveValidarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
+                
+                if (deveValidarDetEvento)
+                {
+                    foreach (var evento in pedEvento.evento)
+                    {
+                        var detEvento = evento.infEvento.detEvento;
+                        var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
+                        if (_cFgServico.RemoverAcentos)
+                            detEventoXml = detEventoXml.RemoverAcentos();
+
+                        Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
+                    }
                 }
             }
+
+            
 
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
