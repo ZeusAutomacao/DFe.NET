@@ -31,10 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Linq;
 using System.Xml.Serialization;
-using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
@@ -42,20 +39,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
     {
         private decimal _vIbs;
         private decimal _vCbs;
-
-        public gConsumo(NFeTipoEvento nFeTipoEvento)
-        {
-            var eventosPermitidos = new[]
-            {
-                NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal,
-                NFeTipoEvento.TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao
-            };
-
-            if (!eventosPermitidos.Contains(nFeTipoEvento))
-                throw new ArgumentException($"Não é permitido instanciar gConsumo com o evento {nFeTipoEvento}.", nameof(nFeTipoEvento));
-        }
-
-        private gConsumo() { }  // Construtor sem parâmetros necessário apenas para o XmlSerializer
         
         /// <summary>
         ///     P24 - Corresponde ao atributo “nItem” do elemento “det” da NF-e de aquisição
@@ -66,49 +49,18 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         /// <summary>
         ///     P25 - Valor do IBS na nota de aquisição correspondente à quantidade destinada a uso e consumo pessoal
         /// </summary>
-        [XmlIgnore]
         public decimal vIBS
         {
             get => _vIbs.Arredondar(2);
             set => _vIbs = value.Arredondar(2);
         }
-        
-        [XmlAttribute("vIBS")]
-        public decimal vIBS_AsAttribute
-        {
-            get => vIBS;
-            set => vIBS = value;
-        }
-
-        [XmlElement("vIBS")]
-        public decimal vIBS_AsElement
-        {
-            get => vIBS;
-            set => vIBS = value;
-        }
-        
         /// <summary>
         ///     P26 - Valor da CBS na nota de aquisição correspondente à quantidade destinada a uso e consumo pessoal
         /// </summary>
-        [XmlIgnore]
         public decimal vCBS
         {
             get => _vCbs.Arredondar(2);
             set => _vCbs = value.Arredondar(2);
-        }
-
-        [XmlAttribute("vCBS")]
-        public decimal vCBS_AsAttribute
-        {
-            get => vCBS;
-            set => vCBS = value;
-        }
-
-        [XmlElement("vCBS")]
-        public decimal vCBS_AsElement
-        {
-            get => vCBS;
-            set => vCBS = value;
         }
         
         /// <summary>
@@ -121,15 +73,5 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         ///     P30 - Informações por item da NF-e de Uso e Consumo Pessoal
         /// </summary>
         public DFeReferenciado DFeReferenciado { get; set; }
-        
-        private bool _serializarValorIbsECbsComoAtributo { get; }
-
-        public bool ShouldSerializevCBS_AsAttribute() => _serializarValorIbsECbsComoAtributo;
-
-        public bool ShouldSerializevCBS_AsElement() => !_serializarValorIbsECbsComoAtributo;
-        
-        public bool ShouldSerializevIBS_AsAttribute() => _serializarValorIbsECbsComoAtributo;
-
-        public bool ShouldSerializevIBS_AsElement() => !_serializarValorIbsECbsComoAtributo;
     }
 }
