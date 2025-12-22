@@ -31,14 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Servicos.Tipos;
-
 namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
     public class DFeReferenciado
     {
-        private bool _serializarComoNItem;
-        
         /// <summary>
         ///     P31 - Informa a chave da nota (NFe ou NFCe) emitida para o fornecimento nos casos em que a legislação obriga a emissão de documento fiscal.
         /// </summary>
