@@ -43,6 +43,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         /// <summary>
         ///     P32 - Corresponde ao “nItem” do DFeReferenciado
         /// </summary>
-        public int nItemDFeRef { get; set; }
+        public int nItem { get; set; }
     }
 }

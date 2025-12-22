@@ -434,6 +434,7 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
                 ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
                 ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado,
+                ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega,
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -488,7 +489,27 @@ namespace NFe.Servicos
             SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
             if (_cFgServico.ValidarSchemas)
-                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+            {
+                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento,
+                    cfgServico: _cFgServico);
+
+                var deveValidarDetEvento = DeveValidarDetalhamentoDoEvento(servicoEvento);
+                
+                if (deveValidarDetEvento)
+                {
+                    foreach (var evento in pedEvento.evento)
+                    {
+                        var detEvento = evento.infEvento.detEvento;
+                        var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
+                        if (_cFgServico.RemoverAcentos)
+                            detEventoXml = detEventoXml.RemoverAcentos();
+
+                        Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
+                    }
+                }
+            }
+
+            
 
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
@@ -534,6 +555,39 @@ namespace NFe.Servicos
                 retEnvEvento, listprocEventoNFe);
 
             #endregion
+        }
+
+        private bool DeveValidarDetalhamentoDoEvento(ServicoNFe servicoNFe)
+        {
+            bool deveValidarDetalhamentoDoEvento;
+            
+            switch (servicoNFe)
+            {
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega: 
+                    deveValidarDetalhamentoDoEvento = true;
+                    break;
+                default: 
+                    deveValidarDetalhamentoDoEvento = false;
+                    break;
+            }
+
+            return deveValidarDetalhamentoDoEvento;
         }
 
         /// <summary>
@@ -1704,9 +1758,15 @@ namespace NFe.Servicos
             var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
             var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
             
-            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
-            detalheEvento.tpEventoAut = tpEventoAut;
-            detalheEvento.nProtEvento = nProtEvento;
+            var detalheEvento = new detEvento
+            {
+                versao = versaoServicoRecepcaoString,
+                descEvento = nfeTipoEvento.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                verAplic = versaoAplicativo ?? "1.0",
+                tpEventoAut = tpEventoAut,
+                nProtEvento = nProtEvento
+            };
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);

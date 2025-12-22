@@ -481,30 +481,30 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente = 211150,
         
         /// <summary>
-        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão
         /// </summary>
-        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão")]
         [XmlEnum("212110")]
         TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212110,
         
         /// <summary>
-        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operação de Sucessão
         /// </summary>
-        [Description("Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de CBS em Operação de Sucessão")]
         [XmlEnum("212120")]
         TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 212120,
         
         /// <summary>
-        /// 412120 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// 412120 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão
         /// </summary>
-        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operação de Sucessão")]
         [XmlEnum("412120")]
         TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 412120,
         
         /// <summary>
-        /// 412130 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// 412130 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operação de Sucessão
         /// </summary>
-        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
+        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operação de Sucessão")]
         [XmlEnum("412130")]
         TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 412130,
         

@@ -48,6 +48,8 @@ using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
 {
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlType(Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class detEvento
     {
         /// <summary>
@@ -163,6 +165,15 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
+        #region RFC - Cancelamento Evento
+
+        /// <summary>
+        ///     P23 - Código do evento autorizado a ser cancelado
+        /// </summary>
+        public string tpEventoAut {get; set;}
+        
+        #endregion
+        
         #region Cancelamento Insucesso/Comprovante de Entrega NFe/ Cancelamento Evento
         
         /// <summary>
@@ -498,15 +509,6 @@ namespace NFe.Classes.Servicos.Evento
         ///     P24 - Descrição deferimento
         /// </summary>
         public string xMotivo { get; set; }
-        
-        #endregion
-        
-        #region Cancelamento Evento
-
-        /// <summary>
-        ///     P23 - Código do evento autorizado a ser cancelado
-        /// </summary>
-        public string tpEventoAut {get; set;}
         
         #endregion
 
