@@ -37,7 +37,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
     public class DFeReferenciado
     {
-        private int _nItem;
         private bool _serializarComoNItem;
         
         /// <summary>
