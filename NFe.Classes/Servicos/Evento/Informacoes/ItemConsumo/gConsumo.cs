@@ -53,9 +53,10 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 
             if (!eventosPermitidos.Contains(nFeTipoEvento))
                 throw new ArgumentException($"Não é permitido instanciar gConsumo com o evento {nFeTipoEvento}.", nameof(nFeTipoEvento));
-                
-            if (nFeTipoEvento == NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal) 
-                _serializarValorIbsECbsComoAtributo = true;
+            
+            // Como os schemas da sefaz trouxeram o campo vIBS e vCBS como elementos, essa condicional ficará desabilitada por hora.
+            // if (nFeTipoEvento == NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal) 
+            //     _serializarValorIbsECbsComoAtributo = true;
         }
 
         private gConsumo() { }  // Construtor sem parâmetros necessário apenas para o XmlSerializer
