@@ -532,79 +532,95 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("Transferência de créditos para Cooperativas")]
         [XmlEnum("01")]
-        TfCreditoCooperativa = 1,
+        TfCreditoCooperativa,
         
         /// <summary>
         /// 02 - Anulação de Crédito por Saídas Imunes/Isentas
         /// </summary>
         [Description("Anulação de Crédito por Saídas Imunes/Isentas")]
         [XmlEnum("02")]
-        AnulaCreditoSaidasImunesIsentas = 2,
+        AnulaCreditoSaidasImunesIsentas,
         
         /// <summary>
         /// 03 - Débitos de notas fiscais não processadas na apuração
         /// </summary>
         [Description("Débitos de notas fiscais não processadas na apuração")]
         [XmlEnum("03")]
-        DebitosNfNaoProcessadas = 3,
+        DebitosNfNaoProcessadas,
         
         /// <summary>
         /// 04 - Multa e juros
         /// </summary>
         [Description("Multa e juros")]
         [XmlEnum("04")]
-        MultaJuros = 4,
+        MultaJuros,
         
         /// <summary>
         /// 05 - Transferência de crédito de sucessão
         /// </summary>
         [Description("Transferência de crédito de sucessão")]
         [XmlEnum("05")]
-        TfCreditoSucessao = 5,
+        TfCreditoSucessao,
         
         /// <summary>
         /// 06 - Pagamento antecipado
         /// </summary>
         [Description("Pagamento antecipado")]
         [XmlEnum("06")]
-        PagamentoAntecipado = 6,
+        PagamentoAntecipado,
         
         /// <summary>
         /// 07 - Perda em estoque
         /// </summary>
         [Description("Perda em estoque")]
         [XmlEnum("07")]
-        PerdaEstoque = 7
+        PerdaEstoque
     }
 
     /// <summary>
     ///     Tipo de Nota de Crédito
     ///     <para>1 - Multa e juros</para>
     ///     <para>2 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)</para>
-    ///     <para>3 - Retorno</para>
+    ///     <para>3 - Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega</para>
+    ///     <para>4 - Redução de valores</para>
+    ///     <para>5 - Transferência de crédito na sucessão</para>
     /// </summary>
     public enum TpNotaCredito
     {
         /// <summary>
-        /// 1 - Multa e juros
+        /// 01 - Multa e juros
         /// </summary>
         [Description("Multa e juros")]
-        [XmlEnum("1")]
-        MultaJuros = 1,
+        [XmlEnum("01")]
+        MultaJuros,
         
         /// <summary>
-        /// 2 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)
+        /// 02 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)
         /// </summary>
         [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
-        [XmlEnum("2")]
-        ApropriacaoDeCredito = 2,
+        [XmlEnum("02")]
+        ApropriacaoDeCredito,
         
         /// <summary>
-        /// 3 - Retorno
+        /// 03 - Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega
         /// </summary>
-        [Description("Retorno")]
-        [XmlEnum("3")]
-        Retorno = 3
+        [Description("Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega")]
+        [XmlEnum("03")]
+        RetornoPorRecusaOuNaoLocalizacaoDoDestinatario,
+        
+        /// <summary>
+        /// 04 - Redução de valores
+        /// </summary>
+        [Description("Redução de valores")]
+        [XmlEnum("04")]
+        ReducaoDeValores,
+        
+        /// <summary>
+        /// 05 - Transferência de crédito na sucessão
+        /// </summary>
+        [Description("Transferência de crédito na sucessão;")]
+        [XmlEnum("05")]
+        TfCreditoSucessao
     }
 
     /// <summary>
@@ -621,28 +637,28 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("União")]
         [XmlEnum("1")]
-        Uniao = 1,
+        Uniao,
         
         /// <summary>
         /// 2 - Estado
         /// </summary>
         [Description("Estado")]
         [XmlEnum("2")]
-        Estado = 2,
+        Estado,
         
         /// <summary>
         /// 3 - Distrito Federal
         /// </summary>
         [Description("Distrito Federal")]
         [XmlEnum("3")]
-        DistritoFederal = 3,
+        DistritoFederal,
         
         /// <summary>
         /// 4 - Município
         /// </summary>
         [Description("Município")]
         [XmlEnum("4")]
-        Municipio = 4
+        Municipio
     }
     
     /// <summary>
@@ -657,13 +673,13 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("Fornecimento")]
         [XmlEnum("1")]
-        Fornecimento = 1,
+        Fornecimento,
         
         /// <summary>
         /// 2 - Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º
         /// </summary>
         [Description("Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º")]
         [XmlEnum("2")]
-        RecebimentoPagamento = 2
+        RecebimentoPagamento
     }
 }
