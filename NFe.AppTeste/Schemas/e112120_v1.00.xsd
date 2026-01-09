@@ -4,17 +4,17 @@
 	<xs:include schemaLocation="tiposBasico_v1.03.xsd"/>
 	<xs:element name="detEvento">
 		<xs:annotation>
-			<xs:documentation>Informações do Evento de Solicitação de Apropriação de crédito presumido</xs:documentation>
+			<xs:documentation>Informações do Evento de Importação em ALC/ZFM não convertida em isenção</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="descEvento">
 					<xs:annotation>
-						<xs:documentation>Descrição do Evento de Solicitação de Apropriação de crédito presumido</xs:documentation>
+						<xs:documentation>Descrição do evento: "Importação em ALC/ZFM não convertida em isenção"</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
-							<xs:enumeration value="Solicitação de Apropriação de crédito presumido"/>
+							<xs:enumeration value="Importação em ALC/ZFM não convertida em isenção"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -25,13 +25,13 @@
 				</xs:element>
 				<xs:element name="tpAutor">
 					<xs:annotation>
-						<xs:documentation>Informar 2=Empresa destinatario
+						<xs:documentation>Informar 1=Empresa emitente
 													Valores: 1=Empresa Emitente, 2=Empresa destinatária; 3=Empresa; 5=Fisco;6=RFB; 9=Outros Órgãos;
 						</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
-							<xs:enumeration value="2"/>
+							<xs:enumeration value="1"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
@@ -40,67 +40,40 @@
 						<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="gCredPres" maxOccurs="990">
+				<xs:element name="gConsumo" maxOccurs="990">
 					<xs:annotation>
-						<xs:documentation>Informações de crédito presumido por item</xs:documentation>
+						<xs:documentation>Informações de itens integrados ao ativo imobilizado</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="vBC" type="TDec_1302">
+							<xs:element name="vIBS" type="TDec_1302">
 								<xs:annotation>
-									<xs:documentation>Valor do base de cálculo do item</xs:documentation>
+									<xs:documentation>Valor do IBS correspondente à quantidade que não atendeu aos requisitos para a conversão em isenção</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="gIBS" minOccurs="0">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="cCredPres">
-											<xs:annotation>
-												<xs:documentation>Usar tabela Cred Presumido, para o emitente da nota.</xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:whiteSpace value="preserve"/>
-													<xs:pattern value="[0-9]{2}"/>
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:element>
-										<xs:element name="pCredPres" type="TDec_0302_04">
-											<xs:annotation>
-												<xs:documentation>Percentual do Crédito Presumido</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="vCredPres" type="TDec1302">
-											<xs:annotation>
-												<xs:documentation>Valor do Crédito Presumido</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
+							<xs:element name="vCBS" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do CBS correspondente à quantidade que não atendeu aos requisitos para a conversão em isenção</xs:documentation>
+								</xs:annotation>
 							</xs:element>
-							<xs:element name="gCBS" minOccurs="0">
+							<xs:element name="gControleEstoque">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="cCredPres">
+										<xs:element name="qtde" type="TDec_1104">
 											<xs:annotation>
-												<xs:documentation>Usar tabela Cred Presumido, para o emitente da nota.</xs:documentation>
+												<xs:documentation>Informar a quantidade que não atendeu os requisitos para a conversão em isenção</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="unidade">
+											<xs:annotation>
+												<xs:documentation>Informar a unidade relativa ao campo gConsumo</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
-												<xs:restriction base="xs:string">
-													<xs:whiteSpace value="preserve"/>
-													<xs:pattern value="[0-9]{2}"/>
+												<xs:restriction base="TString">
+													<xs:maxLength value="6"/>
+													<xs:minLength value="1"/>
 												</xs:restriction>
 											</xs:simpleType>
-										</xs:element>
-										<xs:element name="pCredPres" type="TDec_0302_04">
-											<xs:annotation>
-												<xs:documentation>Percentual do Crédito Presumido</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="vCredPres" type="TDec1302">
-											<xs:annotation>
-												<xs:documentation>Valor do Crédito Presumido</xs:documentation>
-											</xs:annotation>
 										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
@@ -116,7 +89,7 @@
 			</xs:sequence>
 			<xs:attribute name="versao">
 				<xs:annotation>
-					<xs:documentation>Versão do evento de Irregularidade Fiscal</xs:documentation>
+					<xs:documentation>Versão do leiaute do evento </xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
