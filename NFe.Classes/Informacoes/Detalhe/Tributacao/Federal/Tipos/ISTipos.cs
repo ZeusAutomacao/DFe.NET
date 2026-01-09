@@ -38,103 +38,151 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
 {
     /// <summary>
     ///     CST para o Imposto Seletivo (IS)
-    ///     <para>000 - Tributada integralmente</para>
-    ///     <para>001 - Tributada com alíquota por unidade de medida de produto</para>
-    ///     <para>002 - Tributada com alíquota ad valorem</para>
-    ///     <para>003 - Tributada com redução de base de cálculo</para>
-    ///     <para>050 - Tributação monofásica sobre combustíveis com retenção do IS</para>
-    ///     <para>051 - Tributação monofásica sobre combustíveis sem retenção do IS</para>
-    ///     <para>090 - Outras operações de tributação integral</para>
-    ///     <para>100 - Imune</para>
-    ///     <para>200 - Isenta</para>
-    ///     <para>300 - Não tributada</para>
-    ///     <para>400 - Não incidência</para>
-    ///     <para>500 - Suspensão</para>
+    ///     <para>000 - Tributação integral</para>
+    ///     <para>010 - Tributação com alíquotas uniformes</para>
+    ///     <para>011 - Tributação com alíquotas uniformes reduzidas</para>
+    ///     <para>200 - Alíquota reduzida</para>
+    ///     <para>220 - Alíquota fixa</para>
+    ///     <para>221 - Alíquota fixa proporcional</para>
+    ///     <para>222 - Redução de base de cálculo</para>
+    ///     <para>400 - Isenção</para>
+    ///     <para>410 - Imunidade e não incidência</para>
+    ///     <para>510 - Diferimento</para>
+    ///     <para>515 - Diferimento com redução de alíquota</para>
+    ///     <para>550 - Suspensão</para>
+    ///     <para>620 - Tributação monofásica</para>
+    ///     <para>800 - Transferência de crédito</para>
+    ///     <para>810 - Ajuste de IBS na Zona Franca de Manaus (ZFM)</para>
+    ///     <para>811 - Ajustes</para>
+    ///     <para>820 - Tributação em declaração de regime específico</para>
+    ///     <para>830 - Exclusão da base de cálculo</para>
     /// </summary>
     public enum CSTIS
     {
         /// <summary>
-        ///     000 - Tributada integralmente
+        ///     000 - Tributação integral: operação tributada pela alíquota integral do Imposto Seletivo
         /// </summary>
-        [Description("Tributada integralmente")]
+        [Description("Tributação integral: operação tributada pela alíquota integral do Imposto Seletivo")]
         [XmlEnum("000")]
         Is000,
 
         /// <summary>
-        ///     001 - Tributada com alíquota por unidade de medida de produto
+        ///     010 - Tributação com alíquotas uniformes: aplica-se a alíquota geral definida para o produto/serviço
         /// </summary>
-        [Description("Tributada com alíquota por unidade de medida de produto")]
-        [XmlEnum("001")]
-        Is001,
+        [Description("Tributação com alíquotas uniformes: aplica-se a alíquota geral definida para o produto/serviço")]
+        [XmlEnum("010")]
+        Is010,
 
         /// <summary>
-        ///     002 - Tributada com alíquota ad valorem
+        ///     011 - Tributação com alíquotas uniformes reduzidas: alíquotas gerais reduzidas, conforme previsão legal
         /// </summary>
-        [Description("Tributada com alíquota ad valorem")]
-        [XmlEnum("002")]
-        Is002,
+        [Description("Tributação com alíquotas uniformes reduzidas: alíquotas gerais reduzidas, conforme previsão legal")]
+        [XmlEnum("011")]
+        Is011,
 
         /// <summary>
-        ///     003 - Tributada com redução de base de cálculo
+        ///     200 - Alíquota reduzida: operações com alíquota do Imposto Seletivo reduzida em relação à alíquota padrão
         /// </summary>
-        [Description("Tributada com redução de base de cálculo")]
-        [XmlEnum("003")]
-        Is003,
-
-        /// <summary>
-        ///     050 - Tributação monofásica sobre combustíveis com retenção do IS
-        /// </summary>
-        [Description("Tributação monofásica sobre combustíveis com retenção do IS")]
-        [XmlEnum("050")]
-        Is050,
-
-        /// <summary>
-        ///     051 - Tributação monofásica sobre combustíveis sem retenção do IS
-        /// </summary>
-        [Description("Tributação monofásica sobre combustíveis sem retenção do IS")]
-        [XmlEnum("051")]
-        Is051,
-
-        /// <summary>
-        ///     090 - Outras operações de tributação integral
-        /// </summary>
-        [Description("Outras operações de tributação integral")]
-        [XmlEnum("090")]
-        Is090,
-
-        /// <summary>
-        ///     100 - Imune
-        /// </summary>
-        [Description("Imune")]
-        [XmlEnum("100")]
-        Is100,
-
-        /// <summary>
-        ///     200 - Isenta
-        /// </summary>
-        [Description("Isenta")]
+        [Description("Alíquota reduzida: operações com alíquota do Imposto Seletivo reduzida em relação à alíquota padrão")]
         [XmlEnum("200")]
         Is200,
 
         /// <summary>
-        ///     300 - Não tributada
+        ///     220 - Alíquota fixa: tributação com alíquota fixa (valor específico)
         /// </summary>
-        [Description("Não tributada")]
-        [XmlEnum("300")]
-        Is300,
+        [Description("Alíquota fixa: tributação com alíquota fixa (valor específico)")]
+        [XmlEnum("220")]
+        Is220,
 
         /// <summary>
-        ///     400 - Não incidência
+        ///     221 - Alíquota fixa proporcional: alíquota específica proporcional à base de cálculo
         /// </summary>
-        [Description("Não incidência")]
+        [Description("Alíquota fixa proporcional: alíquota específica proporcional à base de cálculo")]
+        [XmlEnum("221")]
+        Is221,
+
+        /// <summary>
+        ///     222 - Redução de base de cálculo: incidência do IS com redução na base de cálculo
+        /// </summary>
+        [Description("Redução de base de cálculo: incidência do IS com redução na base de cálculo")]
+        [XmlEnum("222")]
+        Is222,
+
+        /// <summary>
+        ///     400 - Isenção: operações isentas de Imposto Seletivo
+        /// </summary>
+        [Description("Isenção: operações isentas de Imposto Seletivo")]
         [XmlEnum("400")]
         Is400,
 
         /// <summary>
-        ///     500 - Suspensão
+        ///     410 - Imunidade e não incidência: operações imunes ou não sujeitas ao Imposto Seletivo
         /// </summary>
-        [Description("Suspensão")]
-        [XmlEnum("500")]
-        Is500
+        [Description("Imunidade e não incidência: operações imunes ou não sujeitas ao Imposto Seletivo")]
+        [XmlEnum("410")]
+        Is410,
+
+        /// <summary>
+        ///     510 - Diferimento: cobrança do Imposto Seletivo diferida para etapa posterior
+        /// </summary>
+        [Description("Diferimento: cobrança do Imposto Seletivo diferida para etapa posterior")]
+        [XmlEnum("510")]
+        Is510,
+
+        /// <summary>
+        ///     515 - Diferimento com redução de alíquota: diferimento com alíquota reduzida
+        /// </summary>
+        [Description("Diferimento com redução de alíquota: diferimento com alíquota reduzida")]
+        [XmlEnum("515")]
+        Is515,
+
+        /// <summary>
+        ///     550 - Suspensão: suspensão da cobrança do Imposto Seletivo
+        /// </summary>
+        [Description("Suspensão: suspensão da cobrança do Imposto Seletivo")]
+        [XmlEnum("550")]
+        Is550,
+
+        /// <summary>
+        ///     620 - Tributação monofásica: incidência em regime monofásico (cobrança concentrada em determinado elo da cadeia)
+        /// </summary>
+        [Description("Tributação monofásica: incidência em regime monofásico (cobrança concentrada em determinado elo da cadeia)")]
+        [XmlEnum("620")]
+        Is620,
+
+        /// <summary>
+        ///     800 - Transferência de crédito: operações que geram transferência de crédito do Imposto Seletivo
+        /// </summary>
+        [Description("Transferência de crédito: operações que geram transferência de crédito do Imposto Seletivo")]
+        [XmlEnum("800")]
+        Is800,
+
+        /// <summary>
+        ///     810 - Ajuste de IBS na Zona Franca de Manaus (ZFM): ajustes de crédito para operações envolvendo IBS/CBS na ZFM
+        /// </summary>
+        [Description("Ajuste de IBS na Zona Franca de Manaus (ZFM): ajustes de crédito para operações envolvendo IBS/CBS na ZFM; pode também se aplicar ao IS")]
+        [XmlEnum("810")]
+        Is810,
+
+        /// <summary>
+        ///     811 - Ajustes: outras hipóteses de ajuste de crédito ou débito
+        /// </summary>
+        [Description("Ajustes: outras hipóteses de ajuste de crédito ou débito")]
+        [XmlEnum("811")]
+        Is811,
+
+        /// <summary>
+        ///     820 - Tributação em declaração de regime específico: operações sujeitas a regime específico de tributação
+        /// </summary>
+        [Description("Tributação em declaração de regime específico: operações sujeitas a regime específico de tributação")]
+        [XmlEnum("820")]
+        Is820,
+
+        /// <summary>
+        ///     830 - Exclusão da base de cálculo: exclusão do valor da base de cálculo do Imposto Seletivo
+        /// </summary>
+        [Description("Exclusão da base de cálculo: exclusão do valor da base de cálculo do Imposto Seletivo")]
+        [XmlEnum("830")]
+        Is830
     }
 }
