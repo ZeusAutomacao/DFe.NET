@@ -38,7 +38,18 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
 {
     /// <summary>
     ///     CST para o Imposto Seletivo (IS)
-    ///     Tabela ainda não publicada oficialmente pela SEFAZ. Fonte: NT 2025.002-RTC
+    ///     <para>000 - Tributada integralmente</para>
+    ///     <para>001 - Tributada com alíquota por unidade de medida de produto</para>
+    ///     <para>002 - Tributada com alíquota ad valorem</para>
+    ///     <para>003 - Tributada com redução de base de cálculo</para>
+    ///     <para>050 - Tributação monofásica sobre combustíveis com retenção do IS</para>
+    ///     <para>051 - Tributação monofásica sobre combustíveis sem retenção do IS</para>
+    ///     <para>090 - Outras operações de tributação integral</para>
+    ///     <para>100 - Imune</para>
+    ///     <para>200 - Isenta</para>
+    ///     <para>300 - Não tributada</para>
+    ///     <para>400 - Não incidência</para>
+    ///     <para>500 - Suspensão</para>
     /// </summary>
     public enum CSTIS
     {
@@ -47,6 +58,83 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
         /// </summary>
         [Description("Tributada integralmente")]
         [XmlEnum("000")]
-        Is000
+        Is000,
+
+        /// <summary>
+        ///     001 - Tributada com alíquota por unidade de medida de produto
+        /// </summary>
+        [Description("Tributada com alíquota por unidade de medida de produto")]
+        [XmlEnum("001")]
+        Is001,
+
+        /// <summary>
+        ///     002 - Tributada com alíquota ad valorem
+        /// </summary>
+        [Description("Tributada com alíquota ad valorem")]
+        [XmlEnum("002")]
+        Is002,
+
+        /// <summary>
+        ///     003 - Tributada com redução de base de cálculo
+        /// </summary>
+        [Description("Tributada com redução de base de cálculo")]
+        [XmlEnum("003")]
+        Is003,
+
+        /// <summary>
+        ///     050 - Tributação monofásica sobre combustíveis com retenção do IS
+        /// </summary>
+        [Description("Tributação monofásica sobre combustíveis com retenção do IS")]
+        [XmlEnum("050")]
+        Is050,
+
+        /// <summary>
+        ///     051 - Tributação monofásica sobre combustíveis sem retenção do IS
+        /// </summary>
+        [Description("Tributação monofásica sobre combustíveis sem retenção do IS")]
+        [XmlEnum("051")]
+        Is051,
+
+        /// <summary>
+        ///     090 - Outras operações de tributação integral
+        /// </summary>
+        [Description("Outras operações de tributação integral")]
+        [XmlEnum("090")]
+        Is090,
+
+        /// <summary>
+        ///     100 - Imune
+        /// </summary>
+        [Description("Imune")]
+        [XmlEnum("100")]
+        Is100,
+
+        /// <summary>
+        ///     200 - Isenta
+        /// </summary>
+        [Description("Isenta")]
+        [XmlEnum("200")]
+        Is200,
+
+        /// <summary>
+        ///     300 - Não tributada
+        /// </summary>
+        [Description("Não tributada")]
+        [XmlEnum("300")]
+        Is300,
+
+        /// <summary>
+        ///     400 - Não incidência
+        /// </summary>
+        [Description("Não incidência")]
+        [XmlEnum("400")]
+        Is400,
+
+        /// <summary>
+        ///     500 - Suspensão
+        /// </summary>
+        [Description("Suspensão")]
+        [XmlEnum("500")]
+        Is500
     }
 }
