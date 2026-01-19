@@ -35,8 +35,6 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Evento;
-using Shared.NFe.Classes.Servicos.Evento;
-
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
