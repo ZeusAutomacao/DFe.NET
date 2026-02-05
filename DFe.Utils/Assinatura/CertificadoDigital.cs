@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -43,7 +43,7 @@ namespace DFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
-        private static readonly Dictionary<string, X509Certificate2> CacheCertificado = new Dictionary<string, X509Certificate2>();
+        private static readonly ConcurrentDictionary<string, X509Certificate2> CacheCertificado = new ConcurrentDictionary<string, X509Certificate2>();
 
         #region Métodos privados
 
@@ -204,8 +204,8 @@ namespace DFe.Utils.Assinatura
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
         /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
-        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
-        /// senão será obtido pelo método <see cref="ListareObterDoRepositorio"/> </para>
+        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string,X509KeyStorageFlags)"/>,
+        /// senão será obtido pelo método <see cref="ObterDoRepositorio"/> </para>
         /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
         /// </summary>
         public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
@@ -213,20 +213,20 @@ namespace DFe.Utils.Assinatura
             if (!configuracaoCertificado.ManterDadosEmCache)
                 return ObterDadosCertificado(configuracaoCertificado);
 
-            if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
-                return CacheCertificado[configuracaoCertificado.CacheId];
+            if (!string.IsNullOrWhiteSpace(configuracaoCertificado.CacheId) && CacheCertificado.TryGetValue(configuracaoCertificado.CacheId, out var certificadoEmCache))
+                return certificadoEmCache;
 
             var certificado = ObterDadosCertificado(configuracaoCertificado);
 
-            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
+            var keyCertificado = string.IsNullOrWhiteSpace(configuracaoCertificado.CacheId)
                 ? certificado.SerialNumber
                 : configuracaoCertificado.CacheId;
 
             configuracaoCertificado.CacheId = keyCertificado;
+            
+            var certificadoDoCache = CacheCertificado.GetOrAdd(keyCertificado, certificado);
 
-            CacheCertificado.Add(keyCertificado, certificado);
-
-            return CacheCertificado[keyCertificado];
+            return certificadoDoCache;
         }
 
         public static void ClearCache()
