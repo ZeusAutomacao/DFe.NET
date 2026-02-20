@@ -88,7 +88,7 @@ using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 
 namespace NFe.Servicos
 {
-    public sealed class ServicosNFe : IDisposable
+    public sealed class ServicosNFe : IServicosNFe
     {
         private readonly X509Certificate2 _certificado;
         private readonly bool _controlarCertificado;
