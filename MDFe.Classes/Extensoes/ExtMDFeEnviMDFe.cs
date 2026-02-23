@@ -44,6 +44,7 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeEnviMDFe
     {
+        [Obsolete("Use o metodo de instancia enviMDFe.Valida() diretamente.")]
         public static void Valida(this MDFeEnviMDFe enviMDFe, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;

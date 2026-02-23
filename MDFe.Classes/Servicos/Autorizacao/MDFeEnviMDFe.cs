@@ -33,7 +33,9 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Utils;
+using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Servicos.Autorizacao
 {
@@ -64,6 +66,25 @@ namespace MDFe.Classes.Servicos.Autorizacao
         public static MDFeEnviMDFe LoadXmlArquivo(string caminhoArquivoXml)
         {
             return FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(caminhoArquivoXml);
+        }
+
+        public virtual void Valida(MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            var xmlMdfe = FuncoesXml.ClasseParaXmlString(this);
+
+            switch (config.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd", config);
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd", config);
+                    break;
+            }
+
+            MDFe.Valida(config);
         }
     }
 }

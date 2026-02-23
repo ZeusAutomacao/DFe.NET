@@ -67,6 +67,7 @@ namespace NFe.Utils.Inutilizacao
         /// <param name="inutNFe"></param>
         /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo inutNFe assinado</returns>
+        [Obsolete("Use IServicosNFe.Assina(pedInutilizacao) ao inves deste extension method.")]
         public static inutNFe Assina(this inutNFe inutNFe, X509Certificate2 certificadoDigital, string signatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1", bool removerAcentos = false)
         {
             var inutNFeLocal = inutNFe;

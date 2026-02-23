@@ -1,9 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
+using CTe.Classes;
 using CTe.Classes.Informacoes;
 using DFe.Classes.Assinatura;
+using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 
 namespace CTe.CTeOSClasses
 {
@@ -35,6 +39,31 @@ namespace CTe.CTeOSClasses
         public static CTeOS LoadXmlArquivo(string caminhoArquivoXml)
         {
             return FuncoesXml.ArquivoXmlParaClasse<CTeOS>(caminhoArquivoXml);
+        }
+
+        public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            var modeloDocumentoFiscal = InfCte.ide.mod;
+            var tipoEmissao = (int)InfCte.ide.tpEmis;
+            var codigoNumerico = InfCte.ide.cCT;
+            var estado = InfCte.ide.cUF;
+            var dataEHoraEmissao = InfCte.ide.dhEmi;
+            var cnpj = InfCte.emit.CNPJ;
+            var numeroDocumento = InfCte.ide.nCT;
+            int serie = InfCte.ide.serie;
+
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal,
+                serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            InfCte.Id = "CTe" + dadosChave.Chave;
+            InfCte.versao = DFe.Classes.Flags.VersaoServico.Versao400;
+            InfCte.ide.cDV = dadosChave.DigitoVerificador;
+
+            var assinatura = AssinaturaDigital.Assina(this, InfCte.Id, configServico.X509Certificate2);
+
+            Signature = assinatura;
         }
     }
 }

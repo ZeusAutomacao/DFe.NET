@@ -59,6 +59,7 @@ namespace NFe.Utils.Evento
         /// <param name="digestMethodReference"></param>
         /// <param name="removerAcentos"></param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
+        [Obsolete("Use IServicosNFe.Assina(evento) ao inves deste extension method.")]
         public static evento Assina(this evento evento, X509Certificate2 certificadoDigital,
             string signatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
             string digestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1", bool removerAcentos = false)

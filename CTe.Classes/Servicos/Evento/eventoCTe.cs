@@ -31,9 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml.Serialization;
 using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Assinatura;
+using DFe.Utils.Assinatura;
 
 namespace CTe.Classes.Servicos.Evento
 {
@@ -56,5 +58,14 @@ namespace CTe.Classes.Servicos.Evento
         /// </summary>
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
+
+        public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            if (infEvento.Id == null)
+                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
+
+            Signature = AssinaturaDigital.Assina(this, infEvento.Id, configServico.X509Certificate2);
+        }
     }
 }

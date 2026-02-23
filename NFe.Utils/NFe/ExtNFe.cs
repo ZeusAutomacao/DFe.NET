@@ -93,6 +93,7 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="cfgServico1"></param>
         /// <returns>Retorna um objeto NFe devidamente tradado</returns>
+        [Obsolete("Use IServicosNFe.Valida(nfe) ao inves deste extension method.")]
         public static Classes.NFe Valida(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
@@ -115,6 +116,7 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="cfgServico">ConfiguracaoServico para uso na classe Assinador</param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
+        [Obsolete("Use IServicosNFe.Assina(nfe) ao inves deste extension method.")]
         public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null, X509Certificate2 _certificado = null)
         {
             var nfeLocal = nfe;

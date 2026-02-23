@@ -49,6 +49,7 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFe
     {
+        [Obsolete("Use o metodo de instancia mdfe.Valida() diretamente.")]
         public static MDFEletronico Valida(this MDFEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
@@ -125,6 +126,7 @@ namespace MDFe.Classes.Extensoes
             return mdfe;
         }
 
+        [Obsolete("Use o metodo de instancia mdfe.Assina() diretamente.")]
         public static MDFEletronico Assina(this MDFEletronico mdfe, EventHandler<string> eventHandlerChaveMdfe = null, object quemInvocouEventoChaveMDFe = null, MDFeConfiguracao cfgMdfe = null)
         {
             if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");

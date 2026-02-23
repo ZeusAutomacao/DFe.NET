@@ -343,5 +343,25 @@ namespace NFe.Servicos
         ///     Administração do CSC para NFC-e
         /// </summary>
         RetornoAdmCscNFCe AdmCscNFCe(string raizCnpj, IdentificadorOperacaoCsc identificadorOperacaoCsc, string idCscASerRevogado = null, string codigoCscASerRevogado = null);
+
+        /// <summary>
+        ///     Assina uma NFe, gerando Id, cDV e assinatura digital
+        /// </summary>
+        Classes.NFe Assina(Classes.NFe nfe);
+
+        /// <summary>
+        ///     Valida uma NFe contra o schema XSD
+        /// </summary>
+        Classes.NFe Valida(Classes.NFe nfe);
+
+        /// <summary>
+        ///     Assina um pedido de inutilizacao
+        /// </summary>
+        inutNFe Assina(inutNFe pedInutilizacao);
+
+        /// <summary>
+        ///     Assina um evento (cancelamento, carta correcao, etc.)
+        /// </summary>
+        evento Assina(evento evento);
     }
 }

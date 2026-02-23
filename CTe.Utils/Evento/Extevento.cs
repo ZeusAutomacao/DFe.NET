@@ -62,6 +62,7 @@ namespace CTe.Utils.Evento
         /// <param name="eventoCTe"></param>
         /// <param name="configuracaoServico"></param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
+        [Obsolete("Use o metodo de instancia eventoCTe.Assina() diretamente.")]
         public static void Assina(this eventoCTe eventoCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;

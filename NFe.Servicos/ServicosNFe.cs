@@ -66,12 +66,14 @@ using NFe.Utils.Validacao;
 using NFe.Wsdl;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Utils.Assinatura;
 using NFe.Classes;
 using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
@@ -327,7 +329,7 @@ namespace NFe.Servicos
 
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
+            Assina(pedInutilizacao);
 
             #endregion
 
@@ -474,7 +476,7 @@ namespace NFe.Servicos
                 {
                     evento.infEvento.Id = "ID" + ((int)evento.infEvento.tpEvento) + evento.infEvento.chNFe +
                                         evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                    evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
+                    Assina(evento);
                 }
             }
 
@@ -870,7 +872,7 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoEpec);
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
-                nfe.Assina().Valida();
+                Valida(Assina(nfe));
 
             var detevento = new detEvento
             {
@@ -2756,6 +2758,114 @@ namespace NFe.Servicos
 
         #endregion
 
+
+        #region Assina / Valida
+
+        /// <summary>
+        ///     Assina uma NFe, gerando Id, cDV e assinatura digital
+        /// </summary>
+        public Classes.NFe Assina(Classes.NFe nfe)
+        {
+            var nfeLocal = nfe;
+            if (nfeLocal == null) throw new ArgumentNullException("nfe");
+
+            #region Define cNF
+
+            var tamanhocNf = 9;
+            var versao = decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture);
+            if (versao >= 2) tamanhocNf = 8;
+            nfeLocal.infNFe.ide.cNF = Convert.ToInt32(nfeLocal.infNFe.ide.cNF).ToString().PadLeft(tamanhocNf, '0');
+
+            #endregion
+
+            var modeloDocumentoFiscal = nfeLocal.infNFe.ide.mod;
+            var tipoEmissao = (int)nfeLocal.infNFe.ide.tpEmis;
+            var codigoNumerico = int.Parse(nfeLocal.infNFe.ide.cNF);
+            var estado = nfeLocal.infNFe.ide.cUF;
+            var dataEHoraEmissao = nfeLocal.infNFe.ide.dhEmi;
+            var cnpj = nfeLocal.infNFe.emit.CNPJ;
+
+            if (cnpj == null)
+            {
+                cnpj = nfeLocal.infNFe.emit.CPF.PadLeft(14, '0');
+            }
+
+            var numeroDocumento = nfeLocal.infNFe.ide.nNF;
+            var serie = nfeLocal.infNFe.ide.serie;
+
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
+            nfeLocal.infNFe.ide.cDV = Convert.ToInt32(dadosChave.DigitoVerificador);
+
+            DFe.Classes.Assinatura.Signature assinatura;
+            if (_certificado == null)
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, _cFgServico);
+            else
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, _certificado,
+                    _cFgServico.Certificado.ManterDadosEmCache,
+                    _cFgServico.Certificado.SignatureMethodSignedXml,
+                    _cFgServico.Certificado.DigestMethodReference,
+                    _cFgServico.RemoverAcentos);
+            nfeLocal.Signature = assinatura;
+            return nfeLocal;
+        }
+
+        /// <summary>
+        ///     Valida uma NFe contra o schema XSD
+        /// </summary>
+        public Classes.NFe Valida(Classes.NFe nfe)
+        {
+            if (nfe == null) throw new ArgumentNullException("nfe");
+
+            var versao = Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture);
+
+            var xmlNfe = nfe.ObterXmlString();
+            if (versao < 3)
+                Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlNfe, false, _cFgServico);
+            if (versao >= 3)
+                Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlNfe, false, _cFgServico);
+
+            return nfe;
+        }
+
+        /// <summary>
+        ///     Assina um pedido de inutilizacao
+        /// </summary>
+        public inutNFe Assina(inutNFe pedInutilizacao)
+        {
+            var inutNFeLocal = pedInutilizacao;
+            if (inutNFeLocal.infInut.Id == null)
+                throw new Exception("Não é possível assinar um onjeto inutNFe sem sua respectiva Id!");
+
+            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id,
+                _certificado, false,
+                _cFgServico.Certificado.SignatureMethodSignedXml,
+                _cFgServico.Certificado.DigestMethodReference,
+                _cFgServico.RemoverAcentos);
+            inutNFeLocal.Signature = assinatura;
+            return inutNFeLocal;
+        }
+
+        /// <summary>
+        ///     Assina um evento (cancelamento, carta correcao, etc.)
+        /// </summary>
+        public evento Assina(evento evento)
+        {
+            var eventoLocal = evento;
+            if (eventoLocal.infEvento.Id == null)
+                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
+
+            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id,
+                _certificado, false,
+                _cFgServico.Certificado.SignatureMethodSignedXml,
+                _cFgServico.Certificado.DigestMethodReference,
+                _cFgServico.RemoverAcentos);
+            eventoLocal.Signature = assinatura;
+            return eventoLocal;
+        }
+
+        #endregion
 
         #region Implementação do padrão Dispose
 

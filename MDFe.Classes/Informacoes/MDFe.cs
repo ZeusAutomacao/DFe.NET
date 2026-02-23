@@ -31,9 +31,17 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Text;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
+using DFe.Classes.Entidades;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Flags;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -64,6 +72,128 @@ namespace MDFe.Classes.Informacoes
         public static MDFe LoadXmlArquivo(string caminhoArquivoXml)
         {
             return FuncoesXml.ArquivoXmlParaClasse<MDFe>(caminhoArquivoXml);
+        }
+
+        public virtual MDFe Valida(MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            var xmlMdfe = FuncoesXml.ClasseParaXmlString(this);
+
+            switch (config.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlMdfe, "mdfe_v1.00.xsd", config);
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlMdfe, "mdfe_v3.00.xsd", config);
+                    break;
+            }
+
+            var tipoModal = InfMDFe.InfModal.Modal.GetType();
+            var xmlModal = FuncoesXml.ClasseParaXmlString(InfMDFe.InfModal);
+
+            if (tipoModal == typeof(MDFeRodo))
+            {
+                switch (config.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "mdfeModalRodoviario_v1.00.xsd", config);
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "mdfeModalRodoviario_v3.00.xsd", config);
+                        break;
+                }
+            }
+
+            if (tipoModal == typeof(MDFeAereo))
+            {
+                switch (config.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "mdfeModalAereo_v1.00.xsd", config);
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "mdfeModalAereo_v3.00.xsd", config);
+                        break;
+                }
+            }
+
+            if (tipoModal == typeof(MDFeAquav))
+            {
+                switch (config.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "mdfeModalAquaviario_v1.00.xsd", config);
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "mdfeModalAquaviario_v3.00.xsd", config);
+                        break;
+                }
+            }
+
+            if (tipoModal == typeof(MDFeFerrov))
+            {
+                switch (config.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "mdfeModalFerroviario_v1.00.xsd", config);
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "mdfeModalFerroviario_v3.00.xsd", config);
+                        break;
+                }
+            }
+
+            return this;
+        }
+
+        public virtual MDFe Assina(EventHandler<string> eventHandlerChaveMdfe = null,
+            object quemInvocouEventoChaveMDFe = null, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            var modeloDocumentoFiscal = InfMDFe.Ide.Mod;
+            var tipoEmissao = (int)InfMDFe.Ide.TpEmis;
+            var codigoNumerico = InfMDFe.Ide.CMDF;
+            var estado = InfMDFe.Ide.CUF;
+            var dataEHoraEmissao = InfMDFe.Ide.DhEmi;
+            var cnpj = InfMDFe.Emit.CNPJ;
+            var numeroDocumento = InfMDFe.Ide.NMDF;
+            int serie = InfMDFe.Ide.Serie;
+
+            if (cnpj == null)
+            {
+                cnpj = InfMDFe.Emit.CPF.PadLeft(14, '0');
+            }
+
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal,
+                serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            InfMDFe.Id = "MDFe" + dadosChave.Chave;
+
+            if (eventHandlerChaveMdfe != null)
+                eventHandlerChaveMdfe.Invoke(quemInvocouEventoChaveMDFe, dadosChave.Chave);
+
+            InfMDFe.Versao = config.VersaoWebService.VersaoLayout;
+            InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
+
+            InfMDFeSupl = new MdfeInfMDFeSupl();
+            InfMDFeSupl.QrCodMDFe = MdfeInfMDFeSupl.GerarQrCode(dadosChave.Chave, InfMDFe.Ide.TpAmb);
+            if (InfMDFe.Ide.TpEmis == MDFeTipoEmissao.Contingencia)
+            {
+                var encoding = Encoding.UTF8;
+                var sign = Convert.ToBase64String(
+                    AssinaturaDigital.CriarAssinaturaPkcs1(config.X509Certificate2,
+                        encoding.GetBytes(this.Chave())));
+                InfMDFeSupl.QrCodMDFe += "&sign=" + sign;
+            }
+
+            var assinatura = AssinaturaDigital.Assina(this, InfMDFe.Id, config.X509Certificate2);
+
+            Signature = assinatura;
+
+            return this;
         }
     }
 }

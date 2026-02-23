@@ -30,12 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System;
 using System.Xml.Serialization;
 using CTe.Classes.Ext;
 using CTe.Classes.Informacoes;
 using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Assinatura;
+using DFe.Classes.Entidades;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 
 namespace CTe.Classes
 {
@@ -88,6 +91,31 @@ namespace CTe.Classes
         public static CTe LoadXmlArquivo(string caminhoArquivoXml)
         {
             return FuncoesXml.ArquivoXmlParaClasse<CTe>(caminhoArquivoXml);
+        }
+
+        public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            var modeloDocumentoFiscal = infCte.ide.mod;
+            var tipoEmissao = (int)infCte.ide.tpEmis;
+            var codigoNumerico = infCte.ide.cCT;
+            var estado = infCte.ide.cUF;
+            var dataEHoraEmissao = infCte.ide.dhEmi;
+            var cnpj = infCte.emit.CNPJ;
+            var numeroDocumento = infCte.ide.nCT;
+            int serie = infCte.ide.serie;
+
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal,
+                serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            infCte.Id = "CTe" + dadosChave.Chave;
+            infCte.versao = configServico.ObterVersaoLayoutValida();
+            infCte.ide.cDV = dadosChave.DigitoVerificador;
+
+            var assinatura = AssinaturaDigital.Assina(this, infCte.Id, configServico.X509Certificate2);
+
+            Signature = assinatura;
         }
     }
 }

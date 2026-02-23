@@ -243,6 +243,7 @@ namespace CTe.Utils.CTe
         /// <param name="cte"></param>
         /// <param name="configuracaoServico"></param>
         /// <returns>Retorna um objeto do tipo CTe assinado</returns>
+        [Obsolete("Use o metodo de instancia cte.Assina() diretamente.")]
         public static void Assina(this CteEletronica cte, ConfiguracaoServico configuracaoServico = null)
         {
             if (cte == null) throw new ArgumentNullException("cte");
