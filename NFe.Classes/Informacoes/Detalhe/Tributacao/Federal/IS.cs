@@ -48,7 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         ///     UB02 - Código de Situação Tributária do Imposto Seletivo
         /// </summary>
         [XmlElement(Order = 1)]
-        public CSTIS CSTIS { get; set; }
+        public string CSTIS { get; set; }
 
         /// <summary>
         ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
