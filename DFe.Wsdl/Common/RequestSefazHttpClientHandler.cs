@@ -59,6 +59,7 @@ namespace DFe.Wsdl.Common
                 actionUrn = new SoapUrls().GetSoapUrl(tipoEvento.Value);
             }
 
+            url = ConfiguracaoServicoWSDL.ResolverUrl(url);
             string xmlSoap = xmlEnvelop.InnerXml;
 
             using (HttpClientHandler handler = new HttpClientHandler())
@@ -99,6 +100,7 @@ namespace DFe.Wsdl.Common
                 actionUrn = new SoapUrls().GetSoapUrl(tipoEvento.Value);
             }
 
+            url = ConfiguracaoServicoWSDL.ResolverUrl(url);
             string xmlSoap = xmlEnvelop.InnerXml;
 
             using (HttpClientHandler handler = new HttpClientHandler())
