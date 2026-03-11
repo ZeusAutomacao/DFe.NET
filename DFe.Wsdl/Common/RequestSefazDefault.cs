@@ -87,16 +87,16 @@ namespace DFe.Wsdl.Common
             httpWr.ComposeContentType("application/soap+xml", Encoding.UTF8, actionUrn);
             httpWr.Method = "POST";
 
-            StreamWriter streamWriter = new StreamWriter(httpWr.GetRequestStream());
+            using (var requestStream = await httpWr.GetRequestStreamAsync())
+            using (var streamWriter = new StreamWriter(requestStream))
+            {
+                await streamWriter.WriteAsync(xmlSoap);
+            }
 
-            streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
-            streamWriter.Close();
-
-            using (HttpWebResponse httpResponse = (HttpWebResponse)httpWr.GetResponse())
+            using (var httpResponse = (HttpWebResponse)await httpWr.GetResponseAsync())
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                string xmlRetorno = streamReader.ReadToEnd();
-                return await Task.FromResult(xmlRetorno);
+                return await streamReader.ReadToEndAsync();
             }
         }
 

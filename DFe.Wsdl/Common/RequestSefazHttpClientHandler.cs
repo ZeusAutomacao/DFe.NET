@@ -88,42 +88,8 @@ namespace DFe.Wsdl.Common
         public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut,
             TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
-            {
-                throw new ArgumentNullException(
-                    "Pelo menos uma das propriedades tipoEvento ou actionUrl devem ser definidos para executar a action na requisição soap");
-            }
-
-            if (tipoEvento.HasValue)
-            {
-                actionUrn = new SoapUrls().GetSoapUrl(tipoEvento.Value);
-            }
-
-            url = ConfiguracaoServicoWSDL.ResolverUrl(url);
-            string xmlSoap = xmlEnvelop.InnerXml;
-
-            using (HttpClientHandler handler = new HttpClientHandler())
-            {
-                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
-                handler.ClientCertificates.Add(certificadoDigital);
-
-                using (HttpClient client = new HttpClient(handler))
-                {
-                    client.Timeout = TimeSpan.FromMilliseconds(timeOut == 0 ? 2000 : timeOut);
-
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
-                    request.Content = new StringContent(xmlSoap, Encoding.UTF8, "application/soap+xml");
-                    request.Headers.Add("SOAPAction", actionUrn);
-
-                    HttpResponseMessage response = client.SendAsync(request).Result;
-
-                    response.EnsureSuccessStatusCode();
-
-                    return response.Content.ReadAsStringAsync().Result;
-                }
-            }
-
+            return SendRequestAsync(xmlEnvelop, certificadoDigital, url, timeOut, tipoEvento, actionUrn)
+                .GetAwaiter().GetResult();
         }
     }
 }
