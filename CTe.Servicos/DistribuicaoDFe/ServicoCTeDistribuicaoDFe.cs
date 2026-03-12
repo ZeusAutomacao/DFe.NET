@@ -51,6 +51,7 @@ using Compressao = DFe.Utils.Compressao;
 
 namespace CTe.Servicos.DistribuicaoDFe
 {
+    [System.Obsolete("Use IServicosCTe.CTeDistDFeInteresse() ou CTeDistDFeInteresseAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoCTeDistribuicaoDFe
     {
         public ServicoCTeDistribuicaoDFe()

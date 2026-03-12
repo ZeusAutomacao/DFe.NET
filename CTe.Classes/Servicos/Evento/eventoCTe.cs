@@ -59,6 +59,7 @@ namespace CTe.Classes.Servicos.Evento
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
 
+        [System.Obsolete("Use IServicosCTe.Assina(evento) em vez de chamar evento.Assina() diretamente. Este método será removido em versão futura.")]
         public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;

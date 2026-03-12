@@ -9,6 +9,7 @@ using CTe.Utils.CTe;
 
 namespace CTe.Servicos.EnviarCte
 {
+    [System.Obsolete("Use IServicosCTe.Enviar() ou EnviarAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoEnviarCte
     {
         public RetornoEnviarCte Enviar(int lote, Classes.CTe cte, ConfiguracaoServico configuracaoServico = null)

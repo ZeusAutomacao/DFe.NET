@@ -9,6 +9,7 @@ using CTeEletronico = CTe.CTeOSClasses.CTeOS;
 
 namespace CTe.Servicos.Recepcao
 {
+    [System.Obsolete("Use IServicosCTe.CTeOSRecepcaoSincronoV4() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoCTeOSRecepcao
     {
         public retCTeOS CTeRecepcaoSincronoV4(CTeEletronico cte, ConfiguracaoServico configuracaoServico = null)

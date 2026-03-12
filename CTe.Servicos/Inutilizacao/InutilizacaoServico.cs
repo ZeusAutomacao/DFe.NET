@@ -65,6 +65,7 @@ namespace CTe.Servicos.Inutilizacao
         public ModeloDocumento ModeloDocumento { get; private set; }
     }
 
+    [System.Obsolete("Use IServicosCTe.Inutilizar() ou InutilizarAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class InutilizacaoServico
     {
         private readonly ConfigInutiliza _configInutiliza;

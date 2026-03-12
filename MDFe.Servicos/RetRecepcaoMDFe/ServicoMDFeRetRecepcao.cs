@@ -38,6 +38,7 @@ using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.RetRecepcaoMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeRetRecepcao() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeRetRecepcao
     {
         public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo, MDFeConfiguracao cfgMdfe = null)

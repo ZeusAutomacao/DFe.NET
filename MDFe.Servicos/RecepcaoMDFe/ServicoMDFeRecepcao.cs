@@ -45,6 +45,7 @@ using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.RecepcaoMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeRecepcao() ou MDFeRecepcaoSinc() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeRecepcao
     {
         public event EventHandler<AntesDeEnviar> AntesDeEnviar;

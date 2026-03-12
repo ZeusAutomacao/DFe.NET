@@ -41,6 +41,7 @@ using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeEventoIncluirCondutor(), MDFeEventoIncluirDFe(), MDFeEventoEncerramento(), MDFeEventoCancelar() ou MDFeEventoPagamentoOperacaoTransporte() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeEvento
     {
         public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(

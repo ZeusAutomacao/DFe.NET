@@ -38,6 +38,7 @@ using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.StatusServicoMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeStatusServico() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeStatusServico
     {
         public MDFeRetConsStatServ MDFeStatusServico(MDFeConfiguracao cfgMdfe = null)

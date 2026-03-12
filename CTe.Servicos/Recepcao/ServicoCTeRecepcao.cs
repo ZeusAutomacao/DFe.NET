@@ -47,6 +47,7 @@ using CTeEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Recepcao
 {
+    [System.Obsolete("Use IServicosCTe.CTeRecepcao(), CTeRecepcaoAsync() ou CTeRecepcaoSincronoV4() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoCTeRecepcao
     {
         public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;

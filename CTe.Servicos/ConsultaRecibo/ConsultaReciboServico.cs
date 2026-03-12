@@ -39,6 +39,7 @@ using CTe.Utils.Extensoes;
 
 namespace CTe.Servicos.ConsultaRecibo
 {
+    [System.Obsolete("Use IServicosCTe.ConsultarRecibo() ou ConsultarReciboAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ConsultaReciboServico
     {
         private readonly string _recibo;

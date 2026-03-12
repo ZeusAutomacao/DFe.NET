@@ -39,6 +39,7 @@ using CTe.Utils.Extensoes;
 
 namespace CTe.Servicos.ConsultaStatus
 {
+    [System.Obsolete("Use IServicosCTe.ConsultaStatus(), ConsultaStatusV4() ou ConsultaStatusAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class StatusServico
     {
         public retConsStatServCte ConsultaStatus(ConfiguracaoServico configuracaoServico = null)

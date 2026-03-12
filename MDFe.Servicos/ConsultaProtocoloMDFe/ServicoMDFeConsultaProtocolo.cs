@@ -39,6 +39,7 @@ using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaProtocoloMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeConsultaProtocolo() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeConsultaProtocolo : IServicoMDFeConsultaProtocolo
     {
         public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave, MDFeConfiguracao cfgMdfe = null)

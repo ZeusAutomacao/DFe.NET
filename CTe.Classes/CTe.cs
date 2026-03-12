@@ -93,6 +93,7 @@ namespace CTe.Classes
             return FuncoesXml.ArquivoXmlParaClasse<CTe>(caminhoArquivoXml);
         }
 
+        [System.Obsolete("Use IServicosCTe.Assina(cte) em vez de chamar cte.Assina() diretamente. Este método será removido em versão futura.")]
         public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;

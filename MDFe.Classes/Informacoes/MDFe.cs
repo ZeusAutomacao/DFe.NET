@@ -74,6 +74,7 @@ namespace MDFe.Classes.Informacoes
             return FuncoesXml.ArquivoXmlParaClasse<MDFe>(caminhoArquivoXml);
         }
 
+        [System.Obsolete("Use IServicosMDFe.Valida(mdfe) em vez de chamar mdfe.Valida() diretamente. Este método será removido em versão futura.")]
         public virtual MDFe Valida(MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
@@ -148,6 +149,7 @@ namespace MDFe.Classes.Informacoes
             return this;
         }
 
+        [System.Obsolete("Use IServicosMDFe.Assina(mdfe) em vez de chamar mdfe.Assina() diretamente. Este método será removido em versão futura.")]
         public virtual MDFe Assina(EventHandler<string> eventHandlerChaveMdfe = null,
             object quemInvocouEventoChaveMDFe = null, MDFeConfiguracao cfgMdfe = null)
         {

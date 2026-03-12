@@ -39,6 +39,7 @@ using CTe.Utils.Extensoes;
 
 namespace CTe.Servicos.ConsultaProtocolo
 {
+    [System.Obsolete("Use IServicosCTe.ConsultaProtocolo(), ConsultaProtocoloV4() ou ConsultaProtocoloAsync() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ConsultaProtcoloServico
     {
         public retConsSitCTe ConsultaProtocolo(string chave, ConfiguracaoServico configuracaoServico = null)

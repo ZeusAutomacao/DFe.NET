@@ -41,6 +41,7 @@ namespace CTe.CTeOSClasses
             return FuncoesXml.ArquivoXmlParaClasse<CTeOS>(caminhoArquivoXml);
         }
 
+        [System.Obsolete("Use IServicosCTe.Assina(cteOs) em vez de chamar cteOs.Assina() diretamente. Este método será removido em versão futura.")]
         public virtual void Assina(ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;

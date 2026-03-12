@@ -68,6 +68,7 @@ namespace MDFe.Classes.Servicos.Autorizacao
             return FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(caminhoArquivoXml);
         }
 
+        [System.Obsolete("Use IServicosMDFe.Valida(enviMdfe) em vez de chamar enviMdfe.Valida() diretamente. Este método será removido em versão futura.")]
         public virtual void Valida(MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;

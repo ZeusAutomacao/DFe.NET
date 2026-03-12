@@ -38,6 +38,7 @@ using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
+    [System.Obsolete("Use IServicosMDFe.MDFeConsultaNaoEncerrados() via injeção de dependência. Esta classe será removida em versão futura.")]
     public class ServicoMDFeConsultaNaoEncerrados
     {
         public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpjCpf, MDFeConfiguracao cfgMdfe = null)
