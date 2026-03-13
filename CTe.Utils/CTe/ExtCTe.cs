@@ -92,6 +92,7 @@ namespace CTe.Utils.CTe
         /// <param name="cte"></param>
         /// <param name="configuracaoServico"></param>
         /// <returns>Retorna um objeto CTe devidamente tradado</returns>
+        [Obsolete("Use IServicosCTe.ValidaSchema(cte) em vez de chamar cte.ValidaSchema() diretamente")]
         public static void ValidaSchema(this CteEletronica cte, ConfiguracaoServico configuracaoServico = null)
         {
             if (cte == null) throw new ArgumentNullException("cte");

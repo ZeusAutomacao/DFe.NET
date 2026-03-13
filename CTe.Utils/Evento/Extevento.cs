@@ -73,6 +73,7 @@ namespace CTe.Utils.Evento
                 configServico.X509Certificate2);
         }
 
+        [Obsolete("Use IServicosCTe.ValidarSchema(evento) em vez de chamar evento.ValidarSchema() diretamente")]
         public static void ValidarSchema(this eventoCTe eventoCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;

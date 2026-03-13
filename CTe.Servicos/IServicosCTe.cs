@@ -51,6 +51,22 @@ namespace CTe.Servicos
         /// <returns>O mesmo objeto evento, agora com Signature preenchido</returns>
         eventoCTe Assina(eventoCTe evento);
 
+        // === Validação de Schema (migrados dos modelos) ===
+
+        /// <summary>
+        ///     Valida o schema XML de um CT-e usando a configuração de serviço da instância.
+        ///     Substitui a chamada obsoleta <c>cte.ValidaSchema(configuracaoServico)</c>.
+        /// </summary>
+        /// <param name="cte">O CT-e a ser validado</param>
+        void ValidaSchema(CTeEletronico cte);
+
+        /// <summary>
+        ///     Valida o schema XML de um evento CT-e usando a configuração de serviço da instância.
+        ///     Substitui a chamada obsoleta <c>eventoCTe.ValidarSchema(configuracaoServico)</c>.
+        /// </summary>
+        /// <param name="evento">O evento CT-e a ser validado</param>
+        void ValidarSchema(eventoCTe evento);
+
         // === Consulta de Protocolo ===
 
         /// <summary>

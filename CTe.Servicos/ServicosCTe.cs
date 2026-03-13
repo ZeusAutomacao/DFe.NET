@@ -18,6 +18,8 @@ using CTe.Servicos.DistribuicaoDFe;
 using CTe.Servicos.EnviarCte;
 using CTe.Servicos.Inutilizacao;
 using CTe.Servicos.Recepcao;
+using CTe.Utils.CTe;
+using CTe.Utils.Evento;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using CTeEletronico = CTe.Classes.CTe;
@@ -95,6 +97,18 @@ namespace CTe.Servicos
             evento.Signature = AssinaturaDigital.Assina(evento, evento.infEvento.Id, _certificado);
 
             return evento;
+        }
+
+        // === Validação de Schema ===
+
+        public void ValidaSchema(CTeEletronico cte)
+        {
+            cte.ValidaSchema(_configuracaoServico);
+        }
+
+        public void ValidarSchema(eventoCTe evento)
+        {
+            evento.ValidarSchema(_configuracaoServico);
         }
 
         // === Consulta de Protocolo ===
