@@ -95,7 +95,7 @@ namespace DFe.Utils
             //percorrendo cada caractere da chave da direita para esquerda para fazer os cálculos com o peso
             for (var i = chave.Length - 1; i != -1; i--)
             {
-                var valorCaractere = ObterValorDoCaracteres(chave[i]);
+                var valorCaractere = ObterValorDoCaractere(chave[i]);
                 soma += valorCaractere * peso;
                 //sempre que for 9 voltamos o peso a 2
                 if (peso < 9)
@@ -120,7 +120,7 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="caractere"></param>
         /// <returns></returns>
-        private static int ObterValorDoCaracteres(char caractere)
+        private static int ObterValorDoCaractere(char caractere)
         {
             const int zeroASCII = 48;
             return caractere - zeroASCII;
