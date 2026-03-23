@@ -237,7 +237,7 @@ namespace NFe.Danfe.Html.CrossCutting
                 var str = FormatarNumero(value);
                 str = str.Replace(".", ",");
                 double.TryParse(str, out var result);
-                return result.ToString("N", CultureInfo.GetCultureInfo("pt-br"));
+                return result.ToString("N2", CultureInfo.GetCultureInfo("pt-br"));
             }
             catch (Exception)
             {
