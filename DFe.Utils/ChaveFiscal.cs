@@ -120,7 +120,7 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="caractere"></param>
         /// <returns></returns>
-        private static int ObterValorDoCaractere(char caractere)
+        internal static int ObterValorDoCaractere(char caractere)
         {
             const int zeroASCII = 48;
             var valor = caractere - zeroASCII;
