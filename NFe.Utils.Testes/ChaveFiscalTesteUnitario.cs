@@ -11,7 +11,7 @@ public class ChaveFiscalTesteUnitario
 {
     [Theory(DisplayName = "Dado cnpj alfanumérico, quando obter chave fiscal, então não deve lançar exceção.")]
     [InlineData("T6J3XFX0IVDD47")]
-    [InlineData("t6j3xfx0ivdd47")]
+    [InlineData("W2MNK0KZ000190")]
     public void DadoCnpjAlfanumericoQuandoObterChaveFiscalEntaoNaoDeveLancarExcecao(string cnpj)
     {
         // Arrange
