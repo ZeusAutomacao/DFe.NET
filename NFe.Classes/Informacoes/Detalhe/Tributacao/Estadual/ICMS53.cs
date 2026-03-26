@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -72,6 +72,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return qBCMono.HasValue;
         }
 
+        public bool ShouldSerializeqBCMono()
+        {
+            return qBCMono.HasValue;
+        }
+
         /// <summary>
         ///     N38 - Alíquota adRem do imposto
         /// </summary>
@@ -81,6 +86,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _adRemICMS.Arredondar(4); }
             set { _adRemICMS = value.Arredondar(4); }
         }
+        public bool ShouldSerializeadRemICMS()
+        {
+            return adRemICMS.HasValue;
+        }
+
         public bool ShouldSerializeadRemICMS()
         {
             return adRemICMS.HasValue;
@@ -100,6 +110,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return vICMSMonoOp.HasValue;
         }
 
+        public bool ShouldSerializevICMSMonoOp()
+        {
+            return vICMSMonoOp.HasValue;
+        }
+
         /// <summary>
         ///     N42 - Percentual do diferimento
         /// </summary>
@@ -114,6 +129,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return pDif.HasValue;
         }
 
+        public bool ShouldSerializepDif()
+        {
+            return pDif.HasValue;
+        }
+
         /// <summary>
         ///     N43 - Valor do ICMS diferido
         /// </summary>
@@ -123,6 +143,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _vICMSMonoDif.Arredondar(2); }
             set { _vICMSMonoDif = value.Arredondar(2); }
         }
+        public bool ShouldSerializevICMSMonoDif()
+        {
+            return vICMSMonoDif.HasValue;
+        }
+
         public bool ShouldSerializevICMSMonoDif()
         {
             return vICMSMonoDif.HasValue;

@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -76,6 +76,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _adRemICMSRet.Arredondar(4); }
             set { _adRemICMSRet = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializeadRemICMSRet()
+        {
+            return adRemICMSRet.HasValue;
         }
 
         /// <summary>
