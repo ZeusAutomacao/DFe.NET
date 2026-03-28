@@ -45,35 +45,61 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
         /// </summary>
         [XmlElement(Order = 1)]
         public CST CST { get; set; }
-        
+
         /// <summary>
         ///     UB14 - Código de Classificação Tributária do IBS e CBS
         /// </summary>
         [XmlElement(Order = 2)]
         public string cClassTrib { get; set; }
-        
+
+        /// <summary>
+        ///     UB14a - Indica a natureza da operação de doação
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public IndDoacao? indDoacao { get; set; }
+
+        public bool ShouldSerializeindDoacao() => indDoacao.HasValue;
+
         /// <summary>
         ///     UB15 - Grupo de Informações do IBS e da CBS
         /// </summary>
-        [XmlElement(Order = 3)]
+        [XmlElement(Order = 4)]
         public gIBSCBS gIBSCBS { get; set; }
-        
+
         /// <summary>
         ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
         /// </summary>
-        [XmlElement(Order = 4)]
+        [XmlElement(Order = 5)]
         public gIBSCBSMono gIBSCBSMono { get; set; }
-        
+
         /// <summary>
         ///     UB106 - Transferências de Crédito
         /// </summary>
-        [XmlElement(Order = 5)]
-        public gTransfCred gTransfCred { get; set; }
-        
-        /// <summary>
-        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM 
-        /// </summary>
         [XmlElement(Order = 6)]
+        public gTransfCred gTransfCred { get; set; }
+
+        /// <summary>
+        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM
+        /// </summary>
+        [XmlElement(Order = 7)]
         public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+
+        /// <summary>
+        ///     UB112 - Grupo de Informações do Ajuste de Competência
+        /// </summary>
+        [XmlElement(Order = 8)]
+        public gAjusteCompet gAjusteCompet { get; set; }
+
+        /// <summary>
+        ///     UB116 - Grupo de Informações do Estorno de Crédito
+        /// </summary>
+        [XmlElement(Order = 9)]
+        public gEstornoCred gEstornoCred { get; set; }
+
+        /// <summary>
+        ///     UB120 - Grupo de Informações do Crédito Presumido da Operação
+        /// </summary>
+        [XmlElement(Order = 10)]
+        public gCredPresOper gCredPresOper { get; set; }
     }
 }
