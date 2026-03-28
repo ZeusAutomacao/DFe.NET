@@ -178,6 +178,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
     }
 
     /// <summary>
+    ///     UB14a - Indica a natureza da operação de doação.
+    ///     <para>1 - Operação de doação</para>
+    /// </summary>
+    public enum IndDoacao
+    {
+        /// <summary>
+        ///     1 - Operação de doação
+        /// </summary>
+        [Description("Operação de doação")]
+        [XmlEnum("1")]
+        Doacao = 1
+    }
+
+    /// <summary>
     ///     <para>0 - Sem Crédito Presumido</para>
     ///     <para>1 - Bens de consumo final (55%)</para>
     ///     <para>2 - Bens de capital (75%)</para>
