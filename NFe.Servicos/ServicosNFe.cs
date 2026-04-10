@@ -2106,7 +2106,7 @@ namespace NFe.Servicos
             }
 
             var retornoXmlString = retorno.OuterXml;
-            var retConsulta = new retConsCad().CarregarDeXmlString(retornoXmlString);
+            var retConsulta = ExtretConsCad.CarregarDeXmlString(retornoXmlString);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-cad.xml", retornoXmlString);
 
