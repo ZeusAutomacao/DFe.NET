@@ -278,7 +278,7 @@ public class DanfeNfceDocument : IDocument
 
                     r.RelativeItem().AlignRight().Column(c =>
                     {
-                        c.Item().Text($"R$ {_nfe.infNFe.total.ICMSTot.vTotTrib:N2}").FontSize(_tamanhoFontePadrao);
+                        c.Item().Text($"R$ {_nfe.infNFe.total.ICMSTot.vTotTrib ?? 0:N2}").FontSize(_tamanhoFontePadrao);
                     });
                 });
 
