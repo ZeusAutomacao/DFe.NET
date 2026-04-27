@@ -73,6 +73,11 @@ namespace NFe.Danfe.Html.CrossCutting
         /// <param name="nomeArquivo">Nome do arquivo</param>
         public static void DelatarArquivo(string caminho, string nomeArquivo)
         {
+            if(caminho.Contains("../") || caminho.Contains("..\\"))
+            {
+                throw new Exception("Caminho do arquivo não pode conter ../ ou ..\\");
+            }
+
             var c1 = Path.Combine(caminho, nomeArquivo);
             File.Delete(c1);
         }
@@ -91,6 +96,9 @@ namespace NFe.Danfe.Html.CrossCutting
                 throw new ArgumentNullException(nameof(nomeArquivo), "O nome do arquivo deve ser informado");
             if (conteudo == null)
                 throw new ArgumentNullException(nameof(conteudo), "O conteúdo do arquivo deve ser informado");
+            if(caminho.Contains("../") || caminho.Contains("..\\"))
+                throw new Exception("Caminho do arquivo não pode conter ../ ou ..\\");
+                    
             CriarPastaSeNaoExistir(caminho);
             var encodedText = Encoding.UTF8.GetBytes(conteudo);
             var c1 = Path.Combine(caminho, nomeArquivo); // Combina caminho do arquivo como nome do arquivo

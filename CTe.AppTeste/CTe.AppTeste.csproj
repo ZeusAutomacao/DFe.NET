@@ -302,6 +302,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="schemas\cteSimp_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="schemas\cteTiposBasico_v2.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -325,6 +328,9 @@
     <None Include="schemas\cte_v4.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="schemas\DFeTiposBasicos_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="schemas\distChCTe_v3.00.xsd">
       <SubType>Designer</SubType>
@@ -381,6 +387,9 @@
     <None Include="schemas\evCancPrestDesacordo.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="schemas\evCancPrestDesacordo_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="schemas\evCCeCTe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -590,6 +599,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="schemas\procCTeSimp_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="schemas\procCTe_v2.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -689,6 +701,9 @@
     <None Include="schemas\retCTeOS_v4.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="schemas\retCTeSimp_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="schemas\retCTe_v3.00.xsd">
       <SubType>Designer</SubType>

@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -169,7 +169,7 @@ namespace NFe.Utils.Validacao
 
         public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool validarLote = true, ConfiguracaoServico cfgServico = null)
         {
-            var pathSchema = String.Empty;
+            string pathSchema = string.Empty;
 
             if (cfgServico == null || (cfgServico != null && string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)))
                 pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
@@ -181,7 +181,7 @@ namespace NFe.Utils.Validacao
 
         public static string[] Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool validarLote = true, string pathSchema = null)
         {
-            var falhas = new StringBuilder();
+            StringBuilder falhas = new StringBuilder();
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
@@ -189,11 +189,18 @@ namespace NFe.Utils.Validacao
             var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, stringXml, validarLote));
 
             // Define o tipo de validação
-            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
+            XmlReaderSettings cfg = new XmlReaderSettings
+            {
+                ValidationType = ValidationType.Schema, // Previne ataques XXE: nao permite resolver recursos externos
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
 
             // Carrega o arquivo de esquema
-            var schemas = new XmlSchemaSet();
-            schemas.XmlResolver = new XmlUrlResolver();
+            XmlSchemaSet schemas = new XmlSchemaSet
+            {
+                XmlResolver = new XmlUrlResolver()
+            };
 
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
@@ -205,14 +212,14 @@ namespace NFe.Utils.Validacao
                 string message = args.Message.ToLower().RemoverAcentos();
 
                 if (!(
-                    
+
                     //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
-                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) || 
+                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) ||
 
                     //erro de orgaoibge que duplicou em alguns xsds porem a receita federal veio a arrumar posteriormente, mesmo assim alguns não atualizam os xsds
                     (message.Contains("tcorgaoibge") && message.Contains("ja foi declarado"))
 
-                    //no futuro adicionar novos aqui...
+                //no futuro adicionar novos aqui...
                 ))
                 {
                     falhas.AppendLine($"[{args.Severity}] - {message} {args.Exception?.Message} " +
@@ -223,17 +230,13 @@ namespace NFe.Utils.Validacao
             };
 
             // cria um leitor para validação
-            var validator = XmlReader.Create(new StringReader(stringXml), cfg);
+            XmlReader validator = XmlReader.Create(new StringReader(stringXml), cfg);
             try
             {
                 // Faz a leitura de todos os dados XML
-                while (validator.Read())
-                {
-                }
+                while (validator.Read()) { }
             }
-            catch
-            {
-            }
+            catch { }
             finally
             {
                 validator.Close();
@@ -244,7 +247,5 @@ namespace NFe.Utils.Validacao
 
             return falhas.ToString().Trim().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         }
-
-
     }
 }
