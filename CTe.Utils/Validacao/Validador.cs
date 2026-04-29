@@ -55,9 +55,15 @@ namespace CTe.Utils.Validacao
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
+            // Previne ataques XXE: nao permite resolver recursos externos
+            cfg.DtdProcessing = DtdProcessing.Prohibit;
+            cfg.XmlResolver = null;
+
             // Carrega o arquivo de esquema
-            var schemas = new XmlSchemaSet();
-            schemas.XmlResolver = new XmlUrlResolver();
+            var schemas = new XmlSchemaSet
+            {
+                XmlResolver = new XmlUrlResolver()
+            };
 
             cfg.Schemas = schemas;
             // Quando carregar o schema, especificar o namespace que ele valida

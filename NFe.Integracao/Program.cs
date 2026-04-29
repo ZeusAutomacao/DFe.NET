@@ -529,6 +529,12 @@ namespace NFe.Integracao
 
             try
             {
+                if(strPathArquivoXml.Contains("../") || strPathArquivoXml.Contains("..\\"))
+                {
+                    Console.WriteLine("Caminho do arquivo não pode conter ../ ou ..\\");
+                    return;
+                }
+                
                 File.ReadAllText(strPathArquivoXml);
             }
             catch (UnauthorizedAccessException ex)

@@ -22,5 +22,7 @@ namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Impostos
         public ICMSUFFim ICMSUFFim { get; set; }
 
         public infTribFed infTribFed { get; set; }
+
+        public IBSCBS IBSCBS { get; set; }
     }
 }

@@ -47,7 +47,13 @@ namespace NFe.Danfe.Nativo.GraphicsPrinter
 
         public static Medida GetMedidas(string texto, Font fonte)
         {
-            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+            /*
+             * macOS:
+             *  Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+             *  System.NotSupportedException: Specified method is not supported.
+             */
+            Bitmap bmp = new Bitmap(1, 1);
+            Graphics g = Graphics.FromImage(bmp);
             SizeF tamanhoDaString = g.MeasureString(texto, fonte);
             int alturaLinha = Convert.ToInt32(tamanhoDaString.Height);
             int larguraLinha = Convert.ToInt32(tamanhoDaString.Width);

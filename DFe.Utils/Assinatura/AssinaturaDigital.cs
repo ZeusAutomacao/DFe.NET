@@ -51,16 +51,16 @@ namespace DFe.Utils.Assinatura
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var documento = new XmlDocument {PreserveWhitespace = true};
+            var documento = new XmlDocument { PreserveWhitespace = true };
 
             documento.LoadXml(cfgServicoRemoverAcentos
                 ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
                 : FuncoesXml.ClasseParaXmlString(objetoLocal));
 
-            var docXml = new SignedXml(documento) {SigningKey = certificado.PrivateKey};
+            var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
 
             docXml.SignedInfo.SignatureMethod = signatureMethod;
-            var reference = new Reference {Uri = "#" + id, DigestMethod = digestMethod};
+            var reference = new Reference { Uri = "#" + id, DigestMethod = digestMethod };
 
             // adicionando EnvelopedSignatureTransform a referencia
             var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();

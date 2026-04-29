@@ -9,6 +9,7 @@ using NFe.Danfe.Base.NFe;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -117,6 +118,59 @@ namespace Shared.DFe.Danfe
             relatorio.RegisterData(new[] { proc }, "NFe", 20);
             relatorio.GetDataSource("NFe").Enabled = true;
 
+            ConfigurarParametrosRelatorioNfe(relatorio, proc, configuracaoDanfeNfe, desenvolvedor);
+
+            return relatorio;
+        }
+
+        public static Report GenerateDanfeFrNfeBatchReport(List<nfeProc> procs, ConfiguracaoDanfeNfe configuracaoDanfeNfe, byte[] frx, string desenvolvedor, string arquivoRelatorio)
+        {
+            if (procs == null || procs.Count == 0)
+                throw new ArgumentException("A lista de notas fiscais não pode estar vazia.", nameof(procs));
+
+            //Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
+
+            Report relatorio = new Report();
+
+            if (!string.IsNullOrEmpty(arquivoRelatorio))
+                relatorio.Load(arquivoRelatorio);
+            else if (frx != null && frx.Length > 0)
+                relatorio.Load(new MemoryStream(frx));
+            else
+                throw new Exception("Erro em DanfeSharedHelper.GenerateDanfeFrNfeBatchReport no Zeus.DFe. Relatório não encontrado, passe os parametros 'frx' com bytes ou 'arquivoRelatorio' com o caminho do arquivo");
+
+            bool primeiroRelatorio = true;
+
+            foreach (var proc in procs)
+            {
+                relatorio.RegisterData(new[] { proc }, "NFe", 20);
+                relatorio.GetDataSource("NFe").Enabled = true;
+
+                ConfigurarParametrosRelatorioNfe(relatorio, proc, configuracaoDanfeNfe, desenvolvedor);
+
+                if (primeiroRelatorio)
+                {
+                    relatorio.Prepare();
+                    primeiroRelatorio = false;
+                }
+                else
+                {
+                    relatorio.Prepare(true);
+                }
+            }
+
+            return relatorio;
+        }
+
+        /// <summary>
+        /// Public pois caso voce implemente na mão utilize esse metodo para configurar o relatorio de danfe
+        /// </summary>
+        /// <param name="relatorio"></param>
+        /// <param name="proc"></param>
+        /// <param name="configuracaoDanfeNfe"></param>
+        /// <param name="desenvolvedor"></param>
+        public static void ConfigurarParametrosRelatorioNfe(Report relatorio, nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor)
+        {
             string mensagem = string.Empty;
             string resumoCanhoto = string.Empty;
             string contingenciaDescricao = string.Empty;
@@ -237,8 +291,6 @@ namespace Shared.DFe.Danfe
             relatorio.SetParameterValue("DecimaisValorUnitario", configuracaoDanfeNfe.DecimaisValorUnitario);
             relatorio.SetParameterValue("DecimaisQuantidadeItem", configuracaoDanfeNfe.DecimaisQuantidadeItem);
             relatorio.SetParameterValue("DataHoraImpressao", configuracaoDanfeNfe.DataHoraImpressao ?? DateTime.Now);
-
-            return relatorio;
         }
     }
 }

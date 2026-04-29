@@ -77,7 +77,7 @@ namespace NFe.Danfe.Nativo.NFCe
             Inicializa(xml, versaoQrCode, logo, cIdToken, csc, troco, totalPago, font, viaEstabelecimento);
         }
 
-        private void Inicializa(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null, bool viaEstabelecimento = false, string fontPadrao = "")
+        private void Inicializa(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco, decimal totalPago, string font, bool viaEstabelecimento)
         {
             _logo = logo;
             _versaoQrCode = versaoQrCode;
@@ -86,7 +86,7 @@ namespace NFe.Danfe.Nativo.NFCe
             _troco = troco;
             _totalPago = totalPago;
             _viaEstabelecimento = viaEstabelecimento;
-            AdicionarTexto.FontPadrao = this.CarregarFontePadraoNfceNativa(fontPadrao);
+            AdicionarTexto.FontPadrao = this.CarregarFontePadraoNfceNativa(font);
             CarregarXml(xml);
         }
 
@@ -234,12 +234,11 @@ namespace NFe.Danfe.Nativo.NFCe
             {
                 using (var ms = new MemoryStream(_logo))
                 {
+                    int logox = ((larguraLinha - 128) / 2);
                     var image = Image.FromStream(ms);
-                    new RedimensionaImagemPara(new AdicionarImagem(g, image, x, _y), 50, 24).Desenhar();
+                    new RedimensionaImagemPara(new AdicionarImagem(g, image, logox, _y), 128, 128).Desenhar();
+                    _y += 128;
                 }
-            }
-            else
-            {
                 larguraLogo = 0;
             }
 

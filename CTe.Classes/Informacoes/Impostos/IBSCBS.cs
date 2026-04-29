@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,29 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes.Informacoes.Impostos.InformacoesIbsCbs;
-using CTe.Classes.Informacoes.Impostos.Tipos;
+using CTe.Classes.Informacoes.Impostos.IBSCBS;
+using CTe.Classes.Informacoes.Tipos;
+using System.Xml.Serialization;
 
-namespace CTe.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos.Tributacao
 {
-    /// <summary>
-    /// Grupo do IBS e CBS
-    /// </summary>
     public class IBSCBS
     {
-        /// <summary>
-        /// Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        public CstIbsCbs CST { get; set; }
+        private string _cClassTrib;
 
-        /// <summary>
-        /// Código de Classificação Tributária do IBS e CBS
-        /// </summary>
-        public string cClassTrib { get; set; }
+        [XmlElement(Order = 1)]
+        public CSTIBSCBS CST { get; set; }
 
-        /// <summary>
-        /// Grupo de Informações do IBS e da CBS
-        /// </summary>
+        [XmlElement(Order = 2)]
+        public string cClassTrib
+        {
+            get => _cClassTrib;
+            set => _cClassTrib = value;
+        }
+
+        [XmlElement(Order = 3)]
+        public short? indDoacao { get; set; }
+
+        [XmlElement(Order = 4)]
         public gIBSCBS gIBSCBS { get; set; }
+
+        //define se o campo indDoacao deve ser serializado
+        public bool ShouldSerializeindDoacao()
+        {
+            return indDoacao.HasValue;
+        }
+
+        /// <summary>
+        /// Define o valor de cClassTrib a partir de um inteiro
+        /// </summary>
+        public void SetcClassTrib(int intValue)
+        {
+            _cClassTrib = intValue.ToString("D6");
+        }
     }
 }
