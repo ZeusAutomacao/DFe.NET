@@ -153,7 +153,7 @@ namespace DFe.Utils.Assinatura
             if (Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32S)
             {
                 if (certificado == null) throw new ArgumentNullException("certificado");
-                var key = (RSACryptoServiceProvider)certificado.PrivateKey;
+                var key = (RSACryptoServiceProvider)certificado.GetRSAPrivateKey();
 
                 var providerHandle = IntPtr.Zero;
                 var pinBuffer = Encoding.ASCII.GetBytes(pin);
@@ -338,7 +338,7 @@ namespace DFe.Utils.Assinatura
 
                 try
                 {
-                    RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+                    RSACryptoServiceProvider service = x509Certificate2.GetRSAPrivateKey() as RSACryptoServiceProvider;
 
                     if (service != null)
                     {
