@@ -57,7 +57,7 @@ namespace DFe.Utils.Assinatura
                 ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
                 : FuncoesXml.ClasseParaXmlString(objetoLocal));
 
-            var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
+            var docXml = new SignedXml(documento) { SigningKey = certificado.GetRSAPrivateKey() };
 
             docXml.SignedInfo.SignatureMethod = signatureMethod;
             var reference = new Reference { Uri = "#" + id, DigestMethod = digestMethod };
