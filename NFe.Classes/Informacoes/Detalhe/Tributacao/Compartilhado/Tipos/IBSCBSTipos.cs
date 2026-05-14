@@ -48,6 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
     ///     <para>400 - Isenção</para>
     ///     <para>410 - Imunidade e não incidência</para>
     ///     <para>510 - Diferimento</para>
+    ///     <para>515 - Diferimento com redução de alíquota</para>
     ///     <para>550 - Suspensão</para>
     ///     <para>620 - Tributação Monofásica</para>
     ///     <para>800 - Transferência de crédito</para>
@@ -133,7 +134,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         [Description("Diferimento")]
         [XmlEnum("510")]
         Cst510,
-        
+
+        /// <summary>
+        ///     515 - Diferimento com redução de alíquota
+        /// </summary>
+        [Description("Diferimento com redução de alíquota")]
+        [XmlEnum("515")]
+        Cst515,
+
         /// <summary>
         ///     550 - Suspensão
         /// </summary>
