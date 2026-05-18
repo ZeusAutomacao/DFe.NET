@@ -392,13 +392,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// </summary>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc, ConfiguracaoCertificado _cfgCertificado = null)
         {
-            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
-
-            if (string.IsNullOrEmpty(cIdToken))
-                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
-
-            if (string.IsNullOrEmpty(csc))
-                throw new ArgumentNullException(nameof(cIdToken), msgErro("CSC"));
+            ValidarPreenchimentoDasInformacoesDeTokenECscSeNecessario(versaoQrCode, cIdToken, csc);
 
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
             switch (versaoQrCode)
@@ -412,6 +406,19 @@ namespace NFe.Utils.InformacoesSuplementares
                 default:
                     throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
             }
+        }
+
+        private static void ValidarPreenchimentoDasInformacoesDeTokenECscSeNecessario(VersaoQrCode versaoQrCode, string cIdToken, string csc)
+        {
+            if (versaoQrCode == VersaoQrCode.QrCodeVersao3) return;
+            
+            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
+
+            if (string.IsNullOrEmpty(cIdToken))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
+
+            if (string.IsNullOrEmpty(csc))
+                throw new ArgumentNullException(nameof(csc), msgErro("CSC"));
         }
 
         /// <summary>
