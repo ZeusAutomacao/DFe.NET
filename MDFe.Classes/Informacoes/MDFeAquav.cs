@@ -44,12 +44,6 @@ namespace MDFe.Classes.Informacoes
     {
         public string irin { get; set; }
         /// <summary>
-        /// 1 - CNPJ da Agência de Navegação
-        /// </summary>
-        [XmlElement(ElementName = "CNPJAgeNav")]
-        public string CNPJAgeNav { get; set; }
-
-        /// <summary>
         /// 1 - Código do tipo de embarcação 
         /// </summary>
         [XmlElement(ElementName = "tpEmb")]
