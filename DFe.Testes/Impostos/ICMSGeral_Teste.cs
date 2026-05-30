@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
+using System.Xml.Serialization;
 using DFe.Testes.Impostos.DadosDeTeste;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
@@ -113,6 +115,102 @@ namespace DFe.Testes.Impostos
             Assert.AreEqual(Convert.ToDecimal(vBCFCPST), tagICMSGerada.vBCFCPST);
             Assert.AreEqual(Convert.ToDecimal(pFCPST), tagICMSGerada.pFCPST);
             Assert.AreEqual(Convert.ToDecimal(vFCPST), tagICMSGerada.vFCPST);
+        }
+
+        [TestMethod]
+        public void ObterICMSBasico_ICMS90ComDiferimento_Teste()
+        {
+            var icmsGeral = new ICMSGeral()
+            {
+                orig = OrigemMercadoria.OmNacional,
+                CST = Csticms.Cst90,
+                modBC = DeterminacaoBaseIcms.DbiValorOperacao,
+                vBC = 1000,
+                pRedBC = 10,
+                cBenefRBC = "ABC12345",
+                pICMS = 18,
+                vICMSOp = 180,
+                pDif = 50,
+                vICMSDif = 90,
+                vICMS = 90,
+                vBCFCP = 1000,
+                pFCP = 2,
+                vFCP = 20,
+                pFCPDif = 50,
+                vFCPDif = 10,
+                vFCPEfet = 10
+            };
+
+            var tagGerada = icmsGeral.ObterICMSBasico(CRT.RegimeNormal);
+
+            Assert.IsInstanceOfType(tagGerada, typeof(ICMS90));
+            var tagICMSGerada = tagGerada as ICMS90;
+            Assert.AreEqual(Csticms.Cst90, tagICMSGerada.CST);
+            Assert.AreEqual("ABC12345", tagICMSGerada.cBenefRBC);
+            Assert.AreEqual(180m, tagICMSGerada.vICMSOp);
+            Assert.AreEqual(50m, tagICMSGerada.pDif);
+            Assert.AreEqual(90m, tagICMSGerada.vICMSDif);
+            Assert.AreEqual(50m, tagICMSGerada.pFCPDif);
+            Assert.AreEqual(10m, tagICMSGerada.vFCPDif);
+            Assert.AreEqual(10m, tagICMSGerada.vFCPEfet);
+
+            var xml = Serializar(tagICMSGerada, "ICMS90");
+            StringAssert.Contains(xml, "<cBenefRBC>ABC12345</cBenefRBC>");
+            StringAssert.Contains(xml, "<vICMSOp>180.00</vICMSOp>");
+            StringAssert.Contains(xml, "<pDif>50.0000</pDif>");
+            StringAssert.Contains(xml, "<vICMSDif>90.00</vICMSDif>");
+            StringAssert.Contains(xml, "<pFCPDif>50.0000</pFCPDif>");
+            StringAssert.Contains(xml, "<vFCPDif>10.00</vFCPDif>");
+            StringAssert.Contains(xml, "<vFCPEfet>10.00</vFCPEfet>");
+        }
+
+        [TestMethod]
+        public void ObterICMSBasico_ICMSPartCst20ComDesoneracao_Teste()
+        {
+            var icmsGeral = new ICMSGeral()
+            {
+                orig = OrigemMercadoria.OmNacional,
+                CST = Csticms.CstPart20,
+                modBC = DeterminacaoBaseIcms.DbiValorOperacao,
+                vBC = 1000,
+                pRedBC = 10,
+                pICMS = 18,
+                vICMS = 90,
+                modBCST = DeterminacaoBaseIcmsSt.DbisValordaOperacao,
+                vBCST = 1000,
+                pICMSST = 18,
+                vICMSST = 180,
+                pBCOp = 100,
+                UFST = "SP",
+                vICMSDeson = 10,
+                motDesICMS = MotivoDesoneracaoIcms.MdiDeficienteCondutor,
+                indDeduzDeson = DeduzDesoneracaoNoProduto.Deduz
+            };
+
+            var tagGerada = icmsGeral.ObterICMSBasico(CRT.RegimeNormal);
+
+            Assert.IsInstanceOfType(tagGerada, typeof(ICMSPart));
+            var tagICMSGerada = tagGerada as ICMSPart;
+            Assert.AreEqual(Csticms.CstPart20, tagICMSGerada.CST);
+            Assert.AreEqual(10m, tagICMSGerada.vICMSDeson);
+            Assert.AreEqual(MotivoDesoneracaoIcms.MdiDeficienteCondutor, tagICMSGerada.motDesICMS);
+            Assert.AreEqual(DeduzDesoneracaoNoProduto.Deduz, tagICMSGerada.indDeduzDeson);
+
+            var xml = Serializar(tagICMSGerada, "ICMSPart");
+            StringAssert.Contains(xml, "<CST>20</CST>");
+            StringAssert.Contains(xml, "<vICMSDeson>10.00</vICMSDeson>");
+            StringAssert.Contains(xml, "<motDesICMS>10</motDesICMS>");
+            StringAssert.Contains(xml, "<indDeduzDeson>1</indDeduzDeson>");
+        }
+
+        private static string Serializar<T>(T objeto, string raiz)
+        {
+            var serializer = new XmlSerializer(typeof(T), new XmlRootAttribute(raiz));
+            using (var writer = new StringWriter())
+            {
+                serializer.Serialize(writer, objeto);
+                return writer.ToString();
+            }
         }
 
         //TODO: Falta criar os métodos de testes dos demais CSTs do ICMS (CTR = Normal)

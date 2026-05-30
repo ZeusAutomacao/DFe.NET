@@ -181,6 +181,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         Cst20,
 
         /// <summary>
+        /// 20 - Com redução de base de cálculo
+        /// </summary>
+        [Description("Com redução de base de cálculo")]
+        [XmlEnum("20")]
+        CstPart20,
+
+        /// <summary>
         /// 30 - Isenta ou não tributada e com cobrança do ICMS por substituição tributária
         /// </summary>
         [Description("Isenta ou não tributada e com cobrança do ICMS por substituição tributária")]
