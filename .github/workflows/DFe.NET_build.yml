@@ -93,6 +93,9 @@ jobs:
     needs: build
     if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
     runs-on: ${{ 'ubuntu-latest' }}
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
@@ -108,10 +111,8 @@ jobs:
         with:
           dotnet-version: 6.0.x
           
-      - name: Push to NuGet Feed
-        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+      - name: Push to GitHub Packages
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
 
       - name: Criar Tag
         id: create_tag
@@ -136,7 +137,7 @@ jobs:
           -d '{
                 "tag_name": "${{ needs.build.outputs.version }}",
                 "name": "${{ needs.build.outputs.version }}",
-                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/${{ needs.build.outputs.version }})\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/${{ needs.build.outputs.version }})\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/${{ needs.build.outputs.version }})\n- [Zeus.NFe.Danfe.Html](https://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/${{ needs.build.outputs.version }})\n- [Zeus.NFe.Danfe.QuestPdf](https://www.nuget.org/packages/Zeus.Net.NFe.Danfe.QuestPdf/${{ needs.build.outputs.version }})\n- [Zeus.NFe.Danfe.PdfClown](https://www.nuget.org/packages/Zeus.Net.NFe.Danfe.PdfClown/${{ needs.build.outputs.version }})",
+                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Pacotes publicados no GitHub Packages:\nAcesse: https://github.com/${{ github.repository }}/packages",
                 "draft": false,
                 "prerelease": false
               }' \
@@ -150,4 +151,4 @@ jobs:
           DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusAutomacao'
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no GitHub Packages! Acesse: https://github.com/${{ github.repository }}/packages'
