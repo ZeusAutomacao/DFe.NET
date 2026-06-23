@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="03/21/2024 16:39:08" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="06/23/2026 16:28:01" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ namespace FastReport
     {
       var cnpj = (string)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.emit.CNPJ&quot;);
       if (!string.IsNullOrEmpty(cnpj))
-        txtEmitCnpj.Text = &quot;CNPJ: &quot; + String.Format(@&quot;{0:00\.000\.000\/0000\-00}&quot;, long.Parse(cnpj));
+        txtEmitCnpj.Text = &quot;CNPJ: &quot; + FormatarCnpj(cnpj);
     }
 
     private void memChaveNfe_BeforePrint(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace FastReport
       var cnpj = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.CNPJ&quot;);
       var cpf = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.CPF&quot;);
       var idEstrangeiro = (String)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.dest.idEstrangeiro&quot;);
-      if ( !String.IsNullOrEmpty(cnpj)) documentoDest = &quot;CNPJ: &quot; + String.Format(@&quot;{0:00\.000\.000\/0000\-00}&quot;, long.Parse(cnpj)) + &quot; &quot;;
+      if ( !String.IsNullOrEmpty(cnpj)) documentoDest = &quot;CNPJ: &quot; + FormatarCnpj(cnpj) + &quot; &quot;;
       if ( !String.IsNullOrEmpty(cpf)) documentoDest = &quot;CPF: &quot; + String.Format(@&quot;{0:000\.000\.000\-00}&quot;, long.Parse(cpf)) + &quot; &quot;;
       if ( !String.IsNullOrEmpty(idEstrangeiro)) documentoDest = &quot;Id. Estrangeiro: &quot; + idEstrangeiro + &quot; &quot;;
       return documentoDest;
@@ -386,6 +386,13 @@ namespace FastReport
       if (nfceDetalheVendaNormalCompleto || nfceDetalheVendaContingenciaCompleto)
         txtProdutoDuasLinhasDescricaoProduto.LineHeight = txtProdutoDuasLinhasDescricaoProduto.Height; // Ajuste de espaçamento entre linhas
     }
+    
+    private string FormatarCnpj(string cnpj)
+    {
+      if (string.IsNullOrEmpty(cnpj)) return cnpj;
+      
+      return cnpj.Substring(0,2) + &quot;.&quot; + cnpj.Substring(2,3) + &quot;.&quot; + cnpj.Substring(5,3) + &quot;/&quot; + cnpj.Substring(8,4) + &quot;-&quot; + cnpj.Substring(12,2);
+  }
   }
 }</ScriptText>
   <Dictionary>
@@ -430,7 +437,7 @@ namespace FastReport
             <Column Name="indPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="indIntermed" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Identificacao.Tipos.IndicadorIntermediador, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="indIntermedSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-          </Column>
+            </Column>
           <Column Name="emit" DataType="NFe.Classes.Informacoes.Emitente.emit, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
@@ -577,9 +584,9 @@ namespace FastReport
               <BusinessObjectDataSource Name="BusinessObjectDataSource14" Alias="rastro" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Detalhe.rastro, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="rastro"/>
               <Column Name="cBarra" DataType="System.String"/>
               <Column Name="cBarraTrib" DataType="System.String"/>
-              <Column Name="cCredPresumido" DataType="System.String"/>
-              <Column Name="pCredPresumido" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-              <Column Name="vCredPresumido" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cCredPresumido" DataType="System.String"/>
+                <Column Name="pCredPresumido" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vCredPresumido" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
             <Column Name="imposto" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.imposto, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -669,7 +676,7 @@ namespace FastReport
                 <Column Name="indISS" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.IndicadorISS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
               </Column>
               <Column Name="ICMSUFDest" Enabled="false" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSUFDest, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            </Column>
+                    </Column>
             <Column Name="impostoDevol" DataType="NFe.Classes.Informacoes.Detalhe.impostoDevol, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="pDevol" DataType="System.Decimal"/>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.IPIDevolvido, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -747,7 +754,7 @@ namespace FastReport
               <Column Name="vBCRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
-          </Column>
+            </Column>
           <Column Name="transp" DataType="NFe.Classes.Informacoes.Transporte.transp, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <Column Name="modFrete" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Transporte.ModalidadeFrete, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="transporta" DataType="NFe.Classes.Informacoes.Transporte.transporta, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
