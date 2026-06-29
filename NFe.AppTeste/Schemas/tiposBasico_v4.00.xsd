@@ -98,7 +98,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="TCnpjVar">
 		<xs:annotation>
-			<xs:documentation>Tipo Número do CNPJ tmanho varíavel (3-14)</xs:documentation>
+			<xs:documentation>Tipo Número do CNPJ</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
