@@ -200,6 +200,7 @@ namespace NFe.Utils
                 case Csticms.CstPart10:
                     return "10";
                 case Csticms.Cst20:
+                case Csticms.CstPart20:
                     return "20";
                 case Csticms.Cst15:
                     return "15";                    
