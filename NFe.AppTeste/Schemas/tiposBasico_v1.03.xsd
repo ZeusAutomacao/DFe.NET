@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- PL_006u - 21/07/14 - Inclusão do tipo Básico TPlaca // v2.0-->
-<!-- PL_006u - 06/05/14 - Alterações Fuso-Horario // v2.0-->
-<!-- PL_006h - 13/05/11 - correções da NT 2011/004  // v2.0-->
-<!-- PL_006f - 29/05/10 - correcao do tipo TDec_1504 para limitar a quantidade de decimais para 4  // v2.0-->
-<!-- PL_006f - 09/05/10 - eliminação da possibilidade informar a Inscrição produtor rural na IEDest  // v2.0-->
-<!-- PL_006d - 04/10/09 - alterada a ordem do pattern do TIE - adequacao libxml  // v2.0-->
-<!-- PL_006d - 20/08/09 - acrescentado o tipo númerico com 10 casas decimais,15 casas inteiras e hora  // v2.0-->
-<!-- PL_005d - 11/08/09 - alteração no enumeration do tpais para nova tabela de paises do BACEN-->
-<!-- PL_005b - 24/10/08 - acrescentado a tabela do tpais   e outras alterações para eliminar os brancos no início e fim do campo   -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:nfe="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="TCodUfIBGE">
 		<xs:annotation>
@@ -68,7 +59,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{44}"/>
+			<xs:pattern value="[0-9]{6}[0-9A-Z]{12}[0-9]{26}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TProt">
@@ -95,7 +86,8 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{3}"/>
+			<xs:maxLength value="4"/>
+			<xs:pattern value="[0-9]{3,4}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpj">
@@ -104,16 +96,16 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{14}"/>
+			<xs:pattern value="[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpjVar">
 		<xs:annotation>
-			<xs:documentation>Tipo Número do CNPJ tmanho varíavel (3-14)</xs:documentation>
+			<xs:documentation>Tipo Número do CNPJ</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
-			<xs:pattern value="[0-9]{3,14}"/>
+			<xs:pattern value="[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCnpjOpc">
@@ -123,7 +115,7 @@
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
 			<xs:maxLength value="14"/>
-			<xs:pattern value="[0-9]{0}|[0-9]{14}"/>
+			<xs:pattern value="[0-9]{0}|[0-9A-Z]{12}[0-9]{2}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCpf">
@@ -903,4 +895,13 @@ acrescentado:
 			<xs:pattern value="[0-9]\.[0-9]{6}|[1-9][0-9]\.[0-9]{6}|1[0-7][0-9]\.[0-9]{6}|180\.[0-9]{6}|-[0-9]\.[0-9]{6}|-[1-9][0-9]\.[0-9]{6}|-1[0-7][0-9]\.[0-9]{6}|-180\.[0-9]{6}"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:complexType name="TRSAKeyValueType">
+		<xs:annotation>
+			<xs:documentation>Tipo que representa uma chave publica padrão RSA</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Modulus" type="xs:base64Binary"/>
+			<xs:element name="Exponent" type="xs:base64Binary"/>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>
