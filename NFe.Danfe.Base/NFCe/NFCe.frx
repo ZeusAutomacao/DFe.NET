@@ -187,28 +187,202 @@ namespace FastReport
     {
       phbCancelado.Visible = ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;));
 
+      if (!Engine.FinalPass)
+        return;
       if ( (NfceModoImpressao) ((Int32)Report.GetParameterValue(&quot;NfceModoImpressao&quot;)) != NfceModoImpressao.UnicaPagina)
         return;
 
-      PgNfce.UnlimitedHeight = true;
+      CompactarTopDeDesignDasBandas();
+
+      PgNfce.PaperHeight = (rtbEmitLogoHeight +
+                            phbEmitenteHeight +
+                            ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;) ? phbCancelado.Height : 0)+
+                            ghbProdutosUmaLinhaHeight +
+                            dbProdutosUmaLinhaHeight +
+                            ghbProdutosDuasLinhasHeight +
+                            dbProdutosDuasLinhasHeight +
+                            gfbProdutosHeight +
+                            cbDescontoHeight +
+                            child2Height +
+                            dbPagamentoHeight +
+                            dbDetPagamentoHeight +
+                            dbTrocoHeight +
+                            dbTributosHeight +
+                            dbObservacaoHeight +
+                            dbInfoFiscalHeight +
+                            dbNumeroSerieDhHeight +
+                            dbConsultaHeight +
+                            dbInfProtxMsgHeight +
+                            dbDestinatarioHeight +
+                            dbQrCodeNormalHeight +
+                            dbQrCodeLateralHeight +
+                            dbProtocoloHeigth +
+                            dbTextoRodapeHeight
+                           ) / Units.Millimeters + PgNfce.TopMargin + PgNfce.BottomMargin;
+    }
+    
+    /// &lt;summary&gt;
+    /// Compacta o Top de DESIGN de todas as bandas da página para ~0, preservando a ordem relativa
+    /// (incrementos de 0.01px). No modo de impressão em página única o PaperHeight é calculado do
+    /// tamanho do conteúdo e pode ficar menor que o Top de design das últimas bandas (~297mm de
+    /// layout empilhado no designer); nesse caso, ao calcular a altura de bandas CanShrink, o
+    /// FastReport aplica altura = min(alturaDoConteudo, alturaDaPagina - TopDeDesign) e o resultado
+    /// fica NEGATIVO, puxando as bandas seguintes para cima e desmontando o fim do cupom (QR Code,
+    /// protocolo, tributos e rodapé) em cupons com poucos itens. O Top de design não define a
+    /// posição real de impressão (as bandas fluem em sequência), então compactá-lo não altera o
+    /// visual e apenas elimina o recorte.
+    /// &lt;/summary&gt;
+    private void CompactarTopDeDesignDasBandas()
+    {
+          float topCompacto = 0;
+          foreach (Base c in PgNfce.AllObjects)
+          {
+            BandBase b = c as BandBase;
+            if (b == null)
+              continue;
+            b.Top = topCompacto;
+            topCompacto += 0.01f;
+          }
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    float dbProdutosUmaLinhaHeight;
+    private void dbProdutosUmaLinha_AfterPrint(object sender, EventArgs e)
+    {
+      dbProdutosUmaLinhaHeight += (dbProdutosUmaLinha.Visible ? dbProdutosUmaLinha.Height : 0) + (cbDescontoItemUmaLinha.Visible ? cbDescontoItemUmaLinha.Height : 0);
+    }
+
+    float dbProdutosDuasLinhasHeight;
+    private void dbProdutosDuasLinhas_AfterPrint(object sender, EventArgs e)
+    {
+      dbProdutosDuasLinhasHeight += (dbProdutosDuasLinhas.Visible ?dbProdutosDuasLinhas.Height : 0) + (cbDescontoItemDuasLinhas.Visible ? cbDescontoItemDuasLinhas.Height : 0);
+    }
+
+    float dbInfoFiscalHeight;
+    private void dbInfoFiscal_AfterPrint(object sender, EventArgs e)
+    {
+      dbInfoFiscalHeight = (dbInfoFiscal.Visible ? dbInfoFiscal.Height : 0);
+    }
+
+    float dbNumeroSerieDhHeight;
+    private void dbNumeroSerieDh_AfterPrint(object sender, EventArgs e)
+    {
+      dbNumeroSerieDhHeight = (dbNumeroSerieDh.Visible ? dbNumeroSerieDh.Height : 0);
+    }
+
+    float dbConsultaHeight;
+    private void dbConsulta_AfterPrint(object sender, EventArgs e)
+    {
+      dbConsultaHeight = (dbConsulta.Visible ? dbConsulta.Height : 0);
+    }
+
+    float rtbEmitLogoHeight;
+    private void rtbEmitLogo_AfterPrint(object sender, EventArgs e)
+    {
+      rtbEmitLogoHeight = (rtbEmitLogo.Visible ? rtbEmitLogo.Height : 0);
+    }
+
+    float phbEmitenteHeight;
+    private void phbEmitente_AfterPrint(object sender, EventArgs e)
+    {
+      phbEmitenteHeight = (phbEmitente.Visible ? phbEmitente.Height : 0);
+    }
+
+    float ghbProdutosUmaLinhaHeight;
+    private void ghbProdutosUmaLinha_AfterPrint(object sender, EventArgs e)
+    {
+      ghbProdutosUmaLinhaHeight = (ghbProdutosUmaLinha.Visible ? ghbProdutosUmaLinha.Height : 0);
+    }
+
+    float ghbProdutosDuasLinhasHeight;
+    private void ghbProdutosDuasLinhas_AfterPrint(object sender, EventArgs e)
+    {
+      ghbProdutosDuasLinhasHeight = (ghbProdutosDuasLinhas.Visible ? ghbProdutosDuasLinhas.Height : 0);
+    }
+
+    float gfbProdutosHeight;
+    private void gfbProdutos_AfterPrint(object sender, EventArgs e)
+    {
+      gfbProdutosHeight = (gfbProdutos.Visible ? gfbProdutos.Height : 0);
+    }
+
+    float dbPagamentoHeight;
+    private void dbPagamento_AfterPrint(object sender, EventArgs e)
+    {
+      dbPagamentoHeight += (dbPagamento.Visible ? dbPagamento.Height : 0);
+    }
+
+    float dbDetPagamentoHeight;
+    private void dbDetPagamento_AfterPrint(object sender, EventArgs e)
+    {
+      dbDetPagamentoHeight += (dbDetPagamento.Visible ? dbDetPagamento.Height : 0);
+    }
+
+    float dbTributosHeight;
+    private void dbTributos_AfterPrint(object sender, EventArgs e)
+    {
+      dbTributosHeight = (dbTributos.Visible ? dbTributos.Height : 0);
+    }
+
+    float dbObservacaoHeight;
+    private void dbObservacao_AfterPrint(object sender, EventArgs e)
+    {
+      dbObservacaoHeight = (dbObservacao.Visible ? dbObservacao.Height : 0);
+    }
+
+    float dbDestinatarioHeight;
+    private void dbDestinatario_AfterPrint(object sender, EventArgs e)
+    {
+      dbDestinatarioHeight = (dbDestinatario.Visible ? dbDestinatario.Height : 0);
+    }
+
+    float dbQrCodeNormalHeight;
+    private void dbQrCode_AfterPrint(object sender, EventArgs e)
+    {
+      dbQrCodeNormalHeight = (dbQrCodeNormal.Visible ? dbQrCodeNormal.Height : 0);
+    }
+
+    float dbQrCodeLateralHeight;
+    private void dbQrCodeLateral_AfterPrint(object sender, EventArgs e)
+    {
+      dbQrCodeLateralHeight = (dbQrCodeLateral.Visible ? dbQrCodeLateral.Height : 0);
+    }
+
+    float dbProtocoloHeigth;
+    private void dbProtocolo_AfterPrint(object sender, EventArgs e)
+    {
+      dbProtocoloHeigth = (dbProtocolo.Visible ? dbProtocolo.Height : 0);
+    }
+
+    float dbTrocoHeight;
+    private void dbTroco_AfterPrint(object sender, EventArgs e)
+    {
+      dbTrocoHeight = (dbTroco.Visible ? dbTroco.Height : 0);
+    }
+
+    float cbDescontoHeight;
+    private void cbDesconto_AfterPrint(object sender, EventArgs e)
+    {
+      cbDescontoHeight = (cbDesconto.Visible ? cbDesconto.Height : 0);
+    }
+
+    float child2Height;
+    private void Child2_AfterPrint(object sender, EventArgs e)
+    {
+      child2Height = (Child2.Visible ? Child2.Height : 0);
+    }
+
+    float dbInfProtxMsgHeight;
+    private void dbInfProtxMsg_AfterPrint(object sender, EventArgs e)
+    {
+      dbInfProtxMsgHeight = (dbInfProtxMsg.Visible ? dbInfProtxMsg.Height : 0);
+    }
+
+    float dbTextoRodapeHeight;
+    private void dbTextoRodape_AfterPrint(object sender, EventArgs e)
+    {
+      dbTextoRodapeHeight = (dbTextoRodape.Visible ? dbTextoRodape.Height : 0);
+    }
+
     private void cbDesconto_BeforePrint(object sender, EventArgs e)
     {
       cbDesconto.Visible = ((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vDesc&quot;)) &gt; 0;
@@ -241,8 +415,6 @@ namespace FastReport
       dbQrCodeLateral.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Lateral);
     }
 
-    
-    
     private void dbQrCodeNormal_BeforePrint(object sender, EventArgs e)
     {
       dbQrCodeNormal.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);
@@ -1060,10 +1232,10 @@ namespace FastReport
     <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
   </Dictionary>
   <ReportPage Name="PgNfce" PaperWidth="79" LeftMargin="4.5" TopMargin="0" RightMargin="4.5" BottomMargin="1" FirstPageSource="15" OtherPagesSource="15" StartPageEvent="PgNfce_StartPage">
-    <ReportTitleBand Name="rtbEmitLogo" Width="264.6" Height="85.8">
+    <ReportTitleBand Name="rtbEmitLogo" Width="264.6" Height="85.8" AfterPrintEvent="rtbEmitLogo_AfterPrint">
       <PictureObject Name="poEmitLogo" Top="3.78" Width="264.6" Height="79.38" Image=""/>
     </ReportTitleBand>
-    <PageHeaderBand Name="phbEmitente" Top="88.47" Width="264.6" Height="122.83" CanGrow="true" PrintOn="FirstPage, SinglePage">
+    <PageHeaderBand Name="phbEmitente" Top="88.47" Width="264.6" Height="122.83" CanGrow="true" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
       <TextObject Name="Memo9" Top="77.21" Width="264.6" Height="28.35" ShiftMode="WhenOverlapped" Text="DANFE NFC-e - Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9pt, style=Bold"/>
       <TextObject Name="Memo37" Top="104.43" Width="264.6" Height="15.12" ShiftMode="WhenOverlapped" Text="Não permite aproveitamento de crédito do ICMS" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Memo2" Top="20.38" Width="264.6" Height="13.23" CanGrow="true" ShiftMode="WhenOverlapped" Text="[NFCe.NFe.infNFe.emit.xNome]" Padding="2, 1, 2, 1" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
@@ -1076,7 +1248,7 @@ namespace FastReport
     <ColumnHeaderBand Name="phbCancelado" Top="213.96" Width="264.6" Height="16.9">
       <TextObject Name="lblCancelado" Top="1" Width="264.6" Height="15.12" Fill.Color="Gray" ShiftMode="WhenOverlapped" Text="DOCUMENTO CANCELADO" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9.749999pt, style=Bold" TextFill.Color="White"/>
     </ColumnHeaderBand>
-    <GroupHeaderBand Name="ghbProdutosUmaLinha" Top="233.53" Width="264.6" Height="13.99" Visible="false" BeforePrintEvent="ghbProdutosUmaLinha_BeforePrint" Condition="[NFCe.protNFe.infProt.chNFe]">
+    <GroupHeaderBand Name="ghbProdutosUmaLinha" Top="233.53" Width="264.6" Height="13.99" Visible="false" BeforePrintEvent="ghbProdutosUmaLinha_BeforePrint" AfterPrintEvent="ghbProdutosUmaLinha_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
       <ShapeObject Name="Shape2" Width="264.6" Height="13.99" Border.Width="0" Fill.Color="WhiteSmoke"/>
       <TextObject Name="Text31" Top="1.13" Width="44.6" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text32" Left="46.49" Top="1.13" Width="60.48" Height="11.34" Text="Descrição" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
@@ -1085,7 +1257,7 @@ namespace FastReport
       <TextObject Name="Text35" Left="216.59" Top="1.13" Width="46.12" Height="11.34" Text="Vl Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text36" Left="158" Top="1.13" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text37" Left="207.14" Top="1.13" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-      <DataBand Name="dbProdutosUmaLinha" Top="250.19" Width="264.6" Height="15.12" Visible="false" Border.Lines="Bottom" BeforePrintEvent="dbProdutosUmaLinha_BeforePrint" DataSource="det">
+      <DataBand Name="dbProdutosUmaLinha" Top="250.19" Width="264.6" Height="15.12" Visible="false" Border.Lines="Bottom" BeforePrintEvent="dbProdutosUmaLinha_BeforePrint" AfterPrintEvent="dbProdutosUmaLinha_AfterPrint" DataSource="det">
         <TextObject Name="Text26" Top="1" Width="44.6" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
         <TextObject Name="Text27" Left="46.49" Top="1" Width="60.48" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 13), 0, 12)]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
         <TextObject Name="Text28" Left="108.86" Top="1" Width="47.25" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold">
@@ -1106,7 +1278,7 @@ namespace FastReport
         </Sort>
       </DataBand>
     </GroupHeaderBand>
-    <GroupHeaderBand Name="ghbProdutosDuasLinhas" Top="285.76" Width="264.6" Height="28.35" BeforePrintEvent="ghbProdutosDuasLinhas_BeforePrint" Condition="[NFCe.protNFe.infProt.chNFe]">
+    <GroupHeaderBand Name="ghbProdutosDuasLinhas" Top="285.76" Width="264.6" Height="28.35" BeforePrintEvent="ghbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="ghbProdutosDuasLinhas_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
       <ShapeObject Name="Shape1" Width="264.6" Height="28.35" Border.Width="0" Fill.Color="WhiteSmoke"/>
       <TextObject Name="Text7" Top="2.46" Width="49.14" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text8" Left="51.92" Top="1.89" Width="211.68" Height="11.34" Text="Descrição" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
@@ -1115,7 +1287,7 @@ namespace FastReport
       <TextObject Name="Text11" Left="190.76" Top="13.34" Width="71.82" Height="11.34" Text="Valor Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text23" Left="96.39" Top="13.99" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text24" Left="181.44" Top="13.99" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-      <DataBand Name="dbProdutosDuasLinhas" Top="316.78" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.25" CanGrow="true" BeforePrintEvent="dbProdutosDuasLinhas_BeforePrint" DataSource="det">
+      <DataBand Name="dbProdutosDuasLinhas" Top="316.78" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.25" CanGrow="true" BeforePrintEvent="dbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="dbProdutosDuasLinhas_AfterPrint" DataSource="det">
         <TextObject Name="Text1" Top="1" Width="49.14" Height="11.72" CanGrow="true" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoDuasLinhasDescricaoProduto" Left="51.79" Top="1" Width="210.55" Height="11.72" CanGrow="true" BeforePrintEvent="txtProdutoDuasLinhasDescricaoProduto_BeforePrint" Text="[NFCe.NFe.infNFe.det.prod.xProd]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
         <TextObject Name="Text3" Top="12.72" Width="92.61" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold">
@@ -1135,7 +1307,7 @@ namespace FastReport
           <Sort Expression="[NFCe.NFe.infNFe.det.nItem]"/>
         </Sort>
       </DataBand>
-      <GroupFooterBand Name="gfbProdutos" Top="363.69" Width="264.6" Height="34.02" Border.Lines="Top" Border.Width="0.5">
+      <GroupFooterBand Name="gfbProdutos" Top="363.69" Width="264.6" Height="34.02" Border.Lines="Top" Border.Width="0.5" AfterPrintEvent="gfbProdutos_AfterPrint">
         <TextObject Name="Text16" Top="3.78" Width="124.74" Height="11.34" Text="Qtde. total de itens" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
         <TextObject Name="Text17" Top="15.12" Width="124.74" Height="18.9" Text="Valor total R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt">
           <Highlight>
@@ -1148,60 +1320,60 @@ namespace FastReport
             <Condition Expression="(decimal)[NFCe.NFe.infNFe.total.ICMSTot.vDesc] == 0" Font="Ubuntu Condensed, 11.9999981pt, style=Bold" ApplyTextFill="false" ApplyFont="true"/>
           </Highlight>
         </TextObject>
-        <ChildBand Name="cbDesconto" Top="400.38" Width="264.6" Height="32.13" BeforePrintEvent="cbDesconto_BeforePrint">
+        <ChildBand Name="cbDesconto" Top="400.38" Width="264.6" Height="32.13" BeforePrintEvent="cbDesconto_BeforePrint" AfterPrintEvent="cbDesconto_AfterPrint">
           <TextObject Name="Text43" Width="124.74" Height="12.1" Text="Desconto R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
           <TextObject Name="Text44" Left="143.64" Width="120.96" Height="12.1" Text="[NFCe.NFe.infNFe.total.ICMSTot.vDesc]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
           <TextObject Name="Text45" Top="12.45" Width="124.74" Height="18.9" Text="Valor a Pagar R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 12pt, style=Bold"/>
           <TextObject Name="Text46" Left="143.64" Top="12.45" Width="120.96" Height="18.9" Text="[NFCe.NFe.infNFe.total.ICMSTot.vNF]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 12pt, style=Bold"/>
-          <ChildBand Name="Child2" Top="435.17" Width="264.6" Height="12.1">
+          <ChildBand Name="Child2" Top="435.17" Width="264.6" Height="12.1" AfterPrintEvent="Child2_AfterPrint">
             <TextObject Name="Text18" Width="124.74" Height="12.1" Text="FORMA PAGAMENTO" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
             <TextObject Name="Text20" Left="155.58" Width="109.62" Height="12.1" Text="VALOR PAGO R$" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
           </ChildBand>
         </ChildBand>
       </GroupFooterBand>
     </GroupHeaderBand>
-    <DataBand Name="dbPagamento" Top="449.94" Width="264.6" Height="13.23" BeforePrintEvent="dbPagamento_BeforePrint" DataSource="pag">
+    <DataBand Name="dbPagamento" Top="449.94" Width="264.6" Height="13.23" BeforePrintEvent="dbPagamento_BeforePrint" AfterPrintEvent="dbPagamento_AfterPrint" DataSource="pag">
       <TextObject Name="txtDescPagto" Width="139.86" Height="13.23" BeforePrintEvent="txtDescPagto_BeforePrint" Text="[NFCe.NFe.infNFe.pag.tPag]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text22" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbDetPagamento" Top="465.84" Width="264.6" Height="13.23" BeforePrintEvent="dbDetPagamento_BeforePrint" DataSource="detPag">
+    <DataBand Name="dbDetPagamento" Top="465.84" Width="264.6" Height="13.23" BeforePrintEvent="dbDetPagamento_BeforePrint" AfterPrintEvent="dbDetPagamento_AfterPrint" DataSource="detPag">
       <TextObject Name="txtDescDetPagto" Width="139.86" Height="13.23" BeforePrintEvent="txtDescDetPagto_BeforePrint" Text="[NFCe.NFe.infNFe.pag.detPag.tPag]" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text6" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.detPag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-      <DataFooterBand Name="dbTroco" Top="481.73" Width="264.6" Height="28.35" BeforePrintEvent="dbTroco_BeforePrint">
+      <DataFooterBand Name="dbTroco" Top="481.73" Width="264.6" Height="28.35" BeforePrintEvent="dbTroco_BeforePrint" AfterPrintEvent="dbTroco_AfterPrint">
         <TextObject Name="Text5" Left="202.23" Top="13.23" Width="62.37" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vTroco]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
         <TextObject Name="Text13" Width="262.71" Height="13.23" Text="(TOTAL PAGO [FormatCurrency([TotalPagamentos]+[TotalDetPagamentos], 2)])" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
         <TextObject Name="Text47" Top="13.23" Width="196.56" Height="13.23" Text="TROCO R$:" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       </DataFooterBand>
     </DataBand>
-    <DataBand Name="dbObservacao" Top="543.77" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbObservacao" Top="543.77" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbObservacao_AfterPrint">
       <TextObject Name="txtObs" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true" BeforePrintEvent="txtObs_BeforePrint" Text="[NFCe.NFe.infNFe.infAdic.infCpl]" Padding="2, 2, 2, 2" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbInfoFiscal" Top="565.33" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbInfoFiscal" Top="565.33" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true" AfterPrintEvent="dbInfoFiscal_AfterPrint">
       <TextObject Name="memMsgFiscal" Top="1.22" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" BeforePrintEvent="memMsgFiscal_BeforePrint" Text="[NFCe.NFe.infNFe.infAdic.infAdFisco]" Padding="2, 1, 2, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dbNumeroSerieDh" Top="583.12" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true" BeforePrintEvent="dbNumeroSerieDh_BeforePrint">
+    <DataBand Name="dbNumeroSerieDh" Top="583.12" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true" BeforePrintEvent="dbNumeroSerieDh_BeforePrint" AfterPrintEvent="dbNumeroSerieDh_AfterPrint">
       <TextObject Name="txtDhEmissao" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true" Text="Número: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.nNF] ), 9, '0')] Série: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.serie] ), 3, '0')] Emissão: [Substring(ToString( [NFCe.NFe.infNFe.ide.dhEmi]), 0, 19)]" Padding="2, 1, 2, 1" HorzAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbConsulta" Top="600.91" Width="264.6" Height="75.6" Border.Lines="Bottom" Border.Width="0.5">
+    <DataBand Name="dbConsulta" Top="600.91" Width="264.6" Height="75.6" Border.Lines="Bottom" Border.Width="0.5" AfterPrintEvent="dbConsulta_AfterPrint">
       <TextObject Name="Memo3" Top="15.77" Width="264.6" Height="13.23" Border.Lines="Top" Border.Width="0.5" Text="Consulte pela chave de acesso em:" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Memo1" Top="44.34" Width="264.6" Height="11.34" Text="CHAVE DE ACESSO" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="memChaveNfe" Top="57.14" Width="264.6" Height="15.12" BeforePrintEvent="memChaveNfe_BeforePrint" Text="[Substring([NFCe.NFe.infNFe.Id],3)]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtDescVia" Left="0.38" Width="264.6" Height="15.12" BeforePrintEvent="txtDhEmissao_BeforePrint" Text="[CopyName#]" Padding="2, 1, 2, 1" HorzAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtUrl" Top="29.35" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" Text="www.sefaz.ce.gov.br/nfce/consulta" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbInfProtxMsg" Top="679.17" Width="264.6" Height="17.9" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbInfProtxMsg" Top="679.17" Width="264.6" Height="17.9" CanGrow="true" CanShrink="true" AfterPrintEvent="dbInfProtxMsg_AfterPrint">
       <TextObject Name="Text50" Width="264.6" Height="17.01" CanGrow="true" CanShrink="true" Text="[NFCe.protNFe.infProt.xMsg]" Padding="5, 1, 5, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbDestinatario" Top="699.74" Width="264.6" Height="68.03" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint">
+    <DataBand Name="dbDestinatario" Top="699.74" Width="264.6" Height="68.03" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
       <TextObject Name="txtConsumidor" Top="1.78" Width="264.6" Height="16.25" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtDestNome" Top="20.41" Width="264.6" Height="17.01" CanGrow="true" CanShrink="true" Text="[NFCe.NFe.infNFe.dest.xNome]" Padding="5, 1, 5, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="txtDestEndereco" Top="39.69" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="5, 1, 5, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbQrCodeNormal" Top="770.44" Width="264.6" Height="170.36" BeforePrintEvent="dbQrCodeNormal_BeforePrint">
+    <DataBand Name="dbQrCodeNormal" Top="770.44" Width="264.6" Height="170.36" BeforePrintEvent="dbQrCodeNormal_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
       <TextObject Name="Memo4" Top="2.26" Width="264.6" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://nfceh.sefaz.ce.gov.br/pages/ShowNFCe.html?p=23190811820016000167650010000000221100000227|2|2|1|88ca4df0b7e88237dff9d382b4934005fbc09ce3" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
     </DataBand>
-    <DataBand Name="dbQrCodeLateral" Top="943.46" Width="264.6" Height="119.07" CanGrow="true" CanShrink="true" BeforePrintEvent="dbQrCodeLateral_BeforePrint">
+    <DataBand Name="dbQrCodeLateral" Top="943.46" Width="264.6" Height="119.07" CanGrow="true" CanShrink="true" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint">
       <TextObject Name="txtConsumidor2" Left="103.95" Width="160.65" Height="15.12" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text49" Width="100.17" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" VertAlign="Bottom" Font="Ubuntu Condensed, 6pt"/>
       <BarcodeObject Name="bcoQrCodeLateral" Top="17.1" Width="94.5" Height="94.5" AutoSize="false" Text="http://nfceh.sefaz.ce.gov.br/pages/ShowNFCe.html?p=23190811820016000167650010000000221100000227|2|2|1|88ca4df0b7e88237dff9d382b4934005fbc09ce3" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
@@ -1209,13 +1381,13 @@ namespace FastReport
       <TextObject Name="txtDestEndereco2" Left="94.5" Top="30.35" Width="170.1" Height="45.36" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="1, 1, 2, 1" Font="Ubuntu Condensed, 7pt"/>
       <TextObject Name="txtDhEmissao2" Left="94.5" Top="78.05" Width="170.1" Height="26.46" CanGrow="true" CanShrink="true" Text="Número: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.nNF] ), 9, '0')] Série: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.serie] ), 3, '0')]&#13;&#10;Emissão: [Substring(ToString( [NFCe.NFe.infNFe.ide.dhEmi]), 0, 19)]" Padding="1, 1, 2, 1" Font="Ubuntu Condensed, 8pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dbProtocolo" Top="1065.2" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint">
+    <DataBand Name="dbProtocolo" Top="1065.2" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
       <TextObject Name="txtProtocoloAutorizacao" Width="264.6" Height="27.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbTributos" Top="1066.06" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbTributos" Top="1066.06" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbTributos_AfterPrint">
       <TextObject Name="Memo17" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true" Text="Tributos Totais Incidentes (Lei Federal 12.741 /2012): [NFCe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbTextoRodape" Top="1096.22" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbTextoRodape" Top="1096.22" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true" AfterPrintEvent="dbTextoRodape_AfterPrint">
       <TextObject Name="Text19" Width="264.6" Height="18.9" Border.Lines="Top" CanGrow="true" CanShrink="true" Text="[TextoRodape]" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
   </ReportPage>
