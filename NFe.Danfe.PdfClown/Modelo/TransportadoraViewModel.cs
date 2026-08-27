@@ -72,6 +72,12 @@
         /// </summary>
         public Double? PesoBruto { get; set; }
 
+        /// <summary>
+        ///     Modalidade do frete como o campo "FRETE POR CONTA" do quadro
+        ///     "TRANSPORTADOR / VOLUMES TRANSPORTADOS" do DANFE deve exibi-la: o código seguido do
+        ///     nome da modalidade (ver <see cref="ModalidadesFrete"/>). A modalidade 9
+        ///     ("Sem Transporte") não é impressa.
+        /// </summary>
         public string ModalidadeFreteString
         {
             get
@@ -82,8 +88,6 @@
                 {
                     result = $"{ModalidadeFrete}-{ModalidadesFrete[ModalidadeFrete]}";
                     if (ModalidadeFrete == 9) result = string.Empty;
-                    if (ModalidadeFrete == 0) result = "0 - CIF";
-                    if (ModalidadeFrete == 1) result = "1 - FOB";
                 }
                 else
                 {
