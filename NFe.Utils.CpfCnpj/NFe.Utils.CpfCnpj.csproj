@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;netstandard2.0;net6.0</TargetFrameworks>
+    <RootNamespace>NFe.Utils.CpfCnpj</RootNamespace>
+    <AssemblyName>NFe.Utils.CpfCnpj</AssemblyName>
+    <Description>Preenchimento do destinatario (dest/enderDest) de NF-e/NFC-e a partir da API cpfcnpj.com.br</Description>
+    <PackageLicenseExpression>LGPL-2.1-or-later</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+  </ItemGroup>
+
+</Project>
