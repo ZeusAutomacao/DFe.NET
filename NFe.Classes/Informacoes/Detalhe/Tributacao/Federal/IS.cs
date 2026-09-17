@@ -47,8 +47,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     UB02 - Código de Situação Tributária do Imposto Seletivo
         /// </summary>
+        /// <remarks>
+        ///     String (e não enum) por definição do schema oficial: no XSD da SEFAZ
+        ///     (DFeTiposBasicos_v1.00.xsd) o elemento CSTIS é do tipo TCST, que é
+        ///     <c>xs:string</c> restrito apenas pelo pattern <c>\d{3}</c> — ou seja, a SEFAZ
+        ///     NÃO define uma lista fechada de códigos, e a tabela de CST continua sendo
+        ///     publicada/atualizada por Informe Técnico (2025.002, já na v1.50).
+        ///
+        ///     Modelar como enum quebrava a desserialização com
+        ///     "Instance validation error: 'NNN' is not a valid value for CSTIS" em QUALQUER
+        ///     código ainda não mapeado — e, no NFeDistribuicaoDFe, uma única nota de terceiro
+        ///     com um CST novo derrubava a consulta INTEIRA (a exceção ocorre ao desserializar
+        ///     o nfeProc, antes do laço de documentos). Caso real: CSTIS '002'.
+        /// </remarks>
         [XmlElement(Order = 1)]
-        public CSTIS CSTIS { get; set; }
+        public string CSTIS { get; set; }
 
         /// <summary>
         ///     UB03 - Código de Classificação Tributária do Imposto Seletivo

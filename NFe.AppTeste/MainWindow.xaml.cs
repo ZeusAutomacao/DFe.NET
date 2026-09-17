@@ -2110,7 +2110,7 @@ namespace NFe.AppTeste
                             pIS = 0,
                             vIS = 0,
                             cClassTribIS = "000001",
-                            CSTIS = CSTIS.Is000,
+                            CSTIS = "000",
                             vBCIS = 0,
                         }
                         : null,

@@ -37,9 +37,18 @@ using System.Xml.Serialization;
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
 {
     /// <summary>
-    ///     CST para o Imposto Seletivo (IS)
-    ///     Tabela ainda não publicada oficialmente pela SEFAZ. Fonte: NT 2025.002-RTC
+    ///     CST para o Imposto Seletivo (IS) — MANTIDO APENAS COMO REFERÊNCIA/DOCUMENTAÇÃO.
     /// </summary>
+    /// <remarks>
+    ///     NÃO usar este enum para serialização: <see cref="Federal.IS.CSTIS"/> é
+    ///     <c>string</c>, alinhado ao XSD oficial (DFeTiposBasicos_v1.00.xsd), onde CSTIS é do
+    ///     tipo TCST — <c>xs:string</c> restrito somente pelo pattern <c>\d{3}</c>. A SEFAZ não
+    ///     define lista fechada; a tabela é publicada por Informe Técnico e segue em revisão.
+    ///
+    ///     Enquanto isto era um enum, qualquer código não mapeado (caso real: '002') lançava
+    ///     "Instance validation error: '002' is not a valid value for CSTIS" e derrubava a
+    ///     consulta NFeDistribuicaoDFe inteira.
+    /// </remarks>
     public enum CSTIS
     {
         /// <summary>
