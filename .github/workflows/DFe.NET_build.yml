@@ -64,7 +64,7 @@ jobs:
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Utils\MDFe.Utils.csproj" -c "Release"
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Wsdl\MDFe.Wsdl.csproj" -c "Release"
         
-    - name: Build/Restore MDFe
+    - name: Build/Restore CTe
       run: | 
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Classes\CTe.Classes.csproj" -c "Release"
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Servicos\CTe.Servicos.csproj" -c "Release"
