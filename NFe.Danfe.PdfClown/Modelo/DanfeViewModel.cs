@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using NFe.Danfe.PdfClown.Enumeracoes;
 using NFe.Danfe.PdfClown.Esquemas;
 using NFe.Danfe.PdfClown.Tools;
@@ -227,6 +228,19 @@ namespace NFe.Danfe.PdfClown.Modelo
         /// </summary>
         public bool PreferirEmitenteNomeFantasia { get; set; } = true;
 
+        /// <summary>
+        /// Exibe o e-mail do destinatário (tag dest/email) no quadro "Informações Complementares".
+        /// Desligado por padrão: não altera o impresso de quem já usa a biblioteca.
+        /// </summary>
+        public bool ExibirEmailDestinatario { get; set; } = false;
+
+        /// <summary>
+        /// Exibe as informações adicionais de interesse do Fisco (tag infAdFisco) no quadro
+        /// "Informações Complementares", prefixadas por "Inf. fisco". Desligado por padrão: não
+        /// altera o impresso de quem já usa a biblioteca.
+        /// </summary>
+        public bool ExibirInformacoesAdicionaisFisco { get; set; } = false;
+
         #endregion
 
         #region Contingencia
@@ -319,17 +333,17 @@ namespace NFe.Danfe.PdfClown.Modelo
             if (!string.IsNullOrEmpty(InformacoesComplementares))
                 sb.Append(InformacoesComplementares).Replace(";", "\r\n");
 
-            /*if (!string.IsNullOrEmpty(Destinatario.Email))
+            if (ExibirEmailDestinatario && Destinatario != null && !string.IsNullOrEmpty(Destinatario.Email))
             {
                 // Adiciona um espaço após a virgula caso necessário, isso facilita a quebra de linha.
                 var destEmail = Regex.Replace(Destinatario.Email, @"(?<=\S)([,;])(?=\S)", "$1 ").Trim(new char[] { ' ', ',', ';' });
                 sb.AppendChaveValor("Email do Destinatário", destEmail);
             }
 
-            if (!string.IsNullOrEmpty(InformacoesAdicionaisFisco))
+            if (ExibirInformacoesAdicionaisFisco && !string.IsNullOrEmpty(InformacoesAdicionaisFisco))
                 sb.AppendChaveValor("Inf. fisco", InformacoesAdicionaisFisco);
 
-            if (!string.IsNullOrEmpty(Pedido) && !Utils.StringContemChaveValor(InformacoesComplementares, "Pedido", Pedido))
+            /*if (!string.IsNullOrEmpty(Pedido) && !Utils.StringContemChaveValor(InformacoesComplementares, "Pedido", Pedido))
                 sb.AppendChaveValor("Pedido", Pedido);
 
             if (!string.IsNullOrEmpty(Contrato) && !Utils.StringContemChaveValor(InformacoesComplementares, "Contrato", Contrato))
