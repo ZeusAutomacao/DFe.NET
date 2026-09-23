@@ -23,6 +23,21 @@ public class DanfeNfceDocument : IDocument
     private float _tamanhoImpressao = 300f;
     private float _tamanhoFontePadrao;
 
+    /// <summary>
+    /// Define se o desconto e o valor líquido do item devem ser exibidos no DANFE NFC-e.
+    /// </summary>
+    public bool ImprimeDescontoItem { get; set; }
+
+    /// <summary>
+    /// Define se o acréscimo e o valor líquido do item devem ser exibidos no DANFE NFC-e.
+    /// </summary>
+    public bool ImprimeAcrescimoItem { get; set; }
+
+    /// <summary>
+    /// Define se as informações adicionais do item devem ser exibidas no DANFE NFC-e.
+    /// </summary>
+    public bool ImprimeInformacaoAdicionalItem { get; set; }
+
     public DanfeNfceDocument(string xml, byte[]? logo)
     {
         _logo = logo;
@@ -178,6 +193,11 @@ public class DanfeNfceDocument : IDocument
 
             foreach (var det in _nfe.infNFe.det)
             {
+                var valorDescontoItem = det.prod.vDesc.GetValueOrDefault();
+                var valorAcrescimoItem = det.prod.vOutro.GetValueOrDefault();
+                var imprimeDescontoItem = ImprimeDescontoItem && valorDescontoItem > 0;
+                var imprimeAcrescimoItem = ImprimeAcrescimoItem && valorAcrescimoItem > 0;
+
                 t.Cell().Text(det.nItem.ToString("D3")).FontSize(_tamanhoFontePadrao - 0.5f);
                 t.Cell().ColumnSpan(11).Text(det.prod.xProd).FontSize(_tamanhoFontePadrao - 0.5f);
                 t.Cell().RowSpan(1);
@@ -186,6 +206,44 @@ public class DanfeNfceDocument : IDocument
                 t.Cell().ColumnSpan(4).AlignRight().Text(det.prod.vUnCom.ToString("N2")).FontSize(_tamanhoFontePadrao - 0.5f);
                 t.Cell().ColumnSpan(1).AlignCenter();
                 t.Cell().ColumnSpan(3).AlignRight().Text(det.prod.vProd.ToString("N2")).FontSize(_tamanhoFontePadrao - 0.5f);
+
+                if (imprimeDescontoItem || imprimeAcrescimoItem)
+                {
+                    var valorLiquidoItem = det.prod.vProd + valorAcrescimoItem - valorDescontoItem;
+
+                    t.Cell().ColumnSpan(12).Row(row =>
+                    {
+                        if (imprimeDescontoItem)
+                        {
+                            row.RelativeItem().PaddingRight(2).Row(ajuste =>
+                            {
+                                ajuste.AutoItem().Text("Desc.").FontSize(_tamanhoFontePadrao - 1);
+                                ajuste.AutoItem().PaddingLeft(2).Text($"R$ -{valorDescontoItem:N2}").FontSize(_tamanhoFontePadrao - 1);
+                            });
+                        }
+
+                        if (imprimeAcrescimoItem)
+                        {
+                            row.RelativeItem().PaddingLeft(2).Row(ajuste =>
+                            {
+                                ajuste.AutoItem().Text("Acrésc.").FontSize(_tamanhoFontePadrao - 1);
+                                ajuste.AutoItem().PaddingLeft(2).Text($"R$ +{valorAcrescimoItem:N2}").FontSize(_tamanhoFontePadrao - 1);
+                            });
+                        }
+
+                        row.AutoItem().PaddingLeft(2).Row(liquido =>
+                        {
+                            liquido.AutoItem().Text("Líq.").SemiBold().FontSize(_tamanhoFontePadrao - 1);
+                            liquido.AutoItem().PaddingLeft(2).Text($"R$ {valorLiquidoItem:N2}").SemiBold().FontSize(_tamanhoFontePadrao - 1);
+                        });
+                    });
+                }
+
+                if (ImprimeInformacaoAdicionalItem && !string.IsNullOrWhiteSpace(det.infAdProd))
+                {
+                    t.Cell().ColumnSpan(12).Text(det.infAdProd).FontSize(_tamanhoFontePadrao - 1);
+                }
+
                 t.Cell().ColumnSpan(12).RowSpan(1).Element(CellStyle);
             }
 

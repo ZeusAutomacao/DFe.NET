@@ -157,7 +157,13 @@ namespace NFe.Danfe.AppTeste.QuestPdf
         {
             var xml = File.ReadAllText(caminhoXml);
 
-            var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
+            var documento = new DanfeNfceDocument(xml, _logoMarcaBytes)
+            {
+                ImprimeDescontoItem = CheckBoxImprimeDescontoItem.IsChecked == true,
+                ImprimeAcrescimoItem = CheckBoxImprimeAcrescimoItem.IsChecked == true,
+                ImprimeInformacaoAdicionalItem = CheckBoxImprimeInformacaoAdicionalItem.IsChecked == true
+            };
+
             documento.TamanhoImpressao(tamanho);
             documento.GeneratePdfAndShow();
         }
