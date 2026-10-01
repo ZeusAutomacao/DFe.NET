@@ -41,9 +41,26 @@ namespace NFe.Danfe.PdfClown.Elementos
             FonteCabecalho = estilo.CriarFonteRegular(6F);
         }
 
+        /// <summary>
+        ///     Menor corpo de fonte aceito pelo ajuste automático das colunas de valor. Abaixo dele
+        ///     o número deixaria de ser legível no impresso, e o comportamento anterior (quebra de
+        ///     linha) é preservado.
+        /// </summary>
+        private const float TamanhoMinimoDaCelulaAjustada = 4F;
+
         public Tabela ComColuna(float larguraP, AlinhamentoHorizontal ah, params string[] cabecalho)
         {
             Colunas.Add(new TabelaColuna(cabecalho, larguraP, ah));
+            return this;
+        }
+
+        /// <summary>
+        ///     Acrescenta uma coluna de valor: o conteúdo é indivisível e, se não couber na célula,
+        ///     encolhe para caber em uma única linha. Ver <see cref="TabelaColuna.AjustarFonteParaCaber"/>.
+        /// </summary>
+        public Tabela ComColunaDeValor(float larguraP, AlinhamentoHorizontal ah, params string[] cabecalho)
+        {
+            Colunas.Add(new TabelaColuna(cabecalho, larguraP, ah, ajustarFonteParaCaber: true));
             return this;
         }
 
@@ -66,6 +83,37 @@ namespace NFe.Danfe.PdfClown.Elementos
 
         }
 
+        /// <summary>
+        ///     Fonte de uma célula. Por padrão, a fonte do corpo da tabela. Numa coluna de valor
+        ///     (<see cref="TabelaColuna.AjustarFonteParaCaber"/>) cujo conteúdo é indivisível — sem
+        ///     espaços — e mais largo que a célula, o corpo da fonte é reduzido o suficiente para o
+        ///     conteúdo caber em uma única linha, respeitando
+        ///     <see cref="TamanhoMinimoDaCelulaAjustada"/>.
+        /// </summary>
+        /// <param name="coluna">Coluna da célula.</param>
+        /// <param name="valor">Conteúdo da célula.</param>
+        /// <param name="larguraUtil">Largura disponível da célula, em milímetros.</param>
+        private Fonte FonteDaCelula(TabelaColuna coluna, string valor, float larguraUtil)
+        {
+            if (!coluna.AjustarFonteParaCaber || larguraUtil <= 0) return FonteCorpo;
+
+            foreach (var caractere in valor)
+            {
+                if (char.IsWhiteSpace(caractere)) return FonteCorpo;
+            }
+
+            float largura = FonteCorpo.MedirLarguraTexto(valor);
+
+            if (largura <= larguraUtil || largura <= 0) return FonteCorpo;
+
+            // A folga de 0.5% evita que o arredondamento da medição encoste o valor na borda.
+            float tamanho = FonteCorpo.Tamanho * (larguraUtil / largura) * 0.995F;
+
+            return tamanho < TamanhoMinimoDaCelulaAjustada
+                ? FonteCorpo
+                : new Fonte(FonteCorpo.FonteInterna, tamanho);
+        }
+
         private Boolean DesenharLinha(Gfx gfx)
         {
             float x = X;
@@ -82,10 +130,11 @@ namespace NFe.Danfe.PdfClown.Elementos
 
                 if (!string.IsNullOrWhiteSpace(v))
                 {
+                    float larguraUtil = w - 2F * Estilo.PaddingHorizontal;
 
-                    tb[i] = new TextBlock(v, FonteCorpo)
+                    tb[i] = new TextBlock(v, FonteDaCelula(c, v, larguraUtil))
                     {
-                        Width = w - 2F * Estilo.PaddingHorizontal,
+                        Width = larguraUtil,
                         X = x + PaddingHorizontal,
                         Y = _DY + PaddingSuperior,
                         AlinhamentoHorizontal = c.AlinhamentoHorizontal

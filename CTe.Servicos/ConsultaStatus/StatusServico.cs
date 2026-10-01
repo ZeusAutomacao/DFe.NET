@@ -61,6 +61,9 @@ namespace CTe.Servicos.ConsultaStatus
 
         public retConsStatServCTe ConsultaStatusV4(ConfiguracaoServico configuracaoServico = null)
         {
+            if (configuracaoServico == null)
+                configuracaoServico = ConfiguracaoServico.Instancia;
+
             var consStatServCte = ClassesFactory.CriaConsStatServCTe(configuracaoServico);
 
             if (configuracaoServico.IsValidaSchemas)

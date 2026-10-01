@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml;
 using DFe.Utils;
 using NFe.Classes.Servicos.ConsultaCadastro;
 
@@ -39,14 +40,18 @@ namespace NFe.Utils.ConsultaCadastro
     public static class ExtretConsCad
     {
         /// <summary>
-        ///     Coverte uma string XML no formato NFe para um objeto retConsCad
+        ///     Converte uma string XML no formato NFe para um objeto retConsCad
         /// </summary>
-        /// <param name="retConsCad"></param>
         /// <param name="xmlString"></param>
         /// <returns>Retorna um objeto do tipo retConsCad</returns>
-        public static retConsCad CarregarDeXmlString(this retConsCad retConsCad, string xmlString)
+        public static retConsCad CarregarDeXmlString(string xmlString)
         {
-            return FuncoesXml.XmlStringParaClasse<retConsCad>(xmlString);
+            var documento = new XmlDocument();
+            documento.LoadXml(xmlString);
+            var node = documento.GetElementsByTagName("retConsCad")[0];
+            var xmlParaDeserializar = node?.OuterXml ?? xmlString;
+            
+            return FuncoesXml.XmlStringParaClasse<retConsCad>(xmlParaDeserializar);
         }
 
         /// <summary>

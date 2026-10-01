@@ -120,6 +120,11 @@ namespace CTe.AppTeste
             _model.EventoDesacordoCTe();
         }
 
+        private void EventoCancelaDesacordoCTe_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoCancelaDesacordoCTe();
+        }
+
         private void CartaCorrecao_Click(object sender, RoutedEventArgs e)
         {
             _model.CartaCorrecao();

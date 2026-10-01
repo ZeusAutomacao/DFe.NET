@@ -71,13 +71,12 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe
             get { return _cNPJ; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(_cPF))
-                    _cNPJ = value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(_cPF))
                     throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+
+                _cNPJ = value;
             }
         }
 
@@ -89,13 +88,12 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe
             get { return _cPF; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(_cNPJ))
-                    _cPF = value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(_cNPJ))
                     throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+
+                _cPF = value;
             }
         }
 
@@ -107,8 +105,6 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe
         /// <summary>
         /// A09 - Grupo para consultar um DF-e a partir de um NSU específico
         /// </summary>
-        public consNSU consNSU { get; set; }  
-
-
+        public consNSU consNSU { get; set; }
     }
 }

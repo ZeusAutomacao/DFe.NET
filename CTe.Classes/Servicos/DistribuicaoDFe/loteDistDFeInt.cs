@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Classes.Servicos.DistribuicaoDFe.Schemas;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -69,5 +70,21 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe
         /// </summary>
         [XmlText(DataType = "base64Binary")]
         public byte[] XmlNfe { get; set; }
+
+        #region Objetos possíveis para descompactar o conteúdo do campo XmlNfe, dependendo do valor do campo schema
+        [XmlIgnore]
+        public cteProc cteProc { get; set; }
+
+        [XmlIgnore]
+        public resCTe resCTe { get; set; }
+
+        [XmlIgnore]
+        public CTeOSDocumento.CTe.CTeOS.Retorno.cteOSProc cteOSProc { get; set; }
+
+        [XmlIgnore]
+        public Classes.Servicos.DistribuicaoDFe.Schemas.procEventoCTe procEventoCTe { get; set; }
+
+        //TO DO: Adicionar no futuro o procGTVe adicionando na versão 1.04 do schema de distribuição de DFe
+        #endregion
     }
 }

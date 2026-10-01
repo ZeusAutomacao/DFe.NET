@@ -39,6 +39,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
     /// <summary>
     ///     CST para o Imposto Seletivo (IS)
     ///     Tabela ainda não publicada oficialmente pela SEFAZ. Fonte: NT 2025.002-RTC
+    ///     Enum sem utilização até a publicação da tabela oficial.
     /// </summary>
     public enum CSTIS
     {

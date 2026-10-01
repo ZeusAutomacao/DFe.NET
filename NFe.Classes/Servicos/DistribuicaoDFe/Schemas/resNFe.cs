@@ -53,7 +53,6 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// <summary>
         /// C03 - Chave de acesso da NF-e
         /// </summary>
-        [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
 
         /// <summary>

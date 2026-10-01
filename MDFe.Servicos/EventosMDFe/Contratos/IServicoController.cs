@@ -42,5 +42,7 @@ namespace MDFe.Servicos.EventosMDFe.Contratos
     public interface IServicoController
     {
         MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null);
+
+        MDFeRetEventoMDFe Executar(MDFeComandoEvento comando, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null);
     }
 }

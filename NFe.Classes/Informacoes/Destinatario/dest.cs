@@ -30,18 +30,19 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using DFe.Classes.Flags;
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Flags;
-using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Classes.Informacoes.Destinatario
 {
     public class dest
     {
-        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo dest!";
+        private const string ErroCpfCnpjIdEstrangeiroPreenchidos = "Somente preencher um dos campos: CNPJ, CPF ou idEstrangeiro, para um objeto do tipo dest!";
         private string cnpj;
         private string cpf;
+        private string _idEstrangeiro;
         private readonly VersaoServico _versao;
 
         /// <summary>
@@ -66,13 +67,12 @@ namespace NFe.Classes.Informacoes.Destinatario
             get { return cnpj; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cpf))
-                    cnpj = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(cpf) || !string.IsNullOrEmpty(idEstrangeiro))
+                    throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
+
+                cnpj = value;
             }
         }
 
@@ -84,20 +84,31 @@ namespace NFe.Classes.Informacoes.Destinatario
             get { return cpf; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cnpj))
-                    cpf = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(cnpj) || !string.IsNullOrEmpty(idEstrangeiro))
+                    throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
+
+                cpf = value;
             }
         }
 
         /// <summary>
         ///     E03a - Identificador do destinatário, em caso de comprador estrangeiro
         /// </summary>
-        public string idEstrangeiro { get; set; }
+        public string idEstrangeiro
+        {
+            get { return _idEstrangeiro; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(CNPJ) || !string.IsNullOrEmpty(CPF))
+                    throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
+
+                _idEstrangeiro = value;
+            }
+        }
 
         /// <summary>
         ///     E04 - Razão Social ou nome do destinatário

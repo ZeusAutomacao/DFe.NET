@@ -34,14 +34,14 @@ namespace NFe.Danfe.PdfClown.Blocos
                 .ComColuna(3.9F, ac, cabecalho4)
                 .ComColuna(3.5F, ac, "CFOP")
                 .ComColuna(3.25F, ac, "UN")
-                .ComColuna(6F, ad, "QUANTI.")
-                .ComColuna(6F, ad, "VALOR", "UNIT.")
-                .ComColuna(6F, ad, "VALOR", "TOTAL")
-                .ComColuna(6F, ad, "B CÁLC", "ICMS")
-                .ComColuna(5, ad, "VALOR", "ICMS")
-                .ComColuna(5, ad, "VALOR", "IPI")
-                .ComColuna(3.5F, ad, "ALIQ.", "ICMS")
-                .ComColuna(3.5F, ad, "ALIQ.", "IPI");
+                .ComColunaDeValor(6F, ad, "QUANTI.")
+                .ComColunaDeValor(6F, ad, "VALOR", "UNIT.")
+                .ComColunaDeValor(6F, ad, "VALOR", "TOTAL")
+                .ComColunaDeValor(6F, ad, "B CÁLC", "ICMS")
+                .ComColunaDeValor(5, ad, "VALOR", "ICMS")
+                .ComColunaDeValor(5, ad, "VALOR", "IPI")
+                .ComColunaDeValor(3.5F, ad, "ALIQ.", "ICMS")
+                .ComColunaDeValor(3.5F, ad, "ALIQ.", "IPI");
             }
             if (ViewModel.Orientacao == Orientacao.Paisagem)
             {
@@ -52,14 +52,14 @@ namespace NFe.Danfe.PdfClown.Blocos
                 .ComColuna(3.1F, ac, cabecalho4)
                 .ComColuna(3.1F, ac, "CFOP")
                 .ComColuna(3F, ac, "UN")
-                .ComColuna(5.25F, ad, "QUANTI.")
-                .ComColuna(5.6F, ad, "VALOR UNIT.")
-                .ComColuna(5.6F, ad, "VALOR TOTAL")
-                .ComColuna(5.6F, ad, "B CÁLC ICMS")
-                .ComColuna(5.6F, ad, "VALOR ICMS")
-                .ComColuna(5.6F, ad, "VALOR IPI")
-                .ComColuna(3F, ad, "ALIQ.", "ICMS")
-                .ComColuna(3F, ad, "ALIQ.", "IPI");
+                .ComColunaDeValor(5.25F, ad, "QUANTI.")
+                .ComColunaDeValor(5.6F, ad, "VALOR UNIT.")
+                .ComColunaDeValor(5.6F, ad, "VALOR TOTAL")
+                .ComColunaDeValor(5.6F, ad, "B CÁLC ICMS")
+                .ComColunaDeValor(5.6F, ad, "VALOR ICMS")
+                .ComColunaDeValor(5.6F, ad, "VALOR IPI")
+                .ComColunaDeValor(3F, ad, "ALIQ.", "ICMS")
+                .ComColunaDeValor(3F, ad, "ALIQ.", "IPI");
             }
 
             Tabela.AjustarLarguraColunas();

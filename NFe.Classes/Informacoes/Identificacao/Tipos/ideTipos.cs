@@ -148,6 +148,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     ///     <para>3 - DANFe Simplificado;</para>
     ///     <para>4 - DANFe NFC-e;</para>
     ///     <para>5 - DANFe NFC-e em mensagem eletrônica</para>
+    ///     <para>6 - DANFe Simplificado Tipo 2</para>
     /// </summary>
     public enum TipoImpressao
     {
@@ -191,7 +192,14 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("DANFe NFC-e em mensagem eletrônica")]
         [XmlEnum("5")]
-        tiMsgEletronica = 5
+        tiMsgEletronica = 5,
+
+        /// <summary>
+        /// 6 - DANFe Simplificado Tipo 2
+        /// </summary>
+        [Description("DANFe Simplificado Tipo 2")]
+        [XmlEnum("6")]
+        tiSimplificadoTp2 = 6
     }
 
     /// <summary>
@@ -591,7 +599,8 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     ///     <para>02 - Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)</para>
     ///     <para>03 - Retorno por recusa na entrega ou por não localização do destinatário na tentativa de entrega</para>
     ///     <para>04 - Redução de valores</para>
-    ///     <para>05 - Transferência de crédito na sucessão;</para>
+    ///     <para>05 - Transferência de crédito na sucessão</para>
+    ///     <para>06 - Retorno por recusa parcial na entrega</para>
     /// </summary>
     public enum TpNotaCredito
     {
@@ -611,9 +620,13 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("04")]
         ReducaoDeValores,
                 
-        [Description("Transferência de crédito na sucessão;")]
+        [Description("Transferência de crédito na sucessão")]
         [XmlEnum("05")]
-        TfCreditoSucessao
+        TfCreditoSucessao,
+
+        [Description("Retorno por recusa parcial na entrega")]
+        [XmlEnum("06")]
+        RetornoPorRecusaParcialNaEntrega
     }
 
     /// <summary>

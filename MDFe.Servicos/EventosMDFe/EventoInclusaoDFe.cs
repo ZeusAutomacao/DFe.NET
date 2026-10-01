@@ -49,8 +49,14 @@ namespace MDFe.Servicos.EventosMDFe
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var inclusao = ClassesFactory.CriaEvIncDFeMDFe(protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
-
             return new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.InclusaoDFe, config);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(MDFeComandoInclusaoDFe comando, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = ClassesFactory.CriaEvIncDFeMDFe(comando.Protocolo, comando.CodigoMunicipioCarregamento, comando.NomeMunicipioCarregamento, comando.InformacoesDocumentos);
+            return new ServicoController().Executar(comando, evento, MDFeTipoEvento.InclusaoDFe, config);
         }
     }
 }

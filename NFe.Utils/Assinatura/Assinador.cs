@@ -97,7 +97,7 @@ namespace NFe.Utils.Assinatura
 
                 documento.LoadXml(xml);
 
-                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
+                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.GetRSAPrivateKey() };
 
                 docXml.SignedInfo.SignatureMethod = signatureMethod;
 

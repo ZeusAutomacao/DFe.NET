@@ -117,6 +117,11 @@ namespace DFe.Utils
                 serializador = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
             }
 
+            if(arquivo.Contains("../") || arquivo.Contains("..\\"))
+            {
+                throw new Exception("Caminho do arquivo não pode conter ../ ou ..\\");
+            }
+
             var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {

@@ -73,38 +73,40 @@ namespace FastReport
       }
 
       var vol = Report.GetDataSource(&quot;NFe.NFe.infNFe.transp.vol&quot;);
-      vol.Init();
-      int qtdeVol = 0;
-
-      int volumes = 0;
-      decimal pesoL = 0;
-      decimal pesoB = 0;
-      while (vol.HasMoreRows)
-      {
-        Memo106.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.esp&quot;));
-        Memo108.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.marca&quot;));
-        Memo110.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.nVol&quot;));
-
-        volumes += ((Nullable&lt;int&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.qVol&quot;)) ?? 0;
-        pesoL += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoL&quot;)) ?? 0M;
-        pesoB += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoB&quot;)) ?? 0M;
-        qtdeVol++;
-        vol.Next();
-      }
-
-      if (qtdeVol &gt;= 1)
-      {
-        if (qtdeVol &gt; 1)
+	  if(vol != null){
+        vol.Init();
+        int qtdeVol = 0;
+	    
+        int volumes = 0;
+        decimal pesoL = 0;
+        decimal pesoB = 0;
+        while (vol.HasMoreRows)
         {
-          Memo106.Text = &quot;VOLUMES&quot;;
-          Memo108.Text = &quot;&quot;;
-          Memo110.Text = &quot;&quot;;
+          Memo106.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.esp&quot;));
+          Memo108.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.marca&quot;));
+          Memo110.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.nVol&quot;));
+	    
+          volumes += ((Nullable&lt;int&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.qVol&quot;)) ?? 0;
+          pesoL += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoL&quot;)) ?? 0M;
+          pesoB += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoB&quot;)) ?? 0M;
+          qtdeVol++;
+          vol.Next();
         }
-
-        Memo104.Text = volumes.ToString();
-        Memo112.Text = FormatNumber(pesoB,3) + &quot; KG&quot;;
-        Memo114.Text = FormatNumber(pesoL,3) + &quot; KG&quot;;
-      }
+	    
+        if (qtdeVol &gt;= 1)
+        {
+          if (qtdeVol &gt; 1)
+          {
+            Memo106.Text = &quot;VOLUMES&quot;;
+            Memo108.Text = &quot;&quot;;
+            Memo110.Text = &quot;&quot;;
+          }
+	    
+          Memo104.Text = volumes.ToString();
+          Memo112.Text = FormatNumber(pesoB,3) + &quot; KG&quot;;
+          Memo114.Text = FormatNumber(pesoL,3) + &quot; KG&quot;;
+        }
+	  }
 
       if(Engine.FinalPass)
       {

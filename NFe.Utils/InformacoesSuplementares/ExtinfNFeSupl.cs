@@ -264,7 +264,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PR, versao3E4, "http://www.fazenda.pr.gov.br"},
                 {Estado.PI, versao3E4, "http://webas.sefaz.pi.gov.br/nfceweb-homologacao/consultarNFCe.jsf"},
                 {Estado.RJ, versao3E4, "http://nfce.fazenda.rj.gov.br/consulta"},
-                {Estado.RN, versao3E4, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"},
+                {Estado.RN, versao3E4, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx"},
                 {Estado.RS, versao3E4, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"},
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br"},
                 {Estado.RR, versao3E4, "http://200.174.88.103:8080/nfce/servlet/wp_consulta_nfce"},
@@ -302,7 +302,6 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PE, versao3E4, "nfce.sefaz.pe.gov.br/nfce/consulta"},
                 {Estado.PI, versao3E4, "www.sefaz.pi.gov.br/nfce/consulta"},
                 {Estado.RJ, versao3E4, "www.fazenda.rj.gov.br/nfce/consulta"},
-                {Estado.RN, versao3E4, "www.set.rn.gov.br/nfce/consulta"},
                 {Estado.RS, versao3E4, "www.sefaz.rs.gov.br/nfce/consulta"},
                 {Estado.RO, versao3E4, "www.sefin.ro.gov.br/nfce/consulta"},
                 {Estado.RR, versao3E4, "www.sefaz.rr.gov.br/nfce/consulta"}
@@ -320,6 +319,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.BA, versao3E4, "www.sefaz.ba.gov.br/nfce/consulta"},
                 {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.PB, versao3E4, "www.receita.pb.gov.br/nfce/consulta"},
+                {Estado.RN, versao3E4, "https://nfce.sefaz.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx"},
                 {Estado.SP, versao3E4, "https://www.nfce.fazenda.sp.gov.br/consulta"},
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "www.sefaz.go.gov.br/nfce/consulta"},
@@ -339,6 +339,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.BA, versao3E4, "http://hinternet.sefaz.ba.gov.br/nfce/consulta"},
                 {Estado.MT, versao3E4, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.PB, versao3E4, "www.receita.pb.gov.br/nfcehom"},
+                {Estado.RN, versao3E4, "www.set.rn.gov.br/nfce/consulta"},
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/consulta"},
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "https://nfewebhomolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
@@ -392,13 +393,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// </summary>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc, ConfiguracaoCertificado _cfgCertificado = null)
         {
-            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
-
-            if (string.IsNullOrEmpty(cIdToken))
-                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
-
-            if (string.IsNullOrEmpty(csc))
-                throw new ArgumentNullException(nameof(cIdToken), msgErro("CSC"));
+            ValidarPreenchimentoDasInformacoesDeTokenECscSeNecessario(versaoQrCode, cIdToken, csc);
 
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
             switch (versaoQrCode)
@@ -412,6 +407,19 @@ namespace NFe.Utils.InformacoesSuplementares
                 default:
                     throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
             }
+        }
+
+        private static void ValidarPreenchimentoDasInformacoesDeTokenECscSeNecessario(VersaoQrCode versaoQrCode, string cIdToken, string csc)
+        {
+            if (versaoQrCode == VersaoQrCode.QrCodeVersao3) return;
+            
+            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
+
+            if (string.IsNullOrEmpty(cIdToken))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
+
+            if (string.IsNullOrEmpty(csc))
+                throw new ArgumentNullException(nameof(csc), msgErro("CSC"));
         }
 
         /// <summary>

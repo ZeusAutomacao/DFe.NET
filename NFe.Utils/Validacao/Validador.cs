@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -47,12 +47,12 @@ namespace NFe.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
+        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool lote = true)
         {
             switch (servicoNFe)
             {
                 case ServicoNFe.NfeRecepcao:
-                    return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
+                    return lote ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     var strEvento = FuncoesXml.ObterNodeDeStringXml(nameof(envEvento), stringXml);
                     var evento = FuncoesXml.XmlStringParaClasse<envEvento>(strEvento);
@@ -117,10 +117,10 @@ namespace NFe.Utils.Validacao
 
                     if (versaoServico != VersaoServico.Versao400)
                     {
-                        return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+                        return lote ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
                     }
 
-                    return loteNfe ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
+                    return lote ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
                 case ServicoNFe.NfeConsultaCadastro:
                     return "consCad_v2.00.xsd";
                 case ServicoNFe.NfeDownloadNF:
@@ -130,70 +130,77 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.ConsultaGtin:
                     return "consGTIN_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
-                    return "e112110_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e112110_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
-                    return "e211110_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211110_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
-                    return "e211120_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
-                    return "e211128_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211128_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
-                    return "e211130_v1.00.xsd ";
+                    return lote ? "envEvento_v1.00.xsd" : "e211130_v1.00.xsd ";
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
-                    return "e211140_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211140_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
-                    return "e211150_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211150_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
-                    return "e212110.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e212110_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
-                    return "e212120_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e212120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
-                    return "e412120_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e412120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
-                    return "e412130_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e412130_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
-                    return "e110001_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e110001_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
-                    return "e112120_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e112120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
-                    return "e211124_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e211124_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
-                    return "e112130_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e112130_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
-                    return "e112140_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e112140_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoAtualizacaoDataPrevisaoDeEntrega:
-                    return "e112150_v1.00.xsd";
+                    return lote ? "envEvento_v1.00.xsd" : "e112150_v1.00.xsd";
             }
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, ConfiguracaoServico cfgServico = null)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool validarLote = true, ConfiguracaoServico cfgServico = null)
         {
-            var pathSchema = String.Empty;
+            string pathSchema = string.Empty;
 
             if (cfgServico == null || (cfgServico != null && string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)))
                 pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
             else
                 pathSchema = cfgServico.DiretorioSchemas;
 
-            Valida(servicoNFe, versaoServico, stringXml, loteNfe, pathSchema);
+            Valida(servicoNFe, versaoServico, stringXml, validarLote, pathSchema);
         }
 
-        public static string[] Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, string pathSchema = null)
+        public static string[] Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool validarLote = true, string pathSchema = null)
         {
-            var falhas = new StringBuilder();
+            StringBuilder falhas = new StringBuilder();
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, stringXml, loteNfe));
+            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, stringXml, validarLote));
 
             // Define o tipo de validação
-            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
+            XmlReaderSettings cfg = new XmlReaderSettings
+            {
+                ValidationType = ValidationType.Schema, // Previne ataques XXE: nao permite resolver recursos externos
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
 
             // Carrega o arquivo de esquema
-            var schemas = new XmlSchemaSet();
-            schemas.XmlResolver = new XmlUrlResolver();
+            XmlSchemaSet schemas = new XmlSchemaSet
+            {
+                XmlResolver = new XmlUrlResolver()
+            };
 
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
@@ -205,14 +212,14 @@ namespace NFe.Utils.Validacao
                 string message = args.Message.ToLower().RemoverAcentos();
 
                 if (!(
-                    
+
                     //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
-                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) || 
+                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) ||
 
                     //erro de orgaoibge que duplicou em alguns xsds porem a receita federal veio a arrumar posteriormente, mesmo assim alguns não atualizam os xsds
                     (message.Contains("tcorgaoibge") && message.Contains("ja foi declarado"))
 
-                    //no futuro adicionar novos aqui...
+                //no futuro adicionar novos aqui...
                 ))
                 {
                     falhas.AppendLine($"[{args.Severity}] - {message} {args.Exception?.Message} " +
@@ -223,17 +230,13 @@ namespace NFe.Utils.Validacao
             };
 
             // cria um leitor para validação
-            var validator = XmlReader.Create(new StringReader(stringXml), cfg);
+            XmlReader validator = XmlReader.Create(new StringReader(stringXml), cfg);
             try
             {
                 // Faz a leitura de todos os dados XML
-                while (validator.Read())
-                {
-                }
+                while (validator.Read()) { }
             }
-            catch
-            {
-            }
+            catch { }
             finally
             {
                 validator.Close();
@@ -244,7 +247,5 @@ namespace NFe.Utils.Validacao
 
             return falhas.ToString().Trim().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         }
-
-
     }
 }

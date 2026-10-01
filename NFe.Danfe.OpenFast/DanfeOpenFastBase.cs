@@ -40,6 +40,26 @@ namespace NFe.Danfe.OpenFast
         }
 
         /// <summary>
+        /// Converte o DANFE para PDF retorna como byte[]
+        /// </summary>
+        public byte[] ExportarPdf()
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    Relatorio.Export(new PDFSimpleExport(), stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        
+        /// <summary>
         /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
@@ -68,14 +88,18 @@ namespace NFe.Danfe.OpenFast
             outputStream.Position = 0;
         }
 
-        public byte[] ExportarPdf()
+        /// <summary>
+        /// Converte o DANFE para PDF retorna como byte[]
+        /// </summary>
+        /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>
+        public byte[] ExportarPdf(FastReport.Export.ExportBase exportBase)
         {
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
                 try
                 {
                     Relatorio.Prepare();
-                    Relatorio.Export(new PDFSimpleExport(), stream);
+                    Relatorio.Export(exportBase, stream);
                     return stream.ToArray();
                 }
                 catch (System.Exception ex)

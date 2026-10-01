@@ -51,5 +51,12 @@ namespace MDFe.Servicos.EventosMDFe
 
             return retorno;
         }
+
+        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeComandoCancelamento comando, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = ClassesFactory.CriaEvCancMDFe(comando.Protocolo, comando.Justificativa);
+            return new ServicoController().Executar(comando, evento, MDFeTipoEvento.Cancelamento, config);
+        }
     }
 }

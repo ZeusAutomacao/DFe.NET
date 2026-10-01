@@ -19,6 +19,7 @@ namespace NFe.Danfe.Fast.Skia
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
         }
+        
         /// <summary>
         /// Converte o DANFE para PDF e copia para o stream
         /// </summary>
@@ -37,6 +38,27 @@ namespace NFe.Danfe.Fast.Skia
             }
         }
 
+        /// <summary>
+        /// Converte o DANFE para PDF retorna como byte[]
+        /// </summary>
+        public byte[] ExportarPdf()
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    Relatorio.Export(new PDFExport(), stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        
         /// <summary>
         /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -65,7 +87,28 @@ namespace NFe.Danfe.Fast.Skia
             Relatorio.Export(exportBase, outputStream);
             outputStream.Position = 0;
         }
-
+        
+        /// <summary>
+        /// Converte o DANFE para PDF retorna como byte[]
+        /// </summary>
+        /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>
+        public byte[] ExportarPdf(FastReport.Export.ExportBase exportBase)
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    Relatorio.Export(exportBase, stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+        
         public byte[] ExportarHtml()
         {
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report

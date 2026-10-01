@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Text.RegularExpressions;
 using NFe.Danfe.PdfClown.Graphics;
+using NFe.Danfe.PdfClown.Tools;
 
 namespace NFe.Danfe.PdfClown.Elementos
 {
@@ -144,12 +145,13 @@ namespace NFe.Danfe.PdfClown.Elementos
                 throw new ArgumentException("O código não pode ser vazio.", "code");
             }
 
-            if (!Regex.IsMatch(code, @"^\d+$"))
+            // NT Conjunta 2025.001: a chave de acesso pode conter letras maiúsculas nas posições do CNPJ
+            if (!Regex.IsMatch(code, "^[0-9A-Z]+$"))
             {
-                throw new ArgumentException("O código deve apenas conter digítos numéricos.", "code");
+                throw new ArgumentException("O código deve apenas conter digítos numéricos e letras maiúsculas.", "code");
             }
 
-            if (code.Length % 2 != 0)
+            if (Regex.IsMatch(code, @"^\d+$") && code.Length % 2 != 0)
             {
                 Code = "0" + code;
             }
@@ -163,35 +165,14 @@ namespace NFe.Danfe.PdfClown.Elementos
 
         private void DrawBarcode(RectangleF rect, Gfx gfx)
         {
+            byte[] codeBytes = Code128Hibrido.ObterSimbolos(this.Code);
 
-            List<byte> codeBytes = new List<byte>();
-
-            codeBytes.Add(105);
-
-            for (int i = 0; i < this.Code.Length; i += 2)
-            {
-                byte b = byte.Parse(this.Code.Substring(i, 2));
-                codeBytes.Add(b);
-            }
-
-            // Calcular dígito verificador
-            int cd = 105;
-
-            for (int i = 1; i < codeBytes.Count; i++)
-            {
-                cd += i * codeBytes[i];
-                cd %= 103;
-            }
-
-            codeBytes.Add((byte)cd);
-            codeBytes.Add(106);
-
-            float n = codeBytes.Count * 11 + 2;
+            float n = codeBytes.Length * 11 + 2;
             float w = rect.Width / n;
 
             float x = 0;
 
-            for (int i = 0; i < codeBytes.Count; i++)
+            for (int i = 0; i < codeBytes.Length; i++)
             {
                 byte[] pt = Barcode128C.Dic[codeBytes[i]];
 

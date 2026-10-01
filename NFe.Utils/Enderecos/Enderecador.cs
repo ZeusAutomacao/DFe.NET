@@ -850,13 +850,15 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl");
 
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeInutilizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4?wsdl");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4?wsdl");
-                addServico(eventoCceCanc, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4?wsdl");
+                // PE Homologação NFe v4.00 - URLs corrigidas (removido ?wsdl que causava 404)
+                // Padrão: URLs de produção de PE não usam ?wsdl, homologação também não deveria
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeInutilizacao4");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4");
+                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4");
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4");
 
             }
 

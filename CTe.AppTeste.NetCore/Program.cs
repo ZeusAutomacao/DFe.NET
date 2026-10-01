@@ -111,6 +111,9 @@ namespace CTe.AppTeste.NetCore
                     case 10:
                         await EventoDesacordoCTe();
                         break;
+                    case 11:
+                        await EventoCancelaDesacordoCTe();
+                        break;
                 }
 
                 if (Convert.ToInt32(option) > 0)
@@ -366,6 +369,23 @@ namespace CTe.AppTeste.NetCore
 
             var servico = new EventoDesacordo(sequenciaEvento, chave, cnpj, indPres, obs);
             var retorno = await servico.DiscordarAsync(configuracaoServico);
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        private static async Task EventoCancelaDesacordoCTe()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
+
+            var cnpj = RequisitarInput("CNPJ Tomador");
+            var chave = RequisitarInput("Chave CTe");
+            var sequenciaEvento = int.Parse(RequisitarInput("Sequencia Evento"));
+            var nProtEventoDesacordo = RequisitarInput("Número do Protocolo do Evento de Desacordo");
+
+            var servico = new EventoCancelamentoDesacordo(sequenciaEvento, chave, cnpj, nProtEventoDesacordo);
+            var retorno = await servico.CancelarDesacordoAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

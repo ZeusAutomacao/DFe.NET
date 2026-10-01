@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v4.00.xsd"/>
+	<xs:element name="evCancPrestDesacordo">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento Cancelamento Prestação do Serviço em Desacordo 610111</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “Cancelamento Prestação do Serviço em Desacordo”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="Cancelamento Prestação do Serviço em Desacordo"/>
+							<xs:enumeration value="Cancelamento Prestacao do Servico em Desacordo"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nProtEvPrestDes" type="TProt">
+					<xs:annotation>
+						<xs:documentation>Protocolo do evento que será cancelado</xs:documentation>
+						<xs:documentation>Informar o número do protocolo de autorização do evento de prestação de serviço em desacordo que será cancelado </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -164,6 +164,22 @@ namespace CTe.Servicos.Factory
 
             return evPrestDesacordo;
         }
+        public static evCancPrestDesacordo CriaEvCancPrestDesacordo(string nProtEvPrestDes, ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            var evPrestDesacordo = new evCancPrestDesacordo
+            {
+                nProtEvPrestDes = nProtEvPrestDes
+            };
+
+            if (configServico.cUF == Estado.MT)//sem acentuação issue #1386
+            {
+                evPrestDesacordo.descEvento = "Cancelamento Prestacao do Servico em Desacordo";
+            }
+
+            return evPrestDesacordo;
+        }
 
         public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList, ConfiguracaoServico configuracaoServico = null)
         {

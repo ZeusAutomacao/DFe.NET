@@ -59,23 +59,35 @@ namespace CTe.Servicos.Eventos
             _observacao = observacao;
         }
 
-        public retEventoCTe Discordar(ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        /// Gera o evento de desacordo de CTe
+        /// </summary>
+        /// <param name="configuracaoServico"></param>
+        /// <param name="orgaoEmissor">Sempre considera a UF que gerou o xml. Então a empresa pode estar configurada para uma UF X e gerar o desacordo de um xml gerado na UF Y, sendo o evento, portanto, enviado para UF Y</param>
+        /// <returns></returns>
+        public retEventoCTe Discordar(ConfiguracaoServico configuracaoServico = null, DFe.Classes.Entidades.Estado? orgaoEmissor = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
-            RetornoSefaz = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
-
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configServico, orgaoEmissor);
+            RetornoSefaz = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configServico, orgaoEmissor);
             return RetornoSefaz;
         }
 
-        public async Task<retEventoCTe> DiscordarAsync(ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        /// Gera o evento de desacordo de CTe de forma assíncrona
+        /// </summary>
+        /// <param name="configuracaoServico"></param>
+        /// <param name="orgaoEmissor">Sempre considera a UF que gerou o xml. Então a empresa pode estar configurada para uma UF X e gerar o desacordo de um xml gerado na UF Y, sendo o evento, portanto, enviado para UF Y</param>
+        /// <returns></returns>
+        public async Task<retEventoCTe> DiscordarAsync(ConfiguracaoServico configuracaoServico = null, DFe.Classes.Entidades.Estado? orgaoEmissor = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
-            RetornoSefaz = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
-
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configServico, orgaoEmissor);
+            RetornoSefaz = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configServico, orgaoEmissor);
             return RetornoSefaz;
         }
     }

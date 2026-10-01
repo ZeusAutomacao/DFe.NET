@@ -67,5 +67,22 @@ namespace MDFe.Servicos.EventosMDFe
 
             return retorno;
         }
+
+        public MDFeRetEventoMDFe Executar(MDFeComandoEvento comando, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = FactoryEvento.CriaEvento(comando, tipoEvento, eventoContainer, config);
+
+            evento.ValidarSchema(config);
+            evento.SalvarXmlEmDisco(comando.Chave, config);
+
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento(config);
+            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
+
+            var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
+            retorno.SalvarXmlEmDisco(comando.Chave, config);
+
+            return retorno;
+        }
     }
 }

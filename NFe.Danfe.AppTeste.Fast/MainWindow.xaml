@@ -217,6 +217,8 @@
                                 VerticalAlignment="Top" Width="120" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
                         <Button x:Name="BtnNFeSimplificado" Content="DANFE Simplificado" HorizontalAlignment="Left"
                                 VerticalAlignment="Top" Width="120" Click="BtnNFeSimplificado_Click" Margin="5,10,5,0" />
+                        <Button x:Name="BtnNFeSimplificadoTipo2" Content="DANFE Simplificado Tipo 2" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="150" Click="BtnNFeSimplificadoTipo2_Click" Margin="5,10,5,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"/>
                 </StackPanel>

@@ -51,7 +51,7 @@ namespace CTe.Servicos.Eventos
             return CriaEvento(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container, configServico);
         }
 
-        public static eventoCTe CriaEvento(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container, ConfiguracaoServico configuracaoServico = null)
+        public static eventoCTe CriaEvento(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container, ConfiguracaoServico configuracaoServico = null, DFe.Classes.Entidades.Estado? cOrgao = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
@@ -72,7 +72,7 @@ namespace CTe.Servicos.Eventos
                 {
                     tpAmb = configServico.tpAmb,
                     CNPJ = cnpj,
-                    cOrgao = configServico.cUF,
+                    cOrgao = cOrgao ?? configServico.cUF,
                     chCTe = chave,
                     dhEvento = DateTimeOffset.Now,
                     nSeqEvento = sequenciaEvento,

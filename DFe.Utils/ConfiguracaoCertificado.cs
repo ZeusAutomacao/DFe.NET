@@ -61,9 +61,11 @@ namespace DFe.Utils
         private string _cacheId;
         private byte[] _arrayBytesArquivo;
         private X509KeyStorageFlags _keyStorageFlags;
+        private StoreLocation _storeLocation;
 
         public ConfiguracaoCertificado()
         {
+            StoreLocation = StoreLocation.CurrentUser;
             KeyStorageFlags = X509KeyStorageFlags.MachineKeySet;
             SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
             DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
@@ -193,6 +195,20 @@ namespace DFe.Utils
             {
                 if (value == _keyStorageFlags) return;
                 _keyStorageFlags = value;
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public StoreLocation StoreLocation
+        {
+            get { return _storeLocation; }
+            set
+            {
+                if (value == _storeLocation)
+                    return;
+                _storeLocation = value;
             }
         }
     }

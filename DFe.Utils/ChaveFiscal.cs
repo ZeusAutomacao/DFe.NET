@@ -57,16 +57,24 @@ namespace DFe.Utils
         /// <returns>Retorna um objeto <see cref="DadosChaveFiscal"/> com os dados da chave de acesso</returns>
         public static DadosChaveFiscal ObterChave(Estado ufEmitente, DateTimeOffset dataEmissao, string cnpjEmitente, ModeloDocumento modelo, int serie, long numero, int tipoEmissao, int cNf)
         {
-            var chave = new StringBuilder();
+            if (string.IsNullOrEmpty(cnpjEmitente))
+                throw new ArgumentException("O CNPJ/CPF do emitente deve ser informado.", "cnpjEmitente");
 
-            if (cnpjEmitente.Length < 14)
-            {
-                cnpjEmitente = cnpjEmitente.PadLeft(14, '0');
-            }
+            // NT Conjunta 2025.001: o CNPJ pode ser alfanumérico ([A-Z0-9]{12}[0-9]{2}) e ocupa 14 posições na chave.
+            // Somente CPF (11 posições) é completado com zeros à esquerda; qualquer outro comprimento seria um
+            // documento truncado e geraria uma chave bem-formada porém errada.
+            var documentoEmitente = cnpjEmitente.Length == 11 ? cnpjEmitente.PadLeft(14, '0') : cnpjEmitente;
+
+            if (documentoEmitente.Length != 14)
+                throw new ArgumentException(
+                    string.Format("O documento do emitente deve ter 14 posições (CNPJ) ou 11 posições (CPF); o valor informado \"{0}\" tem {1}.", cnpjEmitente, cnpjEmitente.Length),
+                    "cnpjEmitente");
+
+            var chave = new StringBuilder();
 
             chave.Append(((int)ufEmitente).ToString("D2"))
                  .Append(dataEmissao.ToString("yyMM"))
-                 .Append(cnpjEmitente)
+                 .Append(documentoEmitente)
                  .Append(((int)modelo).ToString("D2"))
                  .Append(serie.ToString("D3"))
                  .Append(numero.ToString("D9"))
@@ -95,8 +103,8 @@ namespace DFe.Utils
             //percorrendo cada caractere da chave da direita para esquerda para fazer os cálculos com o peso
             for (var i = chave.Length - 1; i != -1; i--)
             {
-                var ch = Convert.ToInt32(chave[i].ToString());
-                soma += ch*peso;
+                var valorCaractere = ObterValorDoCaractere(chave[i]);
+                soma += valorCaractere * peso;
                 //sempre que for 9 voltamos o peso a 2
                 if (peso < 9)
                     peso += 1;
@@ -113,6 +121,23 @@ namespace DFe.Utils
                 dv = 11 - mod;
 
             return dv.ToString();
+        }
+
+        /// <summary>
+        /// Obtém o valor numérico de um caractere da chave para o cálculo do dígito verificador,
+        /// conforme a NT Conjunta 2025.001: valor = código ASCII - 48 ('0'-'9' => 0 a 9; 'A'-'Z' => 17 a 42)
+        /// </summary>
+        /// <param name="caractere"></param>
+        /// <returns></returns>
+        internal static int ObterValorDoCaractere(char caractere)
+        {
+            // A chave admite somente dígitos e letras maiúsculas; qualquer outro caractere
+            // (minúsculas, símbolos, ASCII 58-64) produziria um DV errado sem nenhum erro.
+            if ((caractere < '0' || caractere > '9') && (caractere < 'A' || caractere > 'Z'))
+                throw new ArgumentException(
+                    string.Format("Caractere inválido na chave do DF-e: '{0}'. São aceitos somente dígitos (0-9) e letras maiúsculas (A-Z).", caractere));
+
+            return caractere - '0';
         }
 
         /// <summary>

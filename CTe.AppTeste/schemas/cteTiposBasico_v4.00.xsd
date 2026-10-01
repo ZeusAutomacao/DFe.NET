@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<!-- edited with XMLSpy v2014 rel. 2 (http://www.altova.com) by private (private) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposGeralCTe_v4.00.xsd"/>
+	<xs:include schemaLocation="DFeTiposBasicos_v1.00.xsd"/>
 	<xs:simpleType name="TModTranspGTVe">
 		<xs:annotation>
 			<xs:documentation> Tipo Modal transporte GTVe</xs:documentation>
@@ -120,17 +121,13 @@
 											<xs:documentation>Forma de emissão da GTV-e</xs:documentation>
 											<xs:documentation>Preencher com:
 1 - Normal;
- 2- Contingencia offline 
-7 - Autorização pela SVC-RS;
- 8 - Autorização pela SVC-SP</xs:documentation>
+2- Contingencia offline </xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
 												<xs:whiteSpace value="preserve"/>
 												<xs:enumeration value="1"/>
 												<xs:enumeration value="2"/>
-												<xs:enumeration value="7"/>
-												<xs:enumeration value="8"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -882,7 +879,7 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:ID">
-								<xs:pattern value="CTe[0-9]{44}"/>
+								<xs:pattern value="CTe[0-9]{6}[A-Z0-9]{12}[0-9]{26}"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
@@ -903,7 +900,7 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 									<xs:whiteSpace value="preserve"/>
 									<xs:minLength value="50"/>
 									<xs:maxLength value="1000"/>
-									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{44}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{6}[A-Z0-9]{12}[0-9]{26}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
@@ -1191,9 +1188,9 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 			</xs:simpleType>
 		</xs:attribute>
 	</xs:complexType>
-	<xs:complexType name="TRetCTe">
+	<xs:complexType name="TRetCTeSimp">
 		<xs:annotation>
-			<xs:documentation>Tipo Retorno do Pedido de Autorização de CT-e (Modelo 57)</xs:documentation>
+			<xs:documentation>Tipo Retorno do Pedido de Autorização de CT-e Simplificado (Modelo 57)</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="tpAmb" type="TAmb">
@@ -1217,6 +1214,51 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 				<xs:annotation>
 					<xs:documentation>código do status do retorno da consulta.</xs:documentation>
 				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descrição literal do status do do retorno da consulta.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protCTe" type="TProtCTe" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reposta ao processamento do CT-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerCTe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetCTe">
+		<xs:annotation>
+			<xs:documentation>Tipo Retorno do Pedido de Autorização de CT-e (Modelo 57)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Identificação da UF</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que processou a CT-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cStat">
+				<xs:annotation>
+					<xs:documentation>código do status do retorno da consulta.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="TStat">
+						<xs:pattern value="[0-9]{3}"/>
+					</xs:restriction>
+				</xs:simpleType>
 			</xs:element>
 			<xs:element name="xMotivo" type="TMotivo">
 				<xs:annotation>
@@ -1310,6 +1352,1363 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="versao" type="TVerCTe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TCTeSimp">
+		<xs:annotation>
+			<xs:documentation>Tipo Conhecimento de Transporte Eletrônico (Modelo 57) - Modelo Simplificado</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infCte">
+				<xs:annotation>
+					<xs:documentation>Informações do CT-e</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ide">
+							<xs:annotation>
+								<xs:documentation>Identificação do CT-e</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="cUF" type="TCodUfIBGE">
+										<xs:annotation>
+											<xs:documentation>Código da UF do emitente do CT-e.</xs:documentation>
+											<xs:documentation>Utilizar a Tabela do IBGE.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="cCT">
+										<xs:annotation>
+											<xs:documentation>Código numérico que compõe a Chave de Acesso. </xs:documentation>
+											<xs:documentation>Número aleatório gerado pelo emitente para cada CT-e, com o objetivo de evitar acessos indevidos ao documento.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:pattern value="[0-9]{8}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="CFOP" type="TCfop">
+										<xs:annotation>
+											<xs:documentation>Código Fiscal de Operações e Prestações</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="natOp">
+										<xs:annotation>
+											<xs:documentation>Natureza da Operação</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="60"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="mod" type="TModCT">
+										<xs:annotation>
+											<xs:documentation>Modelo do documento fiscal</xs:documentation>
+											<xs:documentation>Utilizar o código 57 para identificação do CT-e, emitido em substituição aos modelos de conhecimentos em papel.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="serie">
+										<xs:annotation>
+											<xs:documentation>Série do CT-e</xs:documentation>
+											<xs:documentation>Preencher com "0" no caso de série única</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TSerie"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="nCT" type="TNF">
+										<xs:annotation>
+											<xs:documentation>Número do CT-e</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="dhEmi">
+										<xs:annotation>
+											<xs:documentation>Data e hora de emissão do CT-e</xs:documentation>
+											<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TDateTimeUTC"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="tpImp">
+										<xs:annotation>
+											<xs:documentation>Formato de impressão do DACTE</xs:documentation>
+											<xs:documentation>Preencher com: 1 - Retrato; 2 - Paisagem.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="tpEmis">
+										<xs:annotation>
+											<xs:documentation>Forma de emissão do CT-e </xs:documentation>
+											<xs:documentation>Preencher com:
+1 - Normal;
+3 - Regime Especial NFF;  
+4 - EPEC pela SVC; 
+7 - Autorização pela SVC-RS;
+8 - Autorização pela SVC-SP</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="3"/>
+												<xs:enumeration value="4"/>
+												<xs:enumeration value="7"/>
+												<xs:enumeration value="8"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="cDV">
+										<xs:annotation>
+											<xs:documentation>Digito Verificador da chave de acesso do CT-e</xs:documentation>
+											<xs:documentation>Informar o dígito  de controle da chave de acesso do CT-e, que deve ser calculado com a aplicação do algoritmo módulo 11 (base 2,9) da chave de acesso. </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:pattern value="[0-9]{1}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="tpAmb" type="TAmb">
+										<xs:annotation>
+											<xs:documentation>Tipo do Ambiente</xs:documentation>
+											<xs:documentation>Preencher com:1 - Produção; 2 - Homologação.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="tpCTe" type="TFinCTeSimp">
+										<xs:annotation>
+											<xs:documentation>Tipo do CT-e Simplificado</xs:documentation>
+											<xs:documentation>Preencher com:
+5 - CTe Simplificado
+6 - Substituição CTe Simplificado</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="procEmi" type="TProcEmi">
+										<xs:annotation>
+											<xs:documentation>Identificador do processo de emissão do CT-e</xs:documentation>
+											<xs:documentation>Preencher com: 
+											0 - emissão de CT-e com aplicativo do contribuinte;
+											3- emissão CT-e pelo contribuinte com aplicativo fornecido pelo SEBRAE.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="verProc">
+										<xs:annotation>
+											<xs:documentation>Versão do processo de emissão</xs:documentation>
+											<xs:documentation>Informar a versão do aplicativo emissor de CT-e.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="20"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="cMunEnv" type="TCodMunIBGE">
+										<xs:annotation>
+											<xs:documentation>Código do Município de envio do CT-e (de onde o documento foi transmitido)</xs:documentation>
+											<xs:documentation>Utilizar a tabela do IBGE. Informar 9999999 para as operações com o exterior.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="xMunEnv">
+										<xs:annotation>
+											<xs:documentation>Nome do Município de envio do CT-e (de onde o documento foi transmitido)</xs:documentation>
+											<xs:documentation>Informar PAIS/Municipio para as operações com o exterior.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="2"/>
+												<xs:maxLength value="60"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="UFEnv" type="TUf">
+										<xs:annotation>
+											<xs:documentation>Sigla da UF de envio do CT-e (de onde o documento foi transmitido)</xs:documentation>
+											<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="modal" type="TModTranspSimp">
+										<xs:annotation>
+											<xs:documentation>Modal</xs:documentation>
+											<xs:documentation>Preencher com:
+01-Rodoviário
+02-Aéreo
+03-Aquaviário</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="tpServ">
+										<xs:annotation>
+											<xs:documentation>Tipo do Serviço</xs:documentation>
+											<xs:documentation>Preencher com: 
+0 - Normal;
+1 - Subcontratação;
+2 - Redespacho;</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="0"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="UFIni" type="TUf">
+										<xs:annotation>
+											<xs:documentation>UF do início da prestação</xs:documentation>
+											<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UFFim" type="TUf">
+										<xs:annotation>
+											<xs:documentation>UF do término da prestação</xs:documentation>
+											<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="retira">
+										<xs:annotation>
+											<xs:documentation>Indicador se o Recebedor retira no Aeroporto, Filial, Porto ou Estação de Destino?</xs:documentation>
+											<xs:documentation>Preencher com: 0 - sim; 1 - não</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="0"/>
+												<xs:enumeration value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xDetRetira" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Detalhes do retira</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="160"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:sequence minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Informar apenas
+para tpEmis diferente de 1</xs:documentation>
+										</xs:annotation>
+										<xs:element name="dhCont" type="TDateTimeUTC">
+											<xs:annotation>
+												<xs:documentation>Data e Hora da entrada em contingência</xs:documentation>
+												<xs:documentation>Informar a data e hora no formato AAAA-MM-DDTHH:MM:SS</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="xJust">
+											<xs:annotation>
+												<xs:documentation>Justificativa da entrada em contingência</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="15"/>
+													<xs:maxLength value="256"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+									<xs:element name="gCompraGov" type="TCompraGovReduzido" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="compl" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Dados complementares do CT-e para fins operacionais ou comerciais</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="xCaracAd" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Característica adicional do transporte</xs:documentation>
+											<xs:documentation>Texto livre:
+REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="15"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xCaracSer" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Característica adicional do serviço</xs:documentation>
+											<xs:documentation>Texto livre:
+											ENTREGA EXPRESSA; LOGÍSTICA REVERSA; CONVENCIONAL; EMERGENCIAL; etc</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="30"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="fluxo" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Previsão do fluxo da carga</xs:documentation>
+											<xs:documentation>Preenchimento obrigatório para o modal aéreo.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="xOrig" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Sigla ou código interno da Filial/Porto/Estação/ Aeroporto de Origem</xs:documentation>
+														<xs:documentation>Observações para o modal aéreo:
+														- Preenchimento obrigatório para o modal aéreo.
+														- O código de três letras IATA do aeroporto de partida deverá ser incluído como primeira anotação. Quando não for possível, utilizar a sigla OACI.</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="60"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="pass" minOccurs="0" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="xPass" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>Sigla ou código interno da Filial/Porto/Estação/Aeroporto de Passagem</xs:documentation>
+																	<xs:documentation>Observação para o modal aéreo:
+																	- O código de três letras IATA, referente ao aeroporto de transferência, deverá ser incluído, quando for o caso. Quando não for possível,  utilizar a sigla OACI. Qualquer solicitação de itinerário deverá ser incluída.</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="TString">
+																		<xs:minLength value="1"/>
+																		<xs:maxLength value="15"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="xDest" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Sigla ou código interno da Filial/Porto/Estação/Aeroporto de Destino</xs:documentation>
+														<xs:documentation>Observações para o modal aéreo:
+														- Preenchimento obrigatório para o modal aéreo.
+														- Deverá ser incluído o código de três letras IATA do aeroporto de destino. Quando não for possível, utilizar a sigla OACI.</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="60"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="xRota" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Código da Rota de Entrega</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="10"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="xObs" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Observações Gerais</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="2000"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="ObsCont" minOccurs="0" maxOccurs="10">
+										<xs:annotation>
+											<xs:documentation>Campo de uso livre do contribuinte</xs:documentation>
+											<xs:documentation>Informar o nome do campo no atributo xCampo e o conteúdo do campo no XTexto</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="xTexto">
+													<xs:annotation>
+														<xs:documentation>Conteúdo do campo</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="160"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="xCampo" use="required">
+												<xs:annotation>
+													<xs:documentation>Identificação do campo</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="TString">
+														<xs:minLength value="1"/>
+														<xs:maxLength value="20"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ObsFisco" minOccurs="0" maxOccurs="10">
+										<xs:annotation>
+											<xs:documentation>Campo de uso livre do contribuinte</xs:documentation>
+											<xs:documentation>Informar o nome do campo no atributo xCampo e o conteúdo do campo no XTexto</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="xTexto">
+													<xs:annotation>
+														<xs:documentation>Conteúdo do campo</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="60"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="xCampo" use="required">
+												<xs:annotation>
+													<xs:documentation>Identificação do campo</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="TString">
+														<xs:minLength value="1"/>
+														<xs:maxLength value="20"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="emit">
+							<xs:annotation>
+								<xs:documentation>Identificação do Emitente do CT-e</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:choice>
+										<xs:element name="CNPJ" type="TCnpj">
+											<xs:annotation>
+												<xs:documentation>CNPJ do emitente</xs:documentation>
+												<xs:documentation>Informar zeros não significativos</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CPF" type="TCpf">
+											<xs:annotation>
+												<xs:documentation>CPF do emitente</xs:documentation>
+												<xs:documentation>Informar zeros não significativos.
+
+Usar com série específica 920-969 para emitente pessoa física com inscrição estadual</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+									<xs:element name="IE" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição Estadual do Emitente</xs:documentation>
+											<xs:documentation>A IE do emitente somente ficará sem informação para o caso do Regime Especial da NFF (tpEmis=3)</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TIe"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="IEST" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição Estadual do Substituto Tributário</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TIe"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xNome">
+										<xs:annotation>
+											<xs:documentation>Razão social ou Nome do emitente</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="60"/>
+												<xs:minLength value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xFant" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Nome fantasia</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="60"/>
+												<xs:minLength value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="enderEmit" type="TEndeEmi">
+										<xs:annotation>
+											<xs:documentation>Endereço do emitente</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="CRT" type="TCRT">
+										<xs:annotation>
+											<xs:documentation>Código do Regime Tributário</xs:documentation>
+											<xs:documentation>Informar: 1=Simples Nacional; 
+2=Simples Nacional, excesso sublimite de receita bruta;
+3=Regime Normal. 
+4=Simples Nacional - Microempreendedor Individual – MEI.
+</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="toma">
+							<xs:annotation>
+								<xs:documentation>Identificação do tomador do serviço no CT-e</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="toma">
+										<xs:annotation>
+											<xs:documentation>Tomador do Serviço</xs:documentation>
+											<xs:documentation>Preencher com:
+
+0-Remetente;
+1-Expedidor;
+2-Recebedor;
+3-Destinatário
+4-Terceiro</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="0"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+												<xs:enumeration value="3"/>
+												<xs:enumeration value="4"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="indIEToma">
+										<xs:annotation>
+											<xs:documentation>Indicador do papel do tomador na prestação do serviço:
+1 – Contribuinte ICMS;
+2 – Contribuinte isento de inscrição;
+9 – Não Contribuinte</xs:documentation>
+											<xs:documentation>Aplica-se ao tomador que for indicado no toma</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+												<xs:enumeration value="9"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:choice>
+										<xs:element name="CNPJ" type="TCnpjOpc">
+											<xs:annotation>
+												<xs:documentation>Número do CNPJ</xs:documentation>
+												<xs:documentation>Em caso de empresa não estabelecida no Brasil, será informado o CNPJ com zeros.															
+Informar os zeros não significativos.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CPF" type="TCpf">
+											<xs:annotation>
+												<xs:documentation>Número do CPF</xs:documentation>
+												<xs:documentation>Informar os zeros não significativos.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+									<xs:element name="IE" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição Estadual</xs:documentation>
+											<xs:documentation>Informar a IE do tomador ou ISENTO se tomador é contribuinte do ICMS isento de inscrição no cadastro de contribuintes do ICMS. Caso o tomador não seja contribuinte do ICMS não informar o conteúdo.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TIeDest"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xNome">
+										<xs:annotation>
+											<xs:documentation>Razão Social ou Nome</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="60"/>
+												<xs:minLength value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="ISUF" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição na SUFRAMA</xs:documentation>
+											<xs:documentation>(Obrigatório nas operações com as áreas com benefícios de incentivos fiscais sob controle da SUFRAMA)</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:pattern value="[0-9]{8,9}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="fone" type="TFone" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Telefone</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="enderToma" type="TEndereco">
+										<xs:annotation>
+											<xs:documentation>Dados do endereço</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="email" type="TEmail" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Endereço de email</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infCarga">
+							<xs:annotation>
+								<xs:documentation>Informações da Carga do CT-e</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="vCarga" type="TDec_1302">
+										<xs:annotation>
+											<xs:documentation>Valor total da carga</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="proPred">
+										<xs:annotation>
+											<xs:documentation>Produto predominante</xs:documentation>
+											<xs:documentation>Informar a descrição do produto predominante</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="60"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xOutCat" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Outras características da carga</xs:documentation>
+											<xs:documentation>"FRIA", "GRANEL", "REFRIGERADA", "Medidas: 12X12X12"</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="30"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="infQ" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Informações de quantidades da Carga do CT-e</xs:documentation>
+											<xs:documentation>Para o Aéreo é obrigatório o preenchimento desse campo da seguinte forma.
+1 - Peso Bruto, sempre em quilogramas (obrigatório);
+2 - Peso Cubado; sempre em quilogramas;
+3 - Quantidade de volumes, sempre em unidades (obrigatório);
+4 - Cubagem, sempre em metros cúbicos (obrigatório apenas quando for impossível preencher as dimensões da(s) embalagem(ens) na tag xDime do leiaute do Aéreo).</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="cUnid">
+													<xs:annotation>
+														<xs:documentation>Código da Unidade de Medida </xs:documentation>
+														<xs:documentation>Preencher com:
+00-M3;
+01-KG;
+02-TON;
+03-UNIDADE;
+04-LITROS;
+05-MMBTU</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:enumeration value="00"/>
+															<xs:enumeration value="01"/>
+															<xs:enumeration value="02"/>
+															<xs:enumeration value="03"/>
+															<xs:enumeration value="04"/>
+															<xs:enumeration value="05"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="tpMed">
+													<xs:annotation>
+														<xs:documentation>Tipo da Medida</xs:documentation>
+														<xs:documentation>Informar com:
+00-Cubagem da NF-e
+01-Cubagem Aferida pelo Transportador
+02-Peso Bruto da NF-e
+03-Peso Bruto Aferido pelo Transportador
+04-Peso Cubado
+05-Peso Base do Cálculo do Frete
+06-Peso para uso Operacional
+07-Caixas
+08-Paletes
+09-Sacas
+10-Containers
+11-Rolos
+12-Bombonas
+13-Latas
+14-Litragem
+15-Milhão de BTU (British Thermal Units)
+99-Outros</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="2"/>
+															<xs:enumeration value="00"/>
+															<xs:enumeration value="01"/>
+															<xs:enumeration value="02"/>
+															<xs:enumeration value="03"/>
+															<xs:enumeration value="04"/>
+															<xs:enumeration value="05"/>
+															<xs:enumeration value="06"/>
+															<xs:enumeration value="07"/>
+															<xs:enumeration value="08"/>
+															<xs:enumeration value="09"/>
+															<xs:enumeration value="10"/>
+															<xs:enumeration value="11"/>
+															<xs:enumeration value="12"/>
+															<xs:enumeration value="13"/>
+															<xs:enumeration value="14"/>
+															<xs:enumeration value="15"/>
+															<xs:enumeration value="99"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="qCarga" type="TDec_1104">
+													<xs:annotation>
+														<xs:documentation>Quantidade</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="vCargaAverb" type="TDec_1302Opc" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor da Carga para efeito de averbação</xs:documentation>
+											<xs:documentation>Normalmente igual ao valor declarado da mercadoria, diferente por exemplo, quando a mercadoria transportada é isenta de tributos nacionais para exportação, onde é preciso averbar um valor maior, pois no caso de indenização, o valor a ser pago será maior</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="det" maxOccurs="999">
+							<xs:annotation>
+								<xs:documentation>Detalhamento das entregas / prestações do CTe Simplificado</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:sequence>
+										<xs:element name="cMunIni" type="TCodMunIBGE">
+											<xs:annotation>
+												<xs:documentation>Código do Município de início da prestação</xs:documentation>
+												<xs:documentation>Utilizar a tabela do IBGE. Informar 9999999 para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="xMunIni">
+											<xs:annotation>
+												<xs:documentation>Nome do Município do início da prestação</xs:documentation>
+												<xs:documentation>Informar 'EXTERIOR' para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="2"/>
+													<xs:maxLength value="60"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+									<xs:sequence>
+										<xs:element name="cMunFim" type="TCodMunIBGE">
+											<xs:annotation>
+												<xs:documentation>Código do Município de término da prestação</xs:documentation>
+												<xs:documentation>Utilizar a tabela do IBGE. Informar 9999999 para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="xMunFim">
+											<xs:annotation>
+												<xs:documentation>Nome do Município do término da prestação</xs:documentation>
+												<xs:documentation>Informar 'EXTERIOR' para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="2"/>
+													<xs:maxLength value="60"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+									<xs:element name="vPrest" type="TDec_1302">
+										<xs:annotation>
+											<xs:documentation>Valorl da Prestação do Serviço</xs:documentation>
+											<xs:documentation>Pode conter zeros quando o CT-e for de complemento de ICMS</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vRec" type="TDec_1302">
+										<xs:annotation>
+											<xs:documentation>Valor a Receber</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Comp" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Componentes do Valor da Prestação</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="xNome">
+													<xs:annotation>
+														<xs:documentation>Nome do componente</xs:documentation>
+														<xs:documentation>Exxemplos: FRETE PESO, FRETE VALOR, SEC/CAT, ADEME, AGENDAMENTO, etc</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:maxLength value="15"/>
+															<xs:minLength value="1"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="vComp" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor do componente</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:choice>
+										<xs:element name="infNFe" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Informações das NF-e</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="chNFe">
+														<xs:annotation>
+															<xs:documentation>Chave de acesso da NF-e</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="TChDFe">
+																<xs:pattern value="[0-9]{6}[A-Z0-9]{12}[0-9]{26}"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="PIN" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>PIN SUFRAMA</xs:documentation>
+															<xs:documentation>PIN atribuído pela SUFRAMA para a operação.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:whiteSpace value="preserve"/>
+																<xs:minLength value="2"/>
+																<xs:maxLength value="9"/>
+																<xs:pattern value="[1-9]{1}[0-9]{1,8}"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="dPrev" type="TData" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>Data prevista de entrega</xs:documentation>
+															<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:choice>
+														<xs:element name="infUnidCarga" type="TUnidCarga" minOccurs="0" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações das Unidades de Carga (Containeres/ULD/Outros)</xs:documentation>
+																<xs:documentation>Dispositivo de carga utilizada (Unit Load Device - ULD) significa todo tipo de contêiner de carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave com rede sobre um iglu. </xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="infUnidTransp" type="TUnidadeTransp" minOccurs="0" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações das Unidades de Transporte (Carreta/Reboque/Vagão)</xs:documentation>
+																<xs:documentation>Deve ser preenchido com as informações das unidades de transporte utilizadas.</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:choice>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="infDocAnt" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Documentos anteriores</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="chCTe" type="TChDFe">
+														<xs:annotation>
+															<xs:documentation>Chave de acesso do CT-e</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="tpPrest">
+														<xs:annotation>
+															<xs:documentation>indica se a prestação é total ou parcial em relação as notas do documento anterior</xs:documentation>
+															<xs:documentation>Preencher com:
+
+1 - Total
+2 - Parcial</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:whiteSpace value="preserve"/>
+																<xs:enumeration value="1"/>
+																<xs:enumeration value="2"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="infNFeTranspParcial" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="chNFe" type="TChDFe">
+																	<xs:annotation>
+																		<xs:documentation>Chave de acesso da NF-e</xs:documentation>
+																		<xs:documentation>Informando o tpPrest com “2 – Parcial” deve-se informar as chaves de acesso das NF-e que acobertam a carga transportada.</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:sequence>
+								<xs:attribute name="nItem" use="required">
+									<xs:annotation>
+										<xs:documentation>Número identificador do item agrupador da prestação</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[1-9]{1}[0-9]{0,1}|[1-8]{1}[0-9]{2}|[9]{1}[0-8]{1}[0-9]{1}|[9]{1}[9]{1}[0]{1}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infModal">
+							<xs:annotation>
+								<xs:documentation>Informações do modal</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:any processContents="skip">
+										<xs:annotation>
+											<xs:documentation>XML do modal
+Insira neste local o XML específico do modal (rodoviário, aéreo, ferroviário, aquaviário ou dutoviário).  </xs:documentation>
+											<xs:documentation>O elemento do tipo -any- permite estender o documento XML com elementos não especificados pelo schema.
+															Insira neste local - any- o XML específico do modal (rodoviário, aéreo, ferroviário, aquaviário ou dutoviário). A especificação do schema XML para cada modal pode ser encontrada nos arquivos que acompanham este pacote de liberação:
+													Rodoviário - ver arquivo CTeModalRodoviario_v9.99
+			Aéreo - ver arquivo CTeModalAereo_v9.99
+				Aquaviário - arquivo CTeModalAquaviario_v9.99
+				Ferroviário - arquivo CTeModalFerroviario_v9.99
+				Dutoviário - arquivo CTeModalDutoviario_v9.99
+
+Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.04 será denominado "CTeModalRodoviario_v1.04".</xs:documentation>
+										</xs:annotation>
+									</xs:any>
+								</xs:sequence>
+								<xs:attribute name="versaoModal" use="required">
+									<xs:annotation>
+										<xs:documentation>Versão do leiaute específico para o Modal</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="4\.(0[0-9]|[1-9][0-9])"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="cobr" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Dados da cobrança do CT-e</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="fat" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Dados da fatura</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="nFat" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Número da fatura</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="60"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="vOrig" type="TDec_1302Opc" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor original da fatura</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vDesc" type="TDec_1302Opc" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor do desconto da fatura</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vLiq" type="TDec_1302Opc" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor líquido da fatura</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="dup" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Dados das duplicatas</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="nDup" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Número da duplicata</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:maxLength value="60"/>
+															<xs:minLength value="1"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="dVenc" type="TData" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Data de vencimento da duplicata (AAAA-MM-DD)</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vDup" type="TDec_1302Opc" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor da duplicata</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infCteSub" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Informações do CT-e de substituição </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="chCte">
+										<xs:annotation>
+											<xs:documentation>Chave de acesso do CT-e a ser substituído (original)</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:pattern value="[0-9]{44}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="indAlteraToma" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Indicador de CT-e Alteração de Tomador</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="imp">
+							<xs:annotation>
+								<xs:documentation>Informações relativas aos Impostos</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ICMS" type="TImp">
+										<xs:annotation>
+											<xs:documentation>Informações relativas ao ICMS</xs:documentation>
+											<xs:documentation/>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vTotTrib" type="TDec_1302" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor Total dos Tributos</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="infAdFisco" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Informações adicionais de interesse do Fisco</xs:documentation>
+											<xs:documentation>Norma referenciada, informações complementares, etc</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="2000"/>
+												<xs:minLength value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="ICMSUFFim" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Informações do ICMS de partilha com a UF de término do serviço de transporte na operação interestadual</xs:documentation>
+											<xs:documentation>Grupo a ser informado nas prestações interestaduais para consumidor final, não contribuinte do ICMS</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="vBCUFFim" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor da BC do ICMS na UF de término da prestação do serviço de transporte</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="pFCPUFFim" type="TDec_0302">
+													<xs:annotation>
+														<xs:documentation>Percentual do ICMS relativo ao Fundo de Combate à pobreza (FCP) na UF de término da prestação do serviço de transporte</xs:documentation>
+														<xs:documentation>Alíquota adotada nas operações internas na UF do destinatário</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="pICMSUFFim" type="TDec_0302">
+													<xs:annotation>
+														<xs:documentation>Alíquota interna da UF de término da prestação do serviço de transporte</xs:documentation>
+														<xs:documentation>Alíquota adotada nas operações internas na UF do destinatário</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="pICMSInter" type="TDec_0302">
+													<xs:annotation>
+														<xs:documentation>Alíquota interestadual das UF envolvidas</xs:documentation>
+														<xs:documentation>Alíquota interestadual das UF envolvidas
+</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vFCPUFFim" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor do ICMS relativo ao Fundo de Combate á Pobreza (FCP) da UF de término da prestação</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vICMSUFFim" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor do ICMS de partilha para a UF de término da prestação do serviço de transporte</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vICMSUFIni" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor do ICMS de partilha para a UF de início da prestação do serviço de transporte</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="IBSCBS" type="TTribCTe" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de informações do IBS e CBS</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="total">
+							<xs:annotation>
+								<xs:documentation>Valores Totais do CTe</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="vTPrest" type="TDec_1302">
+										<xs:annotation>
+											<xs:documentation>Valor Total da Prestação do Serviço</xs:documentation>
+											<xs:documentation>Pode conter zeros quando o CT-e for de complemento de ICMS</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vTRec" type="TDec_1302">
+										<xs:annotation>
+											<xs:documentation>Valor total a Receber</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vTotDFe" type="TDec_1302" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor total do documento fiscal 
+(vTPrest + total do IBS + total da CBS) 
+</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="autXML" minOccurs="0" maxOccurs="10">
+							<xs:annotation>
+								<xs:documentation>Autorizados para download do XML do DF-e</xs:documentation>
+								<xs:documentation>Informar CNPJ ou CPF. Preencher os zeros não significativos.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:choice>
+										<xs:element name="CNPJ" type="TCnpj">
+											<xs:annotation>
+												<xs:documentation>CNPJ do autorizado</xs:documentation>
+												<xs:documentation>Informar zeros não significativos</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="CPF" type="TCpf">
+											<xs:annotation>
+												<xs:documentation>CPF do autorizado</xs:documentation>
+												<xs:documentation>Informar zeros não significativos</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:choice>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infRespTec" type="TRespTec" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Informações do Responsável Técnico pela emissão do DF-e</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="infSolicNFF" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações do pedido de emissão da Nota Fiscal Fácil</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="xSolic">
+										<xs:annotation>
+											<xs:documentation>Solicitação do pedido de emissão da NFF.</xs:documentation>
+											<xs:documentation>Será preenchido com a totalidade de campos informados no aplicativo emissor serializado.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="2"/>
+												<xs:maxLength value="8000"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infPAA" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de Informação do Provedor de Assinatura e Autorização</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CNPJPAA" type="TCnpj">
+										<xs:annotation>
+											<xs:documentation>CNPJ do Provedor de Assinatura e Autorização</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PAASignature">
+										<xs:annotation>
+											<xs:documentation>Assinatura RSA do Emitente para DFe gerados por PAA</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="SignatureValue" type="xs:base64Binary">
+													<xs:annotation>
+														<xs:documentation>Assinatura digital padrão RSA</xs:documentation>
+														<xs:documentation>Converter o atributo Id do DFe para array de bytes e assinar com a chave privada do RSA com algoritmo SHA1 gerando um valor no formato base64.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="RSAKeyValue" type="TRSAKeyValueType">
+													<xs:annotation>
+														<xs:documentation>Chave Publica no padrão XML RSA Key</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="versao" use="required">
+						<xs:annotation>
+							<xs:documentation>Versão do leiaute</xs:documentation>
+							<xs:documentation>Ex: "4.00"</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="TVerCTe"/>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="Id" use="required">
+						<xs:annotation>
+							<xs:documentation>Identificador da tag a ser assinada</xs:documentation>
+							<xs:documentation>Informar a chave de acesso do CT-e e precedida do literal "CTe"</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:ID">
+								<xs:pattern value="CTe[0-9]{6}[A-Z0-9]{12}[0-9]{26}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+				<xs:unique name="pk_nItem">
+					<xs:selector xpath="./*"/>
+					<xs:field xpath="@nItem"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="infCTeSupl" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Informações suplementares do CT-e</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="qrCodCTe">
+							<xs:annotation>
+								<xs:documentation>Texto com o QR-Code impresso no DACTE</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:minLength value="50"/>
+									<xs:maxLength value="1000"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{6}[A-Z0-9]{12}[0-9]{26}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="TCTe">
 		<xs:annotation>
@@ -1518,8 +2917,11 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 										<xs:annotation>
 											<xs:documentation>Tipo do Serviço</xs:documentation>
 											<xs:documentation>Preencher com: 
-0 - Normal;1 - Subcontratação;
-2 - Redespacho;3 - Redespacho Intermediário; 4 - Serviço Vinculado a Multimodal</xs:documentation>
+0 - Normal;
+1 - Subcontratação;
+2 - Redespacho;
+3 - Redespacho Intermediário; 
+4 - Serviço Vinculado a Multimodal</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
@@ -1761,6 +3163,11 @@ para tpEmis diferente de 1</xs:documentation>
 											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
+									<xs:element name="gCompraGov" type="TCompraGovReduzido" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
+										</xs:annotation>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -2628,6 +4035,18 @@ Usar com série específica 920-969 para emitente pessoa física com inscrição
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
+									<xs:element name="IBSCBS" type="TTribCTe" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de informações do IBS e CBS</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vTotDFe" type="TDec_1302" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor total do documento fiscal 
+(vTPrest + total do IBS + total da CBS) 
+</xs:documentation>
+										</xs:annotation>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -3021,6 +4440,20 @@ Opcional para Redespacho Intermediario e Serviço vinculado a multimodal.</xs:do
 																			</xs:annotation>
 																		</xs:element>
 																	</xs:choice>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="infDCe" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:documentation>Informações das DCe</xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="chave" type="TChDFe">
+																		<xs:annotation>
+																			<xs:documentation>Chave de acesso da DCe</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
 																</xs:sequence>
 															</xs:complexType>
 														</xs:element>
@@ -3478,7 +4911,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 										<xs:simpleType>
 											<xs:restriction base="TString">
 												<xs:minLength value="2"/>
-												<xs:maxLength value="2000"/>
+												<xs:maxLength value="8000"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -3536,7 +4969,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:ID">
-								<xs:pattern value="CTe[0-9]{44}"/>
+								<xs:pattern value="CTe[0-9]{6}[A-Z0-9]{12}[0-9]{26}"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
@@ -3557,7 +4990,7 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 									<xs:whiteSpace value="preserve"/>
 									<xs:minLength value="50"/>
 									<xs:maxLength value="1000"/>
-									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{44}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{6}[A-Z0-9]{12}[0-9]{26}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
@@ -3703,7 +5136,6 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 											<xs:documentation>Preencher com:
 0 - CT-e Normal; 
 1 - CT-e Complementar; 
-
 3 - CT-e de Substituição.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
@@ -3882,6 +5314,11 @@ para tpEmis diferente de 1</xs:documentation>
 											</xs:simpleType>
 										</xs:element>
 									</xs:sequence>
+									<xs:element name="gCompraGov" type="TCompraGovReduzido" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
+										</xs:annotation>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -4306,6 +5743,18 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 												</xs:element>
 											</xs:sequence>
 										</xs:complexType>
+									</xs:element>
+									<xs:element name="IBSCBS" type="TTribCTe" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de informações do IBS e CBS</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="vTotDFe" type="TDec_1302" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor total do documento fiscal 
+(vTPrest + total do IBS + total da CBS) 
+</xs:documentation>
+										</xs:annotation>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -4732,7 +6181,7 @@ Somente para Transporte de Valores</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:ID">
-								<xs:pattern value="CTe[0-9]{44}"/>
+								<xs:pattern value="CTe[0-9]{6}[A-Z0-9]{12}[0-9]{26}"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
@@ -4753,7 +6202,7 @@ Somente para Transporte de Valores</xs:documentation>
 									<xs:whiteSpace value="preserve"/>
 									<xs:minLength value="50"/>
 									<xs:maxLength value="1000"/>
-									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{44}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chCTe=[0-9]{6}[A-Z0-9]{12}[0-9]{26}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
@@ -5371,6 +6820,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do ICMS</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5397,6 +6869,29 @@ Somente para Transporte de Valores</xs:documentation>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5442,6 +6937,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Preencher somente quando o transportador substituído, for optante pelo crédito outorgado previsto no Convênio 106/96 e corresponde ao percentual de 20% do valor do ICMS ST retido. </xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5488,6 +7006,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do Crédito Outorgado/Presumido</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5529,6 +7070,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do ICMS devido outra UF</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5645,6 +7209,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do ICMS</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5671,6 +7258,29 @@ Somente para Transporte de Valores</xs:documentation>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5717,6 +7327,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do Crédito Outorgado/Presumido</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -5758,6 +7391,29 @@ Somente para Transporte de Valores</xs:documentation>
 								<xs:documentation>Valor do ICMS devido outra UF</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:sequence minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Sequencia XML</xs:documentation>
+							</xs:annotation>
+							<xs:element name="vICMSDeson" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do ICMS de desoneração</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cBenef">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal na UF</xs:documentation>
+									<xs:documentation>Código de Benefício Fiscal utilizado pela UF
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:whiteSpace value="preserve"/>
+										<xs:maxLength value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -6226,6 +7882,16 @@ Observação: 28 caracteres são representados no schema como 20 bytes do tipo b
 			<xs:enumeration value="3"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="TFinCTeSimp">
+		<xs:annotation>
+			<xs:documentation>Tipos Finalidade de CT-e Simplificado</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="TIdLote">
 		<xs:annotation>
 			<xs:documentation>Tipo Identificador de controle do envio do lote. Número seqüencial auto-incremental, de controle correspondente ao identificador único do lote enviado. A responsabilidade de gerar e controlar esse número é do próprio contribuinte.</xs:documentation>
@@ -6296,6 +7962,17 @@ Observação: 28 caracteres são representados no schema como 20 bytes do tipo b
 			<xs:enumeration value="04"/>
 			<xs:enumeration value="05"/>
 			<xs:enumeration value="06"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TModTranspSimp">
+		<xs:annotation>
+			<xs:documentation> Tipo Modal transporte do CTe Simplificado</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TRNTRC">

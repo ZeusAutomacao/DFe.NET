@@ -248,5 +248,8 @@ namespace CTe.Classes.Informacoes.Identificacao
         }
 
         public string xJust { get; set; }
+
+        public gCompraGov gCompraGov { get; set; }
+
     }
 }

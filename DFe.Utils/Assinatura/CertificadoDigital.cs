@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -43,7 +43,7 @@ namespace DFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
-        private static readonly Dictionary<string, X509Certificate2> CacheCertificado = new Dictionary<string, X509Certificate2>();
+        private static readonly ConcurrentDictionary<string, X509Certificate2> CacheCertificado = new ConcurrentDictionary<string, X509Certificate2>();
 
         #region Métodos privados
 
@@ -52,7 +52,7 @@ namespace DFe.Utils.Assinatura
         /// </summary>
         /// <param name="openFlags"></param>
         /// <returns></returns>
-        public static X509Store ObterX509Store(OpenFlags openFlags)
+        public static X509Store ObterX509Store(OpenFlags openFlags, StoreLocation storeLocation = StoreLocation.CurrentUser)
         {
             var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(openFlags);
@@ -89,7 +89,7 @@ namespace DFe.Utils.Assinatura
         {
             try
             {
-                var certificado = new X509Certificate2(arrayBytes, senha, keyStorageFlag);
+                X509Certificate2 certificado = new X509Certificate2(arrayBytes, senha, keyStorageFlag);
                 return certificado;
             }
             catch (Exception ex)
@@ -102,12 +102,12 @@ namespace DFe.Utils.Assinatura
         /// Obtém um objeto <see cref="X509Certificate2"/> pelo serial passado no parÂmetro
         /// </summary>
         /// <returns></returns>
-        private static X509Certificate2 ObterDoRepositorio(string serial, OpenFlags opcoesDeAbertura)
+        private static X509Certificate2 ObterDoRepositorio(string serial, OpenFlags opcoesDeAbertura, StoreLocation storeLocation = StoreLocation.CurrentUser)
         {
             if (string.IsNullOrEmpty(serial))
                 throw new ArgumentException("O número de série do certificado digital não foi informado!");
             X509Certificate2 certificado = null;
-            var store = ObterX509Store(opcoesDeAbertura);
+            var store = ObterX509Store(opcoesDeAbertura, storeLocation);
             try
             {
                 foreach (var item in store.Certificates)
@@ -133,9 +133,9 @@ namespace DFe.Utils.Assinatura
         /// <param name="serial"></param>
         /// <param name="senha"></param>
         /// <returns></returns>
-        private static X509Certificate2 ObterDoRepositorioPassandoPin(string serial, string senha = null)
+        private static X509Certificate2 ObterDoRepositorioPassandoPin(string serial, string senha = null, StoreLocation storeLocation = StoreLocation.CurrentUser)
         {
-            var certificado = ObterDoRepositorio(serial, OpenFlags.ReadOnly);
+            var certificado = ObterDoRepositorio(serial, OpenFlags.ReadOnly, storeLocation);
             if (string.IsNullOrEmpty(senha)) return certificado;
             certificado.DefinirPinParaChavePrivada(senha);
             return certificado;
@@ -187,13 +187,13 @@ namespace DFe.Utils.Assinatura
             switch (configuracaoCertificado.TipoCertificado)
             {
                 case TipoCertificado.A1Repositorio:
-                    return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed);
+                    return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed, configuracaoCertificado.StoreLocation);
                 case TipoCertificado.A1ByteArray:
                     return ObterDoArrayBytes(configuracaoCertificado.ArrayBytesArquivo, configuracaoCertificado.Senha, configuracaoCertificado.KeyStorageFlags);
                 case TipoCertificado.A1Arquivo:
                     return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha, configuracaoCertificado.KeyStorageFlags);
                 case TipoCertificado.A3:
-                    return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha);
+                    return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha, configuracaoCertificado.StoreLocation);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -204,8 +204,8 @@ namespace DFe.Utils.Assinatura
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
         /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
-        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
-        /// senão será obtido pelo método <see cref="ListareObterDoRepositorio"/> </para>
+        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string,X509KeyStorageFlags)"/>,
+        /// senão será obtido pelo método <see cref="ObterDoRepositorio"/> </para>
         /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
         /// </summary>
         public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
@@ -213,20 +213,20 @@ namespace DFe.Utils.Assinatura
             if (!configuracaoCertificado.ManterDadosEmCache)
                 return ObterDadosCertificado(configuracaoCertificado);
 
-            if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
-                return CacheCertificado[configuracaoCertificado.CacheId];
+            if (!string.IsNullOrWhiteSpace(configuracaoCertificado.CacheId) && CacheCertificado.TryGetValue(configuracaoCertificado.CacheId, out var certificadoEmCache))
+                return certificadoEmCache;
 
             var certificado = ObterDadosCertificado(configuracaoCertificado);
 
-            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
+            var keyCertificado = string.IsNullOrWhiteSpace(configuracaoCertificado.CacheId)
                 ? certificado.SerialNumber
                 : configuracaoCertificado.CacheId;
 
             configuracaoCertificado.CacheId = keyCertificado;
+            
+            var certificadoDoCache = CacheCertificado.GetOrAdd(keyCertificado, certificado);
 
-            CacheCertificado.Add(keyCertificado, certificado);
-
-            return CacheCertificado[keyCertificado];
+            return certificadoDoCache;
         }
 
         public static void ClearCache()

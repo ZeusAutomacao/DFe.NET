@@ -129,6 +129,7 @@ namespace NFe.Utils.Tributacao.Estadual
                             icmsBasico = new ICMS15();
                             break;
                         case Csticms.CstPart10:
+                        case Csticms.CstPart20:
                         case Csticms.CstPart90:
                             icmsBasico = new ICMSPart();
                             break;
@@ -241,6 +242,11 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Percentual de redução da BC
         /// </summary>
         public decimal pRedBC { get; set; }
+
+        /// <summary>
+        ///     Código de Benefício Fiscal na UF aplicado ao item quando houver RBC.
+        /// </summary>
+        public string cBenefRBC { get; set; }
 
         /// <summary>
         ///     Valor do ICMS desonerado
@@ -366,6 +372,21 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do Fundo de Combate à Pobreza (FCP) retido por Substituição Tributária
         /// </summary>
         public decimal? vFCPST { get; set; }
+
+        /// <summary>
+        ///     Percentual do diferimento do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? pFCPDif { get; set; }
+
+        /// <summary>
+        ///     Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) diferido
+        /// </summary>
+        public decimal? vFCPDif { get; set; }
+
+        /// <summary>
+        ///     Valor efetivo do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? vFCPEfet { get; set; }
 
         #endregion
 

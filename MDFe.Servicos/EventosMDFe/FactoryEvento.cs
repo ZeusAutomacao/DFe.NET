@@ -78,5 +78,40 @@ namespace MDFe.Servicos.EventosMDFe
 
             return eventoMDFe;
         }
+
+        public static MDFeEventoMDFe CriaEvento(MDFeComandoEvento comando, MDFeTipoEvento tipoEvento, MDFeEventoContainer evento, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var eventoMDFe = new MDFeEventoMDFe
+            {
+                Versao = config.VersaoWebService.VersaoLayout,
+                InfEvento = new MDFeInfEvento(config.VersaoWebService.VersaoLayout)
+                {
+                    Id = "ID" + (long)tipoEvento + comando.Chave + comando.SequenciaEvento.ToString("D2"),
+                    TpAmb = config.VersaoWebService.TipoAmbiente,
+                    COrgao = comando.UfEmitente,
+                    ChMDFe = comando.Chave,
+                    DetEvento = new MDFeDetEvento
+                    {
+                        VersaoServico = config.VersaoWebService.VersaoLayout,
+                        EventoContainer = evento
+                    },
+                    DhEvento = DateTime.Now,
+                    NSeqEvento = comando.SequenciaEvento,
+                    TpEvento = tipoEvento
+                }
+            };
+
+            eventoMDFe.InfEvento.CNPJ = comando.CnpjEmitente;
+
+            if (!string.IsNullOrEmpty(comando.CpfEmitente))
+            {
+                eventoMDFe.InfEvento.CPF = comando.CpfEmitente;
+            }
+
+            eventoMDFe.Assinar(config);
+
+            return eventoMDFe;
+        }
     }
 }

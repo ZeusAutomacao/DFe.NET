@@ -50,6 +50,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pFCPST;
         private decimal? _vFCPST;
         private decimal _pBcOp;
+        private decimal? _vIcmsDeson;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -211,6 +212,29 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         [XmlElement(Order = 18)]
         public string UFST { get; set; }
 
+        /// <summary>
+        ///     N28a - Valor do ICMS desonerado
+        /// </summary>
+        [XmlElement(Order = 19)]
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        ///     N28 - Motivo da desoneração do ICMS
+        /// </summary>
+        [XmlElement(Order = 20)]
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+
+        /// <summary>
+        /// N28b - Indica se o valor do ICMS desonerado (vICMSDeson) deduz
+        /// do valor do item (vProd). (NT 2023.004)
+        /// </summary>
+        [XmlElement(Order = 21)]
+        public DeduzDesoneracaoNoProduto? indDeduzDeson { get; set; }
+
         public bool ShouldSerializepRedBC()
         {
             return pRedBC.HasValue;
@@ -239,6 +263,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCPST()
         {
             return vFCPST.HasValue;
+        }
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue;
+        }
+
+        public bool ShouldSerializemotDesICMS()
+        {
+            return motDesICMS.HasValue;
+        }
+
+        public bool ShouldSerializeindDeduzDeson()
+        {
+            return indDeduzDeson.HasValue;
         }
 
     }

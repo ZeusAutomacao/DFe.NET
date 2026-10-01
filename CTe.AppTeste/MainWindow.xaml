@@ -228,6 +228,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -243,8 +244,9 @@
                     <Button Grid.Row="4" Grid.Column="0" Click="EventoDesacordoCTe_Click" Grid.ColumnSpan="2">Evento Desacordo CT-e</Button>
                     <Button Grid.Row="5" Grid.Column="0" Click="EmitirCteOs_Click" Grid.ColumnSpan="2">Emitir CT-e OS</Button>
                     <Button Grid.Row="5" Grid.Column="2" Click="LoadXmlCte_Click" Grid.ColumnSpan="2">Load Xml CT-e</Button>
+                    <Button Grid.Row="6" Grid.Column="0" Click="EventoCancelaDesacordoCTe_Click" Grid.ColumnSpan="2">Evento Cancelar Desacordo CT-e</Button>
 
-                    <TabControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TabControl Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
                         <TabItem Header="XmlEnvio">
                             <Grid Background="#FFE5E5E5">
                                 <WebBrowser x:Name="WebXmlEnvio" />

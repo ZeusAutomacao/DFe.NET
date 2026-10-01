@@ -354,7 +354,7 @@ namespace NFe.Danfe.Html.Dominio
             Imposto = new Imposto(nfe.infNFe.total.ICMSTot.vBC, nfe.infNFe.total.ICMSTot.vICMS, nfe.infNFe.total.ICMSTot.vBCST,
                     nfe.infNFe.total.ICMSTot.vST, nfe.infNFe.total.ICMSTot.vProd, nfe.infNFe.total.ICMSTot.vFrete,
                     nfe.infNFe.total.ICMSTot.vSeg, nfe.infNFe.total.ICMSTot.vDesc, nfe.infNFe.total.ICMSTot.vOutro,
-                    nfe.infNFe.total.ICMSTot.vIPI, nfe.infNFe.total.ICMSTot.vNF,nfe.infNFe.total.ICMSTot.vTotTrib,
+                    nfe.infNFe.total.ICMSTot.vIPI, nfe.infNFe.total.ICMSTot.vNF,nfe.infNFe.total.ICMSTot.vTotTrib ?? 0,
                     nfe.infNFe.total.ICMSTot.vPIS, nfe.infNFe.total.ICMSTot.vCOFINS, nfe.infNFe.total.ICMSTot.vICMSUFRemet,
                     nfe.infNFe.total.ICMSTot.vICMSUFDest);
             

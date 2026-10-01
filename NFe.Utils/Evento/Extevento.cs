@@ -34,6 +34,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using DFe.Utils;
 using NFe.Classes.Servicos.Evento;
+using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Assinatura;
 
 namespace NFe.Utils.Evento
@@ -48,6 +49,23 @@ namespace NFe.Utils.Evento
         public static string ObterXmlString(this evento pedEvento)
         {
             return FuncoesXml.ClasseParaXmlString(pedEvento);
+        }
+
+        /// <summary>
+        ///     Obtém o Id de um evento (infEvento/@Id): literal "ID" + tpEvento + chNFe + nSeqEvento com 2 dígitos
+        ///     <para>
+        ///         Uso opcional, para quando o evento for montado fora da biblioteca — por exemplo, para assinar com o
+        ///         certificado numa máquina cliente e depois transmitir com a sobrecarga que recebe o evento já
+        ///         assinado. Os métodos que assinam internamente continuam calculando o Id sozinhos.
+        ///     </para>
+        /// </summary>
+        /// <param name="tpEvento">Código do evento</param>
+        /// <param name="chNFe">Chave de acesso da NF-e vinculada ao evento</param>
+        /// <param name="nSeqEvento">Sequencial do evento para o mesmo tipo de evento</param>
+        /// <returns>Retorna o conteúdo do atributo infEvento/@Id</returns>
+        public static string ObterId(NFeTipoEvento tpEvento, string chNFe, int nSeqEvento)
+        {
+            return "ID" + ((int)tpEvento) + chNFe + nSeqEvento.ToString().PadLeft(2, '0');
         }
 
         /// <summary>

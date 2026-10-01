@@ -48,7 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         ///     UB02 - Código de Situação Tributária do Imposto Seletivo
         /// </summary>
         [XmlElement(Order = 1)]
-        public CSTIS CSTIS { get; set; }
+        public string CSTIS { get; set; }
 
         /// <summary>
         ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
@@ -80,7 +80,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         ///     UB07 - Alíquota específica por unidade de medida apropriada (em percentual)
         /// </summary>
         [XmlElement(Order = 5)]
-        public decimal? pISEspec
+        public decimal? adRemIS
         {
             get => _pIsEspec.Arredondar(4);
             set => _pIsEspec = value.Arredondar(4);
@@ -112,6 +112,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
             set => _vIs = value.Arredondar(2);
         }
         
-        public bool ShouldSerializepISEspec() => pISEspec.HasValue;
+        public bool ShouldSerializeadRemIS() => adRemIS.HasValue;
     }
 }

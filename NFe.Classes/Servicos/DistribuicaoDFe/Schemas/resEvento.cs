@@ -59,7 +59,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// <summary>
         /// D04 - CNPJ do Emitente
         /// </summary>
-        public ulong CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         /// <summary>
         /// D05 - CPF do Emitente
@@ -69,7 +69,6 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// <summary>
         /// D06 - Chave de acesso da NF-e
         /// </summary>
-        [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
 
         /// <summary>

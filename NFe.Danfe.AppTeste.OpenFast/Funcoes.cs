@@ -23,6 +23,11 @@ namespace NFe.Danfe.AppTeste.NetCore
                 throw new Exception("Caminho do arquivo incorreto! Arquivo não foi encontrado.");
             }
 
+            if(caminho.Contains("../") || caminho.Contains("..\\"))
+            {
+                throw new Exception("Caminho do arquivo não pode conter ../ ou ..\\");
+            }
+
             return File.ReadAllText(caminho);
         }
 
@@ -36,6 +41,12 @@ namespace NFe.Danfe.AppTeste.NetCore
             //https://github.com/FastReports/FastReport/blob/master/Demos/OpenSource/FastReport.OpenSource.Web.Vue/Controllers/ReportsController.cs
 
             var caminhoArquivo = Path.GetDirectoryName(ArrumaCaminho(caminhoXmlAnterior)) + "/generated" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + extensao;
+
+            if(caminhoArquivo.Contains("../") || caminhoArquivo.Contains("..\\"))
+            {
+                throw new Exception("Caminho do arquivo não pode conter ../ ou ..\\");
+            }
+            
             File.WriteAllBytes(caminhoArquivo, bytes);
 
             Console.Clear();

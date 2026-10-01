@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
@@ -41,6 +42,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB37 - Alíquota do IBS de competência do Município (em percentual)
         /// </summary>
+        [XmlElement(Order = 1)]
         public decimal pIBSMun
         {
             get => _pIbsMun.Arredondar(4);
@@ -50,21 +52,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB40 - Grupo de Informações do Diferimento
         /// </summary>
+        [XmlElement(Order = 2)]
         public gDif gDif { get; set; }
         
         /// <summary>
         ///     UB43 - Grupo de Informações da devolução de tributos
         /// </summary>
+        [XmlElement(Order = 3)]
         public gDevTrib gDevTrib { get; set; }
         
         /// <summary>
         ///     UB45 - Grupo de informações da redução da alíquota
         /// </summary>
+        [XmlElement(Order = 4)]
         public gRed gRed { get; set; }
         
         /// <summary>
         ///     UB54 - Valor do IBS de competência do Município
         /// </summary>
+        [XmlElement(Order = 5)]
         public decimal vIBSMun
         {
             get => _vIbsMun.Arredondar(2);

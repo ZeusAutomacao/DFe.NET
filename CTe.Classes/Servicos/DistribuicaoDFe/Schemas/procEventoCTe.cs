@@ -64,7 +64,5 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// </summary>
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
         public retEventoCTe retEventoCTe { get; set; }
-
-
     }
 }

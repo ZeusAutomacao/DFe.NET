@@ -46,10 +46,14 @@ namespace MDFe.Servicos.EventosMDFe
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var incluirCodutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
+            return new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor, config);
+        }
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor, config);
-
-            return retorno;
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeComandoInclusaoCondutor comando, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = ClassesFactory.CriaEvIncCondutorMDFe(comando.Nome, comando.CpfCondutor);
+            return new ServicoController().Executar(comando, evento, MDFeTipoEvento.InclusaoDeCondutor, config);
         }
     }
 }

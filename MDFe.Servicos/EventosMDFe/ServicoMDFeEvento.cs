@@ -54,6 +54,11 @@ namespace MDFe.Servicos.EventosMDFe
             return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf, config);
         }
 
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeComandoInclusaoCondutor cmd, MDFeConfiguracao cfgMdfe = null)
+        {
+            return new EventoInclusaoCondutor().MDFeEventoIncluirCondutor(cmd, cfgMdfe);
+        }
+
         public MDFeRetEventoMDFe MDFeEventoIncluirDFe(
             MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
             string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos,
@@ -64,6 +69,11 @@ namespace MDFe.Servicos.EventosMDFe
             var eventoIncluirDFe = new EventoInclusaoDFe();
 
             return eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos, config);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(MDFeComandoInclusaoDFe cmd, MDFeConfiguracao cfgMdfe = null)
+        {
+            return new EventoInclusaoDFe().MDFeEventoIncluirDFe(cmd, cfgMdfe);
         }
 
         public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
@@ -85,6 +95,11 @@ namespace MDFe.Servicos.EventosMDFe
             return eventoEncerramento.MDFeEventoEncerramento(mdfe, estadoEncerramento, codigoMunicipioEncerramento, sequenciaEvento, protocolo, config);
         }
 
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeComandoEncerramento cmd, MDFeConfiguracao cfgMdfe = null)
+        {
+            return new EventoEncerramento().MDFeEventoEncerramento(cmd, cfgMdfe);
+        }
+
         public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
             string justificativa, MDFeConfiguracao cfgMdfe = null)
         {
@@ -93,6 +108,11 @@ namespace MDFe.Servicos.EventosMDFe
             var eventoCancelamento = new EventoCancelar();
 
             return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa, config);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeComandoCancelamento cmd, MDFeConfiguracao cfgMdfe = null)
+        {
+            return new EventoCancelar().MDFeEventoCancelar(cmd, cfgMdfe);
         }
 
         public MDFeRetEventoMDFe MDFeEventoPagamentoOperacaoTransporte(MDFeEletronica mdfe, byte sequenciaEvneto,
@@ -104,6 +124,11 @@ namespace MDFe.Servicos.EventosMDFe
 
             return eventoPagamentoOperacao.MDFeEventoPagamentoOperacao(mdfe, sequenciaEvneto, protocolo,
                 infViagens, infPagamentos, config);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoPagamentoOperacaoTransporte(MDFeComandoPagamentoOperacao cmd, MDFeConfiguracao cfgMdfe = null)
+        {
+            return new EventoPagamentoOperacao().MDFeEventoPagamentoOperacao(cmd, cfgMdfe);
         }
     }
 }

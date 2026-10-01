@@ -127,6 +127,8 @@ A mensagem do commit deve descrever claramente como o comportamento está mudand
 
 #### Pull requests
 
+Os Pull Requests devem conter apenas alterações relacionadas a uma única funcionalidade ou correção. Isso auxilia na revisão e mantém o histórico do repositório organizado e facilita a compreensão das mudanças.  
+
 Após concluir as alterações na sua branch, abra um Pull Request (PR) da branch, em seu fork, onde realizou a implementação, para a branch `master` do repositório principal. Isso permitirá que seu código seja revisado e mesclado ao repositório principal. Para isso, siga as diretrizes abaixo:  
 
 1. Certifique-se de que sua branch está sincronizada com a branch principal (`master`). Caso necessário, faça um rebase ou merge antes de abrir o PR

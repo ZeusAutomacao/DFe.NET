@@ -60,13 +60,12 @@ namespace CTe.Classes.Servicos.Evento
             get { return _cnpj; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(CPF) & string.IsNullOrEmpty(idEstrangeiro))
-                    _cnpj = value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(CPF) || !string.IsNullOrEmpty(idEstrangeiro))
                     throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
-                }
+
+                _cnpj = value;
             }
         }
 
@@ -78,13 +77,12 @@ namespace CTe.Classes.Servicos.Evento
             get { return _cpf; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(idEstrangeiro))
-                    _cpf = value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(CNPJ) || !string.IsNullOrEmpty(idEstrangeiro))
                     throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
-                }
+
+                _cpf = value;
             }
         }
 
@@ -96,13 +94,12 @@ namespace CTe.Classes.Servicos.Evento
             get { return _idEstrangeiro; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(CPF))
-                    _idEstrangeiro = value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(CNPJ) || !string.IsNullOrEmpty(CPF))
                     throw new ArgumentException(ErroCpfCnpjIdEstrangeiroPreenchidos);
-                }
+
+                _idEstrangeiro = value;
             }
         }
 

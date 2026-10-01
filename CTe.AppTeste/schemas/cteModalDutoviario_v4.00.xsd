@@ -24,6 +24,68 @@
 						<xs:documentation>Data de Fim da prestação do serviço</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+				<xs:element name="classDuto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Classificação do Dutoviário</xs:documentation>
+						<xs:documentation>Informar: 1 - Gasoduto 2 - Mineroduto 3 - Oleoduto</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="tpContratacao" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Tipo de contratação do serviço de transporte (apenas para gasoduto)</xs:documentation>
+						<xs:documentation>Informar:
+0 - Ponta a ponto
+1 - Capacidade de Entrada 
+2 - Capacidade de Saida</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="codPontoEntrada" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Código do Ponto de Entrada</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="2"/>
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="codPontoSaida" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Código do Ponto de Saída</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="2"/>
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nContrato" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número do Contrato de Capacidade</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="2"/>
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

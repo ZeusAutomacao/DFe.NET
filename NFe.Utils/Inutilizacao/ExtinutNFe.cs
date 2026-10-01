@@ -32,6 +32,8 @@
 /********************************************************************************/
 using System;
 using System.Security.Cryptography.X509Certificates;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes.Servicos.Inutilizacao;
 using NFe.Utils.Assinatura;
@@ -59,6 +61,36 @@ namespace NFe.Utils.Inutilizacao
         public static string ObterXmlString(this inutNFe pedInutilizacao)
         {
             return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
+        }
+
+        /// <summary>
+        ///     Obtém o Id de um pedido de inutilização (infInut/@Id): literal "ID" + cUF + ano com 2 dígitos + CNPJ +
+        ///     modelo + série com 3 dígitos + número inicial e número final com 9 dígitos
+        ///     <para>
+        ///         Uso opcional, para quando o pedido for montado fora da biblioteca — por exemplo, para assinar com o
+        ///         certificado numa máquina cliente e depois transmitir com <see cref="Assina"/> já feito, via a
+        ///         sobrecarga que recebe o inutNFe pronto. O método que assina internamente continua calculando o Id
+        ///         sozinho.
+        ///     </para>
+        /// </summary>
+        /// <param name="cUF">Código da UF do solicitante</param>
+        /// <param name="ano">Ano de inutilização da numeração</param>
+        /// <param name="cnpj">CNPJ do emitente</param>
+        /// <param name="modelo">Modelo do documento</param>
+        /// <param name="serie">Série</param>
+        /// <param name="numeroInicial">Número inicial a ser inutilizado</param>
+        /// <param name="numeroFinal">Número final a ser inutilizado</param>
+        /// <returns>Retorna o conteúdo do atributo infInut/@Id</returns>
+        public static string ObterId(Estado cUF, int ano, string cnpj, ModeloDocumento modelo, int serie,
+            int numeroInicial, int numeroFinal)
+        {
+            var numId = string.Concat((int)cUF, ano.ToString("D2"),
+                cnpj, (int)modelo,
+                serie.ToString().PadLeft(3, '0'),
+                numeroInicial.ToString().PadLeft(9, '0'),
+                numeroFinal.ToString().PadLeft(9, '0'));
+
+            return "ID" + numId;
         }
 
         /// <summary>

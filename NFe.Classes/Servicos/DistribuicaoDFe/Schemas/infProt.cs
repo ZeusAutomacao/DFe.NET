@@ -49,7 +49,6 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 
         public string verAplic { get; set; }
 
-        [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
 
         [XmlIgnore]

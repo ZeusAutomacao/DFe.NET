@@ -63,5 +63,12 @@ namespace MDFe.Servicos.EventosMDFe
 
             return retorno;
         }
+
+        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeComandoEncerramento comando, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = ClassesFactory.CriaEvEncMDFe(comando.EstadoEncerramento, comando.CodigoMunicipioEncerramento, comando.Protocolo);
+            return new ServicoController().Executar(comando, evento, MDFeTipoEvento.Encerramento, config);
+        }
     }
 }

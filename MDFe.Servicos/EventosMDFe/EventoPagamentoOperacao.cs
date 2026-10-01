@@ -47,15 +47,18 @@ namespace MDFe.Servicos.EventosMDFe
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var eventoPagamento = ClassesFactory.CriaEvPagtoOperMDFe(
-                protocolo, 
-                infViagens,
-                infPagamentos
-            );
+            var eventoPagamento = ClassesFactory.CriaEvPagtoOperMDFe(protocolo, infViagens, infPagamentos);
 
             var retorno = new ServicoController().Executar(mdfe, sequencia, eventoPagamento, MDFeTipoEvento.PagamentoOperacaoMDFe, config);
 
             return retorno;
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoPagamentoOperacao(MDFeComandoPagamentoOperacao comando, MDFeConfiguracao cfgMdfe = null)
+        {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var evento = ClassesFactory.CriaEvPagtoOperMDFe(comando.Protocolo, comando.InfViagens, comando.Pagamentos);
+            return new ServicoController().Executar(comando, evento, MDFeTipoEvento.PagamentoOperacaoMDFe, config);
         }
     }
 }

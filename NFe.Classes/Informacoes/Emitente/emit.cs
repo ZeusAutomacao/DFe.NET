@@ -50,14 +50,12 @@ namespace NFe.Classes.Informacoes.Emitente
             get { return _cnpj; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(_cpf))
-                    _cnpj = Regex.Match(value, @"\d+").Value;
-
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(_cpf))
                     throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+
+                _cnpj = Regex.Match(value, @"[0-9A-Z]+").Value;
             }
         }
 
@@ -69,13 +67,12 @@ namespace NFe.Classes.Informacoes.Emitente
             get { return _cpf; }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(_cnpj))
-                    _cpf = Regex.Match(value, @"\d+").Value;
-                else
-                {
+                if (string.IsNullOrEmpty(value))
+                    return;
+                if (!string.IsNullOrEmpty(_cnpj))
                     throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
+
+                _cpf = Regex.Match(value, @"\d+").Value;
             }
         }
 

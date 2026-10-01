@@ -98,27 +98,33 @@ namespace CTe.Servicos.DistribuicaoDFe
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe).RemoverDeclaracaoXml();
+                    var loteAtual = retConsulta.loteDistDFeInt[i];
+                    string conteudo = Compressao.Unzip(loteAtual.XmlNfe).RemoverDeclaracaoXml();
                     string chCTe = string.Empty;
 
                     if (conteudo.StartsWith("<cteProc"))
                     {
-                        var retConteudo = FuncoesXml.XmlStringParaClasse<CTe.Classes.cteProc>(conteudo);
-                        chCTe = retConteudo.protCTe.infProt.chCTe;
+                        var cteConteudo = FuncoesXml.XmlStringParaClasse<CTe.Classes.cteProc>(conteudo);
+                        chCTe = cteConteudo.protCTe.infProt.chCTe;
+                        loteAtual.cteProc = cteConteudo;
                     }
                     else if (conteudo.StartsWith("<procEventoCTe"))
                     {
                         var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoCTe>(conteudo);
                         chCTe = procEventoNFeConteudo.eventoCTe.infEvento.chCTe;
+                        loteAtual.procEventoCTe = procEventoNFeConteudo;
                     }
                     else if (conteudo.StartsWith("<cteOSProc"))
                     {
-                        var retConteudo = FuncoesXml.XmlStringParaClasse<CTe.CTeOSDocumento.CTe.CTeOS.Retorno.cteOSProc>(conteudo);
-                        chCTe = retConteudo.protCTe.infProt.chCTe;
+                        var cteOSConteudo = FuncoesXml.XmlStringParaClasse<CTe.CTeOSDocumento.CTe.CTeOS.Retorno.cteOSProc>(conteudo);
+                        chCTe = cteOSConteudo.protCTe.infProt.chCTe;
+                        loteAtual.cteOSProc = cteOSConteudo;
                     }
-                    else
+                    else if (conteudo.StartsWith("<resCTe"))
                     {
-
+                        var resCTeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resCTe>(conteudo);
+                        chCTe = resCTeConteudo.chCTe;
+                        loteAtual.resCTe = resCTeConteudo;
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
