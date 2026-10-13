@@ -31,36 +31,43 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe;
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
 {
-    public class gCBS
+    public class gCredPresOper
     {
-        private decimal _pCredPres;
-        private decimal _vCredPres;
+        private decimal _vBCCredPres;
+
+        /// <summary>
+        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
+        /// </summary>
+        [XmlAttribute("nItem")]
+        public int nItem { get; set; }
         
         /// <summary>
-        ///     P31 - Código de Classificação do Crédito presumido, conforme tabela cCredPres (Anexo IV) 
+        ///     P25 - Valor da base de cálculo do item
+        /// </summary>
+        public decimal vBCCredPres
+        {
+            get => _vBCCredPres.Arredondar(2);
+            set => _vBCCredPres = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     P25a - Código de Classificação do Crédito presumido, conforme tabela cCredPres (Anexo IV)
         /// </summary>
         public CCredPres cCredPres { get; set; }
-
+        
         /// <summary>
-        ///     P32 - Percentual do Crédito Presumido
+        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
         /// </summary>
-        public decimal pCredPres
-        {
-            get => _pCredPres.Arredondar(4);
-            set => _pCredPres = value.Arredondar(4);
-        }
-
+        public gIBSCredPres gIBSCredPres { get; set; }
+        
         /// <summary>
-        ///     P33 - Valor do Crédito Presumido
+        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
         /// </summary>
-        public decimal vCredPres
-        {
-            get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
-        }
+        public gCBSCredPres gCBSCredPres { get; set; }
     }
 }

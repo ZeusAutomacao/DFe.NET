@@ -31,31 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
 namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
 {
-    public class gCredPres
+    public class gCBSCredPres
     {
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
+        ///     P32 - Percentual do Crédito Presumido
         /// </summary>
-        [XmlAttribute("nItem")]
-        public int nItem { get; set; }
-        
+        public decimal pCredPres
+        {
+            get => _pCredPres.Arredondar(4);
+            set => _pCredPres = value.Arredondar(4);
+        }
+
         /// <summary>
-        ///     P25 - Valor do base de cálculo do item
+        ///     P33 - Valor do Crédito Presumido
         /// </summary>
-        public int vBC { get; set; }
-        
-        /// <summary>
-        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
-        /// </summary>
-        public gIBS gIBS { get; set; }
-        
-        /// <summary>
-        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
+        public decimal vCredPres
+        {
+            get => _vCredPres.Arredondar(2);
+            set => _vCredPres = value.Arredondar(2);
+        }
     }
 }

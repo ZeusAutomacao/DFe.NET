@@ -1429,7 +1429,7 @@ namespace NFe.Servicos
                                                                                               string cpfCnpj, 
                                                                                               TipoAutor tipoAutor,
                                                                                               string chaveNFe, 
-                                                                                              List<gCredPres> informacoesDeCreditoPresumidoPorItem,
+                                                                                              List<gCredPresOper> informacoesDeCreditoPresumidoPorItem,
                                                                                               Estado? ufAutor = null, 
                                                                                               string versaoAplicativo = null, 
                                                                                               DateTimeOffset? dataHoraEvento = null)
@@ -1440,7 +1440,7 @@ namespace NFe.Servicos
             var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
 
             var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
-            detalhesEvento.gCredPres = informacoesDeCreditoPresumidoPorItem;
+            detalhesEvento.gCredPresOper = informacoesDeCreditoPresumidoPorItem;
 
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
