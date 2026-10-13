@@ -229,4 +229,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         [XmlEnum("4")]
         tpCredPresIbsZfm4
     }
+    /// <summary>
+    ///     UB66b - Tipo de aplicação da alíquota zero da CBS (operações em áreas incentivadas ALC/ZFM)
+    ///     <para>1 - Fornecedor e destinatário em área incentivada, alíquota zero da CBS, sem operação industrial com processo aprovado na Suframa para o item</para>
+    ///     <para>2 - Fornecedor e destinatário em área incentivada, alíquota zero da CBS, com operação industrial com processo aprovado na Suframa para o item</para>
+    /// </summary>
+    public enum TpALCZFMCBS
+    {
+        /// <summary>
+        ///     1 - Sem operação industrial com processo aprovado na Suframa para o item
+        /// </summary>
+        [Description("Sem operação industrial com processo aprovado na Suframa para o item")]
+        [XmlEnum("1")]
+        SemProcessoSuframa,
+
+        /// <summary>
+        ///     2 - Operação industrial com processo aprovado na Suframa para o item
+        /// </summary>
+        [Description("Operação industrial com processo aprovado na Suframa para o item")]
+        [XmlEnum("2")]
+        ComProcessoSuframa
+    }
 }

@@ -71,6 +71,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB67 - Valor da CBS
         /// </summary>
         [XmlElement(Order = 5)]
+        public gALCZFMCBS gALCZFMCBS { get; set; }
+
+        [XmlElement(Order = 6)]
         public decimal vCBS
         {
             get => _vCbs.Arredondar(2);
