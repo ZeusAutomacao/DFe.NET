@@ -131,5 +131,14 @@ namespace NFe.Classes.Informacoes.Emitente
         /// </summary>
         public CRT CRT { get; set; }
 
+        /// <summary>
+        ///     C22 - Inscrição do emitente na SUFRAMA (8 a 9 dígitos)
+        ///     <para>
+        ///         Obrigatório nas operações que se beneficiam de incentivos fiscais existentes nas áreas sob controle
+        ///         da SUFRAMA com alíquota zero da CBS (arts. 451 e 466 da LC 214/25).
+        ///     </para>
+        /// </summary>
+        public string ISUFEmit { get; set; }
+
     }
 }

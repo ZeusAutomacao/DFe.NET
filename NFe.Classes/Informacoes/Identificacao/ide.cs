@@ -244,6 +244,13 @@ namespace NFe.Classes.Informacoes.Identificacao
         }
 
         /// <summary>
+        ///     B25d - Código indicador do local da operação de fornecimento
+        ///     <para>Consultar a tabela "Código Indicador do Local de Operação" da NT 2025.002.</para>
+        ///     <para>Obrigatório quando cIndOp = 010104 (leilão judicial ou licitação pública) ou 010105 (irregularidade fiscal).</para>
+        /// </summary>
+        public string cIndOp { get; set; }
+
+        /// <summary>
         ///     B26 - Processo de emissão utilizado com a seguinte codificação:
         /// </summary>
         public ProcessoEmissao procEmi { get; set; }
