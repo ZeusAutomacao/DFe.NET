@@ -216,6 +216,13 @@ namespace NFe.Classes.Informacoes.Identificacao
         }
 
         /// <summary>
+        ///     B25d - Código indicador do local da operação de fornecimento
+        ///     <para>6 dígitos. Obrigatório para leilão/licitação (010104) e irregularidade fiscal (010105).</para>
+        ///     <para>Não permitido na NFC-e (modelo 65).</para>
+        /// </summary>
+        public string cIndOp { get; set; }
+
+        /// <summary>
         ///     B26 - Processo de emissão utilizado com a seguinte codificação:
         /// </summary>
         public ProcessoEmissao procEmi { get; set; }
