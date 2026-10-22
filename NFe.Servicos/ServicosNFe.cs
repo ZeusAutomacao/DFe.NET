@@ -483,7 +483,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlEvento = _cFgServico.RemoverAcentos
-                    ? pedEvento.ObterXmlString().RemoverAcentos()
+                    ? pedEvento.ObterXmlString().RemoverAcentosPreservandoDescEvento()
                     : pedEvento.ObterXmlString();
 
             SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
@@ -502,7 +502,7 @@ namespace NFe.Servicos
                         var detEvento = evento.infEvento.detEvento;
                         var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
                         if (_cFgServico.RemoverAcentos)
-                            detEventoXml = detEventoXml.RemoverAcentos();
+                            detEventoXml = detEventoXml.RemoverAcentosPreservandoDescEvento();
 
                         Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
                     }
