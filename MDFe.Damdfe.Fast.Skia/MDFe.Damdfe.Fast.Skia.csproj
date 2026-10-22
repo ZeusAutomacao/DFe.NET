@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<DefineConstants>fastskia</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Dlls\FastReport.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="SkiaSharp" Version="2.88.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
+		<ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
+	</ItemGroup>
+
+</Project>

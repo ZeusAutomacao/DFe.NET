@@ -26,16 +26,9 @@ namespace NFe.Danfe.Fast.Skia
         /// <param name="outputStream">Variável do tipo Stream para output</param>
         public void ExportarPdf(Stream outputStream)
         {
-            try
-            {
-                Relatorio.Prepare();
-                Relatorio.Export(new PDFExport(), outputStream);
-                outputStream.Position = 0;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            Relatorio.Prepare();
+            Relatorio.Export(new PDFExport(), outputStream);
+            outputStream.Position = 0;
         }
 
         /// <summary>
@@ -45,16 +38,9 @@ namespace NFe.Danfe.Fast.Skia
         {
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
-                try
-                {
-                    Relatorio.Prepare();
-                    Relatorio.Export(new PDFExport(), stream);
-                    return stream.ToArray();
-                }
-                catch (System.Exception ex)
-                {
-                    throw ex;
-                }
+                Relatorio.Prepare();
+                Relatorio.Export(new PDFExport(), stream);
+                return stream.ToArray();
             }
         }
 
@@ -96,45 +82,15 @@ namespace NFe.Danfe.Fast.Skia
         {
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
-                try
-                {
-                    Relatorio.Prepare();
-                    Relatorio.Export(exportBase, stream);
-                    return stream.ToArray();
-                }
-                catch (System.Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-        
-        public byte[] ExportarHtml()
-        {
-            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
-            {
-                try
-                {
-                    Relatorio.Prepare();
-                    HTMLExport html = new HTMLExport
-                    {
-                        SinglePage = true, // Single page report
-                        Navigator = false, // Top navigation bar
-                        EmbedPictures = true // Embeds images into a document
-                    };
-                    Relatorio.Export(html, stream);
-                    return stream.ToArray();
-                }
-                catch (System.Exception ex)
-                {
-                    throw ex;
-                }
+                Relatorio.Prepare();
+                Relatorio.Export(exportBase, stream);
+                return stream.ToArray();
             }
         }
 
-        public void ExportarHtml(Stream outputStream)
+        public byte[] ExportarHtml()
         {
-            try
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
                 Relatorio.Prepare();
                 HTMLExport html = new HTMLExport
@@ -143,13 +99,22 @@ namespace NFe.Danfe.Fast.Skia
                     Navigator = false, // Top navigation bar
                     EmbedPictures = true // Embeds images into a document
                 };
-                Relatorio.Export(html, outputStream);
-                outputStream.Position = 0;
+                Relatorio.Export(html, stream);
+                return stream.ToArray();
             }
-            catch (System.Exception ex)
+        }
+
+        public void ExportarHtml(Stream outputStream)
+        {
+            Relatorio.Prepare();
+            HTMLExport html = new HTMLExport
             {
-                throw ex;
-            }
+                SinglePage = true, // Single page report
+                Navigator = false, // Top navigation bar
+                EmbedPictures = true // Embeds images into a document
+            };
+            Relatorio.Export(html, outputStream);
+            outputStream.Position = 0;
         }
     }
 }
