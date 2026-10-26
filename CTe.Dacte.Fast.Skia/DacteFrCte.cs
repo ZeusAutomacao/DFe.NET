@@ -43,7 +43,7 @@ namespace CTe.Dacte.Fast.Skia
 
         public void Configurar(ConfiguracaoDacte config)
         {
-            Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
+            Relatorio.SetParameterValue("DocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
 

@@ -20,7 +20,12 @@ namespace CTe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     Tipo da operação com o ente governamental
         /// </summary>
-        public TipoOperacaoGov tpOperGov { get; set; }
+        public TipoOperacaoGov? tpOperGov { get; set; }
+
+        public bool ShouldSerializetpOperGov()
+        {
+            return tpOperGov.HasValue;
+        }
 
         /// <summary>
         ///     Chave de acesso do documento fiscal anterior (0 a 99 ocorrências).

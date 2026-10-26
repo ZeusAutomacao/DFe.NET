@@ -46,7 +46,7 @@ namespace MDFe.Damdfe.Fast.Skia
 
         public void Configurar(ConfiguracaoDamdfe config)
         {
-            Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
+            Relatorio.SetParameterValue("DocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
