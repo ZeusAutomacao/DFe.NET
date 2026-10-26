@@ -1,4 +1,6 @@
-﻿using CTe.Classes.Informacoes.Tipos;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
+using CTe.Classes.Informacoes.Tipos;
 using DFe.Classes;
 
 namespace CTe.Classes.Informacoes.Identificacao
@@ -15,5 +17,20 @@ namespace CTe.Classes.Informacoes.Identificacao
             set => _pRedutor = value.Arredondar(4);
         }
 
+        /// <summary>
+        ///     Tipo da operação com o ente governamental
+        /// </summary>
+        public TipoOperacaoGov tpOperGov { get; set; }
+
+        /// <summary>
+        ///     Chave de acesso do documento fiscal anterior (0 a 99 ocorrências).
+        /// </summary>
+        [XmlElement("refDFeAnt")]
+        public List<string> refDFeAnt { get; set; }
+
+        public bool ShouldSerializerefDFeAnt()
+        {
+            return refDFeAnt != null && refDFeAnt.Count > 0;
+        }
     }
 }
