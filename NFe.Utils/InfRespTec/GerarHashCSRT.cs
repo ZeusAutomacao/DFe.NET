@@ -8,7 +8,9 @@ namespace Shared.NFe.Utils.InfRespTec
     {
         public static string HashCSRT(string csrt, global::NFe.Classes.NFe nfe, Encoding encoding = null)
         {
-            return HashCSRT(csrt, nfe.infNFe.Id.Substring(0, 3), encoding);
+            var id = nfe.infNFe.Id;
+            var chave = id.StartsWith("NFe", StringComparison.Ordinal) ? id.Substring(3) : id;
+            return HashCSRT(csrt, chave, encoding);
         }
 
         public static string HashCSRT(string csrt, string chave, Encoding encoding = null)
