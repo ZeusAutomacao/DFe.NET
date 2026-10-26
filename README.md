@@ -14,7 +14,7 @@ A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 
 | NFe, NFCe, CTe, MDFe | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0 .NET 7.0 .NET 8.0 |
 | Impressões com OpenFastReport (NFe, NFCe, CTe, MDFe) | ..NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0(windows+linux) .NET 7.0+(windows) |
 | Impressões com FastReport(versão paga) (NFe, NFCe, CTe, MDFe) | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8 .NetStandard 2.0, .NET 6.0 .NET 7.0+(windows) |
-| Impressões com FastReport.Skia(versão paga) (NFe) | .NET 7.0+(windows+linux+mobile)  |
+| Impressões com FastReport.Skia(versão paga) (NFe, NFCe, CTe, MDFe) | .NET 7.0+(windows+linux+mobile)  |
 
 ***Não temos suporte para .NetFramework 4.5.2 ou 4.5 ou menor. A Biblioteca irá seguir o [ciclo de vida de versões da microsoft](https://dotnet.microsoft.com/en-us/learn/dotnet/what-is-dotnet-framework), sendo retirado a compatibilidade de versoes específicas e antigas do .Net caso a microsoft retire seu suporte.***
 
@@ -106,10 +106,11 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 ## Impressão (FastReport):
 
 - Exemplo no Projeto *NFe.Danfe.AppTeste.Fast*.
+- Suporte a linux usando os pacotes SkiaSharp https://www.fast-report.com/blogs/fastreport-core-skia (projetos *NFe.Danfe.Fast.Skia*, *CTe.Dacte.Fast.Skia* e *MDFe.Damdfe.Fast.Skia*)
 - A impressão de forma nativa (sem dependências de bibliotecas de terceiros) está disponível somente para a *NFCe*¹.
 - O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
 
->¹ As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração³ do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dll, CTe.Dacte.Fast\DLLs e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
+>¹ As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração³ do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dll, CTe.Dacte.Fast\DLLs e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição. Nos projetos NFe.Danfe.Fast.Skia\Dlls, CTe.Dacte.Fast.Skia\Dlls e MDFe.Damdfe.Fast.Skia\Dlls a substituição deve ser feita pelas dlls licenciadas do FastReport.Skia.
 
 >² Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
 As fontes estão anexadas ao projeto em Shared.NFe.Danfe.Base\Fontes_;

@@ -284,3 +284,4 @@ build/
 # End of https://www.gitignore.io/api/visualstudio
 *.dll
 /Bredas.SharedKernel/novo.sql
+/.vscode

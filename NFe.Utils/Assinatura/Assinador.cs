@@ -30,13 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using DFe.Utils;
+using DFe.Utils.Assinatura;
+using NFe.Utils.Evento;
+using Shared.DFe.Utils;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
-using Shared.DFe.Utils;
 using Signature = DFe.Classes.Assinatura.Signature;
 
 namespace NFe.Utils.Assinatura
@@ -92,7 +93,7 @@ namespace NFe.Utils.Assinatura
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
                 var xml = cfgServicoRemoverAcentos
-                    ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
+                    ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentosPreservandoDescEvento()
                     : FuncoesXml.ClasseParaXmlString(objetoLocal);
 
                 documento.LoadXml(xml);
