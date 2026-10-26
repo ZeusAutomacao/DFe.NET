@@ -37,12 +37,12 @@ using System.Xml.Serialization;
 namespace NFe.Classes.Informacoes.Identificacao
 {
     /// <summary>
-    ///     BB01 - Grupo de notas de antecipação de pagamento
+    ///     BC01 - Grupo de notas de antecipação de pagamento
     /// </summary>
     public class gPagAntecipado
     {
         /// <summary>
-        ///     BB02 - Chave de acesso da NF-e de antecipação de pagamento
+        ///     BC02 - Chave de acesso da NF-e de antecipação de pagamento
         /// </summary>
         [XmlElement("refNFe")]
         public List<string> refNFe { get; set; }

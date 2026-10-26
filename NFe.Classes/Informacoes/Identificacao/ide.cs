@@ -291,12 +291,12 @@ namespace NFe.Classes.Informacoes.Identificacao
         public List<NFref> NFref { get; set; }
 
         /// <summary>
-        ///     B31 - Grupo de Compra Governamental
+        ///     BB01 - Grupo de Compra Governamental
         /// </summary>
         public gCompraGov gCompraGov { get; set; }
         
         /// <summary>
-        ///     BB01 - Grupo de notas de antecipação de pagamento
+        ///     BC01 - Grupo de notas de antecipação de pagamento
         /// </summary>
         public gPagAntecipado gPagAntecipado { get; set; }
         
