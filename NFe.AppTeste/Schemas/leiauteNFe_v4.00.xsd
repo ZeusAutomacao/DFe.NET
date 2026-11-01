@@ -561,7 +561,7 @@ Preencher com &quot;2B&quot;, quando se tratar de Cupom Fiscal emitido por máqu
 											<xs:documentation>Endereço do emitente</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="IE" type="TIe">
+									<xs:element name="IE" type="TIe" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Inscrição Estadual do Emitente</xs:documentation>
 										</xs:annotation>

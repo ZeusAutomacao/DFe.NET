@@ -103,6 +103,13 @@ namespace NFe.Utils
         public ConfiguracaoCertificado Certificado { get; set; }
 
         /// <summary>
+        /// Direciona os servicos da NF-e modelo 55 do emitente sem IE, contribuinte
+        /// exclusivo do IBS/CBS, para a SVRS (NT 2026.007). Mantem cUF como a UF
+        /// do emitente para a chave de acesso e para o XML.
+        /// </summary>
+        public bool ContribuinteExclusivoIbsCbsSemIe { get; set; }
+
+        /// <summary>
         ///     Tempo máximo de espera pela resposta do webservice, em milisegundos
         /// </summary>
         public int TimeOut { get; set; }

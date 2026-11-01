@@ -650,7 +650,8 @@ namespace NFe.Servicos
             };
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF,
+                cOrgao = _cFgServico.ContribuinteExclusivoIbsCbsSemIe && _cFgServico.ModeloDocumento == ModeloDocumento.NFe
+                    ? Estado.SVRS : _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
@@ -768,7 +769,8 @@ namespace NFe.Servicos
             }
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF,
+                cOrgao = _cFgServico.ContribuinteExclusivoIbsCbsSemIe && _cFgServico.ModeloDocumento == ModeloDocumento.NFe
+                    ? Estado.SVRS : _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,

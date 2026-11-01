@@ -1667,6 +1667,30 @@ namespace NFe.Utils.Enderecos
             }
             #endregion
 
+            // NT 2026.007: a NF-e do contribuinte exclusivo do IBS/CBS sem IE
+            // usa a SVRS mesmo quando sua UF possui outra autorizadora.
+            // Reaproveita somente os enderecos SVRS ja cadastrados para AC.
+            var servicosContribuinteExclusivo = new[]
+            {
+                ServicoNFe.NFeAutorizacao,
+                ServicoNFe.NFeRetAutorizacao,
+                ServicoNFe.NfeConsultaProtocolo,
+                ServicoNFe.NfeStatusServico,
+                ServicoNFe.RecepcaoEventoCancelmento,
+                ServicoNFe.RecepcaoEventoCartaCorrecao
+            };
+            var enderecosSvrs = endServico.Where(endereco =>
+                endereco.Estado == Estado.AC &&
+                endereco.ModeloDocumento == ModeloDocumento.NFe &&
+                servicosContribuinteExclusivo.Contains(endereco.ServicoNFe) &&
+                endereco.Url.Contains("svrs.rs.gov.br")).ToList();
+            foreach (var endereco in enderecosSvrs)
+            {
+                endServico.Add(new EnderecoServico(endereco.ServicoNFe, endereco.VersaoServico,
+                    endereco.TipoAmbiente, endereco.TipoEmissao, Estado.SVRS,
+                    endereco.ModeloDocumento, endereco.Url));
+            }
+
             return endServico;
         }
         
@@ -1822,6 +1846,18 @@ namespace NFe.Utils.Enderecos
             Estado estado = cfgServico.cUF;
             if (!string.IsNullOrWhiteSpace(uf))
                 estado = estado.SiglaParaEstado(uf);
+
+            // A NT 2026.007 centraliza na SVRS a NF-e do emitente contribuinte
+            // exclusivo do IBS/CBS sem IE. cUF permanece a UF real do emitente.
+            if (cfgServico.ContribuinteExclusivoIbsCbsSemIe &&
+                cfgServico.ModeloDocumento == ModeloDocumento.NFe &&
+                (servico == ServicoNFe.NFeAutorizacao ||
+                 servico == ServicoNFe.NFeRetAutorizacao ||
+                 servico == ServicoNFe.NfeConsultaProtocolo ||
+                 servico == ServicoNFe.NfeStatusServico ||
+                 servico == ServicoNFe.RecepcaoEventoCancelmento ||
+                 servico == ServicoNFe.RecepcaoEventoCartaCorrecao))
+                estado = Estado.SVRS;
 
             return ObterUrlServico(servico, versaoServico.GetValueOrDefault(), estado, cfgServico.tpAmb, cfgServico.ModeloDocumento, cfgServico.tpEmis);
         }
