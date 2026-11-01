@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Identificacao
@@ -40,12 +42,12 @@ namespace NFe.Classes.Informacoes.Identificacao
         private decimal _pRedutor;
         
         /// <summary>
-        ///     B32 - Tipo de ente governamental
+        ///     BB02 - Tipo de ente governamental
         /// </summary>
         public TpEnteGov tpEnteGov { get; set; }
 
         /// <summary>
-        ///     B33 - Percentual de redução de alíquota em compra governamental
+        ///     BB03 - Percentual de redução de alíquota em compra governamental
         /// </summary>
         public decimal pRedutor
         {
@@ -54,8 +56,14 @@ namespace NFe.Classes.Informacoes.Identificacao
         }
         
         /// <summary>
-        ///     B34 - Tipo de operação com o ente governamental
+        ///     BB04 - Tipo de operação com o ente governamental
         /// </summary>
         public TpOperGov tpOperGov { get; set; }
+
+        /// <summary>
+        ///     BB05 - Chaves de acesso dos documentos fiscais anteriores. Informar para os tipos de operação 2 e 3.
+        /// </summary>
+        [XmlElement("refDFeAnt")]
+        public List<string> refDFeAnt { get; set; }
     }
 }

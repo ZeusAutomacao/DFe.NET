@@ -657,17 +657,27 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     
     /// <summary>
     ///     Tipo de operação com o ente governamental
-    ///     <para>1 - Fornecimento</para>
-    ///     <para>2 - Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º</para>
+    ///     <para>1 - Fornecimento com pagamento posterior</para>
+    ///     <para>2 - Recebimento do pagamento com fornecimento já realizado</para>
+    ///     <para>3 - Fornecimento com pagamento já realizado</para>
+    ///     <para>4 - Recebimento do pagamento com fornecimento posterior</para>
     /// </summary>
     public enum TpOperGov
     {
-        [Description("Fornecimento")]
+        [Description("Fornecimento com pagamento posterior")]
         [XmlEnum("1")]
         Fornecimento,
         
-        [Description("Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º")]
+        [Description("Recebimento do pagamento com fornecimento já realizado")]
         [XmlEnum("2")]
-        RecebimentoPagamento
+        RecebimentoPagamento,
+
+        [Description("Fornecimento com pagamento já realizado")]
+        [XmlEnum("3")]
+        FornecimentoPagamentoRealizado,
+
+        [Description("Recebimento do pagamento com fornecimento posterior")]
+        [XmlEnum("4")]
+        RecebimentoFornecimentoPosterior
     }
 }
