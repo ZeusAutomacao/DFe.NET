@@ -87,6 +87,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         [XmlElement("ICMSSN202", typeof (ICMSSN202))]
         [XmlElement("ICMSSN500", typeof (ICMSSN500))]
         [XmlElement("ICMSSN900", typeof (ICMSSN900))]
+        [XmlElement("ICMSPrevistoPagtoAntecip", typeof(ICMSPrevistoPagtoAntecip))]
         public ICMSBasico TipoICMS { get; set; }
+    }
+
+    /// <summary>NB01 - Grupo do ICMS previsto no pagamento antecipado (NT 2026.008).</summary>
+    public class ICMSPrevistoPagtoAntecip : ICMSBasico
+    {
+        private decimal _vICMSPrevisto;
+
+        /// <summary>NB02 - Valor do ICMS que incidirá no fornecimento futuro.</summary>
+        public decimal vICMSPrevisto
+        {
+            get => _vICMSPrevisto.Arredondar(2);
+            set => _vICMSPrevisto = value.Arredondar(2);
+        }
     }
 }
