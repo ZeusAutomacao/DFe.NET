@@ -89,7 +89,7 @@ namespace NFe.Danfe.PdfClown.Blocos
                         p.ValorUnitario.Formatar(),
                         p.ValorTotal.Formatar(),
                         "ICMS " + Numero(p.BaseIcms) + "\nIBS/CBS " + Numero(p.BaseIbsCbs) +
-                            "\nIS " + Numero(p.BaseImpostoSeletivo) + "\nIPI " + Numero(p.ValorIpi),
+                            "\nIS " + Numero(p.BaseImpostoSeletivo) + "\nIPI " + Numero(p.BaseIpi),
                         "ICMS " + Percentual(p.AliquotaIcms) + " / CBS " + Percentual(p.AliquotaCbs) +
                             "\nIBS UF " + Percentual(p.AliquotaIbsUf) + " / IPI " + Percentual(p.AliquotaIpi) +
                             "\nIBS MUN " + Percentual(p.AliquotaIbsMunicipio) + " / IS " + Percentual(p.AliquotaImpostoSeletivo),

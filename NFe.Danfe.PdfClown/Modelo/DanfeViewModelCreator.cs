@@ -278,6 +278,7 @@ namespace NFe.Danfe.PdfClown.Modelo
                         if (ipi != null)
                         {
                             produto.ValorIpi = ipi.vIPI;
+                            produto.BaseIpi = ipi.vBC;
                             produto.AliquotaIpi = ipi.pIPI;
                         }
                     }

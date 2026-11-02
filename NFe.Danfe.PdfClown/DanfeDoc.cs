@@ -62,13 +62,17 @@ namespace NFe.Danfe.PdfClown
             if (ViewModel.Duplicatas.Count > 0)
                 AdicionarBloco<BlocoDuplicataFatura>();
 
-            AdicionarBloco<BlocoCalculoImposto>(ViewModel.Orientacao == Orientacao.Paisagem ? EstiloPadrao : CriarEstilo(4.75F));
             if (ViewModel.ExibirTributosRtc)
-                AdicionarBloco<BlocoTotalIbsCbsIs>(CriarEstilo(4.75F));
+                AdicionarBloco<BlocoTotalProdutosNota>(CriarEstilo(6F, 8F));
+            AdicionarBloco<BlocoCalculoImposto>(ViewModel.ExibirTributosRtc ? CriarEstilo(6F, 8F) : ViewModel.Orientacao == Orientacao.Paisagem ? EstiloPadrao : CriarEstilo(4.75F));
+            if (ViewModel.ExibirTributosRtc)
+                AdicionarBloco<BlocoTotalIbsCbsIs>(CriarEstilo(6F, 8F));
+            if (ViewModel.ExibirTributosRtc && ViewModel.CalculoIssqn.Mostrar)
+                AdicionarBloco<BlocoCalculoIssqn>();
             AdicionarBloco<BlocoTransportador>();
             AdicionarBloco<BlocoDadosAdicionais>(CriarEstilo(tFonteCampoConteudo: 8));
 
-            if (ViewModel.CalculoIssqn.Mostrar)
+            if (ViewModel.CalculoIssqn.Mostrar && !ViewModel.ExibirTributosRtc)
                 AdicionarBloco<BlocoCalculoIssqn>();
 
             AdicionarMetadata();

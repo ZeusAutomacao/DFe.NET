@@ -110,6 +110,9 @@
         /// </summary>
         public double? ValorIpi { get; set; }
 
+        /// <summary>Base de cálculo do IPI informada no XML.</summary>
+        public double? BaseIpi { get; set; }
+
         /// <summary>
         /// <para>Alíquota do IPI</para>
         /// <para>Tag pIPI</para>
