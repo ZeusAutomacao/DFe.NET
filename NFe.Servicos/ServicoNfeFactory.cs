@@ -34,6 +34,13 @@ namespace NFe.Servicos
     public static class ServicoNfeFactory
     {
         /// <summary>
+        /// Verifica se a NF-e do emitente sem IE deve usar os servicos da SVRS.
+        /// </summary>
+        private static bool UsaSvrsParaContribuinteExclusivo(ConfiguracaoServico cfg)
+        {
+            return cfg.ContribuinteExclusivoIbsCbsSemIe && cfg.ModeloDocumento == ModeloDocumento.NFe;
+        }
+        /// <summary>
         /// Cria o cliente <see cref="SoapHttpClientProtocol"/> para o serviço de Autorização
         /// </summary>
         /// <param name="cfg">Configuração do serviço</param>
@@ -43,12 +50,12 @@ namespace NFe.Servicos
         {
             string url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
 
-            if (cfg.UsaSvanNFe4(cfg.VersaoNFeAutorizacao))
+            if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvanNFe4(cfg.VersaoNFeAutorizacao))
             {
                 return new NFeAutorizacao4SVAN(url, certificado, cfg.TimeOut);
             }
 
-            if (cfg.UsaSvcanNFe4(cfg.VersaoNFeAutorizacao))
+            if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvcanNFe4(cfg.VersaoNFeAutorizacao))
             {
                 return new NFeAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
             }
@@ -97,12 +104,12 @@ namespace NFe.Servicos
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
-                    if (cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
                     {
                         return new NfeStatusServico4NFeSVAN(url, certificado, cfg.TimeOut);
                     }
 
-                    if (cfg.UsaSvcanNFe4(cfg.VersaoNfeStatusServico))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvcanNFe4(cfg.VersaoNfeStatusServico))
                     {
                         return new NfeStatusServico4NFeSVCAN(url, certificado, cfg.TimeOut);
                     }
@@ -125,12 +132,12 @@ namespace NFe.Servicos
                     return new NfeStatusServico2(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
-                    if (cfg.UsaSvanNFe4(cfg.VersaoNfeConsultaProtocolo))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvanNFe4(cfg.VersaoNfeConsultaProtocolo))
                     {
                         return new NfeConsultaProtocolo4SVAN(url, certificado, cfg.TimeOut);
                     }
 
-                    if (cfg.UsaSvcanNFe4(cfg.VersaoNfeConsultaProtocolo))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvcanNFe4(cfg.VersaoNfeConsultaProtocolo))
                     {
                         return new NfeConsultaProtocolo4SVCAN(url, certificado, cfg.TimeOut);
                     }
@@ -165,12 +172,12 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
-                    if (cfg.UsaSvanNFe4(cfg.VersaoNFeRetAutorizacao))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvanNFe4(cfg.VersaoNFeRetAutorizacao))
                     {
                         return new NfeRetAutorizacao4SVAN(url, certificado, cfg.TimeOut);
                     }
 
-                    if (cfg.UsaSvcanNFe4(cfg.VersaoNFeRetAutorizacao))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvcanNFe4(cfg.VersaoNFeRetAutorizacao))
                     {
                         return new NfeRetAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
                     }
@@ -212,12 +219,12 @@ namespace NFe.Servicos
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                    if (cfg.UsaSvanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
                     {
                         return new RecepcaoEvento4SVAN(url, certificado, cfg.TimeOut);
                     }
 
-                    if (cfg.UsaSvcanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
+                    if (!UsaSvrsParaContribuinteExclusivo(cfg) && cfg.UsaSvcanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
                     {
                         return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
                     }
