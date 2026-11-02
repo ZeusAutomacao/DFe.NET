@@ -70,6 +70,7 @@ namespace NFe.Danfe.PdfClown.Elementos
             Linhas.Add(linha);
         }
 
+        /// <summary>Adiciona coluna com pares rótulo/valor separados por tabulação em cada linha.</summary>
         public Tabela ComColunaTributos(float largura, params string[] cabecalho)
         {
             Colunas.Add(new TabelaColuna(cabecalho, largura) { RotulosEValores = true });

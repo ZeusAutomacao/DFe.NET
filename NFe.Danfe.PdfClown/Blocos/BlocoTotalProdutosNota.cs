@@ -1,9 +1,11 @@
+﻿// Copyright (c) colaboradores do DFe.NET. Licença LGPL-2.1-or-later; consulte LICENSE.
 using NFe.Danfe.PdfClown.Elementos;
 using NFe.Danfe.PdfClown.Enumeracoes;
 using NFe.Danfe.PdfClown.Modelo;
 
 namespace NFe.Danfe.PdfClown.Blocos
 {
+    /// <summary>Bloco de totais do DANFE conforme a NT 2026.010.</summary>
     internal class BlocoTotalProdutosNota : BlocoBase
     {
         public BlocoTotalProdutosNota(DanfeViewModel model, Estilo estilo) : base(model, estilo)
