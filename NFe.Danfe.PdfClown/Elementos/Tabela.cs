@@ -70,6 +70,12 @@ namespace NFe.Danfe.PdfClown.Elementos
             Linhas.Add(linha);
         }
 
+        public Tabela ComColunaTributos(float largura, params string[] cabecalho)
+        {
+            Colunas.Add(new TabelaColuna(cabecalho, largura) { RotulosEValores = true });
+            return this;
+        }
+
         public void AjustarLarguraColunas()
         {
             var sw = Colunas.Sum(x => x.PorcentagemLargura);
@@ -120,6 +126,8 @@ namespace NFe.Danfe.PdfClown.Elementos
             _DY1 = _DY;
 
             TextBlock[] tb = new TextBlock[Colunas.Count];
+            var camposTributos = new List<TextBlock>();
+            float alturaTributos = 0;
 
             for (int i = 0; i < Colunas.Count; i++)
             {
@@ -127,6 +135,47 @@ namespace NFe.Danfe.PdfClown.Elementos
                 var v = Linhas[LinhaAtual][i];
 
                 float w = (Width * c.PorcentagemLargura) / 100F;
+
+                if (c.RotulosEValores)
+                {
+                    float y = _DY + PaddingSuperior;
+                    foreach (var linha in v.Split('\n'))
+                    {
+                        var campos = linha.Split('\t');
+                        int pares = campos.Length / 2;
+                        float larguraCelula = w - 2 * PaddingHorizontal;
+                        float alturaLinha = FonteCorpo.AlturaLinha;
+                        for (int par = 0; par < pares; par++)
+                        {
+                            float larguraPar = pares == 2 ? larguraCelula * (par == 0 ? 0.56F : 0.44F) : larguraCelula;
+                            string rotulo = campos[par * 2];
+                            string valor = campos[par * 2 + 1];
+                            float inicio = x + PaddingHorizontal + (par == 0 ? 0 : larguraCelula * 0.56F);
+                            float larguraRotulo = FonteCorpo.MedirLarguraTexto(rotulo) + 0.7F;
+                            float larguraValor = FonteCorpo.MedirLarguraTexto(valor);
+                            bool empilhar = larguraRotulo + larguraValor > larguraPar - 1.2F;
+                            var titulo = new TextBlock(rotulo, FonteCorpo)
+                            {
+                                X = inicio, Y = y, Width = larguraPar - 1.2F,
+                                AlinhamentoHorizontal = AlinhamentoHorizontal.Esquerda
+                            };
+                            var numero = new TextBlock(valor, FonteCorpo)
+                            {
+                                X = inicio + (empilhar ? 0 : larguraRotulo),
+                                Y = y + (empilhar ? titulo.Height : 0),
+                                Width = larguraPar - 1.2F - (empilhar ? 0 : larguraRotulo),
+                                AlinhamentoHorizontal = AlinhamentoHorizontal.Direita
+                            };
+                            camposTributos.Add(titulo);
+                            if (!string.IsNullOrEmpty(valor)) camposTributos.Add(numero);
+                            alturaLinha = Math.Max(alturaLinha, numero.Y - y + numero.Height);
+                        }
+                        y += alturaLinha + 0.5F;
+                    }
+                    alturaTributos = Math.Max(alturaTributos, y - (_DY + PaddingSuperior));
+                    x += w;
+                    continue;
+                }
 
                 if (!string.IsNullOrWhiteSpace(v))
                 {
@@ -145,7 +194,7 @@ namespace NFe.Danfe.PdfClown.Elementos
 
             }
 
-            var tbm = tb.Where(t => t != null).Max(t => t.Height);
+            var tbm = Math.Max(alturaTributos, tb.Where(t => t != null).Select(t => t.Height).DefaultIfEmpty(0).Max());
             if (tbm + _DY + PaddingInferior + PaddingSuperior > BoundingBox.Bottom) return false;
 
             for (int i = 0; i < Colunas.Count; i++)
@@ -153,6 +202,8 @@ namespace NFe.Danfe.PdfClown.Elementos
                 if (tb[i] != null)
                     tb[i].Draw(gfx);
             }
+            foreach (var campo in camposTributos)
+                campo.Draw(gfx);
 
             _DY += Math.Max(tbm, FonteCorpo.AlturaLinha) + PaddingSuperior + PaddingInferior;
 

@@ -33,9 +33,9 @@ namespace NFe.Danfe.PdfClown.Blocos
                     .ComColuna(7F, ad, "QTD / UN")
                     .ComColunaDeValor(8F, ad, "VLR UNIT.")
                     .ComColunaDeValor(8F, ad, "VLR TOTAL")
-                    .ComColuna(14F, ad, "BASES DE CÁLCULO")
-                    .ComColuna(15F, ad, "ALÍQUOTAS")
-                    .ComColuna(19F, ad, "VALOR DOS TRIBUTOS");
+                    .ComColunaTributos(14F, "BASES DE CÁLCULO")
+                    .ComColunaTributos(17F, "ALÍQUOTAS")
+                    .ComColunaTributos(21F, "VALOR DOS TRIBUTOS");
             }
             else if (ViewModel.Orientacao == Orientacao.Retrato)
             {
@@ -84,18 +84,18 @@ namespace NFe.Danfe.PdfClown.Blocos
                     {
                         p.DescricaoCompleta + "\nNCM " + p.Ncm +
                             (string.IsNullOrEmpty(p.ClassificacaoTributariaIbsCbs) ? "" : " / cClassTrib " + p.ClassificacaoTributariaIbsCbs),
-                        p.OCst + "\n" + p.Cfop.Formatar("N0"),
-                        p.Quantidade.Formatar() + "\n" + p.Unidade,
+                        "CST " + p.OCst + "\nCFOP " + p.Cfop.ToString(),
+                        p.Quantidade.Formatar() + "\n[" + p.Unidade + "]",
                         p.ValorUnitario.Formatar(),
                         p.ValorTotal.Formatar(),
-                        "ICMS " + Numero(p.BaseIcms) + "\nIBS/CBS " + Numero(p.BaseIbsCbs) +
-                            "\nIS " + Numero(p.BaseImpostoSeletivo) + "\nIPI " + Numero(p.BaseIpi),
-                        "ICMS " + Percentual(p.AliquotaIcms) + " / CBS " + Percentual(p.AliquotaCbs) +
-                            "\nIBS UF " + Percentual(p.AliquotaIbsUf) + " / IPI " + Percentual(p.AliquotaIpi) +
-                            "\nIBS MUN " + Percentual(p.AliquotaIbsMunicipio) + " / IS " + Percentual(p.AliquotaImpostoSeletivo),
-                        "ICMS " + Numero(p.ValorIcms) + " / CBS " + Numero(p.ValorCbs) +
-                            "\nIBS UF " + Numero(p.ValorIbsUf) + " / IPI " + Numero(p.ValorIpi) +
-                            "\nIBS MUN " + Numero(p.ValorIbsMunicipio) + " / IS " + Numero(p.ValorImpostoSeletivo)
+                        "ICMS\t" + Numero(p.BaseIcms) + "\nIBS/CBS\t" + Numero(p.BaseIbsCbs) +
+                            "\nIS\t" + Numero(p.BaseImpostoSeletivo) + "\nIPI\t" + Numero(p.BaseIpi),
+                        "ICMS\t" + Percentual(p.AliquotaIcms) + "\tCBS\t" + Percentual(p.AliquotaCbs) +
+                            "\nIBS UF\t" + Percentual(p.AliquotaIbsUf) + "\tIPI\t" + Percentual(p.AliquotaIpi) +
+                            "\nIBS MUN\t" + Percentual(p.AliquotaIbsMunicipio) + "\tIS\t" + Percentual(p.AliquotaImpostoSeletivo),
+                        "ICMS\t" + Numero(p.ValorIcms) + "\tCBS\t" + Numero(p.ValorCbs) +
+                            "\nIBS UF\t" + Numero(p.ValorIbsUf) + "\tIPI\t" + Numero(p.ValorIpi) +
+                            "\nIBS MUN\t" + Numero(p.ValorIbsMunicipio) + "\tIS\t" + Numero(p.ValorImpostoSeletivo)
                     });
                     continue;
                 }
