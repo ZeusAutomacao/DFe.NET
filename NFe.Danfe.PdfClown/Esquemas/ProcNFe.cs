@@ -326,6 +326,63 @@ namespace NFe.Danfe.PdfClown.Esquemas
         public string vTotTrib { get; set; }
         public ProdutoICMS ICMS { get; set; }
         public ProdutoIPI IPI { get; set; }
+        public ImpostoSeletivo IS { get; set; }
+        public ImpostoIbsCbs IBSCBS { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ImpostoSeletivo
+    {
+        public decimal? vBCIS { get; set; }
+        public decimal? pIS { get; set; }
+        public decimal? vIS { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ImpostoIbsCbs
+    {
+        public string CST { get; set; }
+        public string cClassTrib { get; set; }
+        public GrupoIbsCbs gIBSCBS { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsCbs
+    {
+        public decimal? vBC { get; set; }
+        public GrupoIbsUf gIBSUF { get; set; }
+        public GrupoIbsMunicipio gIBSMun { get; set; }
+        public GrupoCbs gCBS { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ReducaoAliquota
+    {
+        public decimal? pAliqEfet { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsUf
+    {
+        public decimal? pIBSUF { get; set; }
+        public ReducaoAliquota gRed { get; set; }
+        public decimal? vIBSUF { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsMunicipio
+    {
+        public decimal? pIBSMun { get; set; }
+        public ReducaoAliquota gRed { get; set; }
+        public decimal? vIBSMun { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoCbs
+    {
+        public decimal? pCBS { get; set; }
+        public ReducaoAliquota gRed { get; set; }
+        public decimal? vCBS { get; set; }
     }
 
     /// <summary>
@@ -547,6 +604,45 @@ namespace NFe.Danfe.PdfClown.Esquemas
     {
         public ICMSTotal ICMSTot { get; set; }
         public ISSQNTotal ISSQNtot { get; set; }
+        public TotalImpostoSeletivo ISTot { get; set; }
+        public TotalIbsCbs IBSCBSTot { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalImpostoSeletivo
+    {
+        public decimal? vIS { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsCbs
+    {
+        public TotalIbs gIBS { get; set; }
+        public TotalCbs gCBS { get; set; }
+        public TotalMonofasico gMono { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbs
+    {
+        public decimal? vIBS { get; set; }
+        public TotalIbsUf gIBSUF { get; set; }
+        public TotalIbsMunicipio gIBSMun { get; set; }
+    }
+
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsUf { public decimal? vIBSUF { get; set; } }
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsMunicipio { public decimal? vIBSMun { get; set; } }
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalCbs { public decimal? vCBS { get; set; } }
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalMonofasico
+    {
+        public decimal? vIBSMono { get; set; }
+        public decimal? vCBSMono { get; set; }
+        public decimal? vIBSMonoReten { get; set; }
+        public decimal? vCBSMonoReten { get; set; }
     }
 
 

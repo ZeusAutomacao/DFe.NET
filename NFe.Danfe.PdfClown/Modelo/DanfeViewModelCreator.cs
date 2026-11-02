@@ -244,6 +244,20 @@ namespace NFe.Danfe.PdfClown.Modelo
 
                 if (imposto != null)
                 {
+                    var ibsCbs = imposto.IBSCBS?.gIBSCBS;
+                    produto.ClassificacaoTributariaIbsCbs = imposto.IBSCBS?.cClassTrib;
+                    produto.BaseIbsCbs = ibsCbs?.vBC;
+                    produto.AliquotaIbsUf = ibsCbs?.gIBSUF?.gRed?.pAliqEfet ?? ibsCbs?.gIBSUF?.pIBSUF;
+                    produto.AliquotaIbsMunicipio = ibsCbs?.gIBSMun?.gRed?.pAliqEfet ?? ibsCbs?.gIBSMun?.pIBSMun;
+                    produto.AliquotaCbs = ibsCbs?.gCBS?.gRed?.pAliqEfet ?? ibsCbs?.gCBS?.pCBS;
+                    produto.ValorIbsUf = ibsCbs?.gIBSUF?.vIBSUF;
+                    produto.ValorIbsMunicipio = ibsCbs?.gIBSMun?.vIBSMun;
+                    produto.ValorCbs = ibsCbs?.gCBS?.vCBS;
+                    produto.BaseImpostoSeletivo = imposto.IS?.vBCIS;
+                    produto.AliquotaImpostoSeletivo = imposto.IS?.pIS;
+                    produto.ValorImpostoSeletivo = imposto.IS?.vIS;
+                    model.ExibirTributosRtc |= imposto.IBSCBS != null || imposto.IS != null;
+
                     if (imposto.ICMS != null)
                     {
                         var icms = imposto.ICMS.ICMS;
@@ -284,6 +298,16 @@ namespace NFe.Danfe.PdfClown.Modelo
             }
 
             model.CalculoImposto = CriarCalculoImpostoViewModel(infNfe.total.ICMSTot);
+            var totalIbsCbs = infNfe.total.IBSCBSTot;
+            model.CalculoImposto.ValorCbs = totalIbsCbs?.gCBS?.vCBS;
+            model.CalculoImposto.ValorIbsUf = totalIbsCbs?.gIBS?.gIBSUF?.vIBSUF;
+            model.CalculoImposto.ValorIbsMunicipio = totalIbsCbs?.gIBS?.gIBSMun?.vIBSMun;
+            model.CalculoImposto.ValorImpostoSeletivo = infNfe.total.ISTot?.vIS;
+            model.CalculoImposto.ValorIbsMono = totalIbsCbs?.gMono?.vIBSMono;
+            model.CalculoImposto.ValorCbsMono = totalIbsCbs?.gMono?.vCBSMono;
+            model.CalculoImposto.ValorIbsMonoReten = totalIbsCbs?.gMono?.vIBSMonoReten;
+            model.CalculoImposto.ValorCbsMonoReten = totalIbsCbs?.gMono?.vCBSMonoReten;
+            model.ExibirTributosRtc |= totalIbsCbs != null || infNfe.total.ISTot != null;
 
             var issqnTotal = infNfe.total.ISSQNtot;
 

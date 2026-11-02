@@ -54,6 +54,12 @@ namespace NFe.Danfe.PdfClown.Blocos
                 .ComCampo("Cnpj", Formatador.FormatarCnpj(ViewModel.Emitente.CnpjCpf), AlinhamentoHorizontal.Centro)
                 .ComLargurasIguais();
 
+            if (ViewModel.ExibirTributosRtc)
+                AdicionarLinhaCampos()
+                    .ComCampo("Código do Regime Tributário", ViewModel.Emitente.CRT)
+                    .ComCampo("Tipo de Regime de Apuração do IBS e da CBS", "")
+                    .ComLargurasIguais();
+
         }
 
         public XObject Logo

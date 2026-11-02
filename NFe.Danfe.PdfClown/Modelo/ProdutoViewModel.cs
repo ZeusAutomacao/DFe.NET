@@ -2,6 +2,29 @@
 {
     public class ProdutoViewModel
     {
+        /// <summary>Classificação tributária IBS/CBS informada no item.</summary>
+        public string ClassificacaoTributariaIbsCbs { get; set; }
+        /// <summary>Base de cálculo do IBS e CBS.</summary>
+        public decimal? BaseIbsCbs { get; set; }
+        /// <summary>Alíquota do IBS da UF, efetiva quando houver redução.</summary>
+        public decimal? AliquotaIbsUf { get; set; }
+        /// <summary>Alíquota do IBS municipal, efetiva quando houver redução.</summary>
+        public decimal? AliquotaIbsMunicipio { get; set; }
+        /// <summary>Alíquota da CBS, efetiva quando houver redução.</summary>
+        public decimal? AliquotaCbs { get; set; }
+        /// <summary>Valor do IBS da UF.</summary>
+        public decimal? ValorIbsUf { get; set; }
+        /// <summary>Valor do IBS municipal.</summary>
+        public decimal? ValorIbsMunicipio { get; set; }
+        /// <summary>Valor da CBS.</summary>
+        public decimal? ValorCbs { get; set; }
+        /// <summary>Base de cálculo do Imposto Seletivo.</summary>
+        public decimal? BaseImpostoSeletivo { get; set; }
+        /// <summary>Alíquota do Imposto Seletivo.</summary>
+        public decimal? AliquotaImpostoSeletivo { get; set; }
+        /// <summary>Valor do Imposto Seletivo.</summary>
+        public decimal? ValorImpostoSeletivo { get; set; }
+
         /// <summary>
         /// <para>Código do produto ou serviço</para>
         /// <para>Tag cProd</para>
