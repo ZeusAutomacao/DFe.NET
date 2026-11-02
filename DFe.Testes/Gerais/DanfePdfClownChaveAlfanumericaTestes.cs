@@ -72,5 +72,37 @@ namespace DFe.Testes.Gerais
                 }
             }
         }
+
+        [TestMethod]
+        public void Gerar_DanfeComTributosRtc_ProduzPdf()
+        {
+            var model = CriarViewModelMinimo("23190811820016000167650010000000221100000227");
+            model.Emitente.CRT = "3";
+            model.ExibirTributosRtc = true;
+            model.CalculoImposto.ValorIbsUf = 0.01m;
+            model.CalculoImposto.ValorIbsMunicipio = 0.02m;
+            model.CalculoImposto.ValorCbs = 0.09m;
+            model.CalculoImposto.ValorImpostoSeletivo = 0.20m;
+            model.Produtos.Add(new ProdutoViewModel
+            {
+                Codigo = "1", Descricao = "PRODUTO DE TESTE", Ncm = "12345678",
+                ClassificacaoTributariaIbsCbs = "000001", Cfop = 5102,
+                Unidade = "UN", Quantidade = 1, ValorUnitario = 10, ValorTotal = 10,
+                BaseIbsCbs = 10m, AliquotaIbsUf = 0.10m, AliquotaIbsMunicipio = 0.05m,
+                AliquotaCbs = 0.90m, ValorIbsUf = 0.01m, ValorIbsMunicipio = 0.02m,
+                ValorCbs = 0.09m, BaseImpostoSeletivo = 10m,
+                AliquotaImpostoSeletivo = 2m, ValorImpostoSeletivo = 0.20m
+            });
+
+            using (var danfe = new DanfeDoc(model))
+            using (var stream = new MemoryStream())
+            {
+                danfe.Gerar();
+                danfe.Salvar(stream);
+                var bytes = stream.ToArray();
+                Assert.IsTrue(bytes.Length > 1000);
+                Assert.AreEqual("%PDF", System.Text.Encoding.ASCII.GetString(bytes, 0, 4));
+            }
+        }
     }
 }

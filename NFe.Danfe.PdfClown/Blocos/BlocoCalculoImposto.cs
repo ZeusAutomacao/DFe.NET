@@ -9,6 +9,22 @@ namespace NFe.Danfe.PdfClown.Blocos
         public BlocoCalculoImposto(DanfeViewModel viewModel, Estilo estilo) : base(viewModel, estilo)
         {
             var m = ViewModel.CalculoImposto;
+            if (ViewModel.ExibirTributosRtc)
+            {
+                AdicionarLinhaCampos()
+                    .ComCampoNumerico("BASE DE CÁLCULO DO ICMS", m.BaseCalculoIcms)
+                    .ComCampoNumerico("VALOR DO ICMS", m.ValorIcms)
+                    .ComCampoNumerico("BASE DE CÁLCULO DO ICMS ST", m.BaseCalculoIcmsSt)
+                    .ComCampoNumerico("VALOR DO ICMS ST", m.ValorIcmsSt)
+                    .ComCampoNumerico("VALOR DO IPI", m.ValorIpi)
+                    .ComLargurasIguais();
+                if (ViewModel.ExibirIcmsInterestadual && (m.vICMSUFDest.HasValue || m.vFCPUFDest.HasValue))
+                    AdicionarLinhaCampos()
+                        .ComCampoNumerico("VALOR DO DIFAL NA UF DE DESTINO", m.vICMSUFDest)
+                        .ComCampoNumerico("VALOR DO FCP NA UF DE DESTINO", m.vFCPUFDest)
+                        .ComLargurasIguais();
+                return;
+            }
 
             var l = AdicionarLinhaCampos()
             .ComCampoNumerico("BASE DE CÁLC. DO ICMS", m.BaseCalculoIcms)
@@ -54,6 +70,6 @@ namespace NFe.Danfe.PdfClown.Blocos
         }
 
         public override PosicaoBloco Posicao => PosicaoBloco.Topo;
-        public override string Cabecalho => "Cálculo do Imposto";
+        public override string Cabecalho => ViewModel.ExibirTributosRtc ? "TOTAL DO ICMS / IPI" : "Cálculo do Imposto";
     }
 }

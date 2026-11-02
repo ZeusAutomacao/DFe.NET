@@ -326,6 +326,90 @@ namespace NFe.Danfe.PdfClown.Esquemas
         public string vTotTrib { get; set; }
         public ProdutoICMS ICMS { get; set; }
         public ProdutoIPI IPI { get; set; }
+        public ImpostoSeletivo IS { get; set; }
+        public ImpostoIbsCbs IBSCBS { get; set; }
+    }
+
+    /// <summary>Dados de ImpostoSeletivo para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ImpostoSeletivo
+    {
+        /// <summary>Conteúdo da tag vBCIS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vBCIS { get; set; }
+        /// <summary>Conteúdo da tag pIS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? pIS { get; set; }
+        /// <summary>Conteúdo da tag vIS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIS { get; set; }
+    }
+
+    /// <summary>Dados de ImpostoIbsCbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ImpostoIbsCbs
+    {
+        /// <summary>Conteúdo da tag CST informado no XML; ausente permanece sem valor.</summary>
+        public string CST { get; set; }
+        /// <summary>Conteúdo da tag cClassTrib informado no XML; ausente permanece sem valor.</summary>
+        public string cClassTrib { get; set; }
+        /// <summary>Conteúdo da tag gIBSCBS informado no XML; ausente permanece sem valor.</summary>
+        public GrupoIbsCbs gIBSCBS { get; set; }
+    }
+
+    /// <summary>Dados de GrupoIbsCbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsCbs
+    {
+        /// <summary>Conteúdo da tag vBC informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vBC { get; set; }
+        /// <summary>Conteúdo da tag gIBSUF informado no XML; ausente permanece sem valor.</summary>
+        public GrupoIbsUf gIBSUF { get; set; }
+        /// <summary>Conteúdo da tag gIBSMun informado no XML; ausente permanece sem valor.</summary>
+        public GrupoIbsMunicipio gIBSMun { get; set; }
+        /// <summary>Conteúdo da tag gCBS informado no XML; ausente permanece sem valor.</summary>
+        public GrupoCbs gCBS { get; set; }
+    }
+
+    /// <summary>Dados de ReducaoAliquota para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class ReducaoAliquota
+    {
+        /// <summary>Conteúdo da tag pAliqEfet informado no XML; ausente permanece sem valor.</summary>
+        public decimal? pAliqEfet { get; set; }
+    }
+
+    /// <summary>Dados de GrupoIbsUf para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsUf
+    {
+        /// <summary>Conteúdo da tag pIBSUF informado no XML; ausente permanece sem valor.</summary>
+        public decimal? pIBSUF { get; set; }
+        /// <summary>Conteúdo da tag gRed informado no XML; ausente permanece sem valor.</summary>
+        public ReducaoAliquota gRed { get; set; }
+        /// <summary>Conteúdo da tag vIBSUF informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSUF { get; set; }
+    }
+
+    /// <summary>Dados de GrupoIbsMunicipio para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoIbsMunicipio
+    {
+        /// <summary>Conteúdo da tag pIBSMun informado no XML; ausente permanece sem valor.</summary>
+        public decimal? pIBSMun { get; set; }
+        /// <summary>Conteúdo da tag gRed informado no XML; ausente permanece sem valor.</summary>
+        public ReducaoAliquota gRed { get; set; }
+        /// <summary>Conteúdo da tag vIBSMun informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSMun { get; set; }
+    }
+
+    /// <summary>Dados de GrupoCbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class GrupoCbs
+    {
+        /// <summary>Conteúdo da tag pCBS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? pCBS { get; set; }
+        /// <summary>Conteúdo da tag gRed informado no XML; ausente permanece sem valor.</summary>
+        public ReducaoAliquota gRed { get; set; }
+        /// <summary>Conteúdo da tag vCBS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vCBS { get; set; }
     }
 
     /// <summary>
@@ -547,6 +631,78 @@ namespace NFe.Danfe.PdfClown.Esquemas
     {
         public ICMSTotal ICMSTot { get; set; }
         public ISSQNTotal ISSQNtot { get; set; }
+        public TotalImpostoSeletivo ISTot { get; set; }
+        public TotalIbsCbs IBSCBSTot { get; set; }
+    }
+
+    /// <summary>Dados de TotalImpostoSeletivo para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalImpostoSeletivo
+    {
+        /// <summary>Conteúdo da tag vIS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIS { get; set; }
+    }
+
+    /// <summary>Dados de TotalIbsCbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsCbs
+    {
+        /// <summary>Conteúdo da tag gIBS informado no XML; ausente permanece sem valor.</summary>
+        public TotalIbs gIBS { get; set; }
+        /// <summary>Conteúdo da tag gCBS informado no XML; ausente permanece sem valor.</summary>
+        public TotalCbs gCBS { get; set; }
+        /// <summary>Conteúdo da tag gMono informado no XML; ausente permanece sem valor.</summary>
+        public TotalMonofasico gMono { get; set; }
+    }
+
+    /// <summary>Dados de TotalIbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbs
+    {
+        /// <summary>Conteúdo da tag vIBS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBS { get; set; }
+        /// <summary>Conteúdo da tag gIBSUF informado no XML; ausente permanece sem valor.</summary>
+        public TotalIbsUf gIBSUF { get; set; }
+        /// <summary>Conteúdo da tag gIBSMun informado no XML; ausente permanece sem valor.</summary>
+        public TotalIbsMunicipio gIBSMun { get; set; }
+    }
+
+    /// <summary>Dados de TotalIbsUf para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsUf
+    {
+        /// <summary>Valor informado na tag vIBSUF do total da NF-e.</summary>
+        /// <summary>Conteúdo da tag vIBSUF informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSUF { get; set; }
+    }
+    /// <summary>Dados de TotalIbsMunicipio para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalIbsMunicipio
+    {
+        /// <summary>Valor informado na tag vIBSMun do total da NF-e.</summary>
+        /// <summary>Conteúdo da tag vIBSMun informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSMun { get; set; }
+    }
+    /// <summary>Dados de TotalCbs para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalCbs
+    {
+        /// <summary>Valor informado na tag vCBS do total da NF-e.</summary>
+        /// <summary>Conteúdo da tag vCBS informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vCBS { get; set; }
+    }
+    /// <summary>Dados de TotalMonofasico para leitura e impressão do XML da NF-e.</summary>
+    [XmlType(Namespace = Namespaces.NFe)]
+    public class TotalMonofasico
+    {
+        /// <summary>Conteúdo da tag vIBSMono informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSMono { get; set; }
+        /// <summary>Conteúdo da tag vCBSMono informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vCBSMono { get; set; }
+        /// <summary>Conteúdo da tag vIBSMonoReten informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vIBSMonoReten { get; set; }
+        /// <summary>Conteúdo da tag vCBSMonoReten informado no XML; ausente permanece sem valor.</summary>
+        public decimal? vCBSMonoReten { get; set; }
     }
 
 

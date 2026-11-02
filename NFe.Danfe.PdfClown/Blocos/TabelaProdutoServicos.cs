@@ -25,7 +25,19 @@ namespace NFe.Danfe.PdfClown.Blocos
             Tabela = new Tabela(Estilo);
             var cabecalho4 = ViewModel.Emitente.CRT == "3" ? "O/CST" : "O/CSOSN";
 
-            if (ViewModel.Orientacao == Orientacao.Retrato)
+            if (ViewModel.ExibirTributosRtc)
+            {
+                Tabela
+                    .ComColuna(0, ae, "DESCRIÇÃO / NCM / CLASS. TRIB.")
+                    .ComColuna(7F, ac, "ORIG. / CST", "CSOSN / CFOP")
+                    .ComColuna(7F, ad, "QTD / UN")
+                    .ComColunaDeValor(8F, ad, "VLR UNIT.")
+                    .ComColunaDeValor(8F, ad, "VLR TOTAL")
+                    .ComColunaTributos(14F, "BASES DE CÁLCULO")
+                    .ComColunaTributos(17F, "ALÍQUOTAS")
+                    .ComColunaTributos(21F, "VALOR DOS TRIBUTOS");
+            }
+            else if (ViewModel.Orientacao == Orientacao.Retrato)
             {
                 Tabela
                 .ComColuna(8.5f, ac, "CÓDIGO", "PRODUTO")
@@ -43,7 +55,7 @@ namespace NFe.Danfe.PdfClown.Blocos
                 .ComColunaDeValor(3.5F, ad, "ALIQ.", "ICMS")
                 .ComColunaDeValor(3.5F, ad, "ALIQ.", "IPI");
             }
-            if (ViewModel.Orientacao == Orientacao.Paisagem)
+            else if (ViewModel.Orientacao == Orientacao.Paisagem)
             {
                 Tabela
                 .ComColuna(8.1f, ac, "CÓDIGO PRODUTO")
@@ -66,6 +78,27 @@ namespace NFe.Danfe.PdfClown.Blocos
 
             foreach (var p in ViewModel.Produtos)
             {
+                if (ViewModel.ExibirTributosRtc)
+                {
+                    Tabela.AdicionarLinha(new List<string>
+                    {
+                        p.DescricaoCompleta + "\nNCM " + p.Ncm +
+                            (string.IsNullOrEmpty(p.ClassificacaoTributariaIbsCbs) ? "" : " / cClassTrib " + p.ClassificacaoTributariaIbsCbs),
+                        (p.PossuiCsosn ? "O/CSOSN " : "O/CST ") + p.OCst + "\nCFOP " + p.Cfop.ToString(),
+                        p.Quantidade.Formatar() + "\n[" + p.Unidade + "]",
+                        p.ValorUnitario.Formatar(),
+                        p.ValorTotal.Formatar(),
+                        "ICMS\t" + Numero(p.BaseIcms) + "\nIBS/CBS\t" + Numero(p.BaseIbsCbs) +
+                            "\nIS\t" + Numero(p.BaseImpostoSeletivo) + "\nIPI\t" + Numero(p.BaseIpi),
+                        "ICMS\t" + Percentual(p.AliquotaIcms) + "\tCBS\t" + Percentual(p.AliquotaCbs) +
+                            "\nIBS UF\t" + Percentual(p.AliquotaIbsUf) + "\tIPI\t" + Percentual(p.AliquotaIpi) +
+                            "\nIBS MUN\t" + Percentual(p.AliquotaIbsMunicipio) + "\tIS\t" + Percentual(p.AliquotaImpostoSeletivo),
+                        "ICMS\t" + Numero(p.ValorIcms) + "\tCBS\t" + Numero(p.ValorCbs) +
+                            "\nIBS UF\t" + Numero(p.ValorIbsUf) + "\tIPI\t" + Numero(p.ValorIpi) +
+                            "\nIBS MUN\t" + Numero(p.ValorIbsMunicipio) + "\tIS\t" + Numero(p.ValorImpostoSeletivo)
+                    });
+                    continue;
+                }
                 var linha = new List<string>
                 {
                     p.Codigo,
@@ -87,6 +120,11 @@ namespace NFe.Danfe.PdfClown.Blocos
                 Tabela.AdicionarLinha(linha);
             }
         }
+
+        private static string Numero(decimal? valor) => valor?.ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) ?? "";
+        private static string Numero(double? valor) => valor?.ToString("N2", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")) ?? "";
+        private static string Percentual(decimal? valor) => valor.HasValue ? Numero(valor) + "%" : "";
+        private static string Percentual(double? valor) => valor.HasValue ? Numero(valor) + "%" : "";
 
         public override void Draw(Gfx gfx)
         {

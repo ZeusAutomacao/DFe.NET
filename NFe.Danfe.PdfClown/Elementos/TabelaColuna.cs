@@ -14,6 +14,8 @@ namespace NFe.Danfe.PdfClown.Elementos
         ///     em vez de ser quebrado no meio dos caracteres.
         /// </summary>
         public bool AjustarFonteParaCaber { get; private set; }
+        /// <summary>Desenha pares de rótulos e valores em posições independentes na célula.</summary>
+        public bool RotulosEValores { get; set; }
 
         public TabelaColuna(string[] cabecalho, float porcentagemLargura, AlinhamentoHorizontal alinhamentoHorizontal = AlinhamentoHorizontal.Esquerda, bool ajustarFonteParaCaber = false)
         {

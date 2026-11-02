@@ -142,6 +142,9 @@ namespace NFe.Danfe.PdfClown.Modelo
         /// </summary>
         public CalculoImpostoViewModel CalculoImposto { get; set; }
 
+        /// <summary>Indica que o XML contém grupos IBS/CBS ou IS a imprimir no DANFE.</summary>
+        public bool ExibirTributosRtc { get; set; }
+
         /// <summary>
         /// Produtos da Nota Fiscal
         /// </summary>

@@ -18,7 +18,7 @@ namespace NFe.Danfe.PdfClown.Blocos
                 .ComLargurasIguais();
         }
 
-        public override PosicaoBloco Posicao => PosicaoBloco.Base;
+        public override PosicaoBloco Posicao => ViewModel.ExibirTributosRtc ? PosicaoBloco.Topo : PosicaoBloco.Base;
         public override string Cabecalho => "CÁLCULO DO ISSQN";
     }
 }

@@ -2,6 +2,23 @@
 {
     public class CalculoImpostoViewModel
     {
+        /// <summary>Valor total da CBS informado em gCBS/vCBS.</summary>
+        public decimal? ValorCbs { get; set; }
+        /// <summary>Valor total do IBS da UF informado em gIBSUF/vIBSUF.</summary>
+        public decimal? ValorIbsUf { get; set; }
+        /// <summary>Valor total do IBS municipal informado em gIBSMun/vIBSMun.</summary>
+        public decimal? ValorIbsMunicipio { get; set; }
+        /// <summary>Valor total do Imposto Seletivo informado em ISTot/vIS.</summary>
+        public decimal? ValorImpostoSeletivo { get; set; }
+        /// <summary>Valor total do IBS monofásico informado em gMono/vIBSMono.</summary>
+        public decimal? ValorIbsMono { get; set; }
+        /// <summary>Valor total da CBS monofásica informado em gMono/vCBSMono.</summary>
+        public decimal? ValorCbsMono { get; set; }
+        /// <summary>Valor total do IBS monofásico por retenção.</summary>
+        public decimal? ValorIbsMonoReten { get; set; }
+        /// <summary>Valor total da CBS monofásica por retenção.</summary>
+        public decimal? ValorCbsMonoReten { get; set; }
+
         /// <summary>
         /// <para>Base de Cálculo do ICMS</para>
         /// <para>Tag vBC</para>
