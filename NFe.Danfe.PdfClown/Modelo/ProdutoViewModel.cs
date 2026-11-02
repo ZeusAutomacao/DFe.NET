@@ -56,6 +56,9 @@
         /// </summary>
         public string OCst { get; set; }
 
+        /// <summary>Identifica CSOSN quando informado no grupo ICMS do item.</summary>
+        public bool PossuiCsosn { get; set; }
+
         /// <summary>
         /// <para>Código Fiscal de Operações e Prestações</para>
         /// <para>Tag CFOP</para>

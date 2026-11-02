@@ -29,7 +29,7 @@ namespace NFe.Danfe.PdfClown.Blocos
             {
                 Tabela
                     .ComColuna(0, ae, "DESCRIÇÃO / NCM / CLASS. TRIB.")
-                    .ComColuna(7F, ac, "CST / CFOP")
+                    .ComColuna(7F, ac, "ORIG. / CST", "CSOSN / CFOP")
                     .ComColuna(7F, ad, "QTD / UN")
                     .ComColunaDeValor(8F, ad, "VLR UNIT.")
                     .ComColunaDeValor(8F, ad, "VLR TOTAL")
@@ -84,7 +84,7 @@ namespace NFe.Danfe.PdfClown.Blocos
                     {
                         p.DescricaoCompleta + "\nNCM " + p.Ncm +
                             (string.IsNullOrEmpty(p.ClassificacaoTributariaIbsCbs) ? "" : " / cClassTrib " + p.ClassificacaoTributariaIbsCbs),
-                        "CST " + p.OCst + "\nCFOP " + p.Cfop.ToString(),
+                        (p.PossuiCsosn ? "O/CSOSN " : "O/CST ") + p.OCst + "\nCFOP " + p.Cfop.ToString(),
                         p.Quantidade.Formatar() + "\n[" + p.Unidade + "]",
                         p.ValorUnitario.Formatar(),
                         p.ValorTotal.Formatar(),

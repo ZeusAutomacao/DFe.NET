@@ -268,6 +268,7 @@ namespace NFe.Danfe.PdfClown.Modelo
                             produto.BaseIcms = icms.vBC;
                             produto.AliquotaIcms = icms.pICMS;
                             produto.OCst = icms.orig + icms.CST + icms.CSOSN;
+                            produto.PossuiCsosn = !string.IsNullOrEmpty(icms.CSOSN);
                         }
                     }
 
