@@ -39,6 +39,18 @@ namespace NFe.Classes.Informacoes.Total
     {
         private decimal? _vNFTot;
 
+        private decimal? _vProdLiqTot;
+
+        /// <summary>W01a - Valor total líquido dos produtos ou serviços, sem tributos (NT 2026.008).</summary>
+        public decimal? vProdLiqTot
+        {
+            get => _vProdLiqTot.Arredondar(2);
+            set => _vProdLiqTot = value.Arredondar(2);
+        }
+
+        /// <summary>Indica se o valor total líquido deve ser serializado.</summary>
+        public bool ShouldSerializevProdLiqTot() => vProdLiqTot.HasValue;
+
         /// <summary>
         ///     W02 - Grupo Totais referentes ao ICMS
         /// </summary>

@@ -1060,6 +1060,18 @@ Formato ”CFOP9999”.</xs:documentation>
 														<xs:documentation>Valor bruto do produto ou serviço.</xs:documentation>
 													</xs:annotation>
 												</xs:element>
+												<xs:sequence minOccurs="0">
+													<xs:element name="vUnComLiq" type="TDec_1110v">
+														<xs:annotation>
+															<xs:documentation>Valor Líquido Unitário do Produto ou Serviço (sem tributos)</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="vProdLiq" type="TDec_1302">
+														<xs:annotation>
+															<xs:documentation>Valor Líquido do Produto ou Serviço (sem tributos)</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
 												<xs:element name="cEANTrib">
 													<xs:annotation>
 														<xs:documentation>GTIN (Global Trade Item Number) da unidade tributável, antigo código EAN ou código de barras</xs:documentation>
@@ -4404,6 +4416,20 @@ Operação interestadual para consumidor final com partilha do ICMS  devido na o
 																			</xs:sequence>
 																		</xs:complexType>
 																	</xs:element>
+																	<xs:element name="ICMSPrevistoPagtoAntecip">
+																		<xs:annotation>
+																			<xs:documentation>Grupo do ICMS Previsto no Pagamento Antecipado</xs:documentation>
+																		</xs:annotation>
+																		<xs:complexType>
+																			<xs:sequence>
+																				<xs:element name="vICMSPrevisto" type="TDec_1302">
+																					<xs:annotation>
+																						<xs:documentation>Valor do ICMS que incidirá no momento do fornecimento futuro</xs:documentation>
+																					</xs:annotation>
+																				</xs:element>
+																			</xs:sequence>
+																		</xs:complexType>
+																	</xs:element>
 																</xs:choice>
 															</xs:complexType>
 														</xs:element>
@@ -5336,6 +5362,11 @@ Substituição Tributaria;</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
+									<xs:element name="vProdLiqTot" type="TDec_1302" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Valor Total Líquido dos Produtos ou Serviços (sem tributos)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
 									<xs:element name="ICMSTot">
 										<xs:annotation>
 											<xs:documentation>Totais referentes ao ICMS</xs:documentation>

@@ -182,6 +182,30 @@ namespace NFe.Classes.Informacoes.Detalhe
             set { _vprod = value.Arredondar(2); }
         }
 
+        private decimal? _vUnComLiq;
+
+        /// <summary>I11b - Valor líquido unitário do produto ou serviço, sem tributos (NT 2026.008).</summary>
+        public decimal? vUnComLiq
+        {
+            get => _vUnComLiq.Arredondar(10);
+            set => _vUnComLiq = value.Arredondar(10);
+        }
+
+        private decimal? _vProdLiq;
+
+        /// <summary>I11c - Valor líquido do produto ou serviço, sem tributos (NT 2026.008).</summary>
+        public decimal? vProdLiq
+        {
+            get => _vProdLiq.Arredondar(2);
+            set => _vProdLiq = value.Arredondar(2);
+        }
+
+        /// <summary>Indica se o valor líquido unitário deve ser serializado.</summary>
+        public bool ShouldSerializevUnComLiq() => vUnComLiq.HasValue;
+
+        /// <summary>Indica se o valor líquido do produto deve ser serializado.</summary>
+        public bool ShouldSerializevProdLiq() => vProdLiq.HasValue;
+
         /// <summary>
         ///     I12 - GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras
         /// </summary>
