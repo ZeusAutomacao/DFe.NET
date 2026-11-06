@@ -33,6 +33,9 @@
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
+    /// <summary>
+    ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico.
+    /// </summary>
     public class gIBSCBSMono
     {
         private decimal _vTotIbsMonoItem;
@@ -57,6 +60,24 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB99 - Grupo de informações do Diferimento da Tributação Monofásica
         /// </summary>
         public gMonoDif gMonoDif { get; set; }
+
+        /// <summary>
+        ///     UB85a - Grupo de informações da Tributação Monofásica Ad Rem do IBS.
+        /// </summary>
+        /// <remarks>
+        ///     Grupo do leiaute da NT 2025.002, a partir da versão 1.50.
+        ///     O grupo legado <see cref="gMonoRet"/> permanece disponível para documentos anteriores.
+        /// </remarks>
+        public gIBSMonoAdRem gIBSMonoAdRem { get; set; }
+
+        /// <summary>
+        ///     UB95a - Grupo de informações da Tributação Monofásica Ad Rem da CBS.
+        /// </summary>
+        /// <remarks>
+        ///     Grupo do leiaute da NT 2025.002, a partir da versão 1.50.
+        ///     O grupo legado <see cref="gMonoRet"/> permanece disponível para documentos anteriores.
+        /// </remarks>
+        public gCBSMonoAdRem gCBSMonoAdRem { get; set; }
         
         /// <summary>
         ///     UB104 - Total de IBS Monofásico

@@ -10,7 +10,7 @@
 			<xs:element name="infEvento">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+						<xs:element name="cOrgao" type="TCOrgaoIBGEEPEC">
 							<xs:annotation>
 								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 91 para identificar o Ambiente Nacional</xs:documentation>
 							</xs:annotation>
@@ -242,7 +242,7 @@
 								<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+						<xs:element name="cOrgao" type="TCOrgaoIBGEEPEC">
 							<xs:annotation>
 								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 91 para identificar o Ambiente Nacional</xs:documentation>
 							</xs:annotation>
@@ -373,7 +373,7 @@
 					<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cOrgao" type="TCOrgaoIBGE">
+			<xs:element name="cOrgao" type="TCOrgaoIBGEEPEC">
 				<xs:annotation>
 					<xs:documentation>Código do òrgao que registrou o Evento</xs:documentation>
 				</xs:annotation>
@@ -420,7 +420,7 @@
 			<xs:pattern value="1\.00"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="TCOrgaoIBGE">
+	<xs:simpleType name="TCOrgaoIBGEEPEC">
 		<xs:annotation>
 			<xs:documentation>Tipo Código de orgão (UF da tabela do IBGE + 91 RFB)</xs:documentation>
 		</xs:annotation>

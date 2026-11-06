@@ -21,4 +21,8 @@
       <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\NFe.AppTeste\Schemas\*.xsd" Link="Schemas\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
 </Project>
