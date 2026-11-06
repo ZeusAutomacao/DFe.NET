@@ -9,7 +9,7 @@
 			<xs:element name="infEvento">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+						<xs:element name="cOrgao" type="TCOrgaoIBGESuframaVistoria">
 							<xs:annotation>
 								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 90 para identificar o Ambiente Nacional</xs:documentation>
 							</xs:annotation>
@@ -189,7 +189,7 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	<xs:element name="cOrgaoAutor" type="TCOrgaoIBGE"/>
+	<xs:element name="cOrgaoAutor" type="TCOrgaoIBGESuframaVistoria"/>
 	<xs:element name="cPostoUF">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
@@ -419,7 +419,7 @@
 								<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+						<xs:element name="cOrgao" type="TCOrgaoIBGESuframaVistoria">
 							<xs:annotation>
 								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 90 para identificar o Ambiente Nacional</xs:documentation>
 							</xs:annotation>
@@ -579,7 +579,7 @@
 					<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cOrgao" type="TCOrgaoIBGE">
+			<xs:element name="cOrgao" type="TCOrgaoIBGESuframaVistoria">
 				<xs:annotation>
 					<xs:documentation>Código do òrgao que registrou o Evento</xs:documentation>
 				</xs:annotation>
@@ -608,7 +608,7 @@
 		</xs:sequence>
 		<xs:attribute name="versao" type="TVerEvento" use="required"/>
 	</xs:complexType>
-	<xs:simpleType name="TCOrgaoIBGE">
+	<xs:simpleType name="TCOrgaoIBGESuframaVistoria">
 		<xs:annotation>
 			<xs:documentation>Tipo Código de orgão (UF da tabela do IBGE + 90 RFB)</xs:documentation>
 		</xs:annotation>

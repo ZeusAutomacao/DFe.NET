@@ -1,0 +1,110 @@
+/********************************************************************************/
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/*                                                                              */
+/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
+/*                                       Zeusdev Tecnologia LTDA ME             */
+/*                                                                              */
+/*  Você pode obter a última versão desse arquivo no GitHub                     */
+/* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
+/*                                                                              */
+/*                                                                              */
+/*  Esta biblioteca é software livre; você pode redistribuí-la e/ou modificá-la */
+/* sob os termos da Licença Pública Geral Menor do GNU conforme publicada pela  */
+/* Free Software Foundation; tanto a versão 2.1 da Licença, ou (a seu critério) */
+/* qualquer versão posterior.                                                   */
+/*                                                                              */
+/*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
+/* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
+/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
+/* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
+/*                                                                              */
+/*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
+/* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
+/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
+/* Você também pode obter uma copia da licença em:                              */
+/* http://www.opensource.org/licenses/lgpl-license.php                          */
+/*                                                                              */
+/* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
+/* http://www.zeusautomacao.com.br/                                             */
+/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
+/********************************************************************************/
+
+using System.Globalization;
+using System.Xml.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NFe.Classes.Informacoes.Total;
+
+namespace NFe.Classes.Testes;
+
+/// <summary>Regressões do pacote oficial PL_010g v1.03 e de seus includes legados.</summary>
+[TestClass]
+public class SchemasTesteUnitario
+{
+    /// <summary>Confere zero, valor positivo, arredondamento e ausência do total opcional.</summary>
+    [DataTestMethod]
+    [DataRow("0.00", "0.00")]
+    [DataRow("19.50", "19.50")]
+    [DataRow("1.235", "1.24")]
+    [DataRow(null, null)]
+    public void DadoTotalOpcionalQuandoSerializarEntaoDeveRespeitarPresencaEValidar(string? valor, string? esperado)
+    {
+        var totais = CriarTotais(valor == null ? null : decimal.Parse(valor, CultureInfo.InvariantCulture));
+        var xml = SchemaTesteAuxiliar.Serializar(totais);
+        var elemento = XElement.Parse(xml).Element(XName.Get("vNFTot", SchemaTesteAuxiliar.NamespaceNFe));
+
+        Assert.AreEqual(valor != null, totais.ShouldSerializevNFTot());
+        Assert.AreEqual(esperado, elemento?.Value);
+        Assert.AreEqual(0, SchemaTesteAuxiliar.ValidarTotal(xml).Count);
+        Assert.AreEqual(totais.vNFTot, SchemaTesteAuxiliar.Desserializar<total>(xml).vNFTot);
+    }
+
+    /// <summary>Impede que a mudança de tipo para aceitar zero permita totais negativos.</summary>
+    [TestMethod]
+    public void DadoTotalNegativoQuandoValidarEntaoDeveRejeitarOValor()
+    {
+        var xml = SchemaTesteAuxiliar.Serializar(CriarTotais(-0.01m));
+
+        Assert.IsTrue(SchemaTesteAuxiliar.ValidarTotal(xml).Any(mensagem => mensagem.Contains("vNFTot")));
+    }
+
+    /// <summary>Compila separadamente raízes afetadas pelo pacote e pelos tipos de órgão dos eventos.</summary>
+    [DataTestMethod]
+    [DataRow("nfe_v4.00.xsd")]
+    [DataRow("enviNFe_v4.00.xsd")]
+    [DataRow("procNFe_v4.00.xsd")]
+    [DataRow("retEnviNFe_v4.00.xsd")]
+    [DataRow("CCe_v1.00.xsd")]
+    [DataRow("confRecebto_v1.00.xsd")]
+    [DataRow("EPEC_v1.00.xsd")]
+    [DataRow("e110001_v1.00.xsd")]
+    [DataRow("e110300_v1.00.xsd")]
+    [DataRow("envCCe_v1.00.xsd")]
+    [DataRow("envConfRecebto_v1.00.xsd")]
+    [DataRow("envEPEC_v1.00.xsd")]
+    [DataRow("eventoCancNFe_v1.00.xsd")]
+    [DataRow("inutNFe_v4.00.xsd")]
+    [DataRow("consSitNFe_v4.00.xsd")]
+    [DataRow("eventoRemIndus_v1.00.xsd")]
+    [DataRow("envRemIndus_v1.00.xsd")]
+    [DataRow("procRemIndus_v1.00.xsd")]
+    [DataRow("retEnvRemIndus_v1.00.xsd")]
+    [DataRow("SuframaInternaliza_v1.00.xsd")]
+    [DataRow("envSuframaInternaliza_v1.00.xsd")]
+    [DataRow("retEnvSuframaInternaliza_v1.00.xsd")]
+    [DataRow("SuframaVistoria_v1.00.xsd")]
+    [DataRow("envSuframaVistoria_v1.00.xsd")]
+    [DataRow("retEnvSuframaVistoria_v1.00.xsd")]
+    public void DadaRaizFuncionalQuandoCompilarEntaoDeveResolverDependenciasSemErrosOuAvisos(string arquivo)
+    {
+        SchemaTesteAuxiliar.CompilarRaiz(arquivo);
+    }
+
+    /// <summary>Informa os campos obrigatórios da versão 4.00 em <see cref="ICMSTot"/>.</summary>
+    private static total CriarTotais(decimal? valor) => new()
+    {
+        ICMSTot = new ICMSTot { vICMSDeson = 0m, vFCP = 0m, vFCPST = 0m, vFCPSTRet = 0m, vIPIDevol = 0m },
+        vNFTot = valor
+    };
+}
