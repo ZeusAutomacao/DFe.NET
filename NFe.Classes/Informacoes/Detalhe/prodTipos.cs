@@ -418,4 +418,35 @@ namespace NFe.Classes.Informacoes.Detalhe
         [XmlEnum("4")]
         BensDeInformaticaEOutros
     }
+
+    /// <summary>
+    ///     Código de atividade do Simples Nacional para cálculo dos tributos IBS/CBS
+    ///     <para>01 - Revenda de mercadorias, venda de mercadorias industrializadas pelo contribuinte - Anexo I</para>
+    ///     <para>02 - Operações com os demais bens materiais, sem incidência de ICMS - Anexo I</para>
+    ///     <para>03 - Venda de mercadorias industrializadas pelo contribuinte, com industrialização incentivada na Zona Franca de Manaus - Anexo II</para>
+    ///     <para>04 - Operações com os demais bens materiais, com industrialização incentivada na Zona Franca de Manaus, sem incidência de ICMS - Anexo II</para>
+    ///     <para>90 - Operações não Tributáveis</para>
+    /// </summary>
+    public enum cAtivSN
+    {
+        [Description("Revenda de mercadorias, venda de mercadorias industrializadas pelo contribuinte - Anexo I")]
+        [XmlEnum("01")]
+        RevendaMercadoriasAnexoI,
+
+        [Description("Operações com os demais bens materiais, sem incidência de ICMS - Anexo I")]
+        [XmlEnum("02")]
+        DemaisBensMateriaisSemIcmsAnexoI,
+
+        [Description("Venda de mercadorias industrializadas pelo contribuinte, com industrialização incentivada na Zona Franca de Manaus - Anexo II")]
+        [XmlEnum("03")]
+        VendaIndustrializadasZonaFrancaAnexoII,
+
+        [Description("Operações com os demais bens materiais, com industrialização incentivada na Zona Franca de Manaus, sem incidência de ICMS - Anexo II")]
+        [XmlEnum("04")]
+        DemaisBensMateriaisZonaFrancaSemIcmsAnexoII,
+
+        [Description("Operações não Tributáveis")]
+        [XmlEnum("90")]
+        OperacoesNaoTributaveis
+    }
 }

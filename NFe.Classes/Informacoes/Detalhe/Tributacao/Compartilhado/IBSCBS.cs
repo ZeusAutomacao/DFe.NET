@@ -83,21 +83,27 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
         public gAjusteCompet gAjusteCompet { get; set; }
         
         /// <summary>
-        ///     UB116 - Estorno de Crédito
+        ///     UB115a - Grupo de informações da composição do valor do IBS e da CBS para o Simples Nacional
         /// </summary>
         [XmlElement(Order = 8)]
+        public gTribSN gTribSN { get; set; }
+        
+        /// <summary>
+        ///     UB116 - Estorno de Crédito
+        /// </summary>
+        [XmlElement(Order = 9)]
         public gEstornoCred gEstornoCred { get; set; }
         
         /// <summary>
         ///     UB120 - Crédito Presumido da Operação
         /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 10)]
         public gCredPresOper gCredPresOper { get; set; }
         
         /// <summary>
         ///     UB131 - Grupo para apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)
         /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 11)]
         public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
     }
 }
