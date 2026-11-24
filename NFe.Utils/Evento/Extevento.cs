@@ -30,12 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Security.Cryptography.X509Certificates;
 using DFe.Utils;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Assinatura;
+using Shared.DFe.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace NFe.Utils.Evento
 {
@@ -88,6 +92,67 @@ namespace NFe.Utils.Evento
             var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id, certificadoDigital, false, signatureMethodSignedXml, digestMethodReference, removerAcentos);
             eventoLocal.Signature = assinatura;
             return eventoLocal;
+        }
+
+        /// <summary>
+        ///     descEvento que o XSD do evento só aceita com acento, indexados pela forma sem acento.
+        ///     Os demais eventos (ex.: Carta de Correção, cujo XSD aceita as duas formas) continuam sem acento.
+        /// </summary>
+        private static readonly Dictionary<string, string> DescEventoSomenteComAcento = new[]
+        {
+            NFeTipoEvento.TeNfeCancConciliacaoFinanceiraNFe,
+            NFeTipoEvento.TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+            NFeTipoEvento.TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+            NFeTipoEvento.TeNfeFornecimentoNaoRealizadoComPagamentoAntecipado,
+            NFeTipoEvento.TeNfeAtualizacaoDaDataDePrevisaoDeEntrega,
+            NFeTipoEvento.TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido,
+            NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal,
+            NFeTipoEvento.TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
+            NFeTipoEvento.TeNfeImobilizacaoDeItem,
+            NFeTipoEvento.TeNfeSolicitacaoApropriacaoCreditoCombustivel,
+            NFeTipoEvento.TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente,
+            NFeTipoEvento.TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+            NFeTipoEvento.TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+            NFeTipoEvento.TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+            NFeTipoEvento.TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+        }.Select(t => t.Descricao()).ToDictionary(d => d.RemoverAcentos(), d => d);
+
+        /// <summary>
+        ///     xCondUso que o XSD do evento só aceita com acento, indexados pela forma sem acento:
+        ///     110150 (Ator interessado na NF-e), quando o autor é o emitente ou o destinatário.
+        ///     A Carta de Correção não entra, porque o XSD dela aceita as duas formas.
+        /// </summary>
+        private static readonly Dictionary<string, string> XCondUsoSomenteComAcento = new[]
+        {
+            "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
+        }.ToDictionary(x => x.RemoverAcentos(), x => x);
+
+        /// <summary>
+        ///     Remove os acentos do XML, mantendo o descEvento e o xCondUso dos eventos cujo XSD só aceita o texto acentuado
+        ///     (ex.: descEvento "Imobilização de Item" e xCondUso do evento 110150)
+        /// </summary>
+        /// <param name="xml">XML do evento</param>
+        /// <returns>XML sem acentos, exceto no descEvento e no xCondUso dos eventos que exigem acentuação</returns>
+        public static string RemoverAcentosPreservandoDescEvento(this string xml)
+        {
+            var semAcentos = xml.RemoverAcentos();
+            if (string.IsNullOrEmpty(semAcentos) || (semAcentos.IndexOf("<descEvento>", StringComparison.Ordinal) < 0 && semAcentos.IndexOf("<xCondUso>", StringComparison.Ordinal) < 0))
+                return semAcentos;
+
+            semAcentos = RestaurarTextoAcentuado(semAcentos, "descEvento", DescEventoSomenteComAcento);
+            return RestaurarTextoAcentuado(semAcentos, "xCondUso", XCondUsoSomenteComAcento);
+        }
+
+        private static string RestaurarTextoAcentuado(string xml, string tag, IReadOnlyDictionary<string, string> textosComAcento)
+        {
+            return Regex.Replace(xml, "<" + tag + ">([^<]*)</" + tag + ">", m =>
+            {
+                string texto;
+
+                return textosComAcento.TryGetValue(m.Groups[1].Value, out texto)
+                    ? "<" + tag + ">" + texto + "</" + tag + ">"
+                    : m.Value;
+            });
         }
     }
 }

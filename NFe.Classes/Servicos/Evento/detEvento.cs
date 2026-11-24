@@ -392,12 +392,12 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações de crédito presumido por item
         /// </summary>
-        [XmlElement("gCredPres")]
-        public List<gCredPres> gCredPres { get; set; }
+        [XmlElement("gCredPresOper")]
+        public List<gCredPresOper> gCredPresOper { get; set; }
         
-        public bool ShouldSerializegCredPres()
+        public bool ShouldSerializegCredPresOper()
         {
-            return gCredPres != null;
+            return gCredPresOper != null;
         }
 
         #endregion

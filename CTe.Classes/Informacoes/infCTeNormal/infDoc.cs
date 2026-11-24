@@ -48,6 +48,13 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         [XmlElement(ElementName = "infOutros")]
         public List<infOutros> infOutros { get; set; }
 
+        /// <summary>
+        ///     Informações das DCe (modelo 99) transportadas pelo CT-e.
+        ///     <para>Grupo criado pela NT 2025.001, disponível somente no leiaute 4.00.</para>
+        /// </summary>
+        [XmlElement(ElementName = "infDCe")]
+        public List<infDCe> infDCe { get; set; }
+
         public string nCont { get; set; }
 
         public string dPrev { get; set; }

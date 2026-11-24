@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2014 rel. 2 (http://www.altova.com) by private (private) -->
+<!-- edited with XMLSpy v2025 rel. 2 (x64) (https://www.altova.com) by PROCERGS (Procergs - Centro de Tecnologia da Informação e Comunicação do Estado do Rio Grande do Sul S.A.) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposGeralCTe_v4.00.xsd"/>
@@ -571,6 +571,19 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 											<xs:documentation>Endereço do emitente</xs:documentation>
 										</xs:annotation>
 									</xs:element>
+									<xs:element name="ISUFEmit" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição do emitente da Suframa</xs:documentation>
+											<xs:documentation>Informar o número do Cadastro do emitente na Suframa. Campo obrigatório nas operações que se beneficiam de incentivos fiscais existentes nas áreas sob controle da SUFRAMA com alíquota zero da CBS referente aos arts. 451 e 466 da LC 214/25 </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="8"/>
+												<xs:maxLength value="9"/>
+												<xs:whiteSpace value="preserve"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -961,13 +974,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 								<xs:documentation>Digest Value da CT-e processado. Utilizado para conferir a integridade do CT-e original.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cStat">
+						<xs:element name="cStat" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status do CT-e.</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMotivo" type="TMotivo">
 							<xs:annotation>
@@ -984,13 +994,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="cMsg">
+						<xs:element name="cMsg" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status da mensagem do fisco</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMsg" type="TMotivo">
 							<xs:annotation>
@@ -1051,13 +1058,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 								<xs:documentation>Digest Value da CT-e processado. Utilizado para conferir a integridade do CT-e original.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cStat">
+						<xs:element name="cStat" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status do CT-e.</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMotivo" type="TMotivo">
 							<xs:annotation>
@@ -1074,13 +1078,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="cMsg">
+						<xs:element name="cMsg" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status da mensagem do fisco</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMsg" type="TMotivo">
 							<xs:annotation>
@@ -1141,13 +1142,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 								<xs:documentation>Digest Value da GTV-e processado. Utilizado para conferir a integridade da GTV-e original.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cStat">
+						<xs:element name="cStat" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status da GTV-e.</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMotivo" type="TMotivo">
 							<xs:annotation>
@@ -1164,13 +1162,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="cMsg">
+						<xs:element name="cMsg" type="TStat">
 							<xs:annotation>
 								<xs:documentation>Código do status da mensagem do fisco</xs:documentation>
 							</xs:annotation>
-							<xs:simpleType>
-								<xs:restriction base="TStat"/>
-							</xs:simpleType>
 						</xs:element>
 						<xs:element name="xMsg" type="TMotivo">
 							<xs:annotation>
@@ -1250,15 +1245,10 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 					<xs:documentation>Versão do Aplicativo que processou a CT-e</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cStat">
+			<xs:element name="cStat" type="TStat">
 				<xs:annotation>
 					<xs:documentation>código do status do retorno da consulta.</xs:documentation>
 				</xs:annotation>
-				<xs:simpleType>
-					<xs:restriction base="TStat">
-						<xs:pattern value="[0-9]{3}"/>
-					</xs:restriction>
-				</xs:simpleType>
 			</xs:element>
 			<xs:element name="xMotivo" type="TMotivo">
 				<xs:annotation>
@@ -1493,12 +1483,13 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 6 - Substituição CTe Simplificado</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="procEmi" type="TProcEmi">
+									<xs:element name="procEmi" type="TProcEmiCTe">
 										<xs:annotation>
 											<xs:documentation>Identificador do processo de emissão do CT-e</xs:documentation>
 											<xs:documentation>Preencher com: 
-											0 - emissão de CT-e com aplicativo do contribuinte;
-											3- emissão CT-e pelo contribuinte com aplicativo fornecido pelo SEBRAE.</xs:documentation>
+0 - emissão de CTe com aplicativo do contribuinte;
+3 - emissão CTe pelo contribuinte com aplicativo fornecido pelo SEBRAE.
+4 - emissão CTe pelo Provedor de Autorização e assinatura - PAA</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="verProc">
@@ -1626,6 +1617,35 @@ para tpEmis diferente de 1</xs:documentation>
 										<xs:annotation>
 											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
 										</xs:annotation>
+									</xs:element>
+									<xs:element name="tpPagAnt" type="TPagAnt" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Tipo Pagamento ou Pagamento Antecipado</xs:documentation>
+											<xs:documentation>Informar:
+1 - Pagamento Antecipado 
+3 - Fornecimento com pagamento realizado anteriormente
+
+Este campo é opcional e apenas deve ser informado em caso de Antecipação de Pagamento e no CTe de fornecimento associada a esses pagamentos antecipados, demais hipóteses de prestação de serviço sem antecipação não devem preencher.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="gPagAntecipado" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de antecipação de pagamento
+
+Permite informar apenas quando tpPagAnt=3</xs:documentation>
+											<xs:documentation>Informado para abater as parcelas de antecipação de
+pagamento, conforme Art. 10. § 4º </xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence maxOccurs="99">
+												<xs:element name="chDFePagAnt" type="TChDFe">
+													<xs:annotation>
+														<xs:documentation>Chave de acesso do DFe de antecipação de pagamento (com tpPagAnt=1)</xs:documentation>
+														<xs:documentation>Referência a CTe emitido anteriormente, referente a pagamento antecipado</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -1883,6 +1903,19 @@ Usar com série específica 920-969 para emitente pessoa física com inscrição
 4=Simples Nacional - Microempreendedor Individual – MEI.
 </xs:documentation>
 										</xs:annotation>
+									</xs:element>
+									<xs:element name="ISUFEmit" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição do emitente da Suframa</xs:documentation>
+											<xs:documentation>Informar o número do Cadastro do emitente na Suframa. Campo obrigatório nas operações que se beneficiam de incentivos fiscais existentes nas áreas sob controle da SUFRAMA com alíquota zero da CBS referente aos arts. 451 e 466 da LC 214/25 </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="8"/>
+												<xs:maxLength value="9"/>
+												<xs:whiteSpace value="preserve"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -2438,15 +2471,10 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="chCte">
+									<xs:element name="chCte" type="TChDFe">
 										<xs:annotation>
 											<xs:documentation>Chave de acesso do CT-e a ser substituído (original)</xs:documentation>
 										</xs:annotation>
-										<xs:simpleType>
-											<xs:restriction base="xs:string">
-												<xs:pattern value="[0-9]{44}"/>
-											</xs:restriction>
-										</xs:simpleType>
 									</xs:element>
 									<xs:element name="indAlteraToma" minOccurs="0">
 										<xs:annotation>
@@ -2546,6 +2574,28 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
+						</xs:element>
+						<xs:element name="pgtoVinc" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações da vínculação com a transação de pagamento</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="pgto" type="TPagamentoRTC" maxOccurs="99">
+										<xs:annotation>
+											<xs:documentation>Dados de cada pagamento previsto</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:unique name="pk_nPagSimp">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@nPag"/>
+							</xs:unique>
+							<xs:unique name="pk_idTransacaoSimp">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@idTransacao"/>
+							</xs:unique>
 						</xs:element>
 						<xs:element name="total">
 							<xs:annotation>
@@ -2851,12 +2901,13 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
  3 - CT-e de Substituição</xs:documentation>
 										</xs:annotation>
 									</xs:element>
-									<xs:element name="procEmi" type="TProcEmi">
+									<xs:element name="procEmi" type="TProcEmiCTe">
 										<xs:annotation>
-											<xs:documentation>Identificador do processo de emissão do CT-e</xs:documentation>
+											<xs:documentation>Identificador do processo de emissão do CTe</xs:documentation>
 											<xs:documentation>Preencher com: 
-											0 - emissão de CT-e com aplicativo do contribuinte;
-											3- emissão CT-e pelo contribuinte com aplicativo fornecido pelo SEBRAE.</xs:documentation>
+0 -emissão de CTe com aplicativo do contribuinte;
+3- emissão CTe pelo contribuinte com aplicativo fornecido pelo SEBRAE.
+4- emissão de CTe por Provedor de Assinatura e Autorização - PAA</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="verProc">
@@ -3167,6 +3218,33 @@ para tpEmis diferente de 1</xs:documentation>
 										<xs:annotation>
 											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
 										</xs:annotation>
+									</xs:element>
+									<xs:element name="tpPagAnt" type="TPagAnt" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Tipo Pagamento ou Pagamento Antecipado</xs:documentation>
+											<xs:documentation>Informar:
+1 - Pagamento Antecipado 
+3 - Fornecimento com pagamento realizado anteriormente
+
+Este campo é opcional e apenas deve ser informado quando pagamento que ocorre antes da prestação do serviço e na DFe de fornecimento associada a esses pagamentos, demais hipóteses de prestação de serviço sem antecipação não devem preencher.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="gPagAntecipado" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de antecipação de pagamento</xs:documentation>
+											<xs:documentation>Informado para abater as parcelas de antecipação de
+pagamento, conforme Art. 10. § 4º </xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence maxOccurs="99">
+												<xs:element name="chDFePagAnt" type="TChDFe">
+													<xs:annotation>
+														<xs:documentation>Chave de acesso do CTe de antecipação de pagamento</xs:documentation>
+														<xs:documentation>Referência a CTe emitido anteriormente, referente a pagamento antecipado</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -3644,6 +3722,19 @@ Usar com série específica 920-969 para emitente pessoa física com inscrição
 </xs:documentation>
 										</xs:annotation>
 									</xs:element>
+									<xs:element name="ISUFEmit" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição do emitente da Suframa</xs:documentation>
+											<xs:documentation>Informar o número do Cadastro do emitente na Suframa. Campo obrigatório nas operações que se beneficiam de incentivos fiscais existentes nas áreas sob controle da SUFRAMA com alíquota zero da CBS referente aos arts. 451 e 466 da LC 214/25 </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="8"/>
+												<xs:maxLength value="9"/>
+												<xs:whiteSpace value="preserve"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -4049,6 +4140,28 @@ Usar com série específica 920-969 para emitente pessoa física com inscrição
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
+						</xs:element>
+						<xs:element name="pgtoVinc" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações da vínculação com a transação de pagamento</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="pgto" type="TPagamentoRTC" maxOccurs="99">
+										<xs:annotation>
+											<xs:documentation>Dados de cada pagamento previsto</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:unique name="pk_nPag">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@nPag"/>
+							</xs:unique>
+							<xs:unique name="pk_idTransacao">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@idTransacao"/>
+							</xs:unique>
 						</xs:element>
 						<xs:choice>
 							<xs:element name="infCTeNorm">
@@ -4784,15 +4897,10 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="chCte">
+													<xs:element name="chCte" type="TChDFe">
 														<xs:annotation>
 															<xs:documentation>Chave de acesso do CT-e a ser substituído (original)</xs:documentation>
 														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="[0-9]{44}"/>
-															</xs:restriction>
-														</xs:simpleType>
 													</xs:element>
 													<xs:element name="indAlteraToma" minOccurs="0">
 														<xs:annotation>
@@ -5141,10 +5249,9 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 									</xs:element>
 									<xs:element name="procEmi" type="TProcEmi">
 										<xs:annotation>
-											<xs:documentation>Identificador do processo de emissão do CT-e OS</xs:documentation>
-											<xs:documentation>Preencher com: 
-											0 - emissão de CT-e com aplicativo do contribuinte;
-											3- emissão CT-e pelo contribuinte com aplicativo fornecido pelo Fisco.</xs:documentation>
+											<xs:documentation>Identificador do processo de emissão do CTe OS</xs:documentation>
+											<xs:documentation>Preencher com: 								0 - emissão de CTe com aplicativo do contribuinte;
+3 - emissão CTe pelo contribuinte com aplicativo fornecido pelo Fisco.</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="verProc">
@@ -5318,6 +5425,33 @@ para tpEmis diferente de 1</xs:documentation>
 										<xs:annotation>
 											<xs:documentation>Grupo de Compras Governamentais</xs:documentation>
 										</xs:annotation>
+									</xs:element>
+									<xs:element name="tpPagAnt" type="TPagAnt" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Tipo Pagamento ou Pagamento Antecipado</xs:documentation>
+											<xs:documentation>Informar:
+1 - Pagamento Antecipado 
+3 - Fornecimento com pagamento realizado anteriormente
+
+Este campo é opcional e apenas deve ser informado quando pagamento que ocorre antes da prestação do serviço e na DFe de fornecimento associada a esses pagamentos, demais hipóteses de prestação de serviço sem antecipação não devem preencher.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="gPagAntecipado" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Grupo de antecipação de pagamento</xs:documentation>
+											<xs:documentation>Informado para abater as parcelas de antecipação de
+pagamento, conforme Art. 10. § 4º </xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence maxOccurs="99">
+												<xs:element name="chDFePagAnt" type="TChDFe">
+													<xs:annotation>
+														<xs:documentation>Chave de acesso do CTe de antecipação de pagamento</xs:documentation>
+														<xs:documentation>Referência a CTe emitido anteriormente, referente a pagamento antecipado</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -5507,6 +5641,19 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 4=Simples Nacional - Microempreendedor Individual – MEI.
 </xs:documentation>
 										</xs:annotation>
+									</xs:element>
+									<xs:element name="ISUFEmit" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Inscrição do emitente da Suframa</xs:documentation>
+											<xs:documentation>Informar o número do Cadastro do emitente na Suframa. Campo obrigatório nas operações que se beneficiam de incentivos fiscais existentes nas áreas sob controle da SUFRAMA com alíquota zero da CBS referente aos arts. 451 e 466 da LC 214/25 </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="8"/>
+												<xs:maxLength value="9"/>
+												<xs:whiteSpace value="preserve"/>
+											</xs:restriction>
+										</xs:simpleType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
@@ -5759,6 +5906,28 @@ REENTREGA; DEVOLUÇÃO; REFATURAMENTO; etc</xs:documentation>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
+						<xs:element name="pgtoVinc" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações da vínculação com a transação de pagamento</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="pgto" type="TPagamentoRTC" maxOccurs="99">
+										<xs:annotation>
+											<xs:documentation>Dados de cada pagamento previsto</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:unique name="pk_nPagOS">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@nPag"/>
+							</xs:unique>
+							<xs:unique name="pk_idTransacaoOS">
+								<xs:selector xpath="./*"/>
+								<xs:field xpath="@idTransacao"/>
+							</xs:unique>
+						</xs:element>
 						<xs:choice>
 							<xs:element name="infCTeNorm">
 								<xs:annotation>
@@ -5954,15 +6123,10 @@ Onde v9.99 é a a designação genérica para a versão do arquivo. Por exemplo,
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="chCte">
+													<xs:element name="chCte" type="TChDFe">
 														<xs:annotation>
 															<xs:documentation>Chave de acesso do CT-e a ser substituído (original)</xs:documentation>
 														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="[0-9]{44}"/>
-															</xs:restriction>
-														</xs:simpleType>
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
@@ -6056,15 +6220,10 @@ Somente para Transporte de Valores</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="chCTe">
+													<xs:element name="chCTe" type="TChDFe">
 														<xs:annotation>
 															<xs:documentation>Chave de acesso da GTV-e</xs:documentation>
 														</xs:annotation>
-														<xs:simpleType>
-															<xs:restriction base="xs:string">
-																<xs:pattern value="[0-9]{44}"/>
-															</xs:restriction>
-														</xs:simpleType>
 													</xs:element>
 													<xs:element name="Comp" maxOccurs="unbounded">
 														<xs:annotation>
@@ -8007,6 +8166,17 @@ Observação: 28 caracteres são representados no schema como 20 bytes do tipo b
 			<xs:enumeration value="4"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="TProcEmiCTe">
+		<xs:annotation>
+			<xs:documentation>Tipo processo de emissão do CTe e CTe Simplificado</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="TProcEmi">
 		<xs:annotation>
 			<xs:documentation>Tipo processo de emissão do CT-e</xs:documentation>
@@ -8024,6 +8194,18 @@ Observação: 28 caracteres são representados no schema como 20 bytes do tipo b
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
 			<xs:pattern value="(([0-1][0-9])|([2][0-3])):([0-5][0-9]):([0-5][0-9])"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TPagAnt">
+		<xs:annotation>
+			<xs:documentation>Tipo Pagamento ou Pagamento Antecipado</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="1"/>
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="3"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TVerCTe">

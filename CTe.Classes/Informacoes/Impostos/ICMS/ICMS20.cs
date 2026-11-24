@@ -48,7 +48,8 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
-        public CST CST { get; set; } 
+        private decimal? _vIcmsDeson;
+        public CST CST { get; set; }
 
         public decimal pRedBC
         {
@@ -72,6 +73,24 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
         {
             get { return _vIcms.Arredondar(2); }
             set { _vIcms = value.Arredondar(2); }
+        }
+
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
+        }
+
+        public string cBenef { get; set; }
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue;
+        }
+
+        public bool ShouldSerializecBenef()
+        {
+            return !string.IsNullOrWhiteSpace(cBenef);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         public string cOrgao { get; set; }
 
         /// <summary>
-        /// D04 - CNPJ do Emitente
+        /// D04 - CNPJ do Emitente (Alfanumérico apartir da NT2014.002_v1.40 - WsNFeDistribuicaoDFe - julho de 2026)
         /// </summary>
         public string CNPJ { get; set; }
 

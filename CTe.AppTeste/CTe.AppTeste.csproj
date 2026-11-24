@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -304,6 +304,7 @@
     </None>
     <None Include="schemas\cteSimp_v4.00.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\cteTiposBasico_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -331,6 +332,7 @@
     </None>
     <None Include="schemas\DFeTiposBasicos_v1.00.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\distChCTe_v3.00.xsd">
       <SubType>Designer</SubType>
@@ -384,12 +386,13 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="schemas\evCancPrestDesacordo.xsd">
+    <None Include="schemas\evCancPrestDesacordo_v4.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="schemas\evCancPrestDesacordo_v4.00.xsd">
+    <None Include="schemas\evCancVincPgto_v4.00.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\evCCeCTe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -531,6 +534,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="schemas\evVincPgto_v4.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="schemas\GTVe_v3.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -601,6 +608,7 @@
     </None>
     <None Include="schemas\procCTeSimp_v4.00.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\procCTe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -704,6 +712,7 @@
     </None>
     <None Include="schemas\retCTeSimp_v4.00.xsd">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\retCTe_v3.00.xsd">
       <SubType>Designer</SubType>
@@ -786,10 +795,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="schemas\tiposGeralCTe_v2.00.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="schemas\tiposGeralCTe_v3.00-OPENSSL.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

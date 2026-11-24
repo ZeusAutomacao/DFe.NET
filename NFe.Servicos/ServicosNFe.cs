@@ -483,7 +483,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlEvento = _cFgServico.RemoverAcentos
-                    ? pedEvento.ObterXmlString().RemoverAcentos()
+                    ? pedEvento.ObterXmlString().RemoverAcentosPreservandoDescEvento()
                     : pedEvento.ObterXmlString();
 
             SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
@@ -502,7 +502,7 @@ namespace NFe.Servicos
                         var detEvento = evento.infEvento.detEvento;
                         var detEventoXml = FuncoesXml.ClasseParaXmlString(detEvento);
                         if (_cFgServico.RemoverAcentos)
-                            detEventoXml = detEventoXml.RemoverAcentos();
+                            detEventoXml = detEventoXml.RemoverAcentosPreservandoDescEvento();
 
                         Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, detEventoXml, cfgServico: _cFgServico, validarLote: false);
                     }
@@ -1410,9 +1410,11 @@ namespace NFe.Servicos
             
             return retornoRecepcaoEvento;
         }
-        
+
         /// <summary>
-        ///     Serviço para evento a ser gerado pelo destinatário da NF-e em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido.
+        ///     Serviço para Evento a ser gerado pelo destinatário da NF-e em relação às notas fiscais de aquisição de emissão 
+        ///     de terceiros e que lhe gerem o direito à apropriação de crédito presumido, 
+        ///     ou pelo emitente quando a informação não tiver sido incluída na NF - e ou necessitar correção.
         /// </summary>
         /// <param name="idLote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
@@ -1429,7 +1431,7 @@ namespace NFe.Servicos
                                                                                               string cpfCnpj, 
                                                                                               TipoAutor tipoAutor,
                                                                                               string chaveNFe, 
-                                                                                              List<gCredPres> informacoesDeCreditoPresumidoPorItem,
+                                                                                              List<gCredPresOper> informacoesDeCreditoPresumidoPorItem,
                                                                                               Estado? ufAutor = null, 
                                                                                               string versaoAplicativo = null, 
                                                                                               DateTimeOffset? dataHoraEvento = null)
@@ -1440,7 +1442,7 @@ namespace NFe.Servicos
             var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
 
             var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
-            detalhesEvento.gCredPres = informacoesDeCreditoPresumidoPorItem;
+            detalhesEvento.gCredPresOper = informacoesDeCreditoPresumidoPorItem;
 
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);

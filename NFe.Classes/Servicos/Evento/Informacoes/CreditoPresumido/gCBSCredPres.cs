@@ -31,22 +31,15 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe;
-
 namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
 {
-    public class gIBS
+    public class gCBSCredPres
     {
         private decimal _pCredPres;
         private decimal _vCredPres;
-        
-        /// <summary>
-        ///     P27 - Código de Classificação do Crédito presumido, conforme tabela cCredPres (Anexo IV) 
-        /// </summary>
-        public CCredPres cCredPres { get; set; }
 
         /// <summary>
-        ///     P28 - Percentual do Crédito Presumido
+        ///     P32 - Percentual do Crédito Presumido
         /// </summary>
         public decimal pCredPres
         {
@@ -55,7 +48,7 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
         }
 
         /// <summary>
-        ///     P29 - Valor do Crédito Presumido
+        ///     P33 - Valor do Crédito Presumido
         /// </summary>
         public decimal vCredPres
         {

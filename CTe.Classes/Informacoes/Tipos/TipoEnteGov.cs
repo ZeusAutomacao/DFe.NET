@@ -24,6 +24,14 @@ namespace CTe.Classes.Informacoes.Tipos
 
         [Description("Município")]
         [XmlEnum("4")]
-        Municipio = 4
+        Municipio = 4,
+
+        [Description("Consórcio Público")]
+        [XmlEnum("5")]
+        ConsorcioPublico = 5,
+
+        [Description("Comitê Gestor do IBS")]
+        [XmlEnum("6")]
+        ComiteGestorDoIbs = 6
     }
 }
